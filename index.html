@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASE 221 | Fluid Mechanics</title>
+<meta name="description" content="A compact undergraduate course in fluid mechanics for agricultural and biosystems engineering: fluid properties, statics, the control-volume equations, pipe flow, pumps and flow measurement.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">FM</span>
+      <span class="logo-text">ASE-FM<small>Biosystem and Agricultural Engineering, KMITL</small></span>
+    </a>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="index.html">About</a>
+      <a href="chapter1.html">Lecture Notes</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="index.html" class="active">EN</a>
+      <a href="index-th.html" lang="th">ไทย</a>
+    </div>
+    <a class="btn-give" href="chapter1.html">Start Chapter 1</a>
+  </div>
+</header>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ASE 221 <span>|</span> Semester 1, 2026 <span>|</span> Undergraduate</p>
+    <h1>Fluid Mechanics</h1>
+    <p class="tagline">How liquids and gases behave at rest and in motion &mdash; and how to turn that
+      behaviour into numbers: pressure on a gate, thrust on a bend, head loss down a pipeline, and the
+      power a pump must deliver.</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="course-menu">
+      <h2>Course Menu</h2>
+      <ul>
+        <li><a href="index.html" class="active">Course Home</a></li>
+        <li><a href="chapter1.html">Ch.&nbsp;1 &mdash; Properties of Fluids</a></li>
+        <li><span class="muted">Ch.&nbsp;2 &mdash; Fluid Statics<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;3 &mdash; Fluid Kinematics<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;4 &mdash; Energy and Bernoulli<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;5 &mdash; The Momentum Equation<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;6 &mdash; Dimensional Analysis<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;7 &mdash; Viscous Flow in Pipes<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;8 &mdash; Pipe Systems and Pumps<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;9 &mdash; Flow Measurement<em>Not yet published</em></span></li>
+      </ul>
+    </nav>
+
+    <section class="course-info">
+      <h2>Course Info</h2>
+      <dl>
+        <dt>Instructor</dt>
+        <dd>Asst. Prof. Charatchai Yenphayab</dd>
+
+        <dt>Department</dt>
+        <dd>Biosystem and Agricultural Engineering, KMITL</dd>
+
+        <dt>Term</dt>
+        <dd>Semester 1, Academic Year 2026</dd>
+
+        <dt>Level</dt>
+        <dd>Undergraduate, second year</dd>
+
+        <dt>Credits</dt>
+        <dd>3 (3&ndash;0&ndash;6)</dd>
+
+        <dt>Topics</dt>
+        <dd class="crumbs">Engineering &gt; Mechanical Engineering &gt; Fluid Mechanics</dd>
+        <dd class="crumbs">Engineering &gt; Agricultural Engineering &gt; Irrigation &amp; Hydraulics</dd>
+
+        <dt>Learning Resource Types</dt>
+        <dd>
+          <ul>
+            <li>Lecture Notes</li>
+            <li>Worked Examples</li>
+            <li>Problem Sets</li>
+            <li>Property Tables &amp; Charts</li>
+          </ul>
+        </dd>
+      </dl>
+    </section>
+  </aside>
+
+  <main class="content">
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="A pumped pipeline drawing from a reservoir and discharging through a nozzle, with the energy grade line drawn above it">
+        <defs>
+          <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f7f7f7"/><stop offset="1" stop-color="#ffffff"/>
+          </linearGradient>
+          <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#9fe0ea"/><stop offset="1" stop-color="#57c2d3"/>
+          </linearGradient>
+          <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4b4540"/>
+          </marker>
+        </defs>
+        <rect x="0" y="0" width="860" height="300" fill="url(#sky)"/>
+
+        <!-- datum -->
+        <line x1="20" y1="272" x2="840" y2="272" stroke="#c9c9c9" stroke-width="1.5" stroke-dasharray="7 5"/>
+        <text x="24" y="288" font-family="Segoe UI, Arial" font-size="12" fill="#726b64">datum, z = 0</text>
+
+        <!-- reservoir -->
+        <path d="M40,150 L40,258 L170,258 L170,150" fill="none" stroke="#1c1917" stroke-width="2.5"/>
+        <rect x="42.5" y="176" width="125" height="80" fill="url(#water)"/>
+        <line x1="42" y1="176" x2="168" y2="176" stroke="#00788A" stroke-width="2"/>
+        <text x="46" y="167" font-family="Segoe UI, Arial" font-size="13" fill="#1c1917">reservoir</text>
+
+        <!-- suction pipe -->
+        <rect x="167" y="230" width="119" height="14" fill="#eaf7fa"/>
+        <path d="M167,230 L286,230" stroke="#1c1917" stroke-width="2.2" fill="none"/>
+        <path d="M167,244 L286,244" stroke="#1c1917" stroke-width="2.2" fill="none"/>
+
+        <!-- discharge pipe: along, up, along -->
+        <path d="M334,230 L560,230 L560,120 L700,120 L700,134 L546,134 L546,244 L334,244 z" fill="#eaf7fa"/>
+        <path d="M334,230 L560,230 L560,120 L700,120" fill="none" stroke="#1c1917" stroke-width="2.2"/>
+        <path d="M334,244 L546,244 L546,134 L700,134" fill="none" stroke="#1c1917" stroke-width="2.2"/>
+
+        <!-- pump -->
+        <circle cx="310" cy="237" r="26" fill="#FFF1D1" stroke="#DF301C" stroke-width="2.5"/>
+        <path d="M300,226 L326,237 L300,248 z" fill="#DF301C"/>
+        <text x="286" y="292" font-family="Segoe UI, Arial" font-size="13" fill="#B22616" font-weight="700">pump</text>
+
+        <!-- nozzle and jet -->
+        <path d="M700,118 L730,124 L730,130 L700,136 z" fill="#FFF1D1" stroke="#1c1917" stroke-width="2"/>
+        <path d="M732,127 Q790,124 826,152" fill="none" stroke="#00B7CD" stroke-width="5" stroke-linecap="round"/>
+        <text x="744" y="176" font-family="Segoe UI, Arial" font-size="13" fill="#00788A">jet</text>
+
+        <!-- flow arrows -->
+        <line x1="206" y1="237" x2="250" y2="237" stroke="#4b4540" stroke-width="2" marker-end="url(#ar)"/>
+        <line x1="600" y1="127" x2="648" y2="127" stroke="#4b4540" stroke-width="2" marker-end="url(#ar)"/>
+
+        <!-- energy grade line -->
+        <path d="M105,176 L286,198 L286,64 L553,86 L553,90 L716,106" fill="none"
+              stroke="#FF9100" stroke-width="2.4" stroke-dasharray="9 6"/>
+        <circle cx="105" cy="176" r="4" fill="#FF9100"/>
+        <text x="332" y="56" font-family="Segoe UI, Arial" font-size="13" fill="#A85E00" font-weight="700">energy grade line</text>
+        <text x="180" y="218" font-family="Segoe UI, Arial" font-size="12" fill="#A85E00">friction loss</text>
+        <text x="608" y="74" font-family="Segoe UI, Arial" font-size="12" fill="#A85E00">friction loss</text>
+
+        <!-- pump head bracket -->
+        <line x1="266" y1="66" x2="266" y2="196" stroke="#A85E00" stroke-width="1.6" marker-end="url(#ar)" marker-start="url(#ar)"/>
+        <text x="232" y="136" font-family="Cambria, Georgia, serif" font-size="17" fill="#A85E00" font-style="italic">h<tspan font-size="12" dy="5">p</tspan></text>
+
+        <!-- elevation bracket -->
+        <line x1="800" y1="127" x2="800" y2="272" stroke="#726b64" stroke-width="1.4" marker-end="url(#ar)" marker-start="url(#ar)"/>
+        <text x="810" y="205" font-family="Cambria, Georgia, serif" font-size="17" fill="#4b4540" font-style="italic">z</text>
+      </svg>
+      <figcaption><b>Figure 0.1.</b> The whole course in one sketch. Chapter&nbsp;2 gives the pressure in the
+        reservoir, Chapters&nbsp;3&ndash;4 the energy grade line, Chapter&nbsp;5 the thrust on the bends,
+        Chapter&nbsp;7 the friction that makes the line droop, and Chapter&nbsp;8 the head
+        <var>h</var><sub>p</sub> the pump must supply.</figcaption>
+    </figure>
+
+    <h2>Course Description</h2>
+    <p>A fluid is any substance that cannot resist a shear stress without moving. That single sentence
+      separates this subject from the mechanics you already know: a fluid at rest can carry pressure but not
+      shear, and a fluid in motion deforms continuously for as long as the stress is applied. Almost
+      everything in this course follows from taking that definition seriously.</p>
+
+    <p>The course is deliberately compact. It covers the material a biosystems or agricultural engineer
+      actually uses &mdash; pressure and force on submerged surfaces, the three control-volume equations
+      (mass, energy, momentum), the friction that dominates any real pipeline, and the pumps and meters that
+      make an irrigation or processing system work &mdash; and stops there. Compressible flow,
+      boundary-layer theory and computational methods are left to later electives.</p>
+
+    <p>Emphasis throughout is on <em>getting a defensible number</em>. Every chapter ends with worked
+      examples carried through in SI units, with the assumptions stated and the answer checked for physical
+      sense.</p>
+
+    <h2>Learning Outcomes</h2>
+    <p>On successful completion of this course a student will be able to:</p>
+    <ol>
+      <li>State the properties of a fluid &mdash; density, viscosity, bulk modulus, vapour pressure, surface
+        tension &mdash; and obtain them from tables and from the ideal gas law.</li>
+      <li>Determine the pressure at any point in a static fluid, read a manometer, and compute the resultant
+        force and centre of pressure on a plane or curved submerged surface.</li>
+      <li>Apply conservation of mass, energy and momentum to a chosen control volume, and defend the choice
+        of that control volume.</li>
+      <li>Use the Bernoulli equation within its limits, and recognise the situations where it fails.</li>
+      <li>Classify a flow as laminar or turbulent, and compute head loss in a pipe using the
+        Darcy&ndash;Weisbach equation and the Moody chart.</li>
+      <li>Size a pipeline and select a pump by matching a system curve to a pump characteristic, checking
+        NPSH against cavitation.</li>
+      <li>Use dimensional analysis to plan an experiment and to scale model results to a prototype.</li>
+    </ol>
+
+    <h2>Course Structure</h2>
+    <div class="cards">
+      <div class="card">
+        <h3>Part I &mdash; Fluids at Rest</h3>
+        <p>Chapters 1&ndash;2. What a fluid is, the properties that describe it, hydrostatic pressure,
+          manometry, forces on submerged surfaces and buoyancy.</p>
+      </div>
+      <div class="card">
+        <h3>Part II &mdash; Fluids in Motion</h3>
+        <p>Chapters 3&ndash;6. Describing a flow field, the control volume, and the mass, energy and
+          momentum equations; dimensional analysis and similitude.</p>
+      </div>
+      <div class="card">
+        <h3>Part III &mdash; Real Systems</h3>
+        <p>Chapters 7&ndash;9. Viscous flow and head loss in pipes, pipe networks, pump selection and
+          cavitation, and the measurement of pressure and flow rate.</p>
+      </div>
+    </div>
+
+    <h2>Lecture Notes</h2>
+    <div class="table-wrap">
+      <table>
+        <caption><b>Table 0.1.</b> Chapter list and publication status.</caption>
+        <thead>
+          <tr><th class="num">Chapter</th><th>Topic</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">1</td><td><a href="chapter1.html">Properties of Fluids</a></td><td>Published</td></tr>
+          <tr><td class="num">2</td><td>Fluid Statics</td><td>In preparation</td></tr>
+          <tr><td class="num">3</td><td>Fluid Kinematics and the Control Volume</td><td>In preparation</td></tr>
+          <tr><td class="num">4</td><td>The Energy Equation and Bernoulli</td><td>In preparation</td></tr>
+          <tr><td class="num">5</td><td>The Momentum Equation</td><td>In preparation</td></tr>
+          <tr><td class="num">6</td><td>Dimensional Analysis and Similitude</td><td>In preparation</td></tr>
+          <tr><td class="num">7</td><td>Viscous Flow in Pipes</td><td>In preparation</td></tr>
+          <tr><td class="num">8</td><td>Pipe Systems and Pumps</td><td>In preparation</td></tr>
+          <tr><td class="num">9</td><td>Flow Measurement</td><td>In preparation</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2>Prerequisites</h2>
+    <p>Engineering Mechanics (statics), Calculus II and Physics I. You will need to be comfortable
+      resolving forces and taking moments, evaluating a definite integral, and working in consistent SI
+      units. Differential equations are not required; the few that appear are separable and are solved in
+      the text.</p>
+
+    <div class="callout">
+      <span class="label">On units</span>
+      <p>The notes are written in SI throughout. Where industry practice still quotes a value in another
+        unit &mdash; pump head in metres but pipe diameter in inches, pressure in bar or in kgf/cm&sup2;
+        &mdash; the conversion is given at the point of use rather than banished to an appendix. Mixing
+        units is the most common source of error in this subject, and it is worth a moment of care every
+        time.</p>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">Start here</span>
+      <p>Begin with <a href="chapter1.html">Chapter 1: Properties of Fluids</a>. It is the shortest chapter
+        in the course and the one every later chapter leans on.</p>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h3>Course</h3>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter1.html">Chapter 1: Properties of Fluids</a></li>
+        <li><a href="index-th.html" lang="th">ภาษาไทย</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>Principal References</h3>
+      <ul>
+        <li>White, F. M. &mdash; <em>Fluid Mechanics</em></li>
+        <li>Cengel &amp; Cimbala &mdash; <em>Fluid Mechanics: Fundamentals and Applications</em></li>
+        <li>Munson et al. &mdash; <em>Fundamentals of Fluid Mechanics</em></li>
+        <li>Finnemore &amp; Franzini &mdash; <em>Fluid Mechanics with Engineering Applications</em></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <p>Lecture notes for ASE 221. All rights reserved. Layout follows the departmental courseware
+        template; content and code are original to this course.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Charatchai Yenphayab. All rights reserved. ASE 221 Fluid Mechanics &mdash; course notes,
+    Semester 1 / 2026. No part of this site may be reproduced, adapted or redistributed without prior
+    written permission.
+  </div>
+</footer>
+
+<script src="lang.js"></script>
+</body>
+</html>

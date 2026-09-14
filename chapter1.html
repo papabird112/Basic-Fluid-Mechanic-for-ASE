@@ -1,0 +1,1126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 1: Properties of Fluids | ASE 221 Fluid Mechanics</title>
+<meta name="description" content="What a fluid is, the continuum assumption, density and specific weight, the ideal gas law, viscosity and Newton's law, non-Newtonian fluids, bulk modulus, vapour pressure and cavitation, surface tension and capillarity.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">FM</span>
+      <span class="logo-text">ASE-FM<small>Biosystem and Agricultural Engineering, KMITL</small></span>
+    </a>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="index.html">About</a>
+      <a href="chapter1.html">Lecture Notes</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="chapter1.html" class="active">EN</a>
+      <a href="chapter1-th.html" lang="th">ไทย</a>
+    </div>
+    <a class="btn-give" href="#s12">Worked Examples</a>
+  </div>
+</header>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ASE 221 <span>|</span> Chapter 1 <span>|</span> Lecture Notes</p>
+    <h1>Properties of Fluids</h1>
+    <p class="tagline">What makes a substance a fluid, and the handful of numbers &mdash; density, viscosity,
+      bulk modulus, vapour pressure, surface tension &mdash; that every calculation in the rest of this
+      course will ask you for.</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="course-menu">
+      <h2>Course Menu</h2>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter1.html" class="active">Ch.&nbsp;1 &mdash; Properties of Fluids</a></li>
+        <li><span class="muted">Ch.&nbsp;2 &mdash; Fluid Statics<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;3 &mdash; Fluid Kinematics<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;4 &mdash; Energy and Bernoulli<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;5 &mdash; The Momentum Equation<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;6 &mdash; Dimensional Analysis<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;7 &mdash; Viscous Flow in Pipes<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;8 &mdash; Pipe Systems and Pumps<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;9 &mdash; Flow Measurement<em>Not yet published</em></span></li>
+      </ul>
+    </nav>
+
+    <section class="course-info">
+      <h2>Chapter Info</h2>
+      <dl>
+        <dt>Lectures</dt>
+        <dd>2 (3 hours)</dd>
+
+        <dt>Key Equations</dt>
+        <dd>
+          <ul>
+            <li><var>&rho;</var> = <var>m</var>/<var>V</var></li>
+            <li><var>&gamma;</var> = <var>&rho;g</var></li>
+            <li><var>p</var> = <var>&rho;RT</var></li>
+            <li><var>&tau;</var> = <var>&mu;</var> d<var>u</var>/d<var>y</var></li>
+            <li><var>&nu;</var> = <var>&mu;</var>/<var>&rho;</var></li>
+            <li><var>h</var> = 4<var>&sigma;</var>cos<var>&theta;</var>/<var>&gamma;d</var></li>
+          </ul>
+        </dd>
+
+        <dt>Property Tables</dt>
+        <dd>
+          <ul>
+            <li><a href="#t1">1.1 Common fluids at 20&nbsp;&deg;C</a></li>
+            <li><a href="#t2">1.2 Water, 0&ndash;100&nbsp;&deg;C</a></li>
+          </ul>
+        </dd>
+
+        <dt>You Will Need</dt>
+        <dd class="crumbs">Statics &gt; free-body diagrams</dd>
+        <dd class="crumbs">Physics I &gt; the ideal gas law</dd>
+      </dl>
+    </section>
+  </aside>
+
+  <main class="content">
+
+    <p class="lead">Every later chapter ends by putting a number into a formula, and that number almost
+      always comes from this chapter. Read it once now for the ideas, and come back to it all term for the
+      tables.</p>
+
+    <nav class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#s1">What Is a Fluid?</a></li>
+        <li><a href="#s2">The Continuum Assumption</a></li>
+        <li><a href="#s3">Density, Specific Weight, Specific Gravity</a></li>
+        <li><a href="#s4">Gases and the Ideal Gas Law</a></li>
+        <li><a href="#s5">Viscosity</a></li>
+        <li><a href="#s6">Newtonian and Non-Newtonian Fluids</a></li>
+        <li><a href="#s7">Kinematic Viscosity</a></li>
+        <li><a href="#s8">Viscosity and Temperature</a></li>
+        <li><a href="#s9">Compressibility and Bulk Modulus</a></li>
+        <li><a href="#s10">Vapour Pressure and Cavitation</a></li>
+        <li><a href="#s11">Surface Tension and Capillarity</a></li>
+        <li><a href="#s12">Worked Examples</a></li>
+        <li><a href="#s13">Nomenclature</a></li>
+        <li><a href="#s14">Problems</a></li>
+        <li><a href="#s15">References</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================ 1.1 -->
+    <h2 id="s1">1.1 What Is a Fluid?</h2>
+
+    <p>Matter is usually sorted into solid, liquid and gas by how it looks. Mechanics sorts it by how it
+      responds to a <b>shear stress</b> &mdash; a force applied <em>along</em> a surface rather than
+      perpendicular to it.</p>
+
+    <div class="callout rule">
+      <span class="label">Definition</span>
+      <p>A <b>fluid</b> is a substance that deforms continuously under an applied shear stress, no matter how
+        small that stress is. A solid resists shear with a finite deformation and then stops.</p>
+    </div>
+
+    <p>The word that carries the weight is <em>continuously</em>. Push sideways on a rubber block and it
+      distorts through some angle and holds there: the elastic stress inside has grown until it balances
+      what you applied. Push sideways on the top of a layer of water and it never finds that balance. It
+      keeps shearing for as long as you push, and stops only when you stop.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 250" role="img" aria-label="Left panel: a solid block sheared through a fixed angle and holding. Right panel: a fluid element that keeps shearing without limit.">
+        <defs>
+          <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#b9b2a7" stroke-width="2"/>
+          </pattern>
+        </defs>
+
+        <!-- panel A : solid -->
+        <text x="40" y="30" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) Solid &mdash; shears, then holds</text>
+        <rect x="40" y="196" width="330" height="12" fill="url(#hatch)" stroke="#8a8378" stroke-width="1.2"/>
+        <rect x="90" y="96" width="130" height="100" fill="none" stroke="#c9c9c9" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <rect class="shear-solid" x="90" y="96" width="130" height="100" fill="#FFF1D1" stroke="#1c1917" stroke-width="2"/>
+        <g class="stress-solid">
+          <line x1="150" y1="86" x2="270" y2="86" stroke="#DF301C" stroke-width="2.4" marker-end="url(#a1)"/>
+          <text x="196" y="76" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">&tau;</text>
+        </g>
+        <path d="M90,196 L90,150" stroke="#726b64" stroke-width="1.2"/>
+        <g class="theta-mark">
+          <path d="M90,170 A26,26 0 0,0 102,152" fill="none" stroke="#726b64" stroke-width="1.4"/>
+          <text x="104" y="164" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&theta;</text>
+        </g>
+        <text x="92" y="230" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">&theta; reaches an angle and stops there, while &tau; is held</text>
+
+        <!-- divider -->
+        <line x1="430" y1="20" x2="430" y2="230" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <!-- panel B : fluid -->
+        <text x="470" y="30" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) Fluid &mdash; shears without limit</text>
+        <rect x="470" y="196" width="350" height="12" fill="url(#hatch)" stroke="#8a8378" stroke-width="1.2"/>
+        <rect x="500" y="96" width="110" height="100" fill="none" stroke="#c9c9c9" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <rect class="shear-fluid d1" x="500" y="96" width="110" height="100" fill="#eaf7fa" stroke="#9fd8e2" stroke-width="1.8"/>
+        <rect class="shear-fluid d2" x="500" y="96" width="110" height="100" fill="#eaf7fa" stroke="#57c2d3" stroke-width="1.8"/>
+        <rect class="shear-fluid" x="500" y="96" width="110" height="100" fill="#eaf7fa" stroke="#00788A" stroke-width="2"/>
+        <g class="stress-fluid">
+          <line x1="600" y1="86" x2="790" y2="86" stroke="#DF301C" stroke-width="2.4" marker-end="url(#a1)"/>
+          <text x="686" y="76" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">&tau;</text>
+        </g>
+        <text x="492" y="230" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">&theta; grows for as long as &tau; is applied &mdash; what matters is d&theta;/d<tspan font-style="italic">t</tspan></text>
+      </svg>
+      <figcaption><b>Figure 1.1.</b> The mechanical definition of a fluid, animated. For the solid, the
+        shear stress fixes the <em>strain</em> <var>&theta;</var>, so the block deforms to an angle and
+        <em>stops</em> there. For the fluid, it fixes the <em>rate of strain</em>
+        d<var>&theta;</var>/d<var>t</var>, so the element shears off the frame and is replaced, never
+        arriving anywhere. The left panel has a final state; the right panel has none.
+        Section&nbsp;1.5 turns that observation into Newton&rsquo;s law of viscosity.</figcaption>
+    </figure>
+
+    <p>Two consequences follow immediately, and both are used constantly from Chapter&nbsp;2 onward:</p>
+    <ul>
+      <li><b>A fluid at rest carries no shear stress.</b> If it did, by definition it would be moving. So
+        the force on any surface in contact with a static fluid is purely normal to that surface. This is
+        the single fact that makes hydrostatics tractable.</li>
+      <li><b>A fluid takes the shape of its container.</b> A liquid has a definite volume and forms a free
+        surface; a gas has neither, and expands to fill whatever it is given.</li>
+    </ul>
+
+    <p>One more experimental fact belongs here, because it is not obvious and everything in
+      Chapter&nbsp;7 depends on it: the <b>no-slip condition</b>. A real fluid in contact with a solid
+      boundary has exactly the velocity of that boundary &mdash; zero relative velocity at the wall. Dust
+      on a fan blade stays there for the same reason a pipe wall drags on the water passing it.</p>
+
+    <!-- ============================================================ 1.2 -->
+    <h2 id="s2">1.2 The Continuum Assumption</h2>
+
+    <p>A fluid is made of molecules with empty space between them. Air at room conditions contains about
+      2.5&nbsp;&times;&nbsp;10<sup>25</sup> molecules per cubic metre, each travelling some
+      6&nbsp;&times;&nbsp;10<sup>&minus;8</sup>&nbsp;m between collisions. Strictly, &ldquo;the density at
+      a point&rdquo; is meaningless: shrink the sampling volume far enough and the answer flickers between
+      zero and the density of a single molecule.</p>
+
+    <p>We ignore all of that. The <b>continuum assumption</b> treats the fluid as a substance that is
+      continuously distributed through space, so that properties such as density, pressure and velocity are
+      smooth functions of position and time and the tools of calculus apply.</p>
+
+    <p>The assumption is valid whenever the smallest length scale of the problem is enormous compared with
+      the distance a molecule travels between collisions (the <b>mean free path</b>, <var>&lambda;</var>).
+      The ratio is the <b>Knudsen number</b>:</p>
+
+    <div class="eq">
+      <span class="body">Kn = <span class="frac"><span><var>&lambda;</var></span><span class="den"><var>L</var></span></span></span>
+      <span class="tag">(1.1)</span>
+    </div>
+
+    <p>For Kn &lt; 0.01 &mdash; which covers every pipe, pump, channel and sprayer in this course &mdash;
+      the continuum model is excellent. It fails for rarefied flows: upper-atmosphere aerodynamics, vacuum
+      systems, and gas flow inside pores of a few hundred nanometres. We will not meet those, but it is
+      worth knowing that the assumption is an assumption.</p>
+
+    <!-- ============================================================ 1.3 -->
+    <h2 id="s3">1.3 Density, Specific Weight, Specific Gravity</h2>
+
+    <p>Three closely related quantities describe how much matter a fluid packs into a given volume. Students
+      confuse them routinely, and the confusion is expensive, so be deliberate about which one you are
+      holding.</p>
+
+    <h3>Density</h3>
+    <p><b>Density</b> <var>&rho;</var> (rho) is mass per unit volume:</p>
+
+    <div class="eq">
+      <span class="body"><var>&rho;</var> = <span class="frac"><span><var>m</var></span><span class="den"><var>V</var></span></span></span>
+      <span class="tag">(1.2)</span>
+    </div>
+
+    <p>SI units kg/m<sup>3</sup>; dimensions <span class="dim">[M L<sup>&minus;3</sup>]</span>. For water
+      the value to remember is <b>1000&nbsp;kg/m<sup>3</sup></b> &mdash; strictly that is the maximum,
+      at 4&nbsp;&deg;C; at 20&nbsp;&deg;C it is 998.2 and at 60&nbsp;&deg;C it is 983.2. For rough work,
+      1000 is fine. For a pump NPSH calculation on hot water, it is not.</p>
+
+    <h3>Specific weight</h3>
+    <p><b>Specific weight</b> <var>&gamma;</var> (gamma) is weight per unit volume &mdash; density times
+      gravitational acceleration:</p>
+
+    <div class="eq">
+      <span class="body"><var>&gamma;</var> = <var>&rho;g</var></span>
+      <span class="tag">(1.3)</span>
+    </div>
+
+    <p>SI units N/m<sup>3</sup>. For water at 20&nbsp;&deg;C,
+      <var>&gamma;</var> = 998.2&nbsp;&times;&nbsp;9.81 = 9793&nbsp;N/m<sup>3</sup>
+      &asymp; <b>9.79&nbsp;kN/m<sup>3</sup></b>. This is the constant that converts a head in metres into a
+      pressure in pascals, so you will use it more than <var>&rho;</var> itself in Chapter&nbsp;2.</p>
+
+    <h3>Specific gravity</h3>
+    <p><b>Specific gravity</b> SG (also called relative density) is the density of the fluid divided by the
+      density of a reference &mdash; water at 4&nbsp;&deg;C for liquids, air for gases:</p>
+
+    <div class="eq">
+      <span class="body">SG = <span class="frac"><span><var>&rho;</var></span><span class="den"><var>&rho;</var><sub>water</sub></span></span></span>
+      <span class="tag">(1.4)</span>
+    </div>
+
+    <p>SG is <b>dimensionless</b>, which is exactly why it is quoted on drums, data sheets and
+      hydrometers: it reads the same in every unit system. To recover a density in SI, multiply by
+      1000&nbsp;kg/m<sup>3</sup>. Diesel at SG&nbsp;0.85 is 850&nbsp;kg/m<sup>3</sup>; mercury at
+      SG&nbsp;13.55 is 13&thinsp;550&nbsp;kg/m<sup>3</sup>.</p>
+
+    <div class="callout warn">
+      <span class="label">A trap worth naming</span>
+      <p>Specific gravity has no units. Specific weight has units of N/m<sup>3</sup>. They are different
+        quantities with similar names, and a value of &ldquo;0.85&rdquo; for something called
+        &ldquo;specific&nbsp;&hellip;&rdquo; on a supplier&rsquo;s data sheet is always SG, never
+        <var>&gamma;</var>. Also, <b>specific volume</b> <var>v</var> = 1/<var>&rho;</var>
+        (m<sup>3</sup>/kg) is a fourth member of the family, common in thermodynamics and rare here.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table id="t1">
+        <caption><b>Table 1.1.</b> Properties of common fluids at 20&nbsp;&deg;C and 101.3&nbsp;kPa.
+          Values for agricultural and food liquids vary with composition and should be treated as
+          indicative only.</caption>
+        <thead>
+          <tr>
+            <th>Fluid</th>
+            <th class="num">&rho; (kg/m&sup3;)</th>
+            <th class="num">SG</th>
+            <th class="num">&mu; (Pa&middot;s)</th>
+            <th class="num">&nu; (m&sup2;/s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Water (fresh)</td><td class="num">998</td><td class="num">0.998</td><td class="num">1.00 &times; 10<sup>&minus;3</sup></td><td class="num">1.00 &times; 10<sup>&minus;6</sup></td></tr>
+          <tr><td>Seawater</td><td class="num">1025</td><td class="num">1.03</td><td class="num">1.07 &times; 10<sup>&minus;3</sup></td><td class="num">1.04 &times; 10<sup>&minus;6</sup></td></tr>
+          <tr><td>Air</td><td class="num">1.204</td><td class="num">&mdash;</td><td class="num">1.81 &times; 10<sup>&minus;5</sup></td><td class="num">1.51 &times; 10<sup>&minus;5</sup></td></tr>
+          <tr><td>Mercury</td><td class="num">13 550</td><td class="num">13.55</td><td class="num">1.56 &times; 10<sup>&minus;3</sup></td><td class="num">1.15 &times; 10<sup>&minus;7</sup></td></tr>
+          <tr><td>Ethanol</td><td class="num">789</td><td class="num">0.789</td><td class="num">1.20 &times; 10<sup>&minus;3</sup></td><td class="num">1.52 &times; 10<sup>&minus;6</sup></td></tr>
+          <tr><td>Diesel fuel</td><td class="num">850</td><td class="num">0.85</td><td class="num">2.9 &times; 10<sup>&minus;3</sup></td><td class="num">3.4 &times; 10<sup>&minus;6</sup></td></tr>
+          <tr><td>SAE 30 oil</td><td class="num">891</td><td class="num">0.891</td><td class="num">0.29</td><td class="num">3.3 &times; 10<sup>&minus;4</sup></td></tr>
+          <tr><td>Glycerin</td><td class="num">1260</td><td class="num">1.26</td><td class="num">1.49</td><td class="num">1.18 &times; 10<sup>&minus;3</sup></td></tr>
+          <tr><td>Whole milk</td><td class="num">1030</td><td class="num">1.03</td><td class="num">2.1 &times; 10<sup>&minus;3</sup></td><td class="num">2.0 &times; 10<sup>&minus;6</sup></td></tr>
+          <tr><td>Palm oil (refined)</td><td class="num">915</td><td class="num">0.915</td><td class="num">&asymp; 0.06</td><td class="num">&asymp; 6.6 &times; 10<sup>&minus;5</sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ============================================================ 1.4 -->
+    <h2 id="s4">1.4 Gases and the Ideal Gas Law</h2>
+
+    <p>For a liquid, density is nearly fixed and you look it up. For a gas it is not: it depends on both
+      pressure and temperature, and you calculate it. At the pressures and temperatures of this course, air
+      obeys the <b>ideal gas law</b> to within a fraction of a percent:</p>
+
+    <div class="eq">
+      <span class="body"><var>p</var> = <var>&rho;RT</var>&nbsp;&nbsp;&nbsp;or&nbsp;&nbsp;&nbsp;<var>&rho;</var> = <span class="frac"><span><var>p</var></span><span class="den"><var>RT</var></span></span></span>
+      <span class="tag">(1.5)</span>
+    </div>
+
+    <p>where <var>R</var> is the <b>specific</b> gas constant for that gas &mdash; the universal constant
+      8314&nbsp;J/(kmol&middot;K) divided by the molar mass. For dry air,
+      <var>R</var> = 287&nbsp;J/(kg&middot;K).</p>
+
+    <div class="callout warn">
+      <span class="label">Absolute, always</span>
+      <p>Equation (1.5) requires <b>absolute</b> pressure in pascals and <b>absolute</b> temperature in
+        kelvin. A gauge pressure or a temperature in &deg;C substituted here is simply wrong, and the error
+        is large: at 27&nbsp;&deg;C, using 27 instead of 300.15&nbsp;K overstates the density elevenfold.
+        Write <var>T</var> = <var>t</var> + 273.15 as a separate line every time.</p>
+    </div>
+
+    <p>Two everyday consequences. First, warm air is less dense than cool air at the same pressure &mdash;
+      which is why a drying fan that is rated in m<sup>3</sup>/s delivers <em>less mass</em> of air once the
+      heater comes on (Example&nbsp;1.2). Second, air is about 830 times lighter than water, which is why
+      the weight of the atmosphere in a room is usually neglected while the weight of water in a tank never
+      is.</p>
+
+    <!-- ============================================================ 1.5 -->
+    <h2 id="s5">1.5 Viscosity</h2>
+
+    <p>Density tells you how heavy a fluid is. <b>Viscosity</b> tells you how strongly it resists being
+      sheared &mdash; how much stress it takes to make one layer slide over its neighbour. It is the
+      property that produces friction in a pipe, drag on a body, and the power bill of every pump.</p>
+
+    <p>Consider the standard experiment. A fluid fills the gap <var>h</var> between two large parallel
+      plates. The lower plate is fixed; the upper is dragged sideways at a steady velocity <var>U</var> by a
+      force <var>F</var>.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="Fluid sheared between a fixed lower plate and a moving upper plate, showing a linear velocity profile from zero at the wall to U at the moving plate">
+        <defs>
+          <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+          <pattern id="hatch2" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#b9b2a7" stroke-width="2"/>
+          </pattern>
+        </defs>
+
+        <!-- fluid gap -->
+        <rect x="200" y="80" width="480" height="130" fill="#eaf7fa"/>
+
+        <!-- plates -->
+        <rect x="180" y="210" width="520" height="16" fill="url(#hatch2)" stroke="#1c1917" stroke-width="1.6"/>
+        <rect x="180" y="64" width="520" height="16" fill="#d8d2c6" stroke="#1c1917" stroke-width="1.6"/>
+        <text x="186" y="248" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">fixed plate &nbsp;(<tspan font-style="italic" font-family="Cambria, Georgia, serif">u</tspan> = 0, no slip)</text>
+        <text x="186" y="46" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">moving plate, area <tspan font-style="italic" font-family="Cambria, Georgia, serif">A</tspan></text>
+
+        <!-- applied force -->
+        <line x1="560" y1="72" x2="700" y2="72" stroke="#DF301C" stroke-width="2.6" marker-end="url(#a3)"/>
+        <text x="706" y="78" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#DF301C">F</text>
+
+        <!-- velocity profile -->
+        <line x1="200" y1="210" x2="200" y2="80" stroke="#00788A" stroke-width="1.4"/>
+        <line x1="200" y1="80" x2="430" y2="80" stroke="#00788A" stroke-width="2.2" marker-end="url(#a2)"/>
+        <line x1="200" y1="112" x2="373" y2="112" stroke="#00788A" stroke-width="1.8" marker-end="url(#a2)"/>
+        <line x1="200" y1="145" x2="315" y2="145" stroke="#00788A" stroke-width="1.8" marker-end="url(#a2)"/>
+        <line x1="200" y1="178" x2="258" y2="178" stroke="#00788A" stroke-width="1.8" marker-end="url(#a2)"/>
+        <path d="M200,210 L440,80" stroke="#00788A" stroke-width="2.4" fill="none"/>
+        <text x="446" y="74" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#00788A">U</text>
+        <text x="330" y="170" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#00788A">u(y)</text>
+
+        <!-- gap dimension -->
+        <line x1="150" y1="80" x2="150" y2="210" stroke="#726b64" stroke-width="1.4" marker-end="url(#a4)" marker-start="url(#a4)"/>
+        <text x="126" y="150" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#4b4540">h</text>
+
+        <!-- y axis -->
+        <line x1="740" y1="210" x2="740" y2="90" stroke="#726b64" stroke-width="1.4" marker-end="url(#a4)"/>
+        <text x="748" y="150" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#4b4540">y</text>
+
+        <!-- shear stress on an element -->
+        <rect x="530" y="120" width="70" height="50" fill="#fff" stroke="#A85E00" stroke-width="1.6"/>
+        <line x1="536" y1="112" x2="596" y2="112" stroke="#FF9100" stroke-width="2.2"/>
+        <line x1="596" y1="178" x2="536" y2="178" stroke="#FF9100" stroke-width="2.2"/>
+        <text x="604" y="118" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#A85E00">&tau;</text>
+        <text x="604" y="184" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#A85E00">&tau;</text>
+      </svg>
+      <figcaption><b>Figure 1.2.</b> Couette flow: the defining experiment for viscosity. No slip pins the
+        fluid to <var>u</var>&nbsp;=&nbsp;0 at the lower wall and to <var>u</var>&nbsp;=&nbsp;<var>U</var>
+        at the upper. For a small gap the profile is linear, so
+        d<var>u</var>/d<var>y</var>&nbsp;=&nbsp;<var>U</var>/<var>h</var> everywhere.</figcaption>
+    </figure>
+
+    <p>Experiment gives a simple result: the force needed is proportional to the plate area and to the
+      velocity, and inversely proportional to the gap. Writing the shear stress as
+      <var>&tau;</var> = <var>F</var>/<var>A</var>:</p>
+
+    <div class="eq">
+      <span class="body"><var>&tau;</var> = <var>&mu;</var> <span class="frac"><span>d<var>u</var></span><span class="den">d<var>y</var></span></span></span>
+      <span class="tag">(1.6)</span>
+    </div>
+
+    <p>This is <b>Newton&rsquo;s law of viscosity</b>. The constant of proportionality <var>&mu;</var> (mu)
+      is the <b>dynamic</b> or <b>absolute viscosity</b>. The gradient d<var>u</var>/d<var>y</var> is the
+      <b>rate of shear strain</b> &mdash; in the linear profile of Figure&nbsp;1.2 it is simply
+      <var>U</var>/<var>h</var>.</p>
+
+    <p>Rearranging (1.6) gives the units:
+      <var>&mu;</var> = <var>&tau;</var>&thinsp;/&thinsp;(d<var>u</var>/d<var>y</var>), so
+      Pa&thinsp;&divide;&thinsp;s<sup>&minus;1</sup> = <b>Pa&middot;s</b>, equivalently
+      N&middot;s/m<sup>2</sup> or kg/(m&middot;s); dimensions
+      <span class="dim">[M L<sup>&minus;1</sup> T<sup>&minus;1</sup>]</span>. The older CGS unit, the
+      <b>poise</b> (P), still appears on lubricant and food-industry data sheets:
+      1&nbsp;Pa&middot;s = 10&nbsp;P = 1000&nbsp;cP. Water at 20&nbsp;&deg;C is almost exactly
+      1&nbsp;cP, which makes the centipoise a convenient mental yardstick.</p>
+
+    <div class="callout">
+      <span class="label">Where the resistance comes from</span>
+      <p>In a <b>liquid</b>, viscosity comes mainly from cohesive forces between molecules. Heat the liquid,
+        the molecules separate, cohesion weakens &mdash; and viscosity <em>falls</em>. In a <b>gas</b>, the
+        molecules are already far apart; resistance comes from momentum carried across the flow by random
+        molecular motion. Heat the gas, that motion intensifies &mdash; and viscosity <em>rises</em>. The
+        two behave in opposite directions, which is a favourite examination question and a genuine trap
+        when you interpolate a table.</p>
+    </div>
+
+    <!-- ============================================================ 1.6 -->
+    <h2 id="s6">1.6 Newtonian and Non-Newtonian Fluids</h2>
+
+    <p>A fluid for which <var>&mu;</var> in equation (1.6) is a constant &mdash; a straight line through the
+      origin on a plot of <var>&tau;</var> against d<var>u</var>/d<var>y</var> &mdash; is called
+      <b>Newtonian</b>. Water, air, light oils, ethanol, glycerin and most petroleum products are
+      Newtonian, and the whole of this course assumes it.</p>
+
+    <p>Many of the materials a biosystems engineer actually pumps are not. Their apparent viscosity depends
+      on how hard they are being sheared, and sometimes on how long.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 380" role="img" aria-label="Rheogram: shear stress against rate of shear strain for Bingham plastic, shear-thinning, Newtonian, shear-thickening and ideal fluids">
+        <defs>
+          <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4b4540"/>
+          </marker>
+        </defs>
+        <rect x="0" y="0" width="860" height="380" fill="#fff"/>
+
+        <!-- axes -->
+        <line x1="100" y1="330" x2="640" y2="330" stroke="#4b4540" stroke-width="1.8" marker-end="url(#a5)"/>
+        <line x1="100" y1="330" x2="100" y2="40" stroke="#4b4540" stroke-width="1.8" marker-end="url(#a5)"/>
+        <text x="330" y="366" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#1c1917">du/dy &nbsp;&nbsp;<tspan font-family="Segoe UI, Arial" font-size="13" font-style="normal" fill="#726b64">(rate of shear strain, s</tspan><tspan font-family="Segoe UI, Arial" font-size="10" font-style="normal" fill="#726b64" dy="-5">&minus;1</tspan><tspan font-family="Segoe UI, Arial" font-size="13" font-style="normal" fill="#726b64" dy="5">)</tspan></text>
+        <text x="36" y="180" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#1c1917">&tau;</text>
+        <text x="24" y="204" font-family="Segoe UI, Arial" font-size="12" fill="#726b64">(Pa)</text>
+
+        <!-- Bingham plastic -->
+        <line x1="100" y1="230" x2="600" y2="70" stroke="#DF301C" stroke-width="2.6"/>
+        <circle cx="100" cy="230" r="4.5" fill="#DF301C"/>
+        <text x="610" y="70" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#DF301C">Bingham plastic</text>
+        <text x="612" y="88" font-family="Segoe UI, Arial" font-size="12" fill="#B22616">slurry, wet concrete, toothpaste</text>
+        <line x1="100" y1="230" x2="88" y2="230" stroke="#DF301C" stroke-width="1.6"/>
+        <text x="52" y="228" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">&tau;<tspan font-size="12" dy="5">0</tspan></text>
+
+        <!-- shear thinning -->
+        <path d="M100,330 Q160,170 320,128 Q460,96 600,80" fill="none" stroke="#A85E00" stroke-width="2.6"/>
+        <text x="610" y="120" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#A85E00">Shear-thinning</text>
+        <text x="612" y="138" font-family="Segoe UI, Arial" font-size="12" fill="#A85E00">ketchup, fruit pulp, blood, latex</text>
+
+        <!-- Newtonian -->
+        <line x1="100" y1="330" x2="600" y2="150" stroke="#00788A" stroke-width="2.8"/>
+        <text x="610" y="166" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#00788A">Newtonian</text>
+        <text x="612" y="184" font-family="Segoe UI, Arial" font-size="12" fill="#00788A">water, air, oils &mdash; slope = &mu;</text>
+
+        <!-- shear thickening -->
+        <path d="M100,330 Q380,306 480,250 Q570,198 600,140" fill="none" stroke="#1c1917" stroke-width="2.6" stroke-dasharray="1 0"/>
+        <text x="610" y="238" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">Shear-thickening</text>
+        <text x="612" y="256" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">starch&ndash;water suspension, wet sand</text>
+
+        <!-- ideal fluid -->
+        <line x1="100" y1="330" x2="600" y2="330" stroke="#8a8378" stroke-width="2" stroke-dasharray="8 5"/>
+        <text x="610" y="334" font-family="Segoe UI, Arial" font-size="13" fill="#726b64">Ideal (inviscid) fluid, &mu; = 0</text>
+
+        <!-- slope annotation -->
+        <line x1="300" y1="258" x2="380" y2="258" stroke="#00B7CD" stroke-width="1.4" stroke-dasharray="4 3"/>
+        <line x1="380" y1="258" x2="380" y2="229" stroke="#00B7CD" stroke-width="1.4" stroke-dasharray="4 3"/>
+        <text x="322" y="280" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#00788A">&mu;</text>
+      </svg>
+      <figcaption><b>Figure 1.3.</b> The rheogram. A Newtonian fluid plots as a straight line through the
+        origin whose slope <em>is</em> the viscosity. Everything else needs an apparent viscosity quoted at
+        a stated shear rate &mdash; a number that is meaningless without that rate.</figcaption>
+    </figure>
+
+    <ul>
+      <li><b>Shear-thinning</b> (pseudoplastic): apparent viscosity falls as shear rate rises. Fruit purée,
+        tomato paste, latex, blood, most polymer solutions. A pump handling purée sees a much thinner fluid
+        at running speed than at start-up, which is why start-up torque, not running torque, sizes the
+        motor.</li>
+      <li><b>Shear-thickening</b> (dilatant): apparent viscosity rises with shear rate. Concentrated starch
+        suspensions, wet sand. Rare industrially, and usually a nuisance when it appears.</li>
+      <li><b>Bingham plastic</b>: behaves as a solid until the shear stress exceeds a <b>yield stress</b>
+        <var>&tau;</var><sub>0</sub>, then flows like a Newtonian fluid. Sewage sludge, drilling mud,
+        chocolate, toothpaste. A pipeline carrying a Bingham material will not restart if the pressure
+        gradient cannot exceed the yield stress &mdash; a real failure mode in manure and slurry lines.</li>
+      <li><b>Time-dependent</b> behaviour is a further complication: <b>thixotropic</b> materials (yoghurt,
+        some paints) thin with continued shearing at constant rate and recover when left to stand.</li>
+    </ul>
+
+    <div class="callout warn">
+      <span class="label">Scope of this course</span>
+      <p>From Chapter&nbsp;2 onward every fluid is Newtonian. If you go on to design a slurry, sludge or
+        food-processing line, the equations of Chapter&nbsp;7 need modification &mdash; the Reynolds number
+        and friction factor are redefined. Know that the boundary exists and where you crossed it.</p>
+    </div>
+
+    <!-- ============================================================ 1.7 -->
+    <h2 id="s7">1.7 Kinematic Viscosity</h2>
+
+    <p>Viscous force resists motion; inertia sustains it. Which of the two dominates depends not on
+      <var>&mu;</var> alone but on <var>&mu;</var> relative to <var>&rho;</var>. That ratio appears so often
+      that it is given its own name and symbol, the <b>kinematic viscosity</b> <var>&nu;</var> (nu):</p>
+
+    <div class="eq">
+      <span class="body"><var>&nu;</var> = <span class="frac"><span><var>&mu;</var></span><span class="den"><var>&rho;</var></span></span></span>
+      <span class="tag">(1.7)</span>
+    </div>
+
+    <p>Its units are m<sup>2</sup>/s, with dimensions
+      <span class="dim">[L<sup>2</sup> T<sup>&minus;1</sup>]</span> &mdash; pure kinematics, no mass, which
+      is where the name comes from. The CGS unit is the <b>stokes</b> (St), and lubricant grades are
+      universally quoted in <b>centistokes</b>: 1&nbsp;m<sup>2</sup>/s = 10<sup>6</sup>&nbsp;cSt, so water
+      at 20&nbsp;&deg;C is about 1&nbsp;cSt.</p>
+
+    <p>Table 1.1 holds a result worth pausing on. Air has a dynamic viscosity roughly 55 times
+      <em>smaller</em> than water, yet a kinematic viscosity about 15 times <em>larger</em>, because it is
+      some 830 times less dense. In the Reynolds number of Chapter&nbsp;7 it is <var>&nu;</var> that
+      appears, so air flowing at the same speed through the same duct is markedly more likely to be laminar
+      than water is.</p>
+
+    <!-- ============================================================ 1.8 -->
+    <h2 id="s8">1.8 Viscosity and Temperature</h2>
+
+    <p>Viscosity is strongly temperature-dependent and only weakly pressure-dependent, so in practice we
+      tabulate against temperature and ignore pressure. The effect is not small: water at 60&nbsp;&deg;C is
+      less than half as viscous as water at 20&nbsp;&deg;C, and a hot line therefore has less than half the
+      laminar head loss of a cold one.</p>
+
+    <div class="table-wrap">
+      <table id="t2">
+        <caption><b>Table 1.2.</b> Properties of water from 0 to 100&nbsp;&deg;C at atmospheric pressure.
+          This is the table you will return to all term.</caption>
+        <thead>
+          <tr>
+            <th class="num">t (&deg;C)</th>
+            <th class="num">&rho; (kg/m&sup3;)</th>
+            <th class="num">&gamma; (kN/m&sup3;)</th>
+            <th class="num">&mu; (10<sup>&minus;3</sup> Pa&middot;s)</th>
+            <th class="num">&nu; (10<sup>&minus;6</sup> m&sup2;/s)</th>
+            <th class="num">p<sub>v</sub> (kPa)</th>
+            <th class="num">&sigma; (N/m)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">0</td><td class="num">999.8</td><td class="num">9.81</td><td class="num">1.792</td><td class="num">1.792</td><td class="num">0.61</td><td class="num">0.0756</td></tr>
+          <tr><td class="num">10</td><td class="num">999.7</td><td class="num">9.81</td><td class="num">1.307</td><td class="num">1.307</td><td class="num">1.23</td><td class="num">0.0742</td></tr>
+          <tr><td class="num">20</td><td class="num">998.2</td><td class="num">9.79</td><td class="num">1.002</td><td class="num">1.004</td><td class="num">2.34</td><td class="num">0.0728</td></tr>
+          <tr><td class="num">30</td><td class="num">995.7</td><td class="num">9.77</td><td class="num">0.798</td><td class="num">0.801</td><td class="num">4.24</td><td class="num">0.0712</td></tr>
+          <tr><td class="num">40</td><td class="num">992.2</td><td class="num">9.73</td><td class="num">0.653</td><td class="num">0.658</td><td class="num">7.38</td><td class="num">0.0696</td></tr>
+          <tr><td class="num">50</td><td class="num">988.0</td><td class="num">9.69</td><td class="num">0.547</td><td class="num">0.553</td><td class="num">12.34</td><td class="num">0.0679</td></tr>
+          <tr><td class="num">60</td><td class="num">983.2</td><td class="num">9.64</td><td class="num">0.467</td><td class="num">0.475</td><td class="num">19.92</td><td class="num">0.0662</td></tr>
+          <tr><td class="num">70</td><td class="num">977.8</td><td class="num">9.59</td><td class="num">0.404</td><td class="num">0.413</td><td class="num">31.16</td><td class="num">0.0644</td></tr>
+          <tr><td class="num">80</td><td class="num">971.8</td><td class="num">9.53</td><td class="num">0.355</td><td class="num">0.365</td><td class="num">47.34</td><td class="num">0.0626</td></tr>
+          <tr><td class="num">90</td><td class="num">965.3</td><td class="num">9.47</td><td class="num">0.315</td><td class="num">0.326</td><td class="num">70.10</td><td class="num">0.0608</td></tr>
+          <tr><td class="num">100</td><td class="num">958.4</td><td class="num">9.40</td><td class="num">0.282</td><td class="num">0.294</td><td class="num">101.33</td><td class="num">0.0589</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Read the last two columns across and the boiling point falls out of the table: at 100&nbsp;&deg;C the
+      vapour pressure has climbed to 101.33&nbsp;kPa, exactly one standard atmosphere. Boiling is not a
+      special event; it is the point at which the vapour pressure catches up with the surrounding pressure.
+      Section&nbsp;1.10 is that same idea read the other way round.</p>
+
+    <p>Linear interpolation between rows is accurate enough for design work. For values between tabulated
+      points, or for other fluids, manufacturers&rsquo; curves and the standard test methods
+      (ISO&nbsp;3104, ASTM&nbsp;D445) give the measured data.</p>
+
+    <!-- ============================================================ 1.9 -->
+    <h2 id="s9">1.9 Compressibility and Bulk Modulus</h2>
+
+    <p>No fluid is truly incompressible. The <b>bulk modulus of elasticity</b> <var>K</var> measures the
+      pressure rise needed to produce a given fractional reduction in volume:</p>
+
+    <div class="eq">
+      <span class="body"><var>K</var> = &minus; <span class="frac"><span>d<var>p</var></span><span class="den">d<var>V</var>/<var>V</var></span></span></span>
+      <span class="tag">(1.8)</span>
+    </div>
+
+    <p>The minus sign makes <var>K</var> positive, since a pressure increase produces a volume decrease.
+      Because d<var>V</var>/<var>V</var> is dimensionless, <var>K</var> has the units of pressure. For water
+      at 20&nbsp;&deg;C, <var>K</var> &asymp; <b>2.18&nbsp;GPa</b>.</p>
+
+    <p>Put a number to that. Compressing water by 1&nbsp;% requires</p>
+
+    <div class="eq plain">
+      <span class="body">&Delta;<var>p</var> = <var>K</var> &times; 0.01 = 2.18 &times; 10<sup>9</sup> &times; 0.01 = 21.8 MPa &asymp; 218 bar</span>
+    </div>
+
+    <p>Some 218 atmospheres for a one per cent change. This is the justification for the assumption we make
+      everywhere else: <b>liquids are treated as incompressible</b>, with <var>&rho;</var> constant.</p>
+
+    <p>The compressibility does not vanish, though, and it reappears in one important place. The speed at
+      which a pressure disturbance travels through a fluid &mdash; the <b>speed of sound</b> &mdash; is set
+      by it:</p>
+
+    <div class="eq">
+      <span class="body"><var>c</var> = <span class="sqrt">&radic;<span class="rad"><span class="frac"><span><var>K</var></span><span class="den"><var>&rho;</var></span></span></span></span></span>
+      <span class="tag">(1.9)</span>
+    </div>
+
+    <p>For water, <var>c</var> = &radic;(2.18&nbsp;&times;&nbsp;10<sup>9</sup>&thinsp;/&thinsp;998) &asymp;
+      1480&nbsp;m/s. That finite speed is what makes <b>water hammer</b> possible: close a valve on a long
+      pipeline quickly and the deceleration of the column generates a pressure wave that can exceed the
+      pipe&rsquo;s rated pressure many times over. The fluid&rsquo;s stiffness, which we spend the whole
+      course ignoring, is exactly what makes the transient dangerous.</p>
+
+    <p>Gases are a different matter. Air at atmospheric pressure has
+      <var>K</var> &asymp; 0.14&nbsp;MPa &mdash; about fifteen thousand times more compressible than water.
+      A gas may still be <em>treated</em> as incompressible when it moves slowly (below roughly 30&nbsp;% of
+      its own speed of sound, about 100&nbsp;m/s for air), which covers ventilation ducts, drying fans and
+      pneumatic conveying at low pressure. Beyond that, density changes matter and the subject becomes
+      compressible flow.</p>
+
+    <!-- ============================================================ 1.10 -->
+    <h2 id="s10">1.10 Vapour Pressure and Cavitation</h2>
+
+    <p>Molecules at the free surface of a liquid escape into the space above it, and at equilibrium the
+      partial pressure they exert is the <b>vapour pressure</b> <var>p</var><sub>v</sub>. It depends only on
+      temperature, and for water it is tabulated in the sixth column of Table&nbsp;1.2.</p>
+
+    <p>Boiling occurs whenever the local absolute pressure falls to the vapour pressure. That can be reached
+      in two ways: raise <var>p</var><sub>v</sub> by heating at fixed pressure (a kettle), or drop the local
+      pressure at fixed temperature. The second route is the engineering problem.</p>
+
+    <div class="callout rule">
+      <span class="label">Cavitation</span>
+      <p>Where a flow accelerates &mdash; over a pump impeller vane, through a partly closed valve, past a
+        propeller tip &mdash; the pressure falls. If it falls to <var>p</var><sub>v</sub>, vapour bubbles
+        form. Carried downstream into higher pressure, they collapse violently. The implosions are
+        extremely localised and produce pressures high enough to pit steel. The symptoms are a
+        gravel-rattling noise, loss of head and efficiency, vibration, and eventual destruction of the
+        impeller.</p>
+    </div>
+
+    <p>Cavitation is a property problem, not a flow problem, which is why it belongs in this chapter. Its
+      cure is to keep the pressure at the suction side of a pump above <var>p</var><sub>v</sub> by a stated
+      margin &mdash; the net positive suction head, treated in Chapter&nbsp;8. What matters here is the
+      chain of reasoning that sets the limit, and Example&nbsp;1.4 works it through: <b>hot water cannot be
+      lifted as far as cold water</b>, because its vapour pressure has already consumed part of the
+      available atmospheric head.</p>
+
+    <!-- ============================================================ 1.11 -->
+    <h2 id="s11">1.11 Surface Tension and Capillarity</h2>
+
+    <p>A molecule inside a liquid is pulled equally in all directions by its neighbours. A molecule at the
+      surface has neighbours only below and beside it, so there is a net inward pull. The result is that the
+      free surface behaves like a stretched membrane, in tension. <b>Surface tension</b> <var>&sigma;</var>
+      (sigma) is that tension per unit length of surface, in N/m. For water against air at 20&nbsp;&deg;C,
+      <var>&sigma;</var> = 0.0728&nbsp;N/m.</p>
+
+    <p>Surface tension explains the spherical droplet from a sprayer nozzle, the insect standing on a pond,
+      and the pressure inside a bubble. For a spherical droplet of radius <var>r</var>, balancing the force
+      pulling the two halves apart against the tension around the circumference gives</p>
+
+    <div class="eq">
+      <span class="body">&Delta;<var>p</var> = <span class="frac"><span>2<var>&sigma;</var></span><span class="den"><var>r</var></span></span></span>
+      <span class="tag">(1.10)</span>
+    </div>
+
+    <p>Smaller droplets are at higher internal pressure &mdash; and, since the same tension resists their
+      formation, finer atomisation costs more energy. This is the physics behind a spray nozzle&rsquo;s
+      pressure&ndash;droplet size relationship in pesticide application.</p>
+
+    <h3>Capillarity</h3>
+    <p>At a solid&ndash;liquid&ndash;gas junction, surface tension competes with adhesion to the solid. If
+      the liquid wets the solid (water on clean glass, contact angle <var>&theta;</var> &asymp; 0), the
+      liquid climbs the wall and the meniscus is concave. If it does not (mercury on glass,
+      <var>&theta;</var> &asymp; 130&deg;), the liquid is pushed down and the meniscus is convex.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="Capillary rise of water in a glass tube and capillary depression of mercury, with the contact angle marked in each case">
+        <defs>
+          <marker id="a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <!-- ---------- left: water, rise ---------- -->
+        <text x="60" y="30" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) Wetting &mdash; water in glass, &theta; &lt; 90&deg;</text>
+
+        <!-- trough -->
+        <path d="M40,300 L40,222 L400,222 L400,300" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <rect x="42" y="224" width="356" height="74" fill="#9fe0ea"/>
+        <line x1="42" y1="224" x2="398" y2="224" stroke="#00788A" stroke-width="1.6"/>
+
+        <!-- tube -->
+        <rect x="180" y="70" width="46" height="230" fill="none"/>
+        <line x1="180" y1="70" x2="180" y2="300" stroke="#1c1917" stroke-width="2.2"/>
+        <line x1="226" y1="70" x2="226" y2="300" stroke="#1c1917" stroke-width="2.2"/>
+        <rect x="182" y="140" width="42" height="160" fill="#57c2d3"/>
+        <path d="M182,146 Q203,126 224,146 L224,138 Q203,120 182,138 z" fill="#57c2d3"/>
+        <path d="M182,140 Q203,120 224,140" fill="none" stroke="#00788A" stroke-width="2"/>
+
+        <!-- rise dimension -->
+        <line x1="152" y1="134" x2="152" y2="224" stroke="#726b64" stroke-width="1.4" marker-end="url(#a6)" marker-start="url(#a6)"/>
+        <text x="128" y="186" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#4b4540">h</text>
+
+        <!-- diameter -->
+        <line x1="180" y1="58" x2="226" y2="58" stroke="#726b64" stroke-width="1.4" marker-end="url(#a6)" marker-start="url(#a6)"/>
+        <text x="236" y="63" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#4b4540">d</text>
+
+        <!-- contact angle -->
+        <path d="M182,140 L196,128" stroke="#DF301C" stroke-width="2"/>
+        <path d="M182,164 A24,24 0 0,0 190,146" fill="none" stroke="#DF301C" stroke-width="1.5"/>
+        <text x="150" y="112" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">&theta;</text>
+        <line x1="166" y1="118" x2="184" y2="134" stroke="#DF301C" stroke-width="1.2"/>
+        <text x="258" y="150" font-family="Segoe UI, Arial" font-size="13" fill="#00788A">concave meniscus</text>
+
+        <!-- divider -->
+        <line x1="440" y1="20" x2="440" y2="300" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <!-- ---------- right: mercury, depression ---------- -->
+        <text x="480" y="30" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) Non-wetting &mdash; mercury, &theta; &gt; 90&deg;</text>
+
+        <path d="M470,300 L470,222 L820,222 L820,300" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <rect x="472" y="224" width="346" height="74" fill="#c8c6c4"/>
+        <line x1="472" y1="224" x2="818" y2="224" stroke="#6f6d6b" stroke-width="1.6"/>
+
+        <line x1="610" y1="120" x2="610" y2="300" stroke="#1c1917" stroke-width="2.2"/>
+        <line x1="656" y1="120" x2="656" y2="300" stroke="#1c1917" stroke-width="2.2"/>
+        <rect x="612" y="264" width="42" height="36" fill="#a9a7a5"/>
+        <path d="M612,264 Q633,282 654,264 L654,272 Q633,290 612,272 z" fill="#a9a7a5"/>
+        <path d="M612,264 Q633,284 654,264" fill="none" stroke="#6f6d6b" stroke-width="2"/>
+
+        <line x1="582" y1="224" x2="582" y2="272" stroke="#726b64" stroke-width="1.4" marker-end="url(#a6)" marker-start="url(#a6)"/>
+        <text x="556" y="256" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#4b4540">h</text>
+
+        <path d="M654,264 L668,276" stroke="#DF301C" stroke-width="2"/>
+        <path d="M654,240 A24,24 0 0,1 660,258" fill="none" stroke="#DF301C" stroke-width="1.5"/>
+        <text x="668" y="238" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">&theta;</text>
+        <text x="690" y="296" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">convex meniscus</text>
+      </svg>
+      <figcaption><b>Figure 1.4.</b> Capillary rise and depression. The vertical component of the surface
+        tension acting round the circumference <var>&pi;d</var> supports (or, for
+        <var>&theta;</var>&nbsp;&gt;&nbsp;90&deg;, pulls down) the column of liquid of
+        height&nbsp;<var>h</var>.</figcaption>
+    </figure>
+
+    <p>Equate the vertical component of the tension around the wetted perimeter to the weight of the raised
+      column:</p>
+
+    <div class="eq stack">
+      <span class="tag">(1.11)</span>
+      <span class="body"><var>&sigma;</var>(<var>&pi;d</var>) cos<var>&theta;</var> = <var>&gamma;</var> <span class="frac"><span><var>&pi;d</var><sup>2</sup></span><span class="den">4</span></span> <var>h</var></span>
+      <span class="body"><var>h</var> = <span class="frac"><span>4<var>&sigma;</var> cos<var>&theta;</var></span><span class="den"><var>&gamma;d</var></span></span></span>
+    </div>
+
+    <p>The <var>d</var> in the denominator is the practical message: <b>capillary error grows as the tube
+      gets narrower</b>. Example&nbsp;1.3 shows why a piezometer or manometer tube smaller than about
+      10&nbsp;mm bore introduces a reading error you cannot ignore, and the same relation governs how water
+      is held in the pores of a soil &mdash; the foundation of soil-water potential in irrigation
+      design.</p>
+
+    <!-- ============================================================ 1.12 -->
+    <h2 id="s12">1.12 Worked Examples</h2>
+
+    <div class="example">
+      <h3>Example 1.1 &mdash; Force and power to shear an oil film</h3>
+      <p>A flat plate 0.8&nbsp;m &times; 0.5&nbsp;m slides at 0.9&nbsp;m/s over a fixed surface, separated
+        from it by a film of SAE&nbsp;30 oil 1.2&nbsp;mm thick. The oil is at 20&nbsp;&deg;C. Find the shear
+        stress in the oil, the force needed to move the plate, and the power dissipated.</p>
+
+      <div class="step">
+        <h4>Step 1 &mdash; Assumptions and data</h4>
+        <p>The gap is small and the plate large, so the velocity profile is linear (Figure&nbsp;1.2) and the
+          edges are neglected. SAE&nbsp;30 oil is Newtonian. From Table&nbsp;1.1,
+          <var>&mu;</var> = 0.29&nbsp;Pa&middot;s.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 2 &mdash; Rate of shear strain</h4>
+        <div class="eq plain"><span class="body"><span class="frac"><span>d<var>u</var></span><span class="den">d<var>y</var></span></span> = <span class="frac"><span><var>U</var></span><span class="den"><var>h</var></span></span> = <span class="frac"><span>0.9</span><span class="den">0.0012</span></span> = 750 s<sup>&minus;1</sup></span></div>
+        <p>Note the conversion of the gap to metres before dividing. This is where the arithmetic usually
+          goes wrong.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 3 &mdash; Shear stress from Newton&rsquo;s law</h4>
+        <div class="eq plain"><span class="body"><var>&tau;</var> = <var>&mu;</var> <span class="frac"><span>d<var>u</var></span><span class="den">d<var>y</var></span></span> = (0.29)(750) = 217.5 Pa</span></div>
+      </div>
+
+      <div class="step">
+        <h4>Step 4 &mdash; Force on the plate</h4>
+        <p><var>A</var> = 0.8 &times; 0.5 = 0.40&nbsp;m<sup>2</sup>, so</p>
+        <div class="eq plain"><span class="body"><var>F</var> = <var>&tau;A</var> = (217.5)(0.40) = 87.0 N</span></div>
+        <p class="result"><var>F</var> = 87.0 N</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 5 &mdash; Power dissipated</h4>
+        <p>The plate moves at constant velocity, so all the work done against the viscous force ends up as
+          heat in the oil:</p>
+        <div class="eq plain"><span class="body"><var>P</var> = <var>FU</var> = (87.0)(0.9) = 78.3 W</span></div>
+        <p class="result"><var>P</var> = 78.3 W</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 6 &mdash; Check</h4>
+        <p>Halve the gap and both the force and the power double; run the same plate on water
+          (<var>&mu;</var> = 0.001&nbsp;Pa&middot;s) and the force falls to 0.3&nbsp;N. Both trends are
+          right, and the second is why a journal bearing is filled with oil rather than water.</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>Example 1.2 &mdash; Air density in a grain-drying plenum</h3>
+      <p>A grain dryer draws ambient air at 35&nbsp;&deg;C and 101.3&nbsp;kPa into a plenum of
+        12&nbsp;m &times; 4&nbsp;m &times; 2.5&nbsp;m. (a) Find the mass of air in the plenum. (b) The
+        heater then raises the air to 60&nbsp;&deg;C at essentially the same pressure. By what percentage
+        does the mass flow delivered by the (constant-volume) fan fall?</p>
+
+      <div class="step">
+        <h4>Step 1 &mdash; Absolute temperature</h4>
+        <p><var>T</var><sub>1</sub> = 35 + 273.15 = 308.15&nbsp;K &nbsp;&nbsp;
+           <var>T</var><sub>2</sub> = 60 + 273.15 = 333.15&nbsp;K</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 2 &mdash; Density before heating</h4>
+        <div class="eq plain"><span class="body"><var>&rho;</var><sub>1</sub> = <span class="frac"><span><var>p</var></span><span class="den"><var>RT</var><sub>1</sub></span></span> = <span class="frac"><span>101 325</span><span class="den">(287)(308.15)</span></span> = 1.146 kg/m<sup>3</sup></span></div>
+      </div>
+
+      <div class="step">
+        <h4>Step 3 &mdash; Mass in the plenum</h4>
+        <p><var>V</var> = 12 &times; 4 &times; 2.5 = 120&nbsp;m<sup>3</sup></p>
+        <div class="eq plain"><span class="body"><var>m</var> = <var>&rho;</var><sub>1</sub><var>V</var> = (1.146)(120) = 137.5 kg</span></div>
+        <p class="result"><var>m</var> = 137.5 kg</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 4 &mdash; Density after heating</h4>
+        <div class="eq plain"><span class="body"><var>&rho;</var><sub>2</sub> = <span class="frac"><span>101 325</span><span class="den">(287)(333.15)</span></span> = 1.060 kg/m<sup>3</sup></span></div>
+      </div>
+
+      <div class="step">
+        <h4>Step 5 &mdash; Loss of mass flow</h4>
+        <p>A fan is a volume machine: it moves the same m<sup>3</sup>/s regardless of density, so the mass
+          flow falls in the same ratio as the density.</p>
+        <div class="eq plain"><span class="body">reduction = <span class="frac"><span>1.146 &minus; 1.060</span><span class="den">1.146</span></span> = 0.075 = 7.5&thinsp;%</span></div>
+        <p class="result">7.5&thinsp;% less mass of air per second</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 6 &mdash; Comment</h4>
+        <p>Hot air carries more moisture per kilogram, so heating still helps. But the drying calculation
+          must be done on a <em>mass</em> basis, and a fan curve quoted in m<sup>3</sup>/s does not tell you
+          the mass flow until you supply the density. Note also that <var>&rho;</var> &prop;
+          1/<var>T</var> only because the pressure was held constant.</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>Example 1.3 &mdash; Capillary error in a piezometer</h3>
+      <p>Water at 20&nbsp;&deg;C stands in a clean glass piezometer tube of 1.5&nbsp;mm bore. (a) How far
+        does capillarity raise the reading? (b) What bore is needed to keep the error below 3&nbsp;mm?</p>
+
+      <div class="step">
+        <h4>Step 1 &mdash; Data</h4>
+        <p>From Table&nbsp;1.2 at 20&nbsp;&deg;C: <var>&sigma;</var> = 0.0728&nbsp;N/m,
+          <var>&gamma;</var> = 9.79&nbsp;kN/m<sup>3</sup>. Clean glass and clean water wet completely, so
+          <var>&theta;</var> &asymp; 0 and cos<var>&theta;</var> = 1.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 2 &mdash; Rise in the 1.5 mm tube</h4>
+        <div class="eq plain"><span class="body"><var>h</var> = <span class="frac"><span>4<var>&sigma;</var> cos<var>&theta;</var></span><span class="den"><var>&gamma;d</var></span></span> = <span class="frac"><span>4(0.0728)(1)</span><span class="den">(9790)(0.0015)</span></span> = 0.0198 m</span></div>
+        <p class="result"><var>h</var> = 19.8 mm</p>
+        <p>Almost 20&nbsp;mm of pure instrument error &mdash; in a device whose whole purpose is to measure
+          head to the millimetre.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 3 &mdash; Bore required for a 3 mm limit</h4>
+        <p>Rearrange (1.11) for <var>d</var>:</p>
+        <div class="eq plain"><span class="body"><var>d</var> = <span class="frac"><span>4<var>&sigma;</var> cos<var>&theta;</var></span><span class="den"><var>&gamma;h</var></span></span> = <span class="frac"><span>4(0.0728)</span><span class="den">(9790)(0.003)</span></span> = 0.0099 m</span></div>
+        <p class="result"><var>d</var> &asymp; 10 mm</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 4 &mdash; The design rule</h4>
+        <p>This is the origin of the laboratory convention that piezometer and manometer tubes should be at
+          least 10&nbsp;mm bore. Below that, either enlarge the tube or apply a correction &mdash; and note
+          that the correction depends on the cleanliness of the glass, which is why enlarging is
+          preferred.</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>Example 1.4 &mdash; Why hot water cannot be lifted as far</h3>
+      <p>A centrifugal pump at a processing plant draws water by suction lift from an open tank. Standard
+        atmospheric pressure is 101.3&nbsp;kPa. Find the greatest theoretical suction lift for water at
+        (a) 20&nbsp;&deg;C and (b) 70&nbsp;&deg;C, and comment on the practical limit.</p>
+
+      <div class="step">
+        <h4>Step 1 &mdash; The physical limit</h4>
+        <p>Atmospheric pressure on the tank surface is what pushes the water up the suction pipe. The lowest
+          absolute pressure the pump inlet can ever reach is the vapour pressure &mdash; below that the
+          water boils. So the available pressure difference is
+          <var>p</var><sub>atm</sub> &minus; <var>p</var><sub>v</sub>, and the greatest height it can
+          support is that difference divided by the specific weight.</p>
+        <div class="eq plain"><span class="body"><var>z</var><sub>max</sub> = <span class="frac"><span><var>p</var><sub>atm</sub> &minus; <var>p</var><sub>v</sub></span><span class="den"><var>&gamma;</var></span></span></span></div>
+      </div>
+
+      <div class="step">
+        <h4>Step 2 &mdash; Water at 20 &deg;C</h4>
+        <p>Table&nbsp;1.2: <var>p</var><sub>v</sub> = 2.34&nbsp;kPa,
+          <var>&gamma;</var> = 9.79&nbsp;kN/m<sup>3</sup>.</p>
+        <div class="eq plain"><span class="body"><var>z</var><sub>max</sub> = <span class="frac"><span>101 325 &minus; 2340</span><span class="den">9790</span></span> = 10.1 m</span></div>
+        <p class="result"><var>z</var><sub>max</sub> = 10.1 m</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 3 &mdash; Water at 70 &deg;C</h4>
+        <p>Table&nbsp;1.2: <var>p</var><sub>v</sub> = 31.16&nbsp;kPa,
+          <var>&gamma;</var> = 9.59&nbsp;kN/m<sup>3</sup>.</p>
+        <div class="eq plain"><span class="body"><var>z</var><sub>max</sub> = <span class="frac"><span>101 325 &minus; 31 160</span><span class="den">9590</span></span> = 7.3 m</span></div>
+        <p class="result"><var>z</var><sub>max</sub> = 7.3 m</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 4 &mdash; The practical limit</h4>
+        <p>Both figures are ceilings that no real installation reaches. Friction in the suction pipe, the
+          velocity head at the inlet, and the pump&rsquo;s own required NPSH all eat into the margin, and
+          the site may be above sea level, which lowers <var>p</var><sub>atm</sub> as well. A common working
+          rule is to design cold-water suction lifts to no more than 5&ndash;6&nbsp;m, and to place a pump
+          handling hot liquid <em>below</em> the source so that it runs with a flooded suction. The full
+          NPSH calculation appears in Chapter&nbsp;8; the reason for it is here.</p>
+      </div>
+    </div>
+
+    <!-- ============================================================ 1.13 -->
+    <h2 id="s13">1.13 Nomenclature</h2>
+
+    <dl class="nomen">
+      <dt>A</dt><dd>Area <span class="u">(m&sup2;)</span></dd>
+      <dt>c</dt><dd>Speed of sound in the fluid <span class="u">(m/s)</span></dd>
+      <dt>d</dt><dd>Tube bore or diameter <span class="u">(m)</span></dd>
+      <dt>F</dt><dd>Force <span class="u">(N)</span></dd>
+      <dt>g</dt><dd>Gravitational acceleration, 9.81 <span class="u">(m/s&sup2;)</span></dd>
+      <dt>h</dt><dd>Gap thickness, or capillary rise <span class="u">(m)</span></dd>
+      <dt>K</dt><dd>Bulk modulus of elasticity <span class="u">(Pa)</span></dd>
+      <dt>Kn</dt><dd>Knudsen number <span class="u">(&ndash;)</span></dd>
+      <dt>L</dt><dd>Characteristic length <span class="u">(m)</span></dd>
+      <dt>m</dt><dd>Mass <span class="u">(kg)</span></dd>
+      <dt>p</dt><dd>Absolute pressure <span class="u">(Pa)</span></dd>
+      <dt>p<sub>v</sub></dt><dd>Vapour pressure <span class="u">(Pa)</span></dd>
+      <dt>P</dt><dd>Power <span class="u">(W)</span></dd>
+      <dt>r</dt><dd>Radius of a droplet or bubble <span class="u">(m)</span></dd>
+      <dt>R</dt><dd>Specific gas constant; 287 for dry air <span class="u">(J/kg&middot;K)</span></dd>
+      <dt>SG</dt><dd>Specific gravity <span class="u">(&ndash;)</span></dd>
+      <dt>t</dt><dd>Temperature <span class="u">(&deg;C)</span>, or time <span class="u">(s)</span></dd>
+      <dt>T</dt><dd>Absolute temperature <span class="u">(K)</span></dd>
+      <dt>u</dt><dd>Local velocity in the <var>x</var> direction <span class="u">(m/s)</span></dd>
+      <dt>U</dt><dd>Velocity of the moving boundary <span class="u">(m/s)</span></dd>
+      <dt>V</dt><dd>Volume <span class="u">(m&sup3;)</span></dd>
+      <dt>y</dt><dd>Coordinate normal to the wall <span class="u">(m)</span></dd>
+      <dt>z</dt><dd>Elevation, suction lift <span class="u">(m)</span></dd>
+      <dt>&gamma;</dt><dd>Specific weight <span class="u">(N/m&sup3;)</span></dd>
+      <dt>&theta;</dt><dd>Contact angle, or shear strain <span class="u">(rad or &deg;)</span></dd>
+      <dt>&lambda;</dt><dd>Molecular mean free path <span class="u">(m)</span></dd>
+      <dt>&mu;</dt><dd>Dynamic (absolute) viscosity <span class="u">(Pa&middot;s)</span></dd>
+      <dt>&nu;</dt><dd>Kinematic viscosity <span class="u">(m&sup2;/s)</span></dd>
+      <dt>&rho;</dt><dd>Density <span class="u">(kg/m&sup3;)</span></dd>
+      <dt>&sigma;</dt><dd>Surface tension <span class="u">(N/m)</span></dd>
+      <dt>&tau;</dt><dd>Shear stress <span class="u">(Pa)</span></dd>
+      <dt>&tau;<sub>0</sub></dt><dd>Yield stress of a Bingham plastic <span class="u">(Pa)</span></dd>
+    </dl>
+
+    <!-- ============================================================ 1.14 -->
+    <h2 id="s14">1.14 Problems</h2>
+
+    <p>Take <var>g</var> = 9.81&nbsp;m/s<sup>2</sup> and use Tables&nbsp;1.1 and&nbsp;1.2 throughout. Answers
+      are given so that you can check yourself; the marks are in the working.</p>
+
+    <ol class="problems">
+      <li>A drum holds 6.0&nbsp;m<sup>3</sup> of vegetable oil of specific gravity 0.87. Find its mass, its
+        weight, its density and its specific weight.
+        <span class="ans">5220 kg; 51.2 kN; 870 kg/m&sup3;; 8.53 kN/m&sup3;</span></li>
+
+      <li>A liquid has a dynamic viscosity of 0.048&nbsp;Pa&middot;s and a specific gravity of 0.913.
+        Calculate its kinematic viscosity in m<sup>2</sup>/s and in centistokes.
+        <span class="ans">5.26 &times; 10<sup>&minus;5</sup> m&sup2;/s = 52.6 cSt</span></li>
+
+      <li>A plate of area 0.50&nbsp;m<sup>2</sup> slides at 0.60&nbsp;m/s over a 0.80&nbsp;mm film of oil,
+        and the measured force is 45&nbsp;N. Determine the shear stress and the dynamic viscosity of the
+        oil.
+        <span class="ans">90 Pa; 0.12 Pa&middot;s</span></li>
+
+      <li>A 0.50&nbsp;m<sup>3</sup> receiver holds compressed air at 900&nbsp;kPa absolute and
+        27&nbsp;&deg;C. Find the density of the air and the mass stored.
+        <span class="ans">10.45 kg/m&sup3;; 5.22 kg</span></li>
+
+      <li>What pressure increase is required to reduce the volume of water by 0.50&nbsp;%? Take
+        <var>K</var> = 2.18&nbsp;GPa. Comment on whether treating water as incompressible was reasonable.
+        <span class="ans">10.9 MPa &asymp; 109 bar</span></li>
+
+      <li>Calculate the capillary rise of water at 20&nbsp;&deg;C in a clean glass tube of 3.0&nbsp;mm bore,
+        and state the rise for the same tube if the water were replaced by mercury
+        (<var>&sigma;</var> = 0.484&nbsp;N/m, <var>&theta;</var> = 130&deg;, SG&nbsp;13.55).
+        <span class="ans">+9.9 mm; &minus;3.1 mm (a depression)</span></li>
+
+      <li>Estimate the speed of sound in water at 20&nbsp;&deg;C from equation (1.9), and find how long a
+        pressure wave takes to travel the length of a 2.4&nbsp;km irrigation main and return.
+        <span class="ans">1478 m/s; 3.2 s</span></li>
+
+      <li>A pump handles water at 50&nbsp;&deg;C at a site where atmospheric pressure is 96.0&nbsp;kPa
+        (about 450&nbsp;m elevation). Find the greatest theoretical suction lift, and compare it with the
+        10.1&nbsp;m obtained for cold water at sea level in Example&nbsp;1.4.
+        <span class="ans">8.6 m</span></li>
+
+      <li>Air is heated from 25&nbsp;&deg;C to 55&nbsp;&deg;C at constant pressure in a ventilation duct. By
+        what percentage does its density fall, and what happens to the mass flow delivered by a
+        constant-speed fan?
+        <span class="ans">9.1 % fall; mass flow falls by the same 9.1 %</span></li>
+
+      <li>A spray nozzle produces droplets 120&nbsp;&micro;m in diameter from water at 20&nbsp;&deg;C. Find
+        the pressure difference across the droplet surface. Repeat for 40&nbsp;&micro;m droplets and comment
+        on the implication for the energy cost of fine atomisation.
+        <span class="ans">2.43 kPa; 7.28 kPa</span></li>
+    </ol>
+
+    <!-- ============================================================ 1.15 -->
+    <h2 id="s15">1.15 References</h2>
+
+    <ol class="refs">
+      <li>White, F. M. <em>Fluid Mechanics</em>, 8th ed. McGraw-Hill. Chapter 1, &ldquo;Introduction&rdquo;
+        &mdash; the standard treatment of fluid properties, with a thorough appendix of property
+        tables.</li>
+      <li>Cengel, Y. A. and Cimbala, J. M. <em>Fluid Mechanics: Fundamentals and Applications</em>, 4th ed.
+        McGraw-Hill. Chapter 2, &ldquo;Properties of Fluids&rdquo; &mdash; the clearest presentation of
+        vapour pressure and cavitation for a first course.</li>
+      <li>Munson, B. R., Young, D. F. and Okiishi, T. H. <em>Fundamentals of Fluid Mechanics</em>, 8th ed.
+        Wiley. Chapter 1 &mdash; good on non-Newtonian behaviour and on the continuum assumption.</li>
+      <li>Finnemore, E. J. and Franzini, J. B. <em>Fluid Mechanics with Engineering Applications</em>, 10th
+        ed. McGraw-Hill. Written for civil and water-resources engineers; the property tables are in the
+        units used on site.</li>
+      <li>Rao, M. A. <em>Rheology of Fluid, Semisolid, and Solid Foods</em>, 3rd ed. Springer. The reference
+        to reach for when a biosystems fluid turns out not to be Newtonian.</li>
+      <li>ISO 3104 / ASTM D445 &mdash; <em>Determination of kinematic viscosity of transparent and opaque
+        liquids</em>. The standard test behind every viscosity figure quoted on a data sheet.</li>
+    </ol>
+
+    <div class="chapter-nav">
+      <span><a href="index.html">&larr; Course Home</a></span>
+      <span class="muted-nav">Chapter 2: Fluid Statics &mdash; in preparation</span>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h3>Course</h3>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter1.html">Chapter 1: Properties of Fluids</a></li>
+        <li><a href="chapter1-th.html" lang="th">บทที่ 1 (ภาษาไทย)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>In This Chapter</h3>
+      <ul>
+        <li><a href="#t1">Table 1.1 &mdash; Common fluids at 20 &deg;C</a></li>
+        <li><a href="#t2">Table 1.2 &mdash; Water, 0&ndash;100 &deg;C</a></li>
+        <li><a href="#s12">Worked Examples</a></li>
+        <li><a href="#s14">Problems</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <p>Lecture notes for ASE 221. All rights reserved. Layout follows the departmental courseware
+        template; content and code are original to this course.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Charatchai Yenphayab. All rights reserved. ASE 221 Fluid Mechanics &mdash; course notes,
+    Semester 1 / 2026. No part of this site may be reproduced, adapted or redistributed without prior
+    written permission.
+  </div>
+</footer>
+
+<script src="lang.js"></script>
+</body>
+</html>

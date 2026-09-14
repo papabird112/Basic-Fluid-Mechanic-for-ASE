@@ -1,0 +1,1076 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>บทที่ 1: สมบัติของของไหล | ASE 221 กลศาสตร์ของไหล</title>
+<meta name="description" content="ของไหลคืออะไร สมมติฐานความต่อเนื่อง ความหนาแน่นและน้ำหนักจำเพาะ กฎแก๊สอุดมคติ ความหนืดและกฎของนิวตัน ของไหลไม่ใช่นิวโทเนียน มอดุลัสเชิงปริมาตร ความดันไอและโพรงอากาศ แรงตึงผิวและปรากฏการณ์คาพิลลารี">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index-th.html">
+      <span class="logo-mark">FM</span>
+      <span class="logo-text">ASE-FM<small lang="en">Biosystem and Agricultural Engineering, KMITL</small></span>
+    </a>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="index-th.html">เกี่ยวกับวิชา</a>
+      <a href="chapter1-th.html">เอกสารประกอบการสอน</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="chapter1.html" lang="en">EN</a>
+      <a href="chapter1-th.html" class="active">ไทย</a>
+    </div>
+    <a class="btn-give" href="#s12">ตัวอย่างการคำนวณ</a>
+  </div>
+</header>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ASE 221 <span>|</span> บทที่ 1 <span>|</span> เอกสารประกอบการบรรยาย</p>
+    <h1>สมบัติของของไหล</h1>
+    <p class="tagline">อะไรทำให้สารหนึ่งเป็นของไหล และตัวเลขไม่กี่ค่าที่ทุกการคำนวณตลอดทั้งรายวิชานี้
+      จะเรียกหา ได้แก่ ความหนาแน่น ความหนืด มอดุลัสเชิงปริมาตร ความดันไอ และแรงตึงผิว</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="course-menu">
+      <h2>สารบัญรายวิชา</h2>
+      <ul>
+        <li><a href="index-th.html">หน้าแรกของรายวิชา</a></li>
+        <li><a href="chapter1-th.html" class="active">บทที่&nbsp;1 &mdash; สมบัติของของไหล</a></li>
+        <li><span class="muted">บทที่&nbsp;2 &mdash; สถิตยศาสตร์ของไหล<em>ยังไม่เผยแพร่</em></span></li>
+        <li><span class="muted">บทที่&nbsp;3 &mdash; จลนศาสตร์ของไหล<em>ยังไม่เผยแพร่</em></span></li>
+        <li><span class="muted">บทที่&nbsp;4 &mdash; สมการพลังงานและแบร์นูลลี<em>ยังไม่เผยแพร่</em></span></li>
+        <li><span class="muted">บทที่&nbsp;5 &mdash; สมการโมเมนตัม<em>ยังไม่เผยแพร่</em></span></li>
+        <li><span class="muted">บทที่&nbsp;6 &mdash; การวิเคราะห์เชิงมิติ<em>ยังไม่เผยแพร่</em></span></li>
+        <li><span class="muted">บทที่&nbsp;7 &mdash; การไหลแบบหนืดในท่อ<em>ยังไม่เผยแพร่</em></span></li>
+        <li><span class="muted">บทที่&nbsp;8 &mdash; ระบบท่อและเครื่องสูบน้ำ<em>ยังไม่เผยแพร่</em></span></li>
+        <li><span class="muted">บทที่&nbsp;9 &mdash; การวัดอัตราการไหล<em>ยังไม่เผยแพร่</em></span></li>
+      </ul>
+    </nav>
+
+    <section class="course-info">
+      <h2>ข้อมูลประจำบท</h2>
+      <dl>
+        <dt>จำนวนคาบ</dt>
+        <dd>2 คาบ (3 ชั่วโมง)</dd>
+
+        <dt>สมการสำคัญ</dt>
+        <dd>
+          <ul>
+            <li><var>&rho;</var> = <var>m</var>/<var>V</var></li>
+            <li><var>&gamma;</var> = <var>&rho;g</var></li>
+            <li><var>p</var> = <var>&rho;RT</var></li>
+            <li><var>&tau;</var> = <var>&mu;</var> d<var>u</var>/d<var>y</var></li>
+            <li><var>&nu;</var> = <var>&mu;</var>/<var>&rho;</var></li>
+            <li><var>h</var> = 4<var>&sigma;</var>cos<var>&theta;</var>/<var>&gamma;d</var></li>
+          </ul>
+        </dd>
+
+        <dt>ตารางสมบัติ</dt>
+        <dd>
+          <ul>
+            <li><a href="#t1">1.1 ของไหลทั่วไปที่ 20&nbsp;&deg;C</a></li>
+            <li><a href="#t2">1.2 น้ำ ที่ 0&ndash;100&nbsp;&deg;C</a></li>
+          </ul>
+        </dd>
+
+        <dt>ความรู้ที่ต้องใช้</dt>
+        <dd class="crumbs">สถิตยศาสตร์ &gt; แผนภาพวัตถุอิสระ</dd>
+        <dd class="crumbs">ฟิสิกส์ 1 &gt; กฎแก๊สอุดมคติ</dd>
+      </dl>
+    </section>
+  </aside>
+
+  <main class="content">
+
+    <p class="lead">ทุกบทถัดจากนี้จะจบลงด้วยการแทนตัวเลขลงในสูตร และตัวเลขนั้นเกือบทั้งหมดมาจากบทนี้
+      อ่านหนึ่งรอบตอนนี้เพื่อจับแนวคิด แล้วกลับมาเปิดตารางซ้ำได้ตลอดภาคการศึกษา</p>
+
+    <nav class="toc">
+      <h2>สารบัญประจำบท</h2>
+      <ol>
+        <li><a href="#s1">ของไหลคืออะไร</a></li>
+        <li><a href="#s2">สมมติฐานความต่อเนื่อง</a></li>
+        <li><a href="#s3">ความหนาแน่น น้ำหนักจำเพาะ ความถ่วงจำเพาะ</a></li>
+        <li><a href="#s4">แก๊สและกฎแก๊สอุดมคติ</a></li>
+        <li><a href="#s5">ความหนืด</a></li>
+        <li><a href="#s6">ของไหลนิวโทเนียนและไม่ใช่นิวโทเนียน</a></li>
+        <li><a href="#s7">ความหนืดจลน์</a></li>
+        <li><a href="#s8">ความหนืดกับอุณหภูมิ</a></li>
+        <li><a href="#s9">การอัดตัวได้และมอดุลัสเชิงปริมาตร</a></li>
+        <li><a href="#s10">ความดันไอและการเกิดโพรงอากาศ</a></li>
+        <li><a href="#s11">แรงตึงผิวและปรากฏการณ์คาพิลลารี</a></li>
+        <li><a href="#s12">ตัวอย่างการคำนวณ</a></li>
+        <li><a href="#s13">สัญลักษณ์</a></li>
+        <li><a href="#s14">แบบฝึกหัด</a></li>
+        <li><a href="#s15">เอกสารอ้างอิง</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================ 1.1 -->
+    <h2 id="s1">1.1 ของไหลคืออะไร</h2>
+
+    <p>โดยทั่วไปเราแบ่งสสารเป็นของแข็ง ของเหลว และแก๊ส ตามลักษณะที่มองเห็น แต่ในทางกลศาสตร์เราแบ่งตาม
+      การตอบสนองต่อ <b>ความเค้นเฉือน</b> (shear stress) ซึ่งคือแรงที่กระทำ <em>ขนานไปกับ</em> พื้นผิว
+      ไม่ใช่ตั้งฉากกับพื้นผิว</p>
+
+    <div class="callout rule">
+      <span class="label">นิยาม</span>
+      <p><b>ของไหล</b> คือสารที่เสียรูปอย่างต่อเนื่องเมื่อมีความเค้นเฉือนกระทำ ไม่ว่าความเค้นนั้น
+        จะน้อยเพียงใดก็ตาม ส่วนของแข็งจะต้านความเค้นเฉือนด้วยการเสียรูปเป็นค่าจำกัดค่าหนึ่งแล้วหยุด</p>
+    </div>
+
+    <p>คำสำคัญคือคำว่า <em>อย่างต่อเนื่อง</em> ถ้าออกแรงดันด้านข้างของก้อนยาง มันจะบิดไปเป็นมุมหนึ่ง
+      แล้วค้างอยู่ตรงนั้น เพราะความเค้นยืดหยุ่นภายในเพิ่มขึ้นจนสมดุลกับแรงที่เราใส่เข้าไป แต่ถ้าออกแรง
+      ด้านข้างบนผิวบนของชั้นน้ำ มันจะไม่มีวันหาจุดสมดุลนั้นเจอ น้ำจะเฉือนต่อไปเรื่อย ๆ ตราบใดที่เรายังดันอยู่
+      และจะหยุดก็ต่อเมื่อเราหยุดดัน</p>
+
+    <figure>
+      <svg viewBox="0 0 860 250" role="img" aria-label="ภาพซ้าย: ของแข็งถูกเฉือนเป็นมุมคงที่แล้วหยุด ภาพขวา: ธาตุของไหลที่เฉือนต่อเนื่องไม่สิ้นสุด">
+        <defs>
+          <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <pattern id="hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#b9b2a7" stroke-width="2"/>
+          </pattern>
+        </defs>
+
+        <text x="40" y="30" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) ของแข็ง &mdash; เฉือนแล้วค้าง</text>
+        <rect x="40" y="196" width="330" height="12" fill="url(#hatch)" stroke="#8a8378" stroke-width="1.2"/>
+        <rect x="90" y="96" width="130" height="100" fill="none" stroke="#c9c9c9" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <rect class="shear-solid" x="90" y="96" width="130" height="100" fill="#FFF1D1" stroke="#1c1917" stroke-width="2"/>
+        <g class="stress-solid">
+          <line x1="150" y1="86" x2="270" y2="86" stroke="#DF301C" stroke-width="2.4" marker-end="url(#a1)"/>
+          <text x="196" y="76" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">&tau;</text>
+        </g>
+        <path d="M90,196 L90,150" stroke="#726b64" stroke-width="1.2"/>
+        <g class="theta-mark">
+          <path d="M90,170 A26,26 0 0,0 102,152" fill="none" stroke="#726b64" stroke-width="1.4"/>
+          <text x="104" y="164" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&theta;</text>
+        </g>
+        <text x="86" y="232" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">&theta; หยุดที่มุมหนึ่งแล้วค้าง ตราบที่ &tau; ยังคงอยู่</text>
+
+        <line x1="430" y1="20" x2="430" y2="230" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="470" y="30" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) ของไหล &mdash; เฉือนต่อเนื่องไม่สิ้นสุด</text>
+        <rect x="470" y="196" width="350" height="12" fill="url(#hatch)" stroke="#8a8378" stroke-width="1.2"/>
+        <rect x="500" y="96" width="110" height="100" fill="none" stroke="#c9c9c9" stroke-width="1.6" stroke-dasharray="5 4"/>
+        <rect class="shear-fluid d1" x="500" y="96" width="110" height="100" fill="#eaf7fa" stroke="#9fd8e2" stroke-width="1.8"/>
+        <rect class="shear-fluid d2" x="500" y="96" width="110" height="100" fill="#eaf7fa" stroke="#57c2d3" stroke-width="1.8"/>
+        <rect class="shear-fluid" x="500" y="96" width="110" height="100" fill="#eaf7fa" stroke="#00788A" stroke-width="2"/>
+        <g class="stress-fluid">
+          <line x1="600" y1="86" x2="790" y2="86" stroke="#DF301C" stroke-width="2.4" marker-end="url(#a1)"/>
+          <text x="686" y="76" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">&tau;</text>
+        </g>
+        <text x="482" y="232" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">&theta; โตขึ้นเรื่อย ๆ สิ่งที่มีความหมายคือ d&theta;/d<tspan font-style="italic" font-family="Cambria, Georgia, serif">t</tspan></text>
+      </svg>
+      <figcaption><b>รูปที่ 1.1</b> นิยามเชิงกลศาสตร์ของของไหล (ภาพเคลื่อนไหว) สำหรับของแข็ง
+        ความเค้นเฉือนเป็นตัวกำหนด <em>ความเครียด</em> <var>&theta;</var> ก้อนจึงบิดไปจนถึงมุมหนึ่งแล้ว
+        <em>หยุดค้าง</em> อยู่ตรงนั้น ส่วนสำหรับของไหล ความเค้นเฉือนเป็นตัวกำหนด
+        <em>อัตราความเครียด</em> d<var>&theta;</var>/d<var>t</var> ธาตุของไหลจึงเฉือนผ่านหน้าจอไป
+        เรื่อย ๆ โดยไม่มีมุมใดให้หยุด สังเกตว่าฝั่งซ้ายมีสภาวะสุดท้าย แต่ฝั่งขวาไม่มี
+        หัวข้อ&nbsp;1.5 จะเปลี่ยนข้อสังเกตนี้ให้กลายเป็นกฎความหนืดของนิวตัน</figcaption>
+    </figure>
+
+    <p>ผลที่ตามมาทันทีมีสองข้อ และทั้งสองข้อจะถูกใช้ตลอดตั้งแต่บทที่&nbsp;2 เป็นต้นไป</p>
+    <ul>
+      <li><b>ของไหลที่อยู่นิ่งไม่มีความเค้นเฉือน</b> เพราะถ้ามี ตามนิยามแล้วมันก็จะต้องเคลื่อนที่
+        ดังนั้นแรงที่กระทำบนผิวใด ๆ ที่สัมผัสของไหลสถิตจึงตั้งฉากกับผิวนั้นล้วน ๆ ข้อเท็จจริงเพียงข้อนี้
+        คือสิ่งที่ทำให้สถิตยศาสตร์ของไหลคำนวณได้</li>
+      <li><b>ของไหลมีรูปร่างตามภาชนะที่บรรจุ</b> ของเหลวมีปริมาตรแน่นอนและเกิดผิวอิสระ ส่วนแก๊สไม่มีทั้งสองอย่าง
+        และจะขยายตัวจนเต็มภาชนะเสมอ</li>
+    </ul>
+
+    <p>ยังมีข้อเท็จจริงจากการทดลองอีกหนึ่งข้อที่ควรกล่าวไว้ตรงนี้ เพราะไม่ใช่เรื่องที่เห็นได้ชัดในตัวเอง
+      และเนื้อหาทั้งบทที่&nbsp;7 ตั้งอยู่บนข้อนี้ นั่นคือ <b>เงื่อนไขไม่ลื่นไถล</b> (no-slip condition)
+      ของไหลจริงที่สัมผัสกับผิวของแข็งจะมีความเร็วเท่ากับผิวนั้นพอดี กล่าวคือความเร็วสัมพัทธ์ที่ผนังเป็นศูนย์
+      ฝุ่นที่เกาะอยู่บนใบพัดลมยังอยู่ตรงนั้นด้วยเหตุผลเดียวกับที่ผนังท่อฉุดรั้งน้ำที่ไหลผ่าน</p>
+
+    <!-- ============================================================ 1.2 -->
+    <h2 id="s2">1.2 สมมติฐานความต่อเนื่อง</h2>
+
+    <p>ของไหลประกอบด้วยโมเลกุลที่มีช่องว่างคั่นอยู่ อากาศที่สภาวะห้องมีโมเลกุลราว
+      2.5&nbsp;&times;&nbsp;10<sup>25</sup> โมเลกุลต่อลูกบาศก์เมตร แต่ละโมเลกุลเดินทางราว
+      6&nbsp;&times;&nbsp;10<sup>&minus;8</sup>&nbsp;เมตร ก่อนจะชนกับโมเลกุลอื่น ถ้าว่ากันอย่างเคร่งครัด
+      &ldquo;ความหนาแน่น ณ จุดหนึ่ง&rdquo; จึงไม่มีความหมาย เพราะถ้าหดปริมาตรที่ใช้สุ่มให้เล็กลงเรื่อย ๆ
+      ค่าที่ได้จะกระโดดไปมาระหว่างศูนย์กับความหนาแน่นของโมเลกุลเดี่ยว</p>
+
+    <p>เราเลือกที่จะละเลยเรื่องทั้งหมดนั้น <b>สมมติฐานความต่อเนื่อง</b> (continuum assumption)
+      มองว่าของไหลกระจายตัวต่อเนื่องทั่วทั้งปริภูมิ ทำให้สมบัติอย่างความหนาแน่น ความดัน และความเร็ว
+      เป็นฟังก์ชันเรียบของตำแหน่งและเวลา และใช้เครื่องมือทางแคลคูลัสได้</p>
+
+    <p>สมมติฐานนี้ใช้ได้เมื่อสเกลความยาวที่เล็กที่สุดของปัญหามีขนาดใหญ่มากเมื่อเทียบกับระยะทางที่โมเลกุล
+      เดินทางระหว่างการชนแต่ละครั้ง (<b>ระยะอิสระเฉลี่ย</b>, <var>&lambda;</var>) อัตราส่วนดังกล่าวคือ
+      <b>เลขนุดเซน</b></p>
+
+    <div class="eq">
+      <span class="body">Kn = <span class="frac"><span><var>&lambda;</var></span><span class="den"><var>L</var></span></span></span>
+      <span class="tag">(1.1)</span>
+    </div>
+
+    <p>เมื่อ Kn &lt; 0.01 ซึ่งครอบคลุมท่อ เครื่องสูบน้ำ คลอง และหัวฉีดทุกตัวในรายวิชานี้ แบบจำลองต่อเนื่อง
+      ใช้ได้ดีเยี่ยม สมมติฐานนี้จะใช้ไม่ได้กับการไหลของแก๊สเบาบาง เช่น อากาศพลศาสตร์ในบรรยากาศชั้นบน
+      ระบบสุญญากาศ และการไหลของแก๊สในรูพรุนขนาดไม่กี่ร้อยนาโนเมตร เราจะไม่พบกรณีเหล่านั้น แต่ควรรู้ไว้ว่า
+      สมมติฐานก็คือสมมติฐาน</p>
+
+    <!-- ============================================================ 1.3 -->
+    <h2 id="s3">1.3 ความหนาแน่น น้ำหนักจำเพาะ ความถ่วงจำเพาะ</h2>
+
+    <p>มีปริมาณสามตัวที่เกี่ยวข้องกันอย่างใกล้ชิด ใช้บอกว่าของไหลบรรจุสสารไว้มากเท่าใดในปริมาตรที่กำหนด
+      นักศึกษาสับสนกันเป็นประจำ และความสับสนนั้นมีราคาแพง จึงต้องตั้งใจว่าขณะนี้เรากำลังถือตัวไหนอยู่</p>
+
+    <h3>ความหนาแน่น</h3>
+    <p><b>ความหนาแน่น</b> <var>&rho;</var> (โร) คือมวลต่อหนึ่งหน่วยปริมาตร</p>
+
+    <div class="eq">
+      <span class="body"><var>&rho;</var> = <span class="frac"><span><var>m</var></span><span class="den"><var>V</var></span></span></span>
+      <span class="tag">(1.2)</span>
+    </div>
+
+    <p>หน่วย SI คือ kg/m<sup>3</sup> มิติคือ <span class="dim">[M L<sup>&minus;3</sup>]</span> ค่าที่ควรจำ
+      สำหรับน้ำคือ <b>1000&nbsp;kg/m<sup>3</sup></b> ซึ่งอันที่จริงเป็นค่าสูงสุดที่ 4&nbsp;&deg;C
+      ที่ 20&nbsp;&deg;C มีค่า 998.2 และที่ 60&nbsp;&deg;C มีค่า 983.2 สำหรับงานคร่าว ๆ ใช้ 1000 ก็เพียงพอ
+      แต่สำหรับการคำนวณ NPSH ของเครื่องสูบน้ำร้อนนั้นไม่พอ</p>
+
+    <h3>น้ำหนักจำเพาะ</h3>
+    <p><b>น้ำหนักจำเพาะ</b> <var>&gamma;</var> (แกมมา) คือน้ำหนักต่อหนึ่งหน่วยปริมาตร ได้จากความหนาแน่น
+      คูณความเร่งโน้มถ่วง</p>
+
+    <div class="eq">
+      <span class="body"><var>&gamma;</var> = <var>&rho;g</var></span>
+      <span class="tag">(1.3)</span>
+    </div>
+
+    <p>หน่วย SI คือ N/m<sup>3</sup> สำหรับน้ำที่ 20&nbsp;&deg;C
+      <var>&gamma;</var> = 998.2&nbsp;&times;&nbsp;9.81 = 9793&nbsp;N/m<sup>3</sup>
+      &asymp; <b>9.79&nbsp;kN/m<sup>3</sup></b> ค่านี้คือค่าคงที่ที่ใช้แปลงเฮดในหน่วยเมตรให้เป็นความดัน
+      ในหน่วยพาสคัล ดังนั้นในบทที่&nbsp;2 นักศึกษาจะใช้ค่านี้บ่อยกว่า <var>&rho;</var> เสียอีก</p>
+
+    <h3>ความถ่วงจำเพาะ</h3>
+    <p><b>ความถ่วงจำเพาะ</b> SG (หรือความหนาแน่นสัมพัทธ์) คือความหนาแน่นของของไหลหารด้วยความหนาแน่น
+      ของสารอ้างอิง ซึ่งใช้น้ำที่ 4&nbsp;&deg;C สำหรับของเหลว และใช้อากาศสำหรับแก๊ส</p>
+
+    <div class="eq">
+      <span class="body">SG = <span class="frac"><span><var>&rho;</var></span><span class="den"><var>&rho;</var><sub>น้ำ</sub></span></span></span>
+      <span class="tag">(1.4)</span>
+    </div>
+
+    <p>SG เป็นปริมาณ <b>ไร้มิติ</b> ซึ่งเป็นเหตุผลที่ค่านี้ถูกพิมพ์ไว้บนถัง บนเอกสารข้อมูลผลิตภัณฑ์ และ
+      บนไฮโดรมิเตอร์ เพราะอ่านได้ค่าเดียวกันในทุกระบบหน่วย หากต้องการความหนาแน่นในหน่วย SI ให้คูณด้วย
+      1000&nbsp;kg/m<sup>3</sup> น้ำมันดีเซลที่ SG&nbsp;0.85 คือ 850&nbsp;kg/m<sup>3</sup>
+      และปรอทที่ SG&nbsp;13.55 คือ 13&thinsp;550&nbsp;kg/m<sup>3</sup></p>
+
+    <div class="callout warn">
+      <span class="label">กับดักที่ควรเรียกชื่อให้ชัด</span>
+      <p>ความถ่วงจำเพาะไม่มีหน่วย ส่วนน้ำหนักจำเพาะมีหน่วยเป็น N/m<sup>3</sup> ทั้งสองเป็นคนละปริมาณกัน
+        แต่ชื่อคล้ายกัน และค่า &ldquo;0.85&rdquo; ที่เขียนกำกับคำว่า &ldquo;specific&nbsp;&hellip;&rdquo;
+        บนเอกสารของผู้ขาย ย่อมเป็น SG เสมอ ไม่ใช่ <var>&gamma;</var> นอกจากนี้ยังมี
+        <b>ปริมาตรจำเพาะ</b> <var>v</var> = 1/<var>&rho;</var> (m<sup>3</sup>/kg) เป็นสมาชิกตัวที่สี่
+        ของตระกูลนี้ ซึ่งพบบ่อยในวิชาอุณหพลศาสตร์แต่พบน้อยในวิชานี้</p>
+    </div>
+
+    <div class="table-wrap">
+      <table id="t1">
+        <caption><b>ตารางที่ 1.1</b> สมบัติของของไหลทั่วไปที่ 20&nbsp;&deg;C และ 101.3&nbsp;kPa
+          ค่าของของเหลวทางการเกษตรและอาหารแปรผันตามองค์ประกอบ จึงควรถือเป็นค่าประมาณเพื่อการเปรียบเทียบ
+          เท่านั้น</caption>
+        <thead>
+          <tr>
+            <th>ของไหล</th>
+            <th class="num">&rho; (kg/m&sup3;)</th>
+            <th class="num">SG</th>
+            <th class="num">&mu; (Pa&middot;s)</th>
+            <th class="num">&nu; (m&sup2;/s)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>น้ำจืด</td><td class="num">998</td><td class="num">0.998</td><td class="num">1.00 &times; 10<sup>&minus;3</sup></td><td class="num">1.00 &times; 10<sup>&minus;6</sup></td></tr>
+          <tr><td>น้ำทะเล</td><td class="num">1025</td><td class="num">1.03</td><td class="num">1.07 &times; 10<sup>&minus;3</sup></td><td class="num">1.04 &times; 10<sup>&minus;6</sup></td></tr>
+          <tr><td>อากาศ</td><td class="num">1.204</td><td class="num">&mdash;</td><td class="num">1.81 &times; 10<sup>&minus;5</sup></td><td class="num">1.51 &times; 10<sup>&minus;5</sup></td></tr>
+          <tr><td>ปรอท</td><td class="num">13 550</td><td class="num">13.55</td><td class="num">1.56 &times; 10<sup>&minus;3</sup></td><td class="num">1.15 &times; 10<sup>&minus;7</sup></td></tr>
+          <tr><td>เอทานอล</td><td class="num">789</td><td class="num">0.789</td><td class="num">1.20 &times; 10<sup>&minus;3</sup></td><td class="num">1.52 &times; 10<sup>&minus;6</sup></td></tr>
+          <tr><td>น้ำมันดีเซล</td><td class="num">850</td><td class="num">0.85</td><td class="num">2.9 &times; 10<sup>&minus;3</sup></td><td class="num">3.4 &times; 10<sup>&minus;6</sup></td></tr>
+          <tr><td>น้ำมันหล่อลื่น SAE 30</td><td class="num">891</td><td class="num">0.891</td><td class="num">0.29</td><td class="num">3.3 &times; 10<sup>&minus;4</sup></td></tr>
+          <tr><td>กลีเซอรีน</td><td class="num">1260</td><td class="num">1.26</td><td class="num">1.49</td><td class="num">1.18 &times; 10<sup>&minus;3</sup></td></tr>
+          <tr><td>น้ำนมดิบ</td><td class="num">1030</td><td class="num">1.03</td><td class="num">2.1 &times; 10<sup>&minus;3</sup></td><td class="num">2.0 &times; 10<sup>&minus;6</sup></td></tr>
+          <tr><td>น้ำมันปาล์มบริสุทธิ์</td><td class="num">915</td><td class="num">0.915</td><td class="num">&asymp; 0.06</td><td class="num">&asymp; 6.6 &times; 10<sup>&minus;5</sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ============================================================ 1.4 -->
+    <h2 id="s4">1.4 แก๊สและกฎแก๊สอุดมคติ</h2>
+
+    <p>สำหรับของเหลว ความหนาแน่นเกือบคงที่ เราจึงเปิดตารางเอา แต่สำหรับแก๊สไม่เป็นเช่นนั้น ความหนาแน่นขึ้นกับ
+      ทั้งความดันและอุณหภูมิ เราจึงต้องคำนวณเอง ที่ช่วงความดันและอุณหภูมิของรายวิชานี้ อากาศเป็นไปตาม
+      <b>กฎแก๊สอุดมคติ</b> โดยมีความคลาดเคลื่อนไม่ถึงหนึ่งเปอร์เซ็นต์</p>
+
+    <div class="eq">
+      <span class="body"><var>p</var> = <var>&rho;RT</var>&nbsp;&nbsp;&nbsp;หรือ&nbsp;&nbsp;&nbsp;<var>&rho;</var> = <span class="frac"><span><var>p</var></span><span class="den"><var>RT</var></span></span></span>
+      <span class="tag">(1.5)</span>
+    </div>
+
+    <p>โดยที่ <var>R</var> คือค่าคงที่แก๊ส <b>จำเพาะ</b> ของแก๊สชนิดนั้น ซึ่งได้จากค่าคงที่สากล
+      8314&nbsp;J/(kmol&middot;K) หารด้วยมวลโมลาร์ สำหรับอากาศแห้ง
+      <var>R</var> = 287&nbsp;J/(kg&middot;K)</p>
+
+    <div class="callout warn">
+      <span class="label">ต้องเป็นค่าสัมบูรณ์เสมอ</span>
+      <p>สมการ (1.5) ต้องใช้ความดัน <b>สัมบูรณ์</b> ในหน่วยพาสคัล และอุณหภูมิ <b>สัมบูรณ์</b> ในหน่วยเคลวิน
+        การแทนความดันเกจหรืออุณหภูมิหน่วย &deg;C ลงไปตรง ๆ นั้นผิด และผิดมากด้วย เช่นที่ 27&nbsp;&deg;C
+        ถ้าใช้ 27 แทน 300.15&nbsp;K ความหนาแน่นจะสูงเกินจริงประมาณสิบเอ็ดเท่า ควรเขียน
+        <var>T</var> = <var>t</var> + 273.15 เป็นบรรทัดแยกทุกครั้ง</p>
+    </div>
+
+    <p>ผลที่พบได้ในชีวิตประจำวันมีสองข้อ ข้อแรก อากาศร้อนมีความหนาแน่นน้อยกว่าอากาศเย็นที่ความดันเดียวกัน
+      ซึ่งเป็นเหตุผลว่าทำไมพัดลมของเครื่องอบที่ระบุสมรรถนะเป็น m<sup>3</sup>/s จึงส่ง <em>มวล</em> อากาศ
+      ได้น้อยลงเมื่อเปิดฮีตเตอร์ (ตัวอย่างที่&nbsp;1.2) ข้อที่สอง อากาศเบากว่าน้ำประมาณ 830 เท่า
+      ซึ่งเป็นเหตุผลว่าทำไมเราจึงมักละเลยน้ำหนักของอากาศในห้องได้ แต่ไม่เคยละเลยน้ำหนักของน้ำในถังได้เลย</p>
+
+    <!-- ============================================================ 1.5 -->
+    <h2 id="s5">1.5 ความหนืด</h2>
+
+    <p>ความหนาแน่นบอกว่าของไหลหนักเพียงใด ส่วน <b>ความหนืด</b> บอกว่าของไหลต้านการถูกเฉือนได้แรงเพียงใด
+      กล่าวคือต้องใช้ความเค้นมากแค่ไหนจึงจะทำให้ชั้นของไหลชั้นหนึ่งไถลไปบนชั้นข้างเคียงได้ ความหนืด
+      คือสมบัติที่ก่อให้เกิดความเสียดทานในท่อ แรงต้านบนวัตถุ และค่าไฟฟ้าของเครื่องสูบน้ำทุกตัว</p>
+
+    <p>ลองพิจารณาการทดลองมาตรฐาน ให้ของไหลบรรจุอยู่ในช่องว่างความกว้าง <var>h</var> ระหว่างแผ่นขนานขนาดใหญ่
+      สองแผ่น แผ่นล่างยึดแน่น ส่วนแผ่นบนถูกลากไปด้านข้างด้วยความเร็วคงที่ <var>U</var> โดยแรง <var>F</var></p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="ของไหลถูกเฉือนระหว่างแผ่นล่างที่อยู่นิ่งกับแผ่นบนที่เคลื่อนที่ แสดงโปรไฟล์ความเร็วเชิงเส้นจากศูนย์ที่ผนังจนถึง U ที่แผ่นบน">
+        <defs>
+          <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <marker id="a4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+          <pattern id="hatch2" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#b9b2a7" stroke-width="2"/>
+          </pattern>
+        </defs>
+
+        <rect x="200" y="80" width="480" height="130" fill="#eaf7fa"/>
+
+        <rect x="180" y="210" width="520" height="16" fill="url(#hatch2)" stroke="#1c1917" stroke-width="1.6"/>
+        <rect x="180" y="64" width="520" height="16" fill="#d8d2c6" stroke="#1c1917" stroke-width="1.6"/>
+        <text x="186" y="250" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">แผ่นยึดแน่น (<tspan font-style="italic" font-family="Cambria, Georgia, serif">u</tspan> = 0 ไม่ลื่นไถล)</text>
+        <text x="186" y="46" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">แผ่นเคลื่อนที่ พื้นที่ <tspan font-style="italic" font-family="Cambria, Georgia, serif">A</tspan></text>
+
+        <line x1="560" y1="72" x2="700" y2="72" stroke="#DF301C" stroke-width="2.6" marker-end="url(#a3)"/>
+        <text x="706" y="78" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#DF301C">F</text>
+
+        <line x1="200" y1="210" x2="200" y2="80" stroke="#00788A" stroke-width="1.4"/>
+        <line x1="200" y1="80" x2="430" y2="80" stroke="#00788A" stroke-width="2.2" marker-end="url(#a2)"/>
+        <line x1="200" y1="112" x2="373" y2="112" stroke="#00788A" stroke-width="1.8" marker-end="url(#a2)"/>
+        <line x1="200" y1="145" x2="315" y2="145" stroke="#00788A" stroke-width="1.8" marker-end="url(#a2)"/>
+        <line x1="200" y1="178" x2="258" y2="178" stroke="#00788A" stroke-width="1.8" marker-end="url(#a2)"/>
+        <path d="M200,210 L440,80" stroke="#00788A" stroke-width="2.4" fill="none"/>
+        <text x="446" y="74" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#00788A">U</text>
+        <text x="330" y="170" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#00788A">u(y)</text>
+
+        <line x1="150" y1="80" x2="150" y2="210" stroke="#726b64" stroke-width="1.4" marker-end="url(#a4)" marker-start="url(#a4)"/>
+        <text x="126" y="150" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#4b4540">h</text>
+
+        <line x1="740" y1="210" x2="740" y2="90" stroke="#726b64" stroke-width="1.4" marker-end="url(#a4)"/>
+        <text x="748" y="150" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#4b4540">y</text>
+
+        <rect x="530" y="120" width="70" height="50" fill="#fff" stroke="#A85E00" stroke-width="1.6"/>
+        <line x1="536" y1="112" x2="596" y2="112" stroke="#FF9100" stroke-width="2.2"/>
+        <line x1="596" y1="178" x2="536" y2="178" stroke="#FF9100" stroke-width="2.2"/>
+        <text x="604" y="118" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#A85E00">&tau;</text>
+        <text x="604" y="184" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#A85E00">&tau;</text>
+      </svg>
+      <figcaption><b>รูปที่ 1.2</b> การไหลแบบคูเอตต์ (Couette flow) คือการทดลองที่ใช้นิยามความหนืด
+        เงื่อนไขไม่ลื่นไถลตรึงให้ <var>u</var>&nbsp;=&nbsp;0 ที่ผนังล่าง และ
+        <var>u</var>&nbsp;=&nbsp;<var>U</var> ที่ผนังบน เมื่อช่องว่างแคบ โปรไฟล์ความเร็วจะเป็นเส้นตรง
+        ดังนั้น d<var>u</var>/d<var>y</var>&nbsp;=&nbsp;<var>U</var>/<var>h</var> เท่ากันตลอด</figcaption>
+    </figure>
+
+    <p>ผลการทดลองให้ข้อสรุปที่เรียบง่าย คือแรงที่ต้องใช้แปรผันตรงกับพื้นที่แผ่นและความเร็ว และแปรผกผันกับ
+      ความกว้างของช่องว่าง เมื่อเขียนความเค้นเฉือนเป็น <var>&tau;</var> = <var>F</var>/<var>A</var>
+      จะได้</p>
+
+    <div class="eq">
+      <span class="body"><var>&tau;</var> = <var>&mu;</var> <span class="frac"><span>d<var>u</var></span><span class="den">d<var>y</var></span></span></span>
+      <span class="tag">(1.6)</span>
+    </div>
+
+    <p>นี่คือ <b>กฎความหนืดของนิวตัน</b> ค่าคงที่การแปรผัน <var>&mu;</var> (มิว) เรียกว่า
+      <b>ความหนืดพลวัต</b> หรือ <b>ความหนืดสัมบูรณ์</b> ส่วนเกรเดียนต์ d<var>u</var>/d<var>y</var> คือ
+      <b>อัตราความเครียดเฉือน</b> ซึ่งในโปรไฟล์เชิงเส้นของรูปที่&nbsp;1.2 ก็คือ <var>U</var>/<var>h</var>
+      นั่นเอง</p>
+
+    <p>จัดรูปสมการ (1.6) ใหม่จะได้หน่วยออกมา คือ
+      <var>&mu;</var> = <var>&tau;</var>&thinsp;/&thinsp;(d<var>u</var>/d<var>y</var>) ดังนั้น
+      Pa&thinsp;&divide;&thinsp;s<sup>&minus;1</sup> = <b>Pa&middot;s</b> หรือเทียบเท่ากับ
+      N&middot;s/m<sup>2</sup> หรือ kg/(m&middot;s) มิติคือ
+      <span class="dim">[M L<sup>&minus;1</sup> T<sup>&minus;1</sup>]</span> หน่วยเดิมในระบบ CGS คือ
+      <b>พอยส์</b> (P) ซึ่งยังพบได้บนเอกสารข้อมูลของสารหล่อลื่นและในอุตสาหกรรมอาหาร โดย
+      1&nbsp;Pa&middot;s = 10&nbsp;P = 1000&nbsp;cP น้ำที่ 20&nbsp;&deg;C มีค่าเกือบเท่ากับ
+      1&nbsp;cP พอดี ทำให้เซนติพอยส์เป็นไม้บรรทัดในใจที่ใช้ได้สะดวก</p>
+
+    <div class="callout">
+      <span class="label">แรงต้านนั้นมาจากไหน</span>
+      <p>ใน <b>ของเหลว</b> ความหนืดเกิดจากแรงยึดเหนี่ยวระหว่างโมเลกุลเป็นหลัก เมื่อให้ความร้อน โมเลกุลแยกห่าง
+        กันมากขึ้น แรงยึดเหนี่ยวอ่อนลง ความหนืดจึง <em>ลดลง</em> ส่วนใน <b>แก๊ส</b> โมเลกุลอยู่ห่างกันอยู่แล้ว
+        แรงต้านเกิดจากโมเมนตัมที่ถูกพาข้ามแนวการไหลด้วยการเคลื่อนที่แบบสุ่มของโมเลกุล เมื่อให้ความร้อน
+        การเคลื่อนที่นั้นรุนแรงขึ้น ความหนืดจึง <em>เพิ่มขึ้น</em> ทั้งสองกรณีมีแนวโน้มสวนทางกัน ซึ่งเป็น
+        คำถามยอดนิยมในข้อสอบ และเป็นกับดักจริง ๆ เวลาเทียบค่าในตาราง</p>
+    </div>
+
+    <!-- ============================================================ 1.6 -->
+    <h2 id="s6">1.6 ของไหลนิวโทเนียนและไม่ใช่นิวโทเนียน</h2>
+
+    <p>ของไหลที่ค่า <var>&mu;</var> ในสมการ (1.6) เป็นค่าคงที่ กล่าวคือกราฟระหว่าง <var>&tau;</var> กับ
+      d<var>u</var>/d<var>y</var> เป็นเส้นตรงผ่านจุดกำเนิด เรียกว่า <b>ของไหลนิวโทเนียน</b>
+      น้ำ อากาศ น้ำมันเบา เอทานอล กลีเซอรีน และผลิตภัณฑ์ปิโตรเลียมส่วนใหญ่ล้วนเป็นนิวโทเนียน
+      และเนื้อหาทั้งรายวิชานี้ตั้งอยู่บนสมมติฐานดังกล่าว</p>
+
+    <p>แต่วัสดุจำนวนมากที่วิศวกรเกษตรและชีวภาพต้องสูบจริง ๆ กลับไม่เป็นเช่นนั้น ความหนืดปรากฏของมัน
+      ขึ้นกับว่าถูกเฉือนแรงเพียงใด และบางครั้งขึ้นกับว่าถูกเฉือนมานานเท่าใดด้วย</p>
+
+    <figure>
+      <svg viewBox="0 0 860 380" role="img" aria-label="แผนภาพรีโอแกรม แสดงความเค้นเฉือนเทียบกับอัตราความเครียดเฉือนของของไหลชนิดบิงแฮมพลาสติก ชนิดบางตัวเมื่อถูกเฉือน นิวโทเนียน ชนิดข้นตัวเมื่อถูกเฉือน และของไหลอุดมคติ">
+        <defs>
+          <marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4b4540"/>
+          </marker>
+        </defs>
+        <rect x="0" y="0" width="860" height="380" fill="#fff"/>
+
+        <line x1="100" y1="330" x2="620" y2="330" stroke="#4b4540" stroke-width="1.8" marker-end="url(#a5)"/>
+        <line x1="100" y1="330" x2="100" y2="40" stroke="#4b4540" stroke-width="1.8" marker-end="url(#a5)"/>
+        <text x="280" y="366" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#1c1917">du/dy &nbsp;&nbsp;<tspan font-family="Leelawadee UI, Tahoma, Arial" font-size="13" font-style="normal" fill="#726b64">(อัตราความเครียดเฉือน, s</tspan><tspan font-family="Segoe UI, Arial" font-size="10" font-style="normal" fill="#726b64" dy="-5">&minus;1</tspan><tspan font-family="Leelawadee UI, Tahoma, Arial" font-size="13" font-style="normal" fill="#726b64" dy="5">)</tspan></text>
+        <text x="36" y="180" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#1c1917">&tau;</text>
+        <text x="24" y="204" font-family="Segoe UI, Arial" font-size="12" fill="#726b64">(Pa)</text>
+
+        <line x1="100" y1="230" x2="600" y2="70" stroke="#DF301C" stroke-width="2.6"/>
+        <circle cx="100" cy="230" r="4.5" fill="#DF301C"/>
+        <text x="610" y="70" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#DF301C">บิงแฮมพลาสติก</text>
+        <text x="612" y="90" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#B22616">สลัดจ์ คอนกรีตสด ยาสีฟัน</text>
+        <line x1="100" y1="230" x2="88" y2="230" stroke="#DF301C" stroke-width="1.6"/>
+        <text x="52" y="228" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">&tau;<tspan font-size="12" dy="5">0</tspan></text>
+
+        <path d="M100,330 Q160,170 320,128 Q460,96 600,80" fill="none" stroke="#A85E00" stroke-width="2.6"/>
+        <text x="610" y="122" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#A85E00">บางตัวเมื่อถูกเฉือน</text>
+        <text x="612" y="142" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#A85E00">ซอสมะเขือเทศ เนื้อผลไม้บด เลือด น้ำยาง</text>
+
+        <line x1="100" y1="330" x2="600" y2="150" stroke="#00788A" stroke-width="2.8"/>
+        <text x="610" y="170" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#00788A">นิวโทเนียน</text>
+        <text x="612" y="190" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#00788A">น้ำ อากาศ น้ำมัน &mdash; ความชัน = &mu;</text>
+
+        <path d="M100,330 Q380,306 480,250 Q570,198 600,140" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <text x="610" y="242" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">ข้นตัวเมื่อถูกเฉือน</text>
+        <text x="612" y="262" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#4b4540">สารแขวนลอยแป้งกับน้ำ ทรายเปียก</text>
+
+        <line x1="100" y1="330" x2="600" y2="330" stroke="#8a8378" stroke-width="2" stroke-dasharray="8 5"/>
+        <text x="610" y="334" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#726b64">ของไหลอุดมคติ (ไร้ความหนืด), &mu; = 0</text>
+
+        <line x1="300" y1="258" x2="380" y2="258" stroke="#00B7CD" stroke-width="1.4" stroke-dasharray="4 3"/>
+        <line x1="380" y1="258" x2="380" y2="229" stroke="#00B7CD" stroke-width="1.4" stroke-dasharray="4 3"/>
+        <text x="322" y="280" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#00788A">&mu;</text>
+      </svg>
+      <figcaption><b>รูปที่ 1.3</b> รีโอแกรม ของไหลนิวโทเนียนให้กราฟเส้นตรงผ่านจุดกำเนิด โดยความชัน
+        <em>คือ</em> ความหนืด ส่วนของไหลชนิดอื่นต้องระบุความหนืดปรากฏพร้อมอัตราเฉือนที่วัดได้เสมอ
+        เพราะตัวเลขความหนืดจะไร้ความหมายหากไม่บอกอัตราเฉือนกำกับ</figcaption>
+    </figure>
+
+    <ul>
+      <li><b>ชนิดบางตัวเมื่อถูกเฉือน</b> (shear-thinning หรือ pseudoplastic) ความหนืดปรากฏลดลงเมื่ออัตราเฉือน
+        สูงขึ้น พบในเนื้อผลไม้บด มะเขือเทศเข้มข้น น้ำยาง เลือด และสารละลายพอลิเมอร์ส่วนใหญ่ เครื่องสูบที่ส่ง
+        เนื้อผลไม้บดจะเจอของไหลที่บางกว่ามากเมื่อเดินเครื่องเต็มที่ เทียบกับตอนเริ่มเดินเครื่อง ดังนั้น
+        แรงบิดขณะเริ่มเดินเครื่องต่างหาก ไม่ใช่แรงบิดขณะเดินปกติ ที่เป็นตัวกำหนดขนาดมอเตอร์</li>
+      <li><b>ชนิดข้นตัวเมื่อถูกเฉือน</b> (shear-thickening หรือ dilatant) ความหนืดปรากฏเพิ่มขึ้นตามอัตราเฉือน
+        พบในสารแขวนลอยแป้งเข้มข้นและทรายเปียก พบไม่บ่อยในอุตสาหกรรม และมักเป็นปัญหาเมื่อพบ</li>
+      <li><b>บิงแฮมพลาสติก</b> ประพฤติตัวเหมือนของแข็งจนกว่าความเค้นเฉือนจะเกิน <b>ความเค้นคราก</b>
+        <var>&tau;</var><sub>0</sub> แล้วจึงไหลแบบนิวโทเนียน พบในสลัดจ์น้ำเสีย โคลนเจาะ ช็อกโกแลต และยาสีฟัน
+        แนวท่อที่ส่งวัสดุแบบบิงแฮมจะเริ่มเดินเครื่องใหม่ไม่ได้เลยหากเกรเดียนต์ความดันเอาชนะความเค้นครากไม่ได้
+        ซึ่งเป็นรูปแบบความเสียหายที่เกิดขึ้นจริงในท่อส่งมูลสัตว์และสลัดจ์</li>
+      <li><b>พฤติกรรมขึ้นกับเวลา</b> เป็นความซับซ้อนอีกชั้นหนึ่ง วัสดุชนิด <b>ทิกโซทรอปิก</b> (โยเกิร์ต สีทาบางชนิด)
+        จะบางลงเรื่อย ๆ เมื่อถูกเฉือนต่อเนื่องที่อัตราคงที่ และกลับคืนสภาพเมื่อทิ้งไว้นิ่ง ๆ</li>
+    </ul>
+
+    <div class="callout warn">
+      <span class="label">ขอบเขตของรายวิชานี้</span>
+      <p>ตั้งแต่บทที่&nbsp;2 เป็นต้นไป ของไหลทุกตัวเป็นนิวโทเนียน หากนักศึกษาไปออกแบบระบบท่อสำหรับสลัดจ์
+        มูลสัตว์ หรือกระบวนการแปรรูปอาหาร สมการในบทที่&nbsp;7 จะต้องถูกดัดแปลง เพราะเลขเรย์โนลด์และ
+        แฟกเตอร์ความเสียดทานถูกนิยามใหม่ ขอให้รู้ว่ามีเส้นแบ่งนี้อยู่ และรู้ว่าตนข้ามเส้นนั้นตรงไหน</p>
+    </div>
+
+    <!-- ============================================================ 1.7 -->
+    <h2 id="s7">1.7 ความหนืดจลน์</h2>
+
+    <p>แรงหนืดต้านการเคลื่อนที่ ส่วนความเฉื่อยคงการเคลื่อนที่เอาไว้ ว่าฝ่ายใดจะมีอิทธิพลเหนือกว่านั้น
+      ไม่ได้ขึ้นกับ <var>&mu;</var> เพียงลำพัง แต่ขึ้นกับ <var>&mu;</var> เทียบกับ <var>&rho;</var>
+      อัตราส่วนนี้ปรากฏบ่อยจนได้ชื่อและสัญลักษณ์เป็นของตัวเอง คือ <b>ความหนืดจลน์</b> <var>&nu;</var> (นิว)</p>
+
+    <div class="eq">
+      <span class="body"><var>&nu;</var> = <span class="frac"><span><var>&mu;</var></span><span class="den"><var>&rho;</var></span></span></span>
+      <span class="tag">(1.7)</span>
+    </div>
+
+    <p>หน่วยคือ m<sup>2</sup>/s มิติคือ <span class="dim">[L<sup>2</sup> T<sup>&minus;1</sup>]</span>
+      ซึ่งเป็นจลนศาสตร์ล้วน ๆ ไม่มีมวลเข้ามาเกี่ยวข้อง อันเป็นที่มาของชื่อ หน่วยในระบบ CGS คือ
+      <b>สโตกส์</b> (St) และเกรดของสารหล่อลื่นทั้งหมดระบุเป็น <b>เซนติสโตกส์</b> โดย
+      1&nbsp;m<sup>2</sup>/s = 10<sup>6</sup>&nbsp;cSt ดังนั้นน้ำที่ 20&nbsp;&deg;C มีค่าประมาณ 1&nbsp;cSt</p>
+
+    <p>ในตารางที่ 1.1 มีผลลัพธ์ที่ควรหยุดพิจารณาสักครู่ อากาศมีความหนืดพลวัต <em>น้อยกว่า</em> น้ำราว 55 เท่า
+      แต่กลับมีความหนืดจลน์ <em>มากกว่า</em> น้ำราว 15 เท่า เพราะอากาศมีความหนาแน่นน้อยกว่าราว 830 เท่า
+      ในเลขเรย์โนลด์ของบทที่&nbsp;7 ตัวที่ปรากฏคือ <var>&nu;</var> ดังนั้นอากาศที่ไหลด้วยความเร็วเท่ากัน
+      ในท่อขนาดเดียวกัน จึงมีแนวโน้มเป็นการไหลแบบราบเรียบมากกว่าน้ำอย่างเห็นได้ชัด</p>
+
+    <!-- ============================================================ 1.8 -->
+    <h2 id="s8">1.8 ความหนืดกับอุณหภูมิ</h2>
+
+    <p>ความหนืดขึ้นกับอุณหภูมิอย่างมาก แต่ขึ้นกับความดันเพียงเล็กน้อย ในทางปฏิบัติเราจึงทำตารางเทียบกับ
+      อุณหภูมิและละเลยความดันไป ผลกระทบนี้ไม่ใช่เรื่องเล็ก น้ำที่ 60&nbsp;&deg;C มีความหนืดไม่ถึงครึ่งหนึ่ง
+      ของน้ำที่ 20&nbsp;&deg;C ดังนั้นท่อส่งน้ำร้อนจึงมีการสูญเสียเฮดแบบราบเรียบไม่ถึงครึ่งของท่อน้ำเย็น</p>
+
+    <div class="table-wrap">
+      <table id="t2">
+        <caption><b>ตารางที่ 1.2</b> สมบัติของน้ำตั้งแต่ 0 ถึง 100&nbsp;&deg;C ที่ความดันบรรยากาศ
+          นี่คือตารางที่นักศึกษาจะกลับมาเปิดตลอดภาคการศึกษา</caption>
+        <thead>
+          <tr>
+            <th class="num">t (&deg;C)</th>
+            <th class="num">&rho; (kg/m&sup3;)</th>
+            <th class="num">&gamma; (kN/m&sup3;)</th>
+            <th class="num">&mu; (10<sup>&minus;3</sup> Pa&middot;s)</th>
+            <th class="num">&nu; (10<sup>&minus;6</sup> m&sup2;/s)</th>
+            <th class="num">p<sub>v</sub> (kPa)</th>
+            <th class="num">&sigma; (N/m)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">0</td><td class="num">999.8</td><td class="num">9.81</td><td class="num">1.792</td><td class="num">1.792</td><td class="num">0.61</td><td class="num">0.0756</td></tr>
+          <tr><td class="num">10</td><td class="num">999.7</td><td class="num">9.81</td><td class="num">1.307</td><td class="num">1.307</td><td class="num">1.23</td><td class="num">0.0742</td></tr>
+          <tr><td class="num">20</td><td class="num">998.2</td><td class="num">9.79</td><td class="num">1.002</td><td class="num">1.004</td><td class="num">2.34</td><td class="num">0.0728</td></tr>
+          <tr><td class="num">30</td><td class="num">995.7</td><td class="num">9.77</td><td class="num">0.798</td><td class="num">0.801</td><td class="num">4.24</td><td class="num">0.0712</td></tr>
+          <tr><td class="num">40</td><td class="num">992.2</td><td class="num">9.73</td><td class="num">0.653</td><td class="num">0.658</td><td class="num">7.38</td><td class="num">0.0696</td></tr>
+          <tr><td class="num">50</td><td class="num">988.0</td><td class="num">9.69</td><td class="num">0.547</td><td class="num">0.553</td><td class="num">12.34</td><td class="num">0.0679</td></tr>
+          <tr><td class="num">60</td><td class="num">983.2</td><td class="num">9.64</td><td class="num">0.467</td><td class="num">0.475</td><td class="num">19.92</td><td class="num">0.0662</td></tr>
+          <tr><td class="num">70</td><td class="num">977.8</td><td class="num">9.59</td><td class="num">0.404</td><td class="num">0.413</td><td class="num">31.16</td><td class="num">0.0644</td></tr>
+          <tr><td class="num">80</td><td class="num">971.8</td><td class="num">9.53</td><td class="num">0.355</td><td class="num">0.365</td><td class="num">47.34</td><td class="num">0.0626</td></tr>
+          <tr><td class="num">90</td><td class="num">965.3</td><td class="num">9.47</td><td class="num">0.315</td><td class="num">0.326</td><td class="num">70.10</td><td class="num">0.0608</td></tr>
+          <tr><td class="num">100</td><td class="num">958.4</td><td class="num">9.40</td><td class="num">0.282</td><td class="num">0.294</td><td class="num">101.33</td><td class="num">0.0589</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>ลองอ่านสองคอลัมน์สุดท้ายไล่ไปตามแถว แล้วจุดเดือดจะโผล่ออกมาจากตารางเอง ที่ 100&nbsp;&deg;C
+      ความดันไอไต่ขึ้นไปถึง 101.33&nbsp;kPa ซึ่งเท่ากับหนึ่งบรรยากาศมาตรฐานพอดี การเดือดไม่ใช่เหตุการณ์พิเศษ
+      แต่คือจุดที่ความดันไอไล่ทันความดันโดยรอบ หัวข้อ&nbsp;1.10 ก็คือแนวคิดเดียวกันนี้ที่อ่านกลับด้าน</p>
+
+    <p>การประมาณค่าเชิงเส้นระหว่างแถวมีความแม่นยำเพียงพอสำหรับงานออกแบบ สำหรับค่าที่อยู่ระหว่างจุดในตาราง
+      หรือสำหรับของไหลชนิดอื่น ให้ดูกราฟของผู้ผลิตและวิธีทดสอบมาตรฐาน (ISO&nbsp;3104, ASTM&nbsp;D445)
+      ซึ่งให้ข้อมูลจากการวัดจริง</p>
+
+    <!-- ============================================================ 1.9 -->
+    <h2 id="s9">1.9 การอัดตัวได้และมอดุลัสเชิงปริมาตร</h2>
+
+    <p>ไม่มีของไหลใดที่อัดตัวไม่ได้อย่างแท้จริง <b>มอดุลัสยืดหยุ่นเชิงปริมาตร</b> <var>K</var>
+      เป็นตัววัดว่าต้องเพิ่มความดันเท่าใดจึงจะทำให้ปริมาตรลดลงเป็นเศษส่วนที่กำหนด</p>
+
+    <div class="eq">
+      <span class="body"><var>K</var> = &minus; <span class="frac"><span>d<var>p</var></span><span class="den">d<var>V</var>/<var>V</var></span></span></span>
+      <span class="tag">(1.8)</span>
+    </div>
+
+    <p>เครื่องหมายลบทำให้ <var>K</var> เป็นบวก เพราะความดันที่เพิ่มขึ้นทำให้ปริมาตรลดลง เนื่องจาก
+      d<var>V</var>/<var>V</var> ไร้มิติ <var>K</var> จึงมีหน่วยเป็นหน่วยของความดัน สำหรับน้ำที่
+      20&nbsp;&deg;C <var>K</var> &asymp; <b>2.18&nbsp;GPa</b></p>
+
+    <p>ลองใส่ตัวเลขให้เห็นภาพ การอัดน้ำให้ปริมาตรลดลง 1&nbsp;% ต้องใช้</p>
+
+    <div class="eq plain">
+      <span class="body">&Delta;<var>p</var> = <var>K</var> &times; 0.01 = 2.18 &times; 10<sup>9</sup> &times; 0.01 = 21.8 MPa &asymp; 218 bar</span>
+    </div>
+
+    <p>ราว 218 บรรยากาศ เพื่อให้เปลี่ยนไปเพียงหนึ่งเปอร์เซ็นต์ นี่คือเหตุผลรองรับสมมติฐานที่เราใช้ตลอดทั้งเล่ม
+      นั่นคือ <b>ถือว่าของเหลวอัดตัวไม่ได้</b> โดยให้ <var>&rho;</var> คงที่</p>
+
+    <p>อย่างไรก็ตาม การอัดตัวได้ไม่ได้หายไปไหน และจะกลับมาปรากฏในที่สำคัญแห่งหนึ่ง นั่นคืออัตราเร็วที่
+      การรบกวนความดันเดินทางผ่านของไหล หรือ <b>อัตราเร็วเสียง</b> ซึ่งถูกกำหนดโดยค่านี้</p>
+
+    <div class="eq">
+      <span class="body"><var>c</var> = <span class="sqrt">&radic;<span class="rad"><span class="frac"><span><var>K</var></span><span class="den"><var>&rho;</var></span></span></span></span></span>
+      <span class="tag">(1.9)</span>
+    </div>
+
+    <p>สำหรับน้ำ <var>c</var> = &radic;(2.18&nbsp;&times;&nbsp;10<sup>9</sup>&thinsp;/&thinsp;998) &asymp;
+      1480&nbsp;m/s อัตราเร็วที่จำกัดนี้เองที่ทำให้เกิด <b>ค้อนน้ำ</b> (water hammer) ได้ กล่าวคือ
+      ถ้าปิดวาล์วบนแนวท่อยาวอย่างรวดเร็ว การชะลอตัวของลำน้ำจะสร้างคลื่นความดันที่อาจสูงเกินพิกัดความดัน
+      ของท่อหลายเท่าตัว ความแข็งเกร็งของของไหลที่เราพยายามละเลยตลอดทั้งรายวิชานี้ คือสิ่งที่ทำให้
+      สภาวะชั่วครู่นั้นอันตราย</p>
+
+    <p>แก๊สเป็นอีกเรื่องหนึ่ง อากาศที่ความดันบรรยากาศมี <var>K</var> &asymp; 0.14&nbsp;MPa ซึ่งอัดตัวได้ง่าย
+      กว่าน้ำราวหนึ่งหมื่นห้าพันเท่า แต่เรายัง <em>ถือว่า</em> แก๊สอัดตัวไม่ได้ ได้อยู่ ถ้ามันเคลื่อนที่ช้า
+      (ต่ำกว่าราว 30&nbsp;% ของอัตราเร็วเสียงในตัวมันเอง หรือประมาณ 100&nbsp;m/s สำหรับอากาศ) ซึ่งครอบคลุม
+      ท่อระบายอากาศ พัดลมเครื่องอบ และการลำเลียงด้วยลมที่ความดันต่ำ หากเกินกว่านั้น การเปลี่ยนแปลง
+      ความหนาแน่นจะมีนัยสำคัญ และเนื้อหาจะกลายเป็นการไหลแบบอัดตัวได้</p>
+
+    <!-- ============================================================ 1.10 -->
+    <h2 id="s10">1.10 ความดันไอและการเกิดโพรงอากาศ</h2>
+
+    <p>โมเลกุลที่ผิวอิสระของของเหลวจะหลุดออกไปสู่ช่องว่างเหนือผิว และที่สภาวะสมดุล ความดันย่อยที่โมเลกุล
+      เหล่านั้นสร้างขึ้นเรียกว่า <b>ความดันไอ</b> <var>p</var><sub>v</sub> ค่านี้ขึ้นกับอุณหภูมิเพียงอย่างเดียว
+      และสำหรับน้ำได้ทำตารางไว้ในคอลัมน์ที่หกของตารางที่&nbsp;1.2</p>
+
+    <p>การเดือดเกิดขึ้นเมื่อความดันสัมบูรณ์ ณ ตำแหน่งนั้นลดลงจนเท่ากับความดันไอ ซึ่งไปถึงจุดนั้นได้สองทาง
+      คือเพิ่ม <var>p</var><sub>v</sub> ด้วยการให้ความร้อนที่ความดันคงที่ (กาต้มน้ำ) หรือลดความดันเฉพาะที่
+      ที่อุณหภูมิคงที่ ทางที่สองคือปัญหาทางวิศวกรรม</p>
+
+    <div class="callout rule">
+      <span class="label">การเกิดโพรงอากาศ</span>
+      <p>ณ ตำแหน่งที่การไหลถูกเร่ง ไม่ว่าจะเป็นบนใบพัดของเครื่องสูบน้ำ ผ่านวาล์วที่ปิดไม่สุด หรือที่ปลาย
+        ใบจักรเรือ ความดันจะลดลง หากความดันลดลงจนถึง <var>p</var><sub>v</sub> จะเกิดฟองไอขึ้น เมื่อฟองเหล่านี้
+        ถูกพาไปยังบริเวณความดันสูงกว่าทางท้ายน้ำ มันจะยุบตัวอย่างรุนแรง การระเบิดยุบตัวนั้นเกิดเฉพาะจุด
+        เป็นบริเวณเล็กมาก และสร้างความดันสูงพอที่จะกัดกร่อนเนื้อเหล็กเป็นหลุม อาการที่สังเกตได้คือเสียง
+        เหมือนกรวดกระทบกัน เฮดและประสิทธิภาพตก เกิดการสั่นสะเทือน และใบพัดเสียหายในที่สุด</p>
+    </div>
+
+    <p>การเกิดโพรงอากาศเป็นปัญหาเรื่องสมบัติของของไหล ไม่ใช่ปัญหาเรื่องการไหล จึงจัดไว้ในบทนี้
+      ทางแก้คือรักษาความดันที่ด้านดูดของเครื่องสูบน้ำให้สูงกว่า <var>p</var><sub>v</sub> ตามระยะเผื่อที่กำหนด
+      ซึ่งก็คือเฮดดูดสุทธิบวก (NPSH) ที่จะกล่าวถึงในบทที่&nbsp;8 สิ่งที่สำคัญ ณ ตรงนี้คือลำดับเหตุผลที่
+      กำหนดขีดจำกัดดังกล่าว และตัวอย่างที่&nbsp;1.4 จะพาไล่เรียงให้เห็น นั่นคือ <b>น้ำร้อนดูดขึ้นได้ไม่สูง
+      เท่าน้ำเย็น</b> เพราะความดันไอของมันได้กินส่วนหนึ่งของเฮดบรรยากาศที่มีอยู่ไปแล้ว</p>
+
+    <!-- ============================================================ 1.11 -->
+    <h2 id="s11">1.11 แรงตึงผิวและปรากฏการณ์คาพิลลารี</h2>
+
+    <p>โมเลกุลที่อยู่ภายในเนื้อของเหลวถูกโมเลกุลข้างเคียงดึงเท่า ๆ กันทุกทิศทาง แต่โมเลกุลที่ผิวมีเพื่อนบ้าน
+      เฉพาะด้านล่างและด้านข้าง จึงเกิดแรงดึงสุทธิเข้าด้านใน ผลก็คือผิวอิสระประพฤติตัวเหมือนแผ่นเยื่อที่ถูก
+      ขึงตึงอยู่ <b>แรงตึงผิว</b> <var>&sigma;</var> (ซิกมา) คือแรงตึงนั้นต่อหนึ่งหน่วยความยาวของผิว
+      มีหน่วยเป็น N/m สำหรับน้ำสัมผัสอากาศที่ 20&nbsp;&deg;C <var>&sigma;</var> = 0.0728&nbsp;N/m</p>
+
+    <p>แรงตึงผิวอธิบายหยดน้ำทรงกลมที่ออกจากหัวฉีดพ่น แมลงที่ยืนบนผิวบ่อน้ำ และความดันภายในฟองสบู่
+      สำหรับหยดทรงกลมรัศมี <var>r</var> การดุลแรงที่ดึงครึ่งทรงกลมทั้งสองแยกจากกันกับแรงตึงรอบเส้นรอบวง
+      จะได้</p>
+
+    <div class="eq">
+      <span class="body">&Delta;<var>p</var> = <span class="frac"><span>2<var>&sigma;</var></span><span class="den"><var>r</var></span></span></span>
+      <span class="tag">(1.10)</span>
+    </div>
+
+    <p>หยดที่เล็กกว่ามีความดันภายในสูงกว่า และเนื่องจากแรงตึงเดียวกันนี้ต้านการก่อตัวของหยด การทำละออง
+      ให้ละเอียดขึ้นจึงสิ้นเปลืองพลังงานมากขึ้น นี่คือหลักฟิสิกส์เบื้องหลังความสัมพันธ์ระหว่างความดันกับ
+      ขนาดละอองของหัวฉีดในงานพ่นสารกำจัดศัตรูพืช</p>
+
+    <h3>ปรากฏการณ์คาพิลลารี</h3>
+    <p>ที่รอยต่อระหว่างของแข็ง ของเหลว และแก๊ส แรงตึงผิวจะแข่งกับแรงยึดติดกับผิวของแข็ง หากของเหลวเปียกผิว
+      ของแข็ง (น้ำบนแก้วสะอาด มุมสัมผัส <var>&theta;</var> &asymp; 0) ของเหลวจะไต่ขึ้นตามผนังและเมนิสคัส
+      จะเว้า แต่หากไม่เปียก (ปรอทบนแก้ว <var>&theta;</var> &asymp; 130&deg;) ของเหลวจะถูกกดลงและเมนิสคัส
+      จะนูน</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="การไต่ขึ้นของน้ำในหลอดแก้วและการกดลงของปรอท พร้อมแสดงมุมสัมผัสในแต่ละกรณี">
+        <defs>
+          <marker id="a6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <text x="40" y="30" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) เปียกผิว &mdash; น้ำในหลอดแก้ว, &theta; &lt; 90&deg;</text>
+
+        <path d="M40,300 L40,222 L400,222 L400,300" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <rect x="42" y="224" width="356" height="74" fill="#9fe0ea"/>
+        <line x1="42" y1="224" x2="398" y2="224" stroke="#00788A" stroke-width="1.6"/>
+
+        <line x1="180" y1="70" x2="180" y2="300" stroke="#1c1917" stroke-width="2.2"/>
+        <line x1="226" y1="70" x2="226" y2="300" stroke="#1c1917" stroke-width="2.2"/>
+        <rect x="182" y="140" width="42" height="160" fill="#57c2d3"/>
+        <path d="M182,146 Q203,126 224,146 L224,138 Q203,120 182,138 z" fill="#57c2d3"/>
+        <path d="M182,140 Q203,120 224,140" fill="none" stroke="#00788A" stroke-width="2"/>
+
+        <line x1="152" y1="134" x2="152" y2="224" stroke="#726b64" stroke-width="1.4" marker-end="url(#a6)" marker-start="url(#a6)"/>
+        <text x="128" y="186" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#4b4540">h</text>
+
+        <line x1="180" y1="58" x2="226" y2="58" stroke="#726b64" stroke-width="1.4" marker-end="url(#a6)" marker-start="url(#a6)"/>
+        <text x="236" y="63" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#4b4540">d</text>
+
+        <path d="M182,140 L196,128" stroke="#DF301C" stroke-width="2"/>
+        <path d="M182,164 A24,24 0 0,0 190,146" fill="none" stroke="#DF301C" stroke-width="1.5"/>
+        <text x="150" y="112" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">&theta;</text>
+        <line x1="166" y1="118" x2="184" y2="134" stroke="#DF301C" stroke-width="1.2"/>
+        <text x="252" y="150" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#00788A">เมนิสคัสเว้า</text>
+
+        <line x1="440" y1="20" x2="440" y2="300" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="466" y="30" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) ไม่เปียกผิว &mdash; ปรอท, &theta; &gt; 90&deg;</text>
+
+        <path d="M470,300 L470,222 L820,222 L820,300" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <rect x="472" y="224" width="346" height="74" fill="#c8c6c4"/>
+        <line x1="472" y1="224" x2="818" y2="224" stroke="#6f6d6b" stroke-width="1.6"/>
+
+        <line x1="610" y1="120" x2="610" y2="300" stroke="#1c1917" stroke-width="2.2"/>
+        <line x1="656" y1="120" x2="656" y2="300" stroke="#1c1917" stroke-width="2.2"/>
+        <rect x="612" y="264" width="42" height="36" fill="#a9a7a5"/>
+        <path d="M612,264 Q633,282 654,264 L654,272 Q633,290 612,272 z" fill="#a9a7a5"/>
+        <path d="M612,264 Q633,284 654,264" fill="none" stroke="#6f6d6b" stroke-width="2"/>
+
+        <line x1="582" y1="224" x2="582" y2="272" stroke="#726b64" stroke-width="1.4" marker-end="url(#a6)" marker-start="url(#a6)"/>
+        <text x="556" y="256" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#4b4540">h</text>
+
+        <path d="M654,264 L668,276" stroke="#DF301C" stroke-width="2"/>
+        <path d="M654,240 A24,24 0 0,1 660,258" fill="none" stroke="#DF301C" stroke-width="1.5"/>
+        <text x="668" y="238" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">&theta;</text>
+        <text x="690" y="296" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">เมนิสคัสนูน</text>
+      </svg>
+      <figcaption><b>รูปที่ 1.4</b> การไต่ขึ้นและการกดลงแบบคาพิลลารี องค์ประกอบในแนวดิ่งของแรงตึงผิว
+        ที่กระทำรอบเส้นรอบวง <var>&pi;d</var> เป็นตัวพยุง (หรือดึงลง เมื่อ
+        <var>&theta;</var>&nbsp;&gt;&nbsp;90&deg;) ลำของเหลวที่มีความสูง <var>h</var></figcaption>
+    </figure>
+
+    <p>ดุลองค์ประกอบในแนวดิ่งของแรงตึงรอบเส้นรอบวงที่เปียก กับน้ำหนักของลำของเหลวที่ถูกยกขึ้น</p>
+
+    <div class="eq stack">
+      <span class="tag">(1.11)</span>
+      <span class="body"><var>&sigma;</var>(<var>&pi;d</var>) cos<var>&theta;</var> = <var>&gamma;</var> <span class="frac"><span><var>&pi;d</var><sup>2</sup></span><span class="den">4</span></span> <var>h</var></span>
+      <span class="body"><var>h</var> = <span class="frac"><span>4<var>&sigma;</var> cos<var>&theta;</var></span><span class="den"><var>&gamma;d</var></span></span></span>
+    </div>
+
+    <p>ตัว <var>d</var> ที่อยู่ในตัวส่วนคือสาระสำคัญเชิงปฏิบัติ นั่นคือ <b>ความคลาดเคลื่อนจากคาพิลลารี
+      จะยิ่งมากขึ้นเมื่อหลอดยิ่งเล็กลง</b> ตัวอย่างที่&nbsp;1.3 แสดงให้เห็นว่าเหตุใดหลอดปิโซมิเตอร์หรือ
+      มาโนมิเตอร์ที่มีรูในเล็กกว่าราว 10&nbsp;มม. จึงทำให้เกิดความคลาดเคลื่อนในการอ่านค่าที่ละเลยไม่ได้
+      และความสัมพันธ์เดียวกันนี้ยังควบคุมการที่น้ำถูกกักไว้ในรูพรุนของดิน ซึ่งเป็นรากฐานของแนวคิด
+      ศักย์น้ำในดินสำหรับการออกแบบระบบชลประทาน</p>
+
+    <!-- ============================================================ 1.12 -->
+    <h2 id="s12">1.12 ตัวอย่างการคำนวณ</h2>
+
+    <div class="example">
+      <h3>ตัวอย่างที่ 1.1 &mdash; แรงและกำลังที่ใช้เฉือนฟิล์มน้ำมัน</h3>
+      <p>แผ่นราบขนาด 0.8&nbsp;m &times; 0.5&nbsp;m ไถลด้วยความเร็ว 0.9&nbsp;m/s บนผิวที่อยู่นิ่ง โดยมีฟิล์ม
+        น้ำมัน SAE&nbsp;30 หนา 1.2&nbsp;มม. คั่นอยู่ น้ำมันอยู่ที่ 20&nbsp;&deg;C จงหาความเค้นเฉือน
+        ในน้ำมัน แรงที่ต้องใช้ลากแผ่น และกำลังที่สูญเสียไป</p>
+
+      <div class="step">
+        <h4>ขั้นที่ 1 &mdash; สมมติฐานและข้อมูล</h4>
+        <p>ช่องว่างแคบและแผ่นมีขนาดใหญ่ โปรไฟล์ความเร็วจึงเป็นเส้นตรง (รูปที่&nbsp;1.2) และละเลยผลที่ขอบ
+          น้ำมัน SAE&nbsp;30 เป็นของไหลนิวโทเนียน จากตารางที่&nbsp;1.1
+          <var>&mu;</var> = 0.29&nbsp;Pa&middot;s</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 2 &mdash; อัตราความเครียดเฉือน</h4>
+        <div class="eq plain"><span class="body"><span class="frac"><span>d<var>u</var></span><span class="den">d<var>y</var></span></span> = <span class="frac"><span><var>U</var></span><span class="den"><var>h</var></span></span> = <span class="frac"><span>0.9</span><span class="den">0.0012</span></span> = 750 s<sup>&minus;1</sup></span></div>
+        <p>สังเกตการแปลงความกว้างช่องว่างเป็นเมตรก่อนหาร จุดนี้คือจุดที่การคำนวณมักผิดพลาด</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 3 &mdash; ความเค้นเฉือนจากกฎของนิวตัน</h4>
+        <div class="eq plain"><span class="body"><var>&tau;</var> = <var>&mu;</var> <span class="frac"><span>d<var>u</var></span><span class="den">d<var>y</var></span></span> = (0.29)(750) = 217.5 Pa</span></div>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 4 &mdash; แรงที่กระทำบนแผ่น</h4>
+        <p><var>A</var> = 0.8 &times; 0.5 = 0.40&nbsp;m<sup>2</sup> ดังนั้น</p>
+        <div class="eq plain"><span class="body"><var>F</var> = <var>&tau;A</var> = (217.5)(0.40) = 87.0 N</span></div>
+        <p class="result"><var>F</var> = 87.0 N</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 5 &mdash; กำลังที่สูญเสีย</h4>
+        <p>แผ่นเคลื่อนที่ด้วยความเร็วคงที่ งานทั้งหมดที่ทำต้านแรงหนืดจึงกลายเป็นความร้อนในน้ำมัน</p>
+        <div class="eq plain"><span class="body"><var>P</var> = <var>FU</var> = (87.0)(0.9) = 78.3 W</span></div>
+        <p class="result"><var>P</var> = 78.3 W</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 6 &mdash; ตรวจสอบ</h4>
+        <p>ถ้าลดช่องว่างลงครึ่งหนึ่ง ทั้งแรงและกำลังจะเพิ่มเป็นสองเท่า และถ้าใช้แผ่นเดียวกันนี้บนน้ำ
+          (<var>&mu;</var> = 0.001&nbsp;Pa&middot;s) แรงจะลดลงเหลือ 0.3&nbsp;N แนวโน้มทั้งสองถูกต้อง
+          และข้อหลังคือเหตุผลที่แบริ่งปลอกใช้น้ำมันหล่อลื่นแทนน้ำ</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>ตัวอย่างที่ 1.2 &mdash; ความหนาแน่นของอากาศในห้องลมของเครื่องอบเมล็ดพืช</h3>
+      <p>เครื่องอบเมล็ดพืชดูดอากาศแวดล้อมที่ 35&nbsp;&deg;C และ 101.3&nbsp;kPa เข้าสู่ห้องลมขนาด
+        12&nbsp;m &times; 4&nbsp;m &times; 2.5&nbsp;m (ก) จงหามวลของอากาศในห้องลม (ข) จากนั้นฮีตเตอร์
+        เพิ่มอุณหภูมิอากาศเป็น 60&nbsp;&deg;C ที่ความดันเท่าเดิมโดยประมาณ อัตราการไหลเชิงมวลที่พัดลม
+        (ซึ่งส่งปริมาตรคงที่) ส่งได้จะลดลงกี่เปอร์เซ็นต์</p>
+
+      <div class="step">
+        <h4>ขั้นที่ 1 &mdash; อุณหภูมิสัมบูรณ์</h4>
+        <p><var>T</var><sub>1</sub> = 35 + 273.15 = 308.15&nbsp;K &nbsp;&nbsp;
+           <var>T</var><sub>2</sub> = 60 + 273.15 = 333.15&nbsp;K</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 2 &mdash; ความหนาแน่นก่อนให้ความร้อน</h4>
+        <div class="eq plain"><span class="body"><var>&rho;</var><sub>1</sub> = <span class="frac"><span><var>p</var></span><span class="den"><var>RT</var><sub>1</sub></span></span> = <span class="frac"><span>101 325</span><span class="den">(287)(308.15)</span></span> = 1.146 kg/m<sup>3</sup></span></div>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 3 &mdash; มวลในห้องลม</h4>
+        <p><var>V</var> = 12 &times; 4 &times; 2.5 = 120&nbsp;m<sup>3</sup></p>
+        <div class="eq plain"><span class="body"><var>m</var> = <var>&rho;</var><sub>1</sub><var>V</var> = (1.146)(120) = 137.5 kg</span></div>
+        <p class="result"><var>m</var> = 137.5 kg</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 4 &mdash; ความหนาแน่นหลังให้ความร้อน</h4>
+        <div class="eq plain"><span class="body"><var>&rho;</var><sub>2</sub> = <span class="frac"><span>101 325</span><span class="den">(287)(333.15)</span></span> = 1.060 kg/m<sup>3</sup></span></div>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 5 &mdash; อัตราการไหลเชิงมวลที่หายไป</h4>
+        <p>พัดลมเป็นเครื่องจักรเชิงปริมาตร คือส่งได้เท่าเดิมในหน่วย m<sup>3</sup>/s ไม่ว่าความหนาแน่นจะเป็น
+          เท่าใด อัตราการไหลเชิงมวลจึงลดลงตามอัตราส่วนเดียวกับความหนาแน่น</p>
+        <div class="eq plain"><span class="body">อัตราลดลง = <span class="frac"><span>1.146 &minus; 1.060</span><span class="den">1.146</span></span> = 0.075 = 7.5&thinsp;%</span></div>
+        <p class="result">มวลอากาศต่อวินาทีลดลง 7.5&thinsp;%</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 6 &mdash; ข้อสังเกต</h4>
+        <p>อากาศร้อนอุ้มความชื้นได้มากกว่าต่อหนึ่งกิโลกรัม การให้ความร้อนจึงยังมีประโยชน์ แต่การคำนวณ
+          การอบแห้งต้องทำบนฐาน <em>มวล</em> และเส้นโค้งพัดลมที่ระบุเป็น m<sup>3</sup>/s จะยังไม่บอกอัตรา
+          การไหลเชิงมวลจนกว่าจะใส่ความหนาแน่นเข้าไป นอกจากนี้ ที่ <var>&rho;</var> &prop; 1/<var>T</var>
+          ได้ก็เพราะเรากำหนดให้ความดันคงที่เท่านั้น</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>ตัวอย่างที่ 1.3 &mdash; ความคลาดเคลื่อนจากคาพิลลารีในหลอดปิโซมิเตอร์</h3>
+      <p>น้ำที่ 20&nbsp;&deg;C อยู่ในหลอดปิโซมิเตอร์แก้วสะอาดที่มีรูใน 1.5&nbsp;มม. (ก) คาพิลลารีทำให้
+        ค่าที่อ่านได้สูงขึ้นเท่าใด (ข) ต้องใช้รูในขนาดเท่าใดจึงจะทำให้ความคลาดเคลื่อนต่ำกว่า 3&nbsp;มม.</p>
+
+      <div class="step">
+        <h4>ขั้นที่ 1 &mdash; ข้อมูล</h4>
+        <p>จากตารางที่&nbsp;1.2 ที่ 20&nbsp;&deg;C: <var>&sigma;</var> = 0.0728&nbsp;N/m,
+          <var>&gamma;</var> = 9.79&nbsp;kN/m<sup>3</sup> แก้วสะอาดกับน้ำสะอาดเปียกกันได้สมบูรณ์ ดังนั้น
+          <var>&theta;</var> &asymp; 0 และ cos<var>&theta;</var> = 1</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 2 &mdash; การไต่ขึ้นในหลอดขนาด 1.5 มม.</h4>
+        <div class="eq plain"><span class="body"><var>h</var> = <span class="frac"><span>4<var>&sigma;</var> cos<var>&theta;</var></span><span class="den"><var>&gamma;d</var></span></span> = <span class="frac"><span>4(0.0728)(1)</span><span class="den">(9790)(0.0015)</span></span> = 0.0198 m</span></div>
+        <p class="result"><var>h</var> = 19.8 mm</p>
+        <p>เกือบ 20&nbsp;มม. ที่เป็นความคลาดเคลื่อนของเครื่องมือล้วน ๆ ในอุปกรณ์ที่มีหน้าที่วัดเฮด
+          ให้ละเอียดถึงระดับมิลลิเมตร</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 3 &mdash; ขนาดรูในที่ต้องใช้เพื่อจำกัดที่ 3 มม.</h4>
+        <p>จัดรูปสมการ (1.11) เพื่อหา <var>d</var></p>
+        <div class="eq plain"><span class="body"><var>d</var> = <span class="frac"><span>4<var>&sigma;</var> cos<var>&theta;</var></span><span class="den"><var>&gamma;h</var></span></span> = <span class="frac"><span>4(0.0728)</span><span class="den">(9790)(0.003)</span></span> = 0.0099 m</span></div>
+        <p class="result"><var>d</var> &asymp; 10 mm</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 4 &mdash; กฎเกณฑ์ในการออกแบบ</h4>
+        <p>นี่คือที่มาของธรรมเนียมปฏิบัติในห้องปฏิบัติการที่กำหนดว่าหลอดปิโซมิเตอร์และมาโนมิเตอร์ควรมีรูใน
+          อย่างน้อย 10&nbsp;มม. หากเล็กกว่านั้น ต้องเลือกระหว่างขยายหลอดหรือใส่ค่าแก้ และพึงสังเกตว่า
+          ค่าแก้นั้นขึ้นกับความสะอาดของผิวแก้ว จึงเป็นเหตุผลที่นิยมขยายหลอดมากกว่า</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>ตัวอย่างที่ 1.4 &mdash; เหตุใดน้ำร้อนจึงดูดขึ้นได้ไม่สูงเท่าน้ำเย็น</h3>
+      <p>เครื่องสูบน้ำแบบหอยโข่งในโรงงานแปรรูปดูดน้ำขึ้นจากถังเปิด ความดันบรรยากาศมาตรฐานคือ
+        101.3&nbsp;kPa จงหาระยะดูดสูงสุดในทางทฤษฎีสำหรับน้ำที่ (ก) 20&nbsp;&deg;C และ
+        (ข) 70&nbsp;&deg;C พร้อมวิจารณ์ขีดจำกัดในทางปฏิบัติ</p>
+
+      <div class="step">
+        <h4>ขั้นที่ 1 &mdash; ขีดจำกัดเชิงกายภาพ</h4>
+        <p>ความดันบรรยากาศที่กดบนผิวน้ำในถังคือสิ่งที่ดันน้ำขึ้นไปตามท่อดูด ความดันสัมบูรณ์ต่ำที่สุดที่
+          ทางเข้าเครื่องสูบจะเป็นไปได้คือความดันไอ เพราะต่ำกว่านั้นน้ำจะเดือด ผลต่างความดันที่ใช้ได้จึงเป็น
+          <var>p</var><sub>atm</sub> &minus; <var>p</var><sub>v</sub> และความสูงมากที่สุดที่ผลต่างนั้น
+          พยุงได้ก็คือผลต่างดังกล่าวหารด้วยน้ำหนักจำเพาะ</p>
+        <div class="eq plain"><span class="body"><var>z</var><sub>max</sub> = <span class="frac"><span><var>p</var><sub>atm</sub> &minus; <var>p</var><sub>v</sub></span><span class="den"><var>&gamma;</var></span></span></span></div>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 2 &mdash; น้ำที่ 20 &deg;C</h4>
+        <p>ตารางที่&nbsp;1.2: <var>p</var><sub>v</sub> = 2.34&nbsp;kPa,
+          <var>&gamma;</var> = 9.79&nbsp;kN/m<sup>3</sup></p>
+        <div class="eq plain"><span class="body"><var>z</var><sub>max</sub> = <span class="frac"><span>101 325 &minus; 2340</span><span class="den">9790</span></span> = 10.1 m</span></div>
+        <p class="result"><var>z</var><sub>max</sub> = 10.1 m</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 3 &mdash; น้ำที่ 70 &deg;C</h4>
+        <p>ตารางที่&nbsp;1.2: <var>p</var><sub>v</sub> = 31.16&nbsp;kPa,
+          <var>&gamma;</var> = 9.59&nbsp;kN/m<sup>3</sup></p>
+        <div class="eq plain"><span class="body"><var>z</var><sub>max</sub> = <span class="frac"><span>101 325 &minus; 31 160</span><span class="den">9590</span></span> = 7.3 m</span></div>
+        <p class="result"><var>z</var><sub>max</sub> = 7.3 m</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 4 &mdash; ขีดจำกัดในทางปฏิบัติ</h4>
+        <p>ตัวเลขทั้งสองเป็นเพดานที่ไม่มีการติดตั้งจริงใดไปถึง ความเสียดทานในท่อดูด เฮดความเร็วที่ทางเข้า
+          และค่า NPSH ที่ตัวเครื่องสูบต้องการ ล้วนกินระยะเผื่อไปทั้งสิ้น อีกทั้งหน้างานอาจอยู่สูงกว่า
+          ระดับน้ำทะเล ซึ่งทำให้ <var>p</var><sub>atm</sub> ต่ำลงไปอีก หลักปฏิบัติที่ใช้กันทั่วไปคือ
+          ออกแบบระยะดูดน้ำเย็นไม่ให้เกิน 5&ndash;6&nbsp;m และติดตั้งเครื่องสูบที่ส่งของเหลวร้อนไว้
+          <em>ต่ำกว่า</em> แหล่งจ่าย เพื่อให้ด้านดูดมีน้ำท่วมตลอดเวลา การคำนวณ NPSH เต็มรูปแบบอยู่ใน
+          บทที่&nbsp;8 ส่วนเหตุผลรองรับอยู่ตรงนี้</p>
+      </div>
+    </div>
+
+    <!-- ============================================================ 1.13 -->
+    <h2 id="s13">1.13 สัญลักษณ์</h2>
+
+    <dl class="nomen">
+      <dt>A</dt><dd>พื้นที่ <span class="u">(m&sup2;)</span></dd>
+      <dt>c</dt><dd>อัตราเร็วเสียงในของไหล <span class="u">(m/s)</span></dd>
+      <dt>d</dt><dd>ขนาดรูในหรือเส้นผ่านศูนย์กลาง <span class="u">(m)</span></dd>
+      <dt>F</dt><dd>แรง <span class="u">(N)</span></dd>
+      <dt>g</dt><dd>ความเร่งโน้มถ่วง 9.81 <span class="u">(m/s&sup2;)</span></dd>
+      <dt>h</dt><dd>ความกว้างช่องว่าง หรือระยะไต่ขึ้นแบบคาพิลลารี <span class="u">(m)</span></dd>
+      <dt>K</dt><dd>มอดุลัสยืดหยุ่นเชิงปริมาตร <span class="u">(Pa)</span></dd>
+      <dt>Kn</dt><dd>เลขนุดเซน <span class="u">(&ndash;)</span></dd>
+      <dt>L</dt><dd>ความยาวลักษณะเฉพาะ <span class="u">(m)</span></dd>
+      <dt>m</dt><dd>มวล <span class="u">(kg)</span></dd>
+      <dt>p</dt><dd>ความดันสัมบูรณ์ <span class="u">(Pa)</span></dd>
+      <dt>p<sub>v</sub></dt><dd>ความดันไอ <span class="u">(Pa)</span></dd>
+      <dt>P</dt><dd>กำลัง <span class="u">(W)</span></dd>
+      <dt>r</dt><dd>รัศมีของหยดหรือฟอง <span class="u">(m)</span></dd>
+      <dt>R</dt><dd>ค่าคงที่แก๊สจำเพาะ อากาศแห้งเท่ากับ 287 <span class="u">(J/kg&middot;K)</span></dd>
+      <dt>SG</dt><dd>ความถ่วงจำเพาะ <span class="u">(&ndash;)</span></dd>
+      <dt>t</dt><dd>อุณหภูมิ <span class="u">(&deg;C)</span> หรือเวลา <span class="u">(s)</span></dd>
+      <dt>T</dt><dd>อุณหภูมิสัมบูรณ์ <span class="u">(K)</span></dd>
+      <dt>u</dt><dd>ความเร็วเฉพาะที่ในทิศ <var>x</var> <span class="u">(m/s)</span></dd>
+      <dt>U</dt><dd>ความเร็วของขอบเขตที่เคลื่อนที่ <span class="u">(m/s)</span></dd>
+      <dt>V</dt><dd>ปริมาตร <span class="u">(m&sup3;)</span></dd>
+      <dt>y</dt><dd>พิกัดในแนวตั้งฉากกับผนัง <span class="u">(m)</span></dd>
+      <dt>z</dt><dd>ระดับความสูง ระยะดูด <span class="u">(m)</span></dd>
+      <dt>&gamma;</dt><dd>น้ำหนักจำเพาะ <span class="u">(N/m&sup3;)</span></dd>
+      <dt>&theta;</dt><dd>มุมสัมผัส หรือความเครียดเฉือน <span class="u">(rad หรือ &deg;)</span></dd>
+      <dt>&lambda;</dt><dd>ระยะอิสระเฉลี่ยของโมเลกุล <span class="u">(m)</span></dd>
+      <dt>&mu;</dt><dd>ความหนืดพลวัต (สัมบูรณ์) <span class="u">(Pa&middot;s)</span></dd>
+      <dt>&nu;</dt><dd>ความหนืดจลน์ <span class="u">(m&sup2;/s)</span></dd>
+      <dt>&rho;</dt><dd>ความหนาแน่น <span class="u">(kg/m&sup3;)</span></dd>
+      <dt>&sigma;</dt><dd>แรงตึงผิว <span class="u">(N/m)</span></dd>
+      <dt>&tau;</dt><dd>ความเค้นเฉือน <span class="u">(Pa)</span></dd>
+      <dt>&tau;<sub>0</sub></dt><dd>ความเค้นครากของบิงแฮมพลาสติก <span class="u">(Pa)</span></dd>
+    </dl>
+
+    <!-- ============================================================ 1.14 -->
+    <h2 id="s14">1.14 แบบฝึกหัด</h2>
+
+    <p>ใช้ <var>g</var> = 9.81&nbsp;m/s<sup>2</sup> และใช้ตารางที่&nbsp;1.1 กับ&nbsp;1.2 ตลอดทั้งชุด
+      เฉลยแสดงไว้เพื่อให้ตรวจสอบตนเองได้ แต่คะแนนอยู่ที่วิธีทำ</p>
+
+    <ol class="problems">
+      <li>ถังบรรจุน้ำมันพืชปริมาตร 6.0&nbsp;m<sup>3</sup> มีความถ่วงจำเพาะ 0.87 จงหามวล น้ำหนัก
+        ความหนาแน่น และน้ำหนักจำเพาะของน้ำมันนี้
+        <span class="ans">5220 kg; 51.2 kN; 870 kg/m&sup3;; 8.53 kN/m&sup3;</span></li>
+
+      <li>ของเหลวชนิดหนึ่งมีความหนืดพลวัต 0.048&nbsp;Pa&middot;s และความถ่วงจำเพาะ 0.913 จงหาความหนืดจลน์
+        ในหน่วย m<sup>2</sup>/s และในหน่วยเซนติสโตกส์
+        <span class="ans">5.26 &times; 10<sup>&minus;5</sup> m&sup2;/s = 52.6 cSt</span></li>
+
+      <li>แผ่นพื้นที่ 0.50&nbsp;m<sup>2</sup> ไถลด้วยความเร็ว 0.60&nbsp;m/s บนฟิล์มน้ำมันหนา 0.80&nbsp;มม.
+        และวัดแรงได้ 45&nbsp;N จงหาความเค้นเฉือนและความหนืดพลวัตของน้ำมัน
+        <span class="ans">90 Pa; 0.12 Pa&middot;s</span></li>
+
+      <li>ถังพักขนาด 0.50&nbsp;m<sup>3</sup> บรรจุอากาศอัดที่ความดันสัมบูรณ์ 900&nbsp;kPa และ
+        27&nbsp;&deg;C จงหาความหนาแน่นของอากาศและมวลที่บรรจุอยู่
+        <span class="ans">10.45 kg/m&sup3;; 5.22 kg</span></li>
+
+      <li>ต้องเพิ่มความดันเท่าใดจึงจะทำให้ปริมาตรของน้ำลดลง 0.50&nbsp;% กำหนด
+        <var>K</var> = 2.18&nbsp;GPa พร้อมวิจารณ์ว่าการถือว่าน้ำอัดตัวไม่ได้นั้นสมเหตุสมผลหรือไม่
+        <span class="ans">10.9 MPa &asymp; 109 bar</span></li>
+
+      <li>จงคำนวณระยะไต่ขึ้นแบบคาพิลลารีของน้ำที่ 20&nbsp;&deg;C ในหลอดแก้วสะอาดรูใน 3.0&nbsp;มม.
+        และระบุค่าที่ได้หากเปลี่ยนเป็นปรอทในหลอดเดียวกัน
+        (<var>&sigma;</var> = 0.484&nbsp;N/m, <var>&theta;</var> = 130&deg;, SG&nbsp;13.55)
+        <span class="ans">+9.9 mm; &minus;3.1 mm (กดลง)</span></li>
+
+      <li>จงประมาณอัตราเร็วเสียงในน้ำที่ 20&nbsp;&deg;C จากสมการ (1.9) และหาว่าคลื่นความดันใช้เวลาเท่าใด
+        ในการเดินทางไปตามแนวท่อส่งน้ำชลประทานยาว 2.4&nbsp;km แล้วสะท้อนกลับ
+        <span class="ans">1478 m/s; 3.2 s</span></li>
+
+      <li>เครื่องสูบน้ำส่งน้ำที่ 50&nbsp;&deg;C ณ สถานที่ซึ่งมีความดันบรรยากาศ 96.0&nbsp;kPa
+        (สูงจากระดับน้ำทะเลราว 450&nbsp;m) จงหาระยะดูดสูงสุดในทางทฤษฎี และเปรียบเทียบกับค่า 10.1&nbsp;m
+        ของน้ำเย็นที่ระดับน้ำทะเลในตัวอย่างที่&nbsp;1.4
+        <span class="ans">8.6 m</span></li>
+
+      <li>อากาศถูกให้ความร้อนจาก 25&nbsp;&deg;C เป็น 55&nbsp;&deg;C ที่ความดันคงที่ในท่อระบายอากาศ
+        ความหนาแน่นลดลงกี่เปอร์เซ็นต์ และอัตราการไหลเชิงมวลที่พัดลมความเร็วคงที่ส่งได้จะเป็นอย่างไร
+        <span class="ans">ลดลง 9.1 %; อัตราการไหลเชิงมวลลดลง 9.1 % เท่ากัน</span></li>
+
+      <li>หัวฉีดพ่นสร้างละอองเส้นผ่านศูนย์กลาง 120&nbsp;&micro;m จากน้ำที่ 20&nbsp;&deg;C จงหาผลต่างความดัน
+        คร่อมผิวของละออง แล้วทำซ้ำสำหรับละอองขนาด 40&nbsp;&micro;m พร้อมวิจารณ์นัยที่มีต่อต้นทุนพลังงาน
+        ของการทำละอองให้ละเอียด
+        <span class="ans">2.43 kPa; 7.28 kPa</span></li>
+    </ol>
+
+    <!-- ============================================================ 1.15 -->
+    <h2 id="s15">1.15 เอกสารอ้างอิง</h2>
+
+    <ol class="refs">
+      <li>White, F. M. <em>Fluid Mechanics</em>, 8th ed. McGraw-Hill. บทที่ 1
+        &ldquo;Introduction&rdquo; &mdash; การนำเสนอสมบัติของของไหลตามมาตรฐาน พร้อมภาคผนวกตารางสมบัติ
+        ที่ครบถ้วน</li>
+      <li>Cengel, Y. A. and Cimbala, J. M. <em>Fluid Mechanics: Fundamentals and Applications</em>, 4th ed.
+        McGraw-Hill. บทที่ 2 &ldquo;Properties of Fluids&rdquo; &mdash; อธิบายความดันไอและการเกิด
+        โพรงอากาศได้ชัดเจนที่สุดสำหรับวิชาระดับต้น</li>
+      <li>Munson, B. R., Young, D. F. and Okiishi, T. H. <em>Fundamentals of Fluid Mechanics</em>, 8th ed.
+        Wiley. บทที่ 1 &mdash; อธิบายพฤติกรรมแบบไม่ใช่นิวโทเนียนและสมมติฐานความต่อเนื่องได้ดี</li>
+      <li>Finnemore, E. J. and Franzini, J. B. <em>Fluid Mechanics with Engineering Applications</em>, 10th
+        ed. McGraw-Hill. เขียนสำหรับวิศวกรโยธาและแหล่งน้ำ ตารางสมบัติอยู่ในหน่วยที่ใช้จริงหน้างาน</li>
+      <li>Rao, M. A. <em>Rheology of Fluid, Semisolid, and Solid Foods</em>, 3rd ed. Springer.
+        เอกสารที่ควรหยิบมาใช้เมื่อพบว่าของไหลทางชีวภาพตัวหนึ่งไม่ใช่นิวโทเนียน</li>
+      <li>ISO 3104 / ASTM D445 &mdash; <em>Determination of kinematic viscosity of transparent and opaque
+        liquids</em> วิธีทดสอบมาตรฐานที่อยู่เบื้องหลังค่าความหนืดทุกค่าที่ระบุบนเอกสารข้อมูลผลิตภัณฑ์</li>
+    </ol>
+
+    <div class="chapter-nav">
+      <span><a href="index-th.html">&larr; หน้าแรกของรายวิชา</a></span>
+      <span class="muted-nav">บทที่ 2: สถิตยศาสตร์ของไหล &mdash; อยู่ระหว่างจัดทำ</span>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h3>รายวิชา</h3>
+      <ul>
+        <li><a href="index-th.html">หน้าแรกของรายวิชา</a></li>
+        <li><a href="chapter1-th.html">บทที่ 1: สมบัติของของไหล</a></li>
+        <li><a href="chapter1.html" lang="en">Chapter 1 (English)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>ในบทนี้</h3>
+      <ul>
+        <li><a href="#t1">ตารางที่ 1.1 &mdash; ของไหลทั่วไปที่ 20 &deg;C</a></li>
+        <li><a href="#t2">ตารางที่ 1.2 &mdash; น้ำ ที่ 0&ndash;100 &deg;C</a></li>
+        <li><a href="#s12">ตัวอย่างการคำนวณ</a></li>
+        <li><a href="#s14">แบบฝึกหัด</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>เกี่ยวกับ</h3>
+      <p>เอกสารประกอบการสอนรายวิชา ASE 221 สงวนลิขสิทธิ์ รูปแบบหน้าเว็บเป็นไปตามเทมเพลตสื่อการสอนของภาควิชา
+        ส่วนเนื้อหาและโค้ดจัดทำขึ้นใหม่สำหรับรายวิชานี้โดยเฉพาะ</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2569 ชาตรีชัย เย็นพยับ สงวนลิขสิทธิ์ ASE 221 กลศาสตร์ของไหล &mdash; เอกสารประกอบการสอน
+    ภาคการศึกษาที่ 1 / 2569 ห้ามทำซ้ำ ดัดแปลง หรือเผยแพร่ส่วนหนึ่งส่วนใดของเว็บไซต์นี้ก่อนได้รับอนุญาต
+    เป็นลายลักษณ์อักษร
+  </div>
+</footer>
+
+<script src="lang.js"></script>
+</body>
+</html>

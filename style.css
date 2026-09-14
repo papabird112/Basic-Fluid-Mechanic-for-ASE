@@ -1,0 +1,988 @@
+/* ==========================================================================
+   Fluid Mechanics (ASE) — course style sheet
+   ========================================================================== */
+
+:root {
+  /* Brand palette. The two bright accents fail contrast as text on white
+     (#FF9100 = 2.3:1, #00B7CD = 2.4:1), so each has a darkened twin used
+     wherever the colour carries words rather than decoration. */
+  --red:        #DF301C;
+  --red-dark:   #B22616;
+  --orange:     #FF9100;
+  --orange-ink: #A85E00;
+  --cream:      #FFF1D1;
+  --cream-soft: #FFF9EC;
+  --cyan:       #00B7CD;
+  --cyan-ink:   #00788A;
+
+  --ink:        #1c1917;
+  --ink-2:      #4b4540;
+  --ink-3:      #726b64;
+  --rule:       #e3dac7;
+  --rule-soft:  #f2ecdd;
+  --bg:         #ffffff;
+  --bg-alt:     var(--cream);
+  --bg-panel:   var(--cream-soft);
+  --brand:      var(--red);
+  --brand-dark: var(--red-dark);
+  --link:       var(--cyan-ink);
+  --link-hover: var(--red);
+  --black:      #17120f;
+  --note:       var(--cyan-ink);
+  --warn:       var(--orange-ink);
+
+  --sans: "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --thai: "Noto Sans Thai", "IBM Plex Sans Thai", Sarabun, "Leelawadee UI", Tahoma, var(--sans);
+  --mathfont: "Cambria Math", Cambria, "Times New Roman", Georgia, serif;
+  --mono: "Cascadia Mono", Consolas, "SF Mono", Menlo, monospace;
+
+  --maxw: 1220px;
+  --sidebar: 300px;
+}
+
+* { box-sizing: border-box; }
+
+/* Every size below is in rem, so the root drives the whole page. Thai gets a
+   little more than Latin at the same nominal size: its glyphs sit smaller and
+   the tone marks above and below need the extra room. Percentages rather than
+   px so a reader's own browser font setting still applies. */
+html {
+  scroll-behavior: smooth;
+  font-size: 112%;
+}
+html[lang="th"] { font-size: 118%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.72;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { max-width: 100%; }
+
+a { color: var(--link); text-decoration: none; }
+a:hover { color: var(--link-hover); text-decoration: underline; }
+
+/* ---------------------------------------------------------------- topbar */
+
+.topbar {
+  background: var(--black);
+  color: #fff;
+  border-bottom: 3px solid var(--brand);
+}
+
+.topbar-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  font-weight: 700;
+  letter-spacing: .2px;
+  font-size: 1.02rem;
+}
+.logo:hover { color: #fff; text-decoration: none; }
+
+.logo-mark {
+  display: inline-grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 800;
+  font-size: .82rem;
+  letter-spacing: .5px;
+  border-radius: 2px;
+}
+
+.logo-text small {
+  display: block;
+  font-weight: 400;
+  font-size: .68rem;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #b9b9b9;
+}
+
+.topbar-spacer { flex: 1 1 auto; }
+
+.topbar-nav {
+  display: flex;
+  gap: 20px;
+  font-size: .85rem;
+}
+.topbar-nav a { color: #d9d9d9; }
+.topbar-nav a:hover { color: #fff; }
+
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid #4d4d4d;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.lang-switch a {
+  padding: 6px 13px;
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .3px;
+  color: #cfcfcf;
+  line-height: 1.5;
+}
+.lang-switch a + a { border-left: 1px solid #4d4d4d; }
+.lang-switch a:hover { background: #2b2b2b; color: #fff; text-decoration: none; }
+.lang-switch a.active { background: #fff; color: #111; }
+.lang-switch a.active:hover { background: #fff; color: #111; }
+
+.btn-give {
+  background: var(--brand);
+  color: #fff;
+  padding: 7px 16px;
+  border-radius: 2px;
+  font-size: .82rem;
+  font-weight: 700;
+  letter-spacing: .3px;
+}
+.btn-give:hover { background: var(--brand-dark); color: #fff; text-decoration: none; }
+
+/* -------------------------------------------------------- course masthead */
+
+.masthead {
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--rule);
+}
+
+.masthead-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 26px 24px 24px;
+}
+
+.eyebrow {
+  font-size: .78rem;
+  letter-spacing: 1.1px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 600;
+}
+.eyebrow span { color: var(--orange); }
+
+.masthead h1 {
+  margin: 8px 0 0;
+  font-size: 2.35rem;
+  line-height: 1.15;
+  letter-spacing: -.4px;
+  font-weight: 700;
+}
+
+.masthead .tagline {
+  margin: 10px 0 0;
+  color: var(--ink-2);
+  max-width: 68ch;
+}
+
+/* ----------------------------------------------------------------- layout */
+
+.layout {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 24px 64px;
+  display: grid;
+  grid-template-columns: var(--sidebar) minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+
+/* ---------------------------------------------------------------- sidebar */
+
+.sidebar { padding-top: 28px; }
+
+.course-menu { border-top: 2px solid var(--ink); }
+
+.course-menu h2,
+.course-info h2 {
+  font-size: .78rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 14px 0 10px;
+  font-weight: 700;
+}
+
+.course-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.course-menu li { border-bottom: 1px solid var(--rule-soft); }
+
+.course-menu a,
+.course-menu .muted {
+  display: block;
+  padding: 11px 4px;
+  font-size: .97rem;
+  color: var(--ink);
+}
+.course-menu a:hover { color: var(--brand); text-decoration: none; }
+
+.course-menu a.active {
+  color: var(--brand);
+  font-weight: 700;
+  box-shadow: inset 3px 0 0 var(--brand);
+  padding-left: 12px;
+}
+
+.course-menu .muted {
+  color: #a5a5a5;
+  cursor: default;
+}
+.course-menu .muted em {
+  font-style: normal;
+  font-size: .72rem;
+  color: #b5b5b5;
+  display: block;
+}
+
+.course-info {
+  margin-top: 34px;
+  background: var(--bg-panel);
+  border: 1px solid var(--rule);
+  padding: 18px 18px 6px;
+}
+
+.course-info dl { margin: 0; }
+.course-info dt {
+  font-size: .74rem;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 700;
+  margin-top: 14px;
+}
+.course-info dd {
+  margin: 3px 0 0;
+  font-size: .95rem;
+  color: var(--ink);
+}
+.course-info dd ul {
+  margin: 0; padding: 0; list-style: none;
+}
+.course-info dd li { padding: 1px 0; }
+.course-info .crumbs { color: var(--ink-2); font-size: .86rem; }
+
+/* ----------------------------------------------------------------- content */
+
+.content { padding-top: 32px; min-width: 0; }
+
+.content h2 {
+  font-size: 1.5rem;
+  margin: 42px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--rule);
+  line-height: 1.25;
+  scroll-margin-top: 20px;
+}
+.content > h2:first-child { margin-top: 0; }
+
+.content h3 {
+  font-size: 1.16rem;
+  margin: 30px 0 8px;
+  color: var(--ink);
+  scroll-margin-top: 20px;
+}
+
+.content h4 {
+  font-size: 1rem;
+  margin: 22px 0 6px;
+  color: var(--ink-2);
+  text-transform: uppercase;
+  letter-spacing: .6px;
+  font-size: .87rem;
+}
+
+.content p { margin: 0 0 17px; }
+
+.content ul, .content ol { margin: 0 0 18px; padding-left: 24px; }
+.content li { margin-bottom: 8px; }
+
+/* Cap the measure. At the larger base size the column would otherwise run to
+   nearly 100 characters per line, which tires the eye as much as small type. */
+.content p,
+.content ul,
+.content ol { max-width: 76ch; }
+.toc ol { max-width: none; }
+
+.lead {
+  font-size: 1.1rem;
+  color: var(--ink-2);
+  border-left: 3px solid var(--brand);
+  padding-left: 16px;
+  margin-bottom: 26px;
+}
+
+/* --------------------------------------------------------- in-page toc box */
+
+.toc {
+  background: var(--bg-panel);
+  border: 1px solid var(--rule);
+  padding: 16px 20px;
+  margin-bottom: 30px;
+}
+.toc h2 {
+  border: 0;
+  margin: 0 0 8px;
+  font-size: .8rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 0;
+}
+.toc ol {
+  columns: 2;
+  column-gap: 32px;
+  margin: 0;
+  padding-left: 20px;
+  font-size: .95rem;
+}
+.toc li { margin-bottom: 3px; break-inside: avoid; }
+
+/* ------------------------------------------------------------------ tables */
+
+.table-wrap { overflow-x: auto; margin: 0 0 8px; }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: .93rem;
+}
+
+caption {
+  caption-side: top;
+  text-align: left;
+  font-size: .88rem;
+  color: var(--ink-2);
+  padding-bottom: 8px;
+}
+caption b { color: var(--ink); }
+
+th, td {
+  border-bottom: 1px solid var(--rule-soft);
+  padding: 11px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+
+thead th {
+  background: var(--bg-panel);
+  border-bottom: 2px solid var(--rule);
+  font-size: .82rem;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+tbody tr:hover { background: var(--cream-soft); }
+
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+
+/* ---------------------------------------------------------------- formulas */
+
+.eq {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 18px 0;
+  padding: 14px 18px;
+  background: var(--bg-panel);
+  border-left: 3px solid var(--cyan);
+  font-family: var(--mathfont);
+  font-size: 1.15rem;
+  overflow-x: auto;
+}
+.eq .body { flex: 1 1 auto; }
+.eq .tag {
+  flex: 0 0 auto;
+  font-family: var(--sans);
+  font-size: .82rem;
+  color: var(--ink-3);
+}
+
+var, .v {
+  font-family: var(--mathfont);
+  font-style: italic;
+}
+
+.frac {
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  margin: 0 4px;
+}
+.frac > span { display: block; padding: 0 6px; line-height: 1.3; }
+.frac .den { border-top: 1.4px solid currentColor; }
+
+.units { font-family: var(--sans); font-size: .86rem; color: var(--ink-3); }
+
+/* ---------------------------------------------------------------- callouts */
+
+.callout {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--cyan);
+  background: #f0fafc;
+  padding: 14px 18px;
+  margin: 20px 0;
+  font-size: 1rem;
+}
+.callout.warn { border-left-color: var(--orange); background: #fff6e4; }
+.callout.rule { border-left-color: var(--brand); background: #fdf1ef; }
+.callout p:last-child { margin-bottom: 0; }
+.callout .label {
+  display: block;
+  font-size: .74rem;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--note);
+  margin-bottom: 5px;
+}
+.callout.warn .label { color: var(--warn); }
+.callout.rule .label { color: var(--brand); }
+
+/* ----------------------------------------------------------------- figures */
+
+figure {
+  margin: 26px 0;
+  border: 1px solid var(--rule);
+  background: #fff;
+  padding: 18px;
+}
+figure svg { display: block; width: 100%; height: auto; }
+figcaption {
+  margin-top: 12px;
+  font-size: .9rem;
+  color: var(--ink-2);
+  border-top: 1px solid var(--rule-soft);
+  padding-top: 10px;
+}
+figcaption b { color: var(--ink); }
+
+/* -------------------------------------------------------- worked example */
+
+.example {
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--cyan);
+  padding: 4px 24px 18px;
+  margin: 26px 0;
+  background: #fffdf8;
+}
+.example h3 { margin-top: 20px; }
+.step {
+  margin: 18px 0;
+  padding-left: 16px;
+  border-left: 2px solid var(--rule);
+}
+.step > h4 { margin-top: 0; color: var(--brand); }
+
+.result {
+  display: inline-block;
+  background: #fff;
+  border: 1.5px solid var(--ink);
+  padding: 6px 14px;
+  font-family: var(--mathfont);
+  font-size: 1.08rem;
+  margin: 6px 0;
+}
+
+/* ------------------------------------------------------------ misc content */
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 18px;
+  margin: 22px 0;
+}
+.card {
+  border: 1px solid var(--rule);
+  padding: 16px 18px;
+  background: #fff;
+}
+.card h3 { margin: 0 0 6px; font-size: 1rem; }
+.card p { font-size: .94rem; color: var(--ink-2); margin: 0; }
+
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 52px;
+  padding-top: 18px;
+  border-top: 2px solid var(--rule);
+  font-size: .96rem;
+}
+
+.pill {
+  display: inline-block;
+  background: var(--bg-alt);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 2px 11px;
+  font-size: .76rem;
+  color: var(--ink-2);
+  margin: 0 4px 4px 0;
+}
+
+.refs { font-size: .95rem; }
+.refs li { margin-bottom: 10px; }
+
+/* -------------------------------------------------------------------- quiz */
+
+.quiz-status {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background: var(--bg);
+  border-bottom: 2px solid var(--rule);
+  padding: 12px 0 10px;
+  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  font-size: .95rem;
+  color: var(--ink-2);
+}
+.quiz-status b { color: var(--ink); font-size: 1.05rem; font-variant-numeric: tabular-nums; }
+
+.quiz-meter {
+  flex: 1 1 160px;
+  min-width: 110px;
+  height: 8px;
+  background: var(--rule-soft);
+  border-radius: 999px;
+  overflow: hidden;
+}
+.quiz-meter i { display: block; height: 100%; width: 0; background: var(--cyan); transition: width .25s; }
+
+.quiz-item {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--rule);
+  background: #fff;
+  padding: 18px 22px;
+  margin: 0 0 18px;
+  scroll-margin-top: 70px;
+}
+.quiz-item.is-correct { border-left-color: var(--cyan); }
+.quiz-item.is-wrong   { border-left-color: var(--brand); }
+.quiz-item.is-shown   { border-left-color: var(--orange); }
+
+.quiz-head { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+.quiz-no { font-weight: 700; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.quiz-q { font-weight: 600; flex: 1 1 20ch; max-width: 74ch; }
+
+.quiz-ref {
+  flex: 0 0 auto;
+  font-size: .8rem;
+  font-weight: 700;
+  background: var(--bg-alt);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 3px 12px;
+  white-space: nowrap;
+}
+
+.quiz-opts { list-style: none; margin: 14px 0 0; padding: 0; max-width: 76ch; }
+.quiz-opts li { margin: 0 0 8px; }
+
+.quiz-opt {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+  border: 1px solid var(--rule);
+  padding: 10px 14px;
+  cursor: pointer;
+  background: #fff;
+}
+.quiz-opt:hover { background: var(--cream-soft); }
+.quiz-opt input { margin: .35em 0 0; flex: 0 0 auto; }
+.quiz-opt .k { font-weight: 700; color: var(--ink-3); flex: 0 0 1.5em; }
+.quiz-opt .tx { flex: 1 1 auto; }
+
+/* Locked questions keep full contrast; only the radio itself greys out */
+.quiz-item.locked .quiz-opt { cursor: default; color: var(--ink); }
+.quiz-item.locked .quiz-opt:hover { background: #fff; }
+.quiz-opt.correct { border-color: var(--cyan); background: #f0fafc; }
+.quiz-opt.correct .k { color: var(--cyan-ink); }
+.quiz-opt.wrong { border-color: var(--brand); background: #fdf1ef; }
+.quiz-opt.wrong .k { color: var(--brand); }
+.quiz-item.locked .quiz-opt.correct:hover { background: #f0fafc; }
+.quiz-item.locked .quiz-opt.wrong:hover { background: #fdf1ef; }
+
+.quiz-mark { flex: 0 0 auto; font-weight: 700; font-size: .84rem; white-space: nowrap; }
+.quiz-opt.correct .quiz-mark { color: var(--cyan-ink); }
+.quiz-opt.wrong .quiz-mark { color: var(--brand); }
+
+.quiz-why {
+  margin-top: 15px;
+  border-top: 1px solid var(--rule-soft);
+  padding-top: 13px;
+  font-size: .95rem;
+  max-width: 76ch;
+}
+.quiz-why .lab {
+  font-weight: 700;
+  color: var(--cyan-ink);
+  text-transform: uppercase;
+  font-size: .76rem;
+  letter-spacing: .8px;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.quiz-actions { display: flex; gap: 12px; flex-wrap: wrap; margin: 26px 0 0; }
+.quiz-btn {
+  border: 1.5px solid var(--ink);
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: .92rem;
+  font-weight: 700;
+  padding: 9px 18px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.quiz-btn:hover { background: var(--ink); color: #fff; }
+.quiz-btn.primary { background: var(--brand); border-color: var(--brand); color: #fff; }
+.quiz-btn.primary:hover { background: var(--brand-dark); border-color: var(--brand-dark); }
+
+.quiz-result {
+  border: 1px solid var(--rule);
+  border-top: 4px solid var(--cyan);
+  background: var(--bg-panel);
+  padding: 20px 24px;
+  margin: 26px 0 0;
+}
+.quiz-result h3 { margin: 0 0 6px; }
+.quiz-score { font-size: 1.9rem; font-weight: 700; line-height: 1.2; }
+.quiz-score small { font-size: .95rem; font-weight: 400; color: var(--ink-2); }
+.quiz-weak { margin-top: 12px; font-size: .95rem; }
+.quiz-weak a { margin-right: 10px; font-weight: 600; white-space: nowrap; }
+
+.quiz-noscript {
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--brand);
+  background: #fdf1ef;
+  padding: 14px 18px;
+  margin-bottom: 22px;
+}
+
+/* ------------------------------------------------------------------ footer */
+
+.site-footer {
+  background: var(--black);
+  color: #b7b7b7;
+  padding: 40px 24px 30px;
+  font-size: .9rem;
+}
+.footer-inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 28px;
+}
+.site-footer h3 {
+  color: #fff;
+  font-size: .78rem;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+.site-footer a { color: #cfcfcf; }
+.site-footer a:hover { color: #fff; }
+.site-footer ul { list-style: none; margin: 0; padding: 0; }
+.site-footer li { margin-bottom: 6px; }
+.footer-bottom {
+  max-width: var(--maxw);
+  margin: 30px auto 0;
+  padding-top: 18px;
+  border-top: 1px solid #333;
+  color: #8d8d8d;
+  font-size: .8rem;
+}
+
+/* ------------------------------------------------------- Thai typography */
+
+html[lang="th"] body {
+  font-family: var(--thai);
+  line-height: 1.9;
+}
+html[lang="th"] .masthead h1 { line-height: 1.35; letter-spacing: 0; }
+html[lang="th"] .content h2,
+html[lang="th"] .content h3 { line-height: 1.5; }
+html[lang="th"] .content li { margin-bottom: 8px; }
+html[lang="th"] table { line-height: 1.75; }
+html[lang="th"] thead th,
+html[lang="th"] .eyebrow,
+html[lang="th"] .course-menu h2,
+html[lang="th"] .course-info dt,
+html[lang="th"] .callout .label,
+html[lang="th"] .content h4,
+html[lang="th"] .site-footer h3 { letter-spacing: .2px; }
+
+/* Latin-script fragments inside Thai pages keep the Latin stack */
+html[lang="th"] .eq,
+html[lang="th"] var,
+html[lang="th"] .v,
+html[lang="th"] .result { font-family: var(--mathfont); }
+html[lang="th"] .units,
+html[lang="th"] .eq .tag { font-family: var(--thai); }
+
+/* -------------------------------------------------------------- responsive */
+
+/* The department line is long enough to wrap the header on mid-width screens */
+@media (max-width: 1150px) {
+  .logo-text small { display: none; }
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .sidebar { order: 2; padding-top: 8px; }
+  .content { order: 1; }
+  .masthead h1 { font-size: 1.85rem; }
+  .toc ol { columns: 1; }
+  .topbar-nav { display: none; }
+}
+
+@media (max-width: 520px) {
+  /* Ease off at phone width, but stay above the old 16px baseline */
+  html { font-size: 106%; }
+  html[lang="th"] { font-size: 112%; }
+  .layout, .masthead-inner, .topbar-inner { padding-left: 16px; padding-right: 16px; }
+  .example { padding-left: 14px; padding-right: 14px; }
+  th, td { padding: 9px 10px; }
+}
+
+/* ------------------------------------------------------------------- print */
+
+@media print {
+  .topbar, .sidebar, .site-footer, .chapter-nav, .toc { display: none; }
+  .layout { display: block; padding: 0; }
+  body { font-size: 11pt; }
+  figure, table, .eq, .example { break-inside: avoid; }
+  a { color: #000; text-decoration: none; }
+}
+
+/* ==========================================================================
+   Fluid-mechanics additions
+   Components the parent template does not carry: stacked derivations, a
+   nomenclature list, radicals, and inline dimension/unit notation.
+   ========================================================================== */
+
+/* A derivation runs over several lines, so the flex row of .eq is dropped and
+   the tag is floated to the right of the first line instead. */
+.eq.stack { display: block; }
+.eq.stack .body { display: block; margin: 0; }
+.eq.stack .body + .body { margin-top: 10px; }
+.eq.stack .tag { float: right; padding-top: 4px; }
+
+/* Centred display equation with no tag */
+.eq.plain { justify-content: center; }
+
+/* Radicals. The overbar is a border on the radicand, so it stretches to fit
+   whatever sits underneath it. */
+.sqrt { white-space: nowrap; }
+.sqrt > .rad { border-top: 1.2px solid currentColor; padding: 0 3px 0 2px; margin-left: -1px; }
+
+/* Dimensional formulae: [M L^-1 T^-1]. Upright, spaced, never italic. */
+.dim {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: .92em;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+/* Nomenclature. A description list laid out as two columns so the symbols form
+   a scannable rail down the left edge. */
+.nomen {
+  display: grid;
+  grid-template-columns: 7.5em 1fr;
+  gap: 2px 18px;
+  margin: 18px 0 22px;
+  max-width: 76ch;
+  font-size: .96rem;
+}
+.nomen dt {
+  font-family: var(--mathfont);
+  font-style: italic;
+  font-size: 1.05rem;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+.nomen dd {
+  margin: 0;
+  padding: 4px 0;
+  border-bottom: 1px solid var(--rule-soft);
+  color: var(--ink-2);
+}
+.nomen dd .u {
+  color: var(--ink-3);
+  font-size: .88em;
+  white-space: nowrap;
+}
+
+/* Symbols whose meaning is set by their upright/italic form — vectors bold,
+   units upright — need marking, because the surrounding .eq is italic serif. */
+.vec { font-weight: 700; font-style: italic; }
+.op  { font-family: var(--mathfont); font-style: normal; padding: 0 2px; }
+
+/* Problem set: numbered, with a hanging answer chip */
+.problems { counter-reset: prob; list-style: none; padding-left: 0; }
+.problems > li {
+  counter-increment: prob;
+  position: relative;
+  padding-left: 42px;
+  margin-bottom: 16px;
+  max-width: 76ch;
+}
+.problems > li::before {
+  content: "1." counter(prob);
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-weight: 700;
+  font-size: .9rem;
+  color: var(--ink-3);
+  font-variant-numeric: tabular-nums;
+}
+.ans {
+  display: inline-block;
+  margin-left: 8px;
+  background: var(--bg-panel);
+  border: 1px solid var(--rule);
+  border-radius: 2px;
+  padding: 1px 9px;
+  font-family: var(--mathfont);
+  font-size: .95rem;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+
+/* The forward half of .chapter-nav when the next chapter is not out yet */
+.muted-nav { color: #a5a5a5; }
+
+/* ------------------------------------------------------- animated figures
+
+   Figure 1.1 is the one drawing in the chapter whose whole point is a
+   difference in *time*: the solid shears to an angle and stops, the fluid
+   never stops. A still picture has to explain that in a caption; a moving one
+   simply shows it.
+
+   Both panels pivot about the bottom edge of the element, at y = 196 in the
+   figure's own coordinate system. transform-box: view-box makes the SVG
+   viewBox the reference frame, so transform-origin can be written in those
+   same units and the skew hinges on the fixed plate rather than on the
+   corner of the page.                                                      */
+
+.shear-solid,
+.shear-fluid {
+  transform-box: view-box;
+  transform-origin: 0 196px;
+}
+
+/* Loads, deforms, holds at its angle, then springs back when the stress is
+   removed. The long hold from 24 % to 66 % is the part that matters. */
+.shear-solid { animation: shear-hold 6s ease-in-out infinite; }
+
+@keyframes shear-hold {
+  0%,   6%   { transform: skewX(0deg); }
+  24%,  66%  { transform: skewX(-25deg); }
+  84%, 100%  { transform: skewX(0deg); }
+}
+
+/* Three copies of the same element on one 3 s cycle, started a second apart
+   by negative delays, so one is always mid-sweep. The deformation leaves the
+   frame and is replaced rather than ever arriving anywhere. */
+.shear-fluid { animation: shear-run 3s linear infinite; }
+.shear-fluid.d1 { animation-delay: -2s; }
+.shear-fluid.d2 { animation-delay: -1s; }
+
+@keyframes shear-run {
+  0%   { transform: skewX(0deg);   opacity: 0; }
+  14%  { opacity: .95; }
+  68%  { opacity: .95; }
+  100% { transform: skewX(-54deg); opacity: 0; }
+}
+
+/* The applied stress, shown only while it is doing something */
+.stress-solid,
+.theta-mark { animation: stress-hold 6s ease-in-out infinite; }
+
+@keyframes stress-hold {
+  0%,   4%   { opacity: .12; }
+  22%,  70%  { opacity: 1; }
+  88%, 100%  { opacity: .12; }
+}
+
+.stress-fluid { animation: stress-pulse 3s ease-in-out infinite; }
+
+@keyframes stress-pulse {
+  0%, 100% { opacity: .6; }
+  50%      { opacity: 1; }
+}
+
+/* Readers who ask for less motion, and paper, get the frozen frame that the
+   animation was drawn around: the solid at its held angle, the fluid caught
+   mid-sweep in three stages. */
+@media (prefers-reduced-motion: reduce) {
+  .shear-solid, .shear-fluid,
+  .stress-solid, .stress-fluid, .theta-mark { animation: none; }
+  .shear-solid    { transform: skewX(-25deg); }
+  .shear-fluid    { transform: skewX(-16deg); opacity: .95; }
+  .shear-fluid.d2 { transform: skewX(-34deg); opacity: .6; }
+  .shear-fluid.d1 { transform: skewX(-52deg); opacity: .35; }
+  .stress-fluid   { opacity: 1; }
+}
+
+/* Thai pages: keep symbols and dimensions in the Latin/math stack */
+html[lang="th"] .nomen dt,
+html[lang="th"] .sqrt,
+html[lang="th"] .vec,
+html[lang="th"] .op,
+html[lang="th"] .ans { font-family: var(--mathfont); }
+html[lang="th"] .dim { font-family: var(--mono); }
+html[lang="th"] .nomen { grid-template-columns: 7.5em 1fr; }
+
+@media (max-width: 520px) {
+  .nomen { grid-template-columns: 5.5em 1fr; gap: 2px 12px; }
+  html[lang="th"] .nomen { grid-template-columns: 5.5em 1fr; }
+}
+
+@media print {
+  .nomen dt, .nomen dd { border-bottom: 1px solid #ddd; }
+  .problems > li { break-inside: avoid; }
+
+  .shear-solid, .shear-fluid,
+  .stress-solid, .stress-fluid, .theta-mark { animation: none; }
+  .shear-solid    { transform: skewX(-25deg); }
+  .shear-fluid    { transform: skewX(-16deg); opacity: .95; }
+  .shear-fluid.d2 { transform: skewX(-34deg); opacity: .6; }
+  .shear-fluid.d1 { transform: skewX(-52deg); opacity: .35; }
+  .stress-fluid   { opacity: 1; }
+}
