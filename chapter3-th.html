@@ -1,0 +1,2332 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>บทที่ 3: ความต่อเนื่องและสมการแบร์นูลลี | ASE 221 กลศาสตร์ของไหลเบื้องต้น</title>
+<meta name="description" content="การจำแนกการไหล เส้นกระแสและท่อกระแส อัตราการไหลเชิงมวลและเชิงปริมาตร สมการความต่อเนื่อง สมการแบร์นูลลีกับเฮดทั้งสี่ และการประยุกต์ใช้กับท่อพิโตต์ มาตรเวนจูรี ออริฟิซ ช่องเปิดและฝายน้ำล้น">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index-th.html">
+      <span class="logo-mark">FM</span>
+      <span class="logo-text">ASE-FM<small lang="en">Biosystem and Agricultural Engineering, KMITL</small></span>
+    </a>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="index-th.html">เกี่ยวกับวิชา</a>
+      <a href="chapter1-th.html">เอกสารประกอบการสอน</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="chapter3.html" lang="en">EN</a>
+      <a href="chapter3-th.html" class="active">ไทย</a>
+    </div>
+    <a class="btn-give" href="#s12">ตัวอย่างการคำนวณ</a>
+  </div>
+</header>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ASE 221 <span>|</span> บทที่ 3 <span>|</span> เอกสารประกอบการบรรยาย</p>
+    <h1>ความต่อเนื่องและสมการแบร์นูลลี</h1>
+    <p class="tagline">กฎการอนุรักษ์สองข้อ &mdash; มวลและพลังงาน &mdash; ที่นำไปใช้กับขอบเขตซึ่งเราเป็นผู้ลากขึ้นเอง
+      สองสมการนี้รวมกันใช้กำหนดขนาดท่อ อ่านค่าจากมาตรวัด และบอกได้ว่าน้ำพุ่งออกจากรูที่ผนังถังด้วยความเร็วเท่าใด
+      และเป็นสองสมการที่นักศึกษาจะใช้บ่อยที่สุดตลอดหลักสูตรที่เหลือ</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="course-menu">
+      <h2>สารบัญรายวิชา</h2>
+      <ul>
+        <li><a href="index-th.html">หน้าแรกของรายวิชา</a></li>
+        <li><a href="chapter1-th.html">บทที่&nbsp;1 &mdash; สมบัติของของไหล</a></li>
+        <li><a href="chapter2-th.html">บทที่&nbsp;2 &mdash; แรงในของไหลสถิต</a></li>
+        <li><a href="chapter3-th.html" class="active">บทที่&nbsp;3 &mdash; ความต่อเนื่องและแบร์นูลลี</a></li>
+        <li><span class="muted">บทที่&nbsp;4 &mdash; สมการโมเมนตัม<em>ยังไม่เผยแพร่</em></span></li>
+        <li><span class="muted">บทที่&nbsp;5 &mdash; ของไหลจริงในท่อ<em>ยังไม่เผยแพร่</em></span></li>
+      </ul>
+    </nav>
+
+    <section class="course-info">
+      <h2>ข้อมูลประจำบท</h2>
+      <dl>
+        <dt>จำนวนคาบ</dt>
+        <dd>6 คาบ (9 ชั่วโมง)</dd>
+
+        <dt>เอกสารอ้างอิง</dt>
+        <dd class="crumbs" lang="en">Sleigh, CIVE 1400 &mdash; &sect;3.1&ndash;3.5</dd>
+
+        <dt>สมการสำคัญ</dt>
+        <dd>
+          <ul>
+            <li><var>Q</var> = <var>Au</var></li>
+            <li><var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub></li>
+            <li><var>p</var>/<var>&rho;g</var> + <var>u</var><sup>2</sup>/2<var>g</var> + <var>z</var> = <var>H</var></li>
+            <li><var>u</var> = &radic;(2<var>gh</var>)</li>
+            <li><var>Q</var> = <var>C</var><sub>d</sub><var>A</var>&radic;(2<var>gh</var>)</li>
+          </ul>
+        </dd>
+
+        <dt>ตาราง</dt>
+        <dd>
+          <ul>
+            <li><a href="#t1">3.1 ประเภทของการไหล</a></li>
+            <li><a href="#t2">3.2 ค่า <var>C</var><sub>d</sub> ของออริฟิซ</a></li>
+          </ul>
+        </dd>
+
+        <dt>ต้องใช้ความรู้จาก</dt>
+        <dd class="crumbs">บทที่ 1 &gt; ความหนาแน่น ของไหลอุดมคติ</dd>
+        <dd class="crumbs">บทที่ 2 &gt; ความดัน เฮด มาโนมิเตอร์</dd>
+        <dd class="crumbs">ฟิสิกส์ &gt; งานและพลังงาน</dd>
+      </dl>
+    </section>
+  </aside>
+
+  <main class="content">
+
+    <p class="lead">บทที่&nbsp;2 ให้ของไหลอยู่นิ่ง ตั้งแต่บทนี้ไปของไหลจะเคลื่อนที่ &mdash;
+      และวิธีจัดการกับมันไม่ใช่การไล่ตามอนุภาคทีละตัว แต่คือการลากขอบเขตขึ้นมาในสนามการไหล
+      แล้วทำบัญชีว่ามีอะไรผ่านเข้าออกขอบเขตนั้นบ้าง ทุกเรื่องในบทนี้และบทถัดไปเกิดจากแนวคิดเพียงข้อเดียวนี้</p>
+
+    <nav class="toc">
+      <h2>เนื้อหาในบทนี้</h2>
+      <ol>
+        <li><a href="#s1">การจำแนกการไหล</a></li>
+        <li><a href="#s2">เส้นกระแสและท่อกระแส</a></li>
+        <li><a href="#s3">อัตราการไหล: เชิงมวลและเชิงปริมาตร</a></li>
+        <li><a href="#s4">สมการความต่อเนื่อง</a></li>
+        <li><a href="#s5">งาน พลังงาน และสมการแบร์นูลลี</a></li>
+        <li><a href="#s6">เฮดทั้งสี่ และเส้นระดับสองเส้น</a></li>
+        <li><a href="#s7">ท่อพิโตต์และท่อพิโตต์-สแตติก</a></li>
+        <li><a href="#s8">มาตรเวนจูรี</a></li>
+        <li><a href="#s9">การไหลผ่านออริฟิซ</a></li>
+        <li><a href="#s10">ช่องเปิดวัดน้ำและฝายน้ำล้น</a></li>
+        <li><a href="#s11">เนื้อหาเสริม &mdash; การวัดการไหลในสนาม</a></li>
+        <li><a href="#s12">ตัวอย่างการคำนวณ</a></li>
+        <li><a href="#s13">สัญลักษณ์</a></li>
+        <li><a href="#s14">แบบทดสอบทบทวน &mdash; 48 ข้อ</a></li>
+        <li><a href="#s15">โจทย์ปัญหา</a></li>
+        <li><a href="#s16">เอกสารอ้างอิง</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================ 3.1 -->
+    <h2 id="s1">3.1 การจำแนกการไหล</h2>
+
+    <p>เรานึกภาพการไหลที่ซับซ้อนจนแทบวิเคราะห์ไม่ได้ออกได้ไม่ยาก เช่น ละอองน้ำที่กระจายหลังรถแทรกเตอร์
+      คลื่นที่ซัดคันดิน หรือลมที่พัดรอบยุ้งฉาง ทั้งหมดนี้วิเคราะห์ได้ในระดับที่ต่างกันไป
+      และบางกรณีก็แทบวิเคราะห์ไม่ได้เลย แต่สถานการณ์จำนวนมากที่มีความสำคัญในทางปฏิบัติกลับง่ายกว่านั้นมาก
+      และขั้นแรกของการวิเคราะห์ใด ๆ คือการตัดสินว่าเรากำลังมองการไหลชนิดใดอยู่</p>
+
+    <h3>สม่ำเสมอหรือไม่สม่ำเสมอ คงตัวหรือไม่คงตัว</h3>
+    <p>คำถามสองข้อนี้เป็นอิสระต่อกัน ข้อแรกถามเรื่อง<em>ตำแหน่ง</em> ข้อที่สองถามเรื่อง<em>เวลา</em></p>
+
+    <ul>
+      <li><b>การไหลสม่ำเสมอ (uniform)</b> ความเร็วมีขนาดและทิศทางเท่ากันทุกจุดในของไหล</li>
+      <li><b>การไหลไม่สม่ำเสมอ (non-uniform)</b> ณ ขณะหนึ่ง ความเร็ว<em>ไม่</em>เท่ากันทุกจุด
+        ถ้ายึดตามนิยามนี้อย่างเคร่งครัด ของไหลทุกชนิดที่ไหลใกล้ผิวของแข็งย่อมไม่สม่ำเสมอเสมอ
+        เพราะของไหลที่ผนังต้องมีความเร็วเท่าผนัง ซึ่งโดยทั่วไปคือศูนย์ แต่ในทางปฏิบัติ
+        ถ้าขนาดและรูปร่างของหน้าตัดการไหลคงที่ เราก็ยังเรียกว่าการไหลสม่ำเสมออยู่ดี</li>
+      <li><b>การไหลคงตัว (steady)</b> สภาวะ &mdash; ความเร็ว ความดัน หน้าตัด &mdash;
+        อาจต่างกันไปในแต่ละตำแหน่ง แต่<b>ไม่เปลี่ยนแปลงตามเวลา</b></li>
+      <li><b>การไหลไม่คงตัว (unsteady)</b> มีบางจุดในของไหลที่สภาวะเปลี่ยนไปตามเวลา ในทางปฏิบัติ
+        ความเร็วและความดันย่อมแกว่งเล็กน้อยเสมอ ถ้าค่าเฉลี่ยคงที่ เราก็ยังเรียกว่าการไหลคงตัว</li>
+    </ul>
+
+    <div class="table-wrap">
+      <table id="t1">
+        <caption><b>ตารางที่ 3.1</b> การไหลทั้งสี่ประเภท พร้อมตัวอย่างของแต่ละประเภท
+          วิชานี้จำกัดอยู่ที่แถวแรกเกือบทั้งหมด</caption>
+        <thead>
+          <tr><th>ประเภท</th><th>สภาวะ</th><th>ตัวอย่าง</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>คงตัว สม่ำเสมอ</b></td>
+            <td>ไม่เปลี่ยนทั้งตามตำแหน่งและตามเวลา</td>
+            <td>น้ำไหลด้วยความเร็วคงที่ในท่อที่มีเส้นผ่านศูนย์กลางคงที่</td>
+          </tr>
+          <tr>
+            <td><b>คงตัว ไม่สม่ำเสมอ</b></td>
+            <td>เปลี่ยนตามตำแหน่ง แต่ไม่เปลี่ยนตามเวลา</td>
+            <td>การไหลในท่อเรียวที่ป้อนน้ำเข้าด้วยอัตราคงที่ &mdash; ความเร็วเปลี่ยนไปตามความยาวท่อ</td>
+          </tr>
+          <tr>
+            <td><b>ไม่คงตัว สม่ำเสมอ</b></td>
+            <td>เท่ากันทุกจุด ณ ขณะหนึ่ง แต่เปลี่ยนไปตามเวลา</td>
+            <td>ท่อเส้นผ่านศูนย์กลางคงที่ที่ป้อนด้วยเครื่องสูบน้ำซึ่งเพิ่งถูกปิด</td>
+          </tr>
+          <tr>
+            <td><b>ไม่คงตัว ไม่สม่ำเสมอ</b></td>
+            <td>เปลี่ยนทั้งตามตำแหน่ง<em>และ</em>ตามเวลา</td>
+            <td>คลื่นที่เคลื่อนที่ไปตามคลองชลประทาน</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">ขอบเขตของวิชานี้</span>
+      <p>การไหลคงตัวและสม่ำเสมอเป็นประเภทที่ง่ายที่สุดในสี่ประเภท และเป็นประเภทเดียวที่เราจะศึกษา
+        เราจะไม่พบผลของการไหลที่ไม่สม่ำเสมอหรือไม่คงตัวอย่างแท้จริงเลย
+        ยกเว้นโจทย์ที่ขึ้นกับเวลาแบบ<em>กึ่ง</em>คงตัวหนึ่งหรือสองข้อ &mdash; ถังที่ระบายน้ำออกใน &sect;3.9
+        เป็นตัวอย่างหลัก &mdash; ซึ่งจัดการได้ด้วยการมองเป็นลำดับของสภาวะคงตัวที่ต่อเนื่องกัน</p>
+    </div>
+
+    <h3>อัดตัวได้หรืออัดตัวไม่ได้</h3>
+    <p>ของไหลทุกชนิดอัดตัวได้ ดังที่บทที่&nbsp;1 &sect;1.11 แสดงไว้ แม้แต่น้ำก็เปลี่ยนความหนาแน่นเมื่อความดันเปลี่ยน
+      แต่ภายใต้สภาวะคงตัวและเมื่อความดันเปลี่ยนแปลงไม่มาก การวิเคราะห์จะง่ายขึ้นอย่างมหาศาล
+      ถ้าเราสมมติให้ความหนาแน่นคงที่</p>
+
+    <p>ของเหลวอัดตัวได้ยาก ภายใต้สภาวะคงตัวส่วนใหญ่จึงถือว่าอัดตัวไม่ได้ ส่วนแก๊สอัดตัวได้ง่าย
+      และส่วนใหญ่ต้องถือว่าอัดตัวได้ &mdash; ยกเว้นกรณีที่ &sect;1.7 ระบุไว้ คือเมื่อแก๊สเคลื่อนที่ช้า
+      <b>ทุกเรื่องในบทนี้สมมติว่าการไหลอัดตัวไม่ได้</b> และสมมติฐานข้อนี้เองที่ทำให้ความหนาแน่นตัดกันได้
+      ในสมการความต่อเนื่องของ &sect;3.4</p>
+
+    <h3>หนึ่ง สอง หรือสามมิติ</h3>
+    <p>การไหลจริงทุกแบบเป็นสามมิติ ทั้งความดัน ความเร็ว และทุกสิ่งเปลี่ยนแปลงในทุกทิศทาง
+      แต่ในหลายกรณี การเปลี่ยนแปลงที่ใหญ่ที่สุดเกิดขึ้นในทิศทางเดียวหรือสองทิศทางเท่านั้น
+      การละทิ้งทิศทางที่เหลือจึงทำให้การวิเคราะห์ง่ายขึ้นมหาศาล</p>
+
+    <p>การไหลเป็น<b>หนึ่งมิติ</b> เมื่อตัวแปรของการไหล ณ ขณะหนึ่ง เปลี่ยนแปลงเฉพาะในทิศทางการไหล
+      ไม่เปลี่ยนตามหน้าตัด การไหลในท่อคือตัวอย่างมาตรฐาน แต่สังเกตข้อติดขัด: ความเร็วต้องเป็นศูนย์ที่ผนังท่อ
+      และไม่เป็นศูนย์ที่กึ่งกลาง ฉะนั้นมันย่อม<em>มี</em>การเปลี่ยนแปลงตามหน้าตัดอยู่ดี
+      แล้วเราควรถือว่าการไหลในท่อเป็นสองมิติหรือไม่</p>
+
+    <div class="callout">
+      <span class="label">ข้อแลกเปลี่ยนที่เรายอมรับ</span>
+      <p>ควร ก็ต่อเมื่อต้องการความแม่นยำสูงมากเท่านั้น สำหรับงานออกแบบทั่วไป เราถือว่าการไหลเป็นหนึ่งมิติ
+        โดยใช้<b>ความเร็วเฉลี่ย</b>ตลอดหน้าตัด แล้วใส่ตัวประกอบแก้ไขเมื่อความต่างนั้นมีนัยสำคัญ
+        นี่คือการลดทอนที่มีประโยชน์ที่สุดข้อเดียวในวิชานี้: มันเปลี่ยนปัญหาสามตัวแปรให้เหลือตัวแปรเดียว
+        โดยจ่ายราคาเพียงไม่กี่เปอร์เซ็นต์</p>
+    </div>
+
+    <p>การไหลเป็น<b>สองมิติ</b> เมื่อตัวแปรเปลี่ยนแปลงทั้งตามแนวการไหลและในทิศตั้งฉากอีกหนึ่งทิศ
+      โดยรูปแบบเดิมซ้ำกันบนทุกระนาบที่ขนานกัน การไหลข้ามฝายยาวคือตัวอย่าง:
+      ตลอดความยาวส่วนใหญ่ของฝาย ภาพการไหลเหมือนกันหมด จะต่างก็เฉพาะใกล้ปลายทั้งสองด้าน
+      ซึ่งก็ใช้ตัวประกอบแก้ไขอีกเช่นกัน</p>
+
+    <p><b>ในวิชานี้เราพิจารณาเฉพาะการไหลคงตัว อัดตัวไม่ได้ ในหนึ่งและสองมิติเท่านั้น</b></p>
+
+    <!-- ============================================================ 3.2 -->
+    <h2 id="s2">3.2 เส้นกระแสและท่อกระแส</h2>
+
+    <p>การมองเห็นรูปแบบการไหลเป็นภาพช่วยได้มาก และเครื่องมือสำหรับสิ่งนั้นคือ<b>เส้นกระแส</b> (streamline):
+      เส้นที่ลากขึ้นโดยให้ทิศทางของเส้น ณ ทุกจุดบนเส้น เป็นทิศทางของความเร็วของไหล ณ จุดนั้น</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="ซ้าย: เส้นกระแสรอบวัตถุทรงแพนอากาศ ซึ่งขนานกับผิวเมื่ออยู่ใกล้ผิว ขวา: ท่อกระแสที่เกิดจากมัดของเส้นกระแส มีของไหลเข้าปลายหนึ่งและออกอีกปลายหนึ่ง">
+        <defs>
+          <marker id="sa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+        </defs>
+
+        <text x="30" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) เส้นกระแสรอบวัตถุ</text>
+
+        <path d="M110,160 Q210,118 330,146 Q230,178 110,160 z" fill="#FFF1D1" stroke="#1c1917" stroke-width="2"/>
+
+        <path d="M30,96 Q160,66 250,86 Q320,102 380,120" fill="none" stroke="#00788A" stroke-width="1.8" marker-end="url(#sa)"/>
+        <path d="M30,124 Q150,92 240,114 Q310,130 380,142" fill="none" stroke="#00788A" stroke-width="1.8" marker-end="url(#sa)"/>
+        <path d="M30,152 Q90,150 112,159 Q210,120 330,147 Q356,152 380,158" fill="none" stroke="#00788A" stroke-width="2.2" marker-end="url(#sa)"/>
+        <path d="M30,180 Q90,172 112,161 Q228,180 330,148 Q356,158 380,172" fill="none" stroke="#00788A" stroke-width="2.2" marker-end="url(#sa)"/>
+        <path d="M30,212 Q150,224 240,200 Q310,184 380,190" fill="none" stroke="#00788A" stroke-width="1.8" marker-end="url(#sa)"/>
+        <path d="M30,242 Q160,258 250,232 Q320,214 380,210" fill="none" stroke="#00788A" stroke-width="1.8" marker-end="url(#sa)"/>
+
+        <text x="30" y="282" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">ใกล้ผนัง เส้นกระแสขนานกับผนัง</text>
+
+        <line x1="420" y1="20" x2="420" y2="290" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="450" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) ท่อกระแส</text>
+
+        <path d="M470,190 Q590,120 760,96 L760,150 Q600,176 490,232 z" fill="#eaf7fa" stroke="none"/>
+        <path d="M470,190 Q590,120 760,96" fill="none" stroke="#00788A" stroke-width="2.4"/>
+        <path d="M490,232 Q600,176 760,150" fill="none" stroke="#00788A" stroke-width="2.4"/>
+        <path d="M478,208 Q595,148 760,122" fill="none" stroke="#9fd8e2" stroke-width="1.4" stroke-dasharray="6 4"/>
+
+        <line x1="470" y1="190" x2="490" y2="232" stroke="#1c1917" stroke-width="2.4"/>
+        <line x1="760" y1="96" x2="760" y2="150" stroke="#1c1917" stroke-width="2.4"/>
+        <text x="440" y="212" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">1</tspan></text>
+        <text x="770" y="128" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">2</tspan></text>
+
+        <line x1="512" y1="196" x2="560" y2="178" stroke="#4b4540" stroke-width="2" marker-end="url(#sa)"/>
+        <text x="510" y="184" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">u<tspan font-size="11" dy="4">1</tspan></text>
+        <line x1="700" y1="126" x2="748" y2="118" stroke="#4b4540" stroke-width="2" marker-end="url(#sa)"/>
+        <text x="694" y="112" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">u<tspan font-size="11" dy="4">2</tspan></text>
+
+        <text x="450" y="282" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">ไม่มีของไหลข้ามผนัง &mdash; เพราะผนังสร้างจากเส้นกระแส</text>
+      </svg>
+      <figcaption><b>รูปที่ 3.1</b> เส้นกระแสตัดกันไม่ได้ เพราะนั่นหมายถึงมีความเร็วสองค่า ณ จุดเดียว
+        เมื่ออยู่ใกล้ขอบเขตของแข็ง เส้นกระแสจะขนานกับขอบเขตนั้น เพราะของไหลผ่านเข้าไปในผิวไม่ได้
+        มัดของเส้นกระแสรวมกันเป็นท่อกระแส ซึ่งประพฤติตัวเหมือนท่อที่มีผนังล่องหน</figcaption>
+    </figure>
+
+    <div class="callout rule">
+      <span class="label">สี่ข้อที่ต้องรู้เกี่ยวกับเส้นกระแส</span>
+      <ul>
+        <li>ของไหลเคลื่อนที่<em>ไปตาม</em>เส้นกระแส ดังนั้น<b>ของไหลข้ามเส้นกระแสไม่ได้</b></li>
+        <li><b>เส้นกระแสตัดกันเองไม่ได้</b> ถ้าตัดกัน จะมีความเร็วสองค่าที่ต่างกัน ณ จุดเดียวกัน
+          ซึ่งเป็นไปไม่ได้ในทางกายภาพ</li>
+        <li>ตามมาด้วยว่า อนุภาคที่เริ่มต้นบนเส้นกระแสเส้นหนึ่ง<b>จะอยู่บนเส้นกระแสเส้นนั้นตลอด</b></li>
+        <li><b>ใกล้ขอบเขตของแข็ง เส้นกระแสขนานกับขอบเขตนั้น</b> เพราะของไหลไม่เข้าและไม่ออกจากผิว</li>
+      </ul>
+      <p>ในการไหล<b>คงตัว</b> ตำแหน่งของเส้นกระแสไม่เปลี่ยนตามเวลา ส่วนการไหลไม่คงตัวนั้นเปลี่ยน
+        &mdash; อีกเหตุผลหนึ่งที่เราจำกัดตัวเองไว้ที่การไหลคงตัว</p>
+    </div>
+
+    <h3>ท่อกระแส</h3>
+    <p>เทคนิคที่มีประโยชน์มากคือการพิจารณาเฉพาะส่วนหนึ่งของการไหล โดยแยกออกจากส่วนที่เหลือ
+      ลองนึกภาพผิวรูปท่อที่สร้างขึ้นจากเส้นกระแส วางตัวไปตามทิศทางการไหล ผิวนั้นคือ<b>ท่อกระแส</b> (streamtube)</p>
+
+    <p>เนื่องจากของไหลข้ามเส้นกระแสไม่ได้ มันจึงข้ามผนังของท่อกระแสไม่ได้เช่นกัน
+      ท่อกระแสจึงถือเสมือนเป็นท่อที่มีผนังทึบได้ &mdash; ของไหลเข้าที่ปลายหนึ่งและออกที่อีกปลายหนึ่ง
+      โดยไม่มีอะไรรั่วออกระหว่างทาง นั่นคือคุณสมบัติที่เราต้องการพอดีใน &sect;3.4</p>
+
+    <p>ข้อควรระวังสองข้อ ท่อกระแส<b>ไม่ใช่</b>ท่อจริง: ในการไหลไม่คงตัว ผนังของมันเคลื่อนที่ตามเวลา
+      และแม้ในการไหลคงตัว &ldquo;ผนัง&rdquo; ของมันก็เคลื่อนที่ไปกับของไหลมากกว่าจะอยู่กับที่
+      แต่สำหรับการไหลคงตัว เมื่อใช้เพื่อทำบัญชีว่าอะไรเข้าและอะไรออก การเปรียบเทียบนี้ถูกต้องทุกประการ</p>
+
+    <!-- ============================================================ 3.3 -->
+    <h2 id="s3">3.3 อัตราการไหล: เชิงมวลและเชิงปริมาตร</h2>
+
+    <h3>อัตราการไหลเชิงมวล</h3>
+    <p>ถ้าจะวัดอัตราที่น้ำไหลออกจากก๊อก จะทำอย่างไร วิธีที่ชัดเจนที่สุดคือเอาถังไปรองไว้
+      จับเวลาว่าใช้เวลานานเท่าใดจึงได้น้ำมวลที่ทราบค่า แล้วหารกัน</p>
+
+    <div class="eq plain">
+      อัตราการไหลเชิงมวล = <var>m&#775;</var> = มวลของไหลที่รองได้ &divide; เวลาที่ใช้
+      <span class="tag">(3.1)</span>
+    </div>
+
+    <p>ถ้ารองน้ำได้ 8.0&nbsp;กก. ใน 12&nbsp;วินาที จะได้ <var>m&#775;</var> = 8.0/12 =
+      0.67&nbsp;กก.&nbsp;วินาที<sup>&minus;1</sup> จุดเหนือ <var>m</var> เป็นสัญลักษณ์มาตรฐาน
+      หมายถึง &ldquo;ต่อหนึ่งหน่วยเวลา&rdquo;</p>
+
+    <h3>อัตราการไหลเชิงปริมาตร</h3>
+    <p>โดยทั่วไปเราต้องการ<b>อัตราการไหลเชิงปริมาตร</b> ซึ่งเรียกกันทั่วไปว่า <b>อัตราการไหล</b> (discharge)
+      และใช้สัญลักษณ์ <var>Q</var></p>
+
+    <div class="eq plain">
+      <var>Q</var> = ปริมาตรของไหล &divide; เวลาที่ใช้ = <var>m&#775;</var> / <var>&rho;</var>
+      <span class="tag">(3.2)</span>
+    </div>
+
+    <p>หน่วย SI คือ ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup> ยังมีอีกสองหน่วยที่ใช้กันทุกวัน
+      และนักศึกษาต้องใช้ได้คล่องทั้งคู่ คือลิตรต่อวินาที
+      (1&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup> = 1000&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup>)
+      และในงานชลประทานคือลูกบาศก์เมตรต่อชั่วโมง
+      (1&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup> = 3600&nbsp;ม.<sup>3</sup>&nbsp;ชั่วโมง<sup>&minus;1</sup>)</p>
+
+    <h3>อัตราการไหลกับความเร็วเฉลี่ย</h3>
+    <p>ทีนี้เชื่อมอัตราการไหลเข้ากับความเร็ว พิจารณาท่อที่มีพื้นที่หน้าตัด <var>A</var>
+      ซึ่งของไหลเคลื่อนที่ผ่านด้วยความเร็วสม่ำเสมอ <var>u</var> ในเวลา <var>t</var>
+      อนุภาคที่ทางเข้าจะเคลื่อนที่ได้ระยะ <var>ut</var> ปริมาตรที่ผ่านทางเข้าไปจึงเท่ากับ <var>Aut</var>
+      และปริมาตรต่อหนึ่งหน่วยเวลาคือ</p>
+
+    <div class="eq plain">
+      <var>Q</var> = <var>A</var> <var>u&#772;</var>
+      <span class="tag">(3.3)</span>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 260" role="img" aria-label="ซ้าย: ทรงกระบอกของไหลยาว u คูณ t ที่ผ่านหน้าตัดพื้นที่ A ขวา: รูปร่างความเร็วจริงในท่อ เป็นศูนย์ที่ผนังและสูงสุดที่แกนกลาง พร้อมความเร็วเฉลี่ยที่วาดเป็นเส้นประแนวตั้ง">
+        <defs>
+          <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="fb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <text x="26" y="24" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) ปริมาตรที่กวาดได้ในเวลา t</text>
+
+        <rect x="30" y="76" width="360" height="110" fill="#eaf7fa" stroke="none"/>
+        <line x1="30" y1="76" x2="390" y2="76" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="30" y1="186" x2="390" y2="186" stroke="#1c1917" stroke-width="2.5"/>
+
+        <line x1="120" y1="76" x2="120" y2="186" stroke="#00788A" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <text x="96" y="70" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">A</text>
+
+        <rect x="120" y="76" width="150" height="110" fill="#FFF1D1" stroke="#c8a14a" stroke-width="1.6"/>
+        <line x1="270" y1="76" x2="270" y2="186" stroke="#c8a14a" stroke-width="2"/>
+
+        <line x1="124" y1="131" x2="266" y2="131" stroke="#1c1917" stroke-width="1.6" marker-end="url(#fb)"/>
+        <text x="168" y="122" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">u&#772; t</text>
+
+        <line x1="290" y1="106" x2="370" y2="106" stroke="#00788A" stroke-width="2.2" marker-end="url(#fa)"/>
+        <line x1="290" y1="156" x2="370" y2="156" stroke="#00788A" stroke-width="2.2" marker-end="url(#fa)"/>
+
+        <text x="30" y="220" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">ปริมาตร = A &times; u&#772;t &nbsp;&rarr;&nbsp; ปริมาตรต่อหน่วยเวลา Q = A u&#772;</text>
+
+        <line x1="430" y1="16" x2="430" y2="244" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="460" y="24" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) รูปร่างความเร็วจริงกับค่าเฉลี่ย</text>
+
+        <rect x="470" y="76" width="330" height="110" fill="#f7fbfc" stroke="none"/>
+        <line x1="470" y1="76" x2="800" y2="76" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="470" y1="186" x2="800" y2="186" stroke="#1c1917" stroke-width="2.5"/>
+
+        <path d="M560,76 Q660,131 560,186" fill="#d9eef3" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="560" y1="76" x2="560" y2="186" stroke="#00788A" stroke-width="1.4"/>
+        <line x1="560" y1="90" x2="596" y2="90" stroke="#00788A" stroke-width="1.6" marker-end="url(#fa)"/>
+        <line x1="560" y1="131" x2="638" y2="131" stroke="#00788A" stroke-width="1.6" marker-end="url(#fa)"/>
+        <line x1="560" y1="172" x2="596" y2="172" stroke="#00788A" stroke-width="1.6" marker-end="url(#fa)"/>
+        <text x="648" y="126" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">max</tspan></text>
+
+        <line x1="712" y1="76" x2="712" y2="186" stroke="#b03a2e" stroke-width="2.4" stroke-dasharray="7 4"/>
+        <line x1="712" y1="96" x2="762" y2="96" stroke="#b03a2e" stroke-width="1.6" marker-end="url(#fb)"/>
+        <line x1="712" y1="131" x2="762" y2="131" stroke="#b03a2e" stroke-width="1.6" marker-end="url(#fb)"/>
+        <line x1="712" y1="166" x2="762" y2="166" stroke="#b03a2e" stroke-width="1.6" marker-end="url(#fb)"/>
+        <text x="716" y="66" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#b03a2e">u&#772;</text>
+
+        <text x="460" y="220" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">u&#772; คือความเร็วสม่ำเสมอที่จะพา Q เท่าเดิม</text>
+      </svg>
+      <figcaption><b>รูปที่ 3.2</b> (ก) ในเวลา <var>t</var> ของไหลกวาดปริมาตรทรงกระบอกยาว <var>u&#772;t</var>
+        (ข) ความเร็วจริงเป็นศูนย์ที่ผนังและสูงสุดที่แกน เราแทนที่มันด้วยความเร็วเฉลี่ย <var>u&#772;</var>
+        ซึ่งนิยามว่าเป็นความเร็วสม่ำเสมอที่จะพาอัตราการไหลเท่าเดิมผ่านพื้นที่เดิม</figcaption>
+    </figure>
+
+    <div class="callout">
+      <span class="label">&ldquo;ความเร็วเฉลี่ย&rdquo; หมายถึงอะไรกันแน่</span>
+      <p>นี่คือข้อแลกเปลี่ยนแบบหนึ่งมิติของ &sect;3.1 ที่เขียนเป็นสมการ เนื่องจากความเร็วตลอดหน้าตัดจริง
+        ไม่สม่ำเสมอ เราจึง<em>นิยาม</em> <var>u&#772;</var> = <var>Q</var>/<var>A</var> แล้วทำงานกับค่านั้น
+        สำหรับการไหลราบเรียบที่พัฒนาเต็มที่ในท่อ <var>u&#772;</var> = 0.5&nbsp;<var>u</var><sub>max</sub>
+        ส่วนการไหลปั่นป่วนในท่อซึ่งเป็นสิ่งที่พบในทางปฏิบัติ รูปร่างความเร็วแบนกว่ามาก และ
+        <var>u&#772;</var> &asymp; 0.80&ndash;0.85&nbsp;<var>u</var><sub>max</sub>
+        บทที่&nbsp;5 อธิบายว่าเหตุใดทั้งสองจึงต่างกันมากขนาดนั้น <b>ตั้งแต่นี้ไปเราจะตัดขีดบนออก</b>
+        และ <var>u</var> หมายถึงความเร็วเฉลี่ย เว้นแต่จะระบุเป็นอย่างอื่น</p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 3.1 &mdash; จากถังรองน้ำสู่ความเร็ว</h4>
+      <p>ถังเปล่าหนัก 2.0&nbsp;กก. หลังจากรองน้ำจากท่อขนาดเส้นผ่านศูนย์กลาง 25&nbsp;มม. เป็นเวลา 7&nbsp;วินาที
+        ถังหนัก 8.0&nbsp;กก. จงหาอัตราการไหลเชิงมวล อัตราการไหล และความเร็วเฉลี่ยในท่อ กำหนด
+        <var>&rho;</var> = 1000&nbsp;กก.&nbsp;ม.<sup>&minus;3</sup></p>
+      <p class="step">มวลน้ำที่รองได้ = 8.0 &minus; 2.0 = 6.0&nbsp;กก. ดังนั้น
+        <var>m&#775;</var> = 6.0/7 = 0.857&nbsp;กก.&nbsp;วินาที<sup>&minus;1</sup></p>
+      <p class="step"><var>Q</var> = <var>m&#775;</var>/<var>&rho;</var> = 0.857/1000 =
+        8.57&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup>
+        = 0.857&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup></p>
+      <p class="step"><var>A</var> = <var>&pi;d</var><sup>2</sup>/4 = <var>&pi;</var>(0.025)<sup>2</sup>/4
+        = 4.909&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;ม.<sup>2</sup></p>
+      <p class="result"><var>u</var> = <var>Q</var>/<var>A</var> =
+        8.57&nbsp;&times;&nbsp;10<sup>&minus;4</sup> / 4.909&nbsp;&times;&nbsp;10<sup>&minus;4</sup>
+        = <b>1.75&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></b></p>
+    </div>
+
+    <!-- ============================================================ 3.4 -->
+    <h2 id="s4">3.4 สมการความต่อเนื่อง</h2>
+
+    <p>สสารถูกสร้างขึ้นใหม่หรือทำลายไม่ได้ เมื่อนำข้อความนี้ไปใช้กับบริเวณที่ตรึงไว้ในสนามการไหล
+      หรือ<b>ปริมาตรควบคุม</b> (control volume) มันจะกลายเป็นสมการบัญชี</p>
+
+    <div class="eq plain">
+      มวลที่เข้าต่อหน่วยเวลา = มวลที่ออกต่อหน่วยเวลา + มวลที่เพิ่มขึ้นในปริมาตรควบคุมต่อหน่วยเวลา
+    </div>
+
+    <p>สำหรับ<b>การไหลคงตัว</b> ไม่มีการสะสม: มวลในปริมาตรควบคุมคงที่ พจน์สุดท้ายจึงเป็นศูนย์ และได้</p>
+
+    <div class="eq plain">
+      มวลที่เข้าต่อหน่วยเวลา = มวลที่ออกต่อหน่วยเวลา
+      <span class="tag">(3.4)</span>
+    </div>
+
+    <p>นำไปใช้กับท่อกระแสในรูปที่&nbsp;3.1(ข) ไม่มีอะไรข้ามผนัง มวลทั้งหมดจึงเข้าทางหน้าตัดที่&nbsp;1
+      และออกทางหน้าตัดที่&nbsp;2</p>
+
+    <div class="eq stack">
+      <div><var>&rho;</var><sub>1</sub><var>A</var><sub>1</sub><var>u</var><sub>1</sub>
+           = <var>&rho;</var><sub>2</sub><var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+           = ค่าคงที่ = <var>m&#775;</var>
+        <span class="tag">(3.5)</span></div>
+    </div>
+
+    <p>สมการนี้ใช้ได้กับท่อกระแสใด ๆ ในการไหลคงตัว ไม่ว่าของไหลจะเป็นอะไร ทีนี้นำสมมติฐานข้อที่สองของ
+      &sect;3.1 เข้ามา: การไหล<b>อัดตัวไม่ได้</b> ดังนั้น <var>&rho;</var><sub>1</sub> =
+      <var>&rho;</var><sub>2</sub> และความหนาแน่นตัดกัน</p>
+
+    <div class="eq stack">
+      <div><var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+           = <var>Q</var> = ค่าคงที่
+        <span class="tag">(3.6)</span></div>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">สมการที่มีประโยชน์ที่สุดในวิชานี้</span>
+      <p>สมการ&nbsp;(3.6) บอกว่า <b>ในการไหลคงตัวที่อัดตัวไม่ได้ อัตราการไหลเท่ากันทุกหน้าตัด</b>
+        บีบพื้นที่ให้เล็กลง ความเร็วก็ต้องเพิ่มขึ้นเป็นสัดส่วนกันพอดี สมการนี้ไม่ต้องการข้อมูลเรื่องความดัน
+        ความเสียดทาน หรือชนิดของไหลเลย ต้องการเพียงว่ามวลถูกอนุรักษ์และความหนาแน่นคงที่
+        มันคือสมการแรกที่ต้องเขียนลงในโจทย์เกือบทุกข้อของวิชานี้</p>
+    </div>
+
+    <h3>ท่อเรียว</h3>
+    <p>ถ้าท่อเส้นผ่านศูนย์กลาง <var>d</var><sub>1</sub> เรียวลงเหลือ <var>d</var><sub>2</sub> เนื่องจาก
+      <var>A</var> = <var>&pi;d</var><sup>2</sup>/4 พื้นที่จึงมีอัตราส่วนเท่ากับกำลังสองของเส้นผ่านศูนย์กลาง</p>
+
+    <div class="eq stack">
+      <div><var>u</var><sub>2</sub> = <var>u</var><sub>1</sub>
+        (<var>A</var><sub>1</sub>/<var>A</var><sub>2</sub>)
+        = <var>u</var><sub>1</sub> (<var>d</var><sub>1</sub>/<var>d</var><sub>2</sub>)<sup>2</sup>
+        <span class="tag">(3.7)</span></div>
+    </div>
+
+    <p>ดังนั้นการลดเส้นผ่านศูนย์กลางลงครึ่งหนึ่งทำให้ความเร็ว<em>เพิ่มเป็นสี่เท่า</em>
+      ความสัมพันธ์กำลังสองนี้ควรจดจำไว้ มันอยู่เบื้องหลังความประหลาดใจส่วนใหญ่ในงานออกแบบระบบท่อ
+      และอยู่เบื้องหลังการสูญเสียความดันจำนวนมากที่นักศึกษาจะคำนวณในบทที่&nbsp;5</p>
+
+    <h3>จุดแยกท่อ: มากกว่าสองหน้าตัด</h3>
+    <figure>
+      <svg viewBox="0 0 860 240" role="img" aria-label="จุดแยกท่อที่มีท่อเข้าหนึ่งเส้นและท่อออกสองเส้น แสดงว่าอัตราการไหลเข้าเท่ากับผลรวมของอัตราการไหลออกทั้งสอง">
+        <defs>
+          <marker id="ja" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+        </defs>
+
+        <path d="M60,96 L330,96 L430,60 L430,96 z" fill="#eaf7fa" stroke="none"/>
+        <rect x="60" y="96" width="270" height="70" fill="#eaf7fa" stroke="none"/>
+        <line x1="60" y1="96" x2="330" y2="96" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="60" y1="166" x2="330" y2="166" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="60" y1="96" x2="60" y2="166" stroke="#00788A" stroke-width="2.5" stroke-dasharray="6 4"/>
+
+        <line x1="100" y1="131" x2="220" y2="131" stroke="#00788A" stroke-width="2.4" marker-end="url(#ja)"/>
+        <text x="132" y="122" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">Q<tspan font-size="11" dy="4">1</tspan></text>
+        <text x="30" y="136" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">1</tspan></text>
+
+        <path d="M330,96 L560,34 L560,72 L340,124 z" fill="#eaf7fa" stroke="none"/>
+        <line x1="330" y1="96" x2="560" y2="34" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="340" y1="124" x2="560" y2="72" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="560" y1="34" x2="560" y2="72" stroke="#00788A" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <line x1="420" y1="90" x2="520" y2="64" stroke="#00788A" stroke-width="2.4" marker-end="url(#ja)"/>
+        <text x="446" y="80" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">Q<tspan font-size="11" dy="4">2</tspan></text>
+        <text x="576" y="58" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">2</tspan></text>
+
+        <path d="M340,138 L560,178 L560,214 L336,166 z" fill="#eaf7fa" stroke="none"/>
+        <line x1="340" y1="138" x2="560" y2="178" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="336" y1="166" x2="560" y2="214" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="560" y1="178" x2="560" y2="214" stroke="#00788A" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <line x1="420" y1="168" x2="520" y2="190" stroke="#00788A" stroke-width="2.4" marker-end="url(#ja)"/>
+        <text x="444" y="196" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">Q<tspan font-size="11" dy="4">3</tspan></text>
+        <text x="576" y="202" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">3</tspan></text>
+
+        <text x="620" y="110" font-family="Cambria, Georgia, serif" font-size="20" font-style="italic" fill="#1c1917">Q<tspan font-size="13" dy="5">1</tspan><tspan font-size="20" dy="-5"> = Q</tspan><tspan font-size="13" dy="5">2</tspan><tspan font-size="20" dy="-5"> + Q</tspan><tspan font-size="13" dy="5">3</tspan></text>
+        <text x="620" y="140" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">ไม่ว่าท่อแยกจะทำมุมเท่าใด</text>
+      </svg>
+      <figcaption><b>รูปที่ 3.3</b> ที่จุดแยกท่อ การทำบัญชียังเหมือนเดิม: ผลรวมที่ไหลเข้าเท่ากับผลรวมที่ไหลออก
+        รูปเรขาคณิตของท่อแยกไม่เกี่ยวกับความต่อเนื่อง &mdash; มันจะสำคัญก็เฉพาะกับสมการโมเมนตัมในบทที่&nbsp;4</figcaption>
+    </figure>
+
+    <p>ถ้าจุดแยกมีทางเข้าหนึ่งทางและทางออกสองทาง อัตราการไหลเชิงมวลรวมที่เข้าต้องเท่ากับที่ออก</p>
+
+    <div class="eq stack">
+      <div><var>&rho;</var><sub>1</sub><var>Q</var><sub>1</sub> = <var>&rho;</var><sub>2</sub><var>Q</var><sub>2</sub>
+        + <var>&rho;</var><sub>3</sub><var>Q</var><sub>3</sub>
+        <span class="tag">(3.8)</span></div>
+      <div>และถ้าเป็นของไหลชนิดเดียวกันตลอด
+        <var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+        + <var>A</var><sub>3</sub><var>u</var><sub>3</sub>
+        <span class="tag">(3.9)</span></div>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 3.2 &mdash; ท่อเรียวและท่อแยก</h4>
+      <p>น้ำไหลด้วยอัตรา 30&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup> ในท่อขนาด 150&nbsp;มม.
+        ซึ่งเรียวลงเหลือ 100&nbsp;มม. แล้วแยกเป็นท่อขนาด 75&nbsp;มม. สองเส้น
+        ถ้าท่อแยกเส้นหนึ่งพาอัตราการไหลเป็นสองเท่าของอีกเส้น
+        จงหาความเร็วเฉลี่ยในท่อ 150&nbsp;มม. ท่อ 100&nbsp;มม. และท่อ 75&nbsp;มม. แต่ละเส้น</p>
+      <p class="step"><var>Q</var> = 30&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup> =
+        0.030&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup></p>
+      <p class="step"><var>A</var><sub>1</sub> = <var>&pi;</var>(0.150)<sup>2</sup>/4 =
+        0.01767&nbsp;ม.<sup>2</sup> ดังนั้น <var>u</var><sub>1</sub> = 0.030/0.01767 =
+        <b>1.70&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></b></p>
+      <p class="step"><var>A</var><sub>2</sub> = <var>&pi;</var>(0.100)<sup>2</sup>/4 =
+        7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;ม.<sup>2</sup> ดังนั้น <var>u</var><sub>2</sub> =
+        0.030/7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        <b>3.82&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></b>
+        ตรวจด้วย (3.7): 1.70&nbsp;&times;&nbsp;(150/100)<sup>2</sup> = 3.82&nbsp;&#10003;</p>
+      <p class="step">ที่จุดแยก <var>Q</var><sub>ก</sub> + <var>Q</var><sub>ข</sub> = 0.030 โดยที่
+        <var>Q</var><sub>ข</sub> = 2<var>Q</var><sub>ก</sub> ดังนั้น 3<var>Q</var><sub>ก</sub> = 0.030
+        ได้ <var>Q</var><sub>ก</sub> = 0.010 และ <var>Q</var><sub>ข</sub> =
+        0.020&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup></p>
+      <p class="step"><var>A</var><sub>75</sub> = <var>&pi;</var>(0.075)<sup>2</sup>/4 =
+        4.418&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;ม.<sup>2</sup></p>
+      <p class="result"><var>u</var><sub>ก</sub> = 0.010/4.418&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        <b>2.26&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></b>;
+        <var>u</var><sub>ข</sub> = 0.020/4.418&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        <b>4.53&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></b></p>
+    </div>
+
+    <!-- ============================================================ 3.5 -->
+    <h2 id="s5">3.5 งาน พลังงาน และสมการแบร์นูลลี</h2>
+
+    <p>ความต่อเนื่องบอกเราว่าของไหลเคลื่อนที่เร็วเท่าใด แต่ไม่บอกอะไรเกี่ยวกับความดันเลย
+      สำหรับเรื่องนั้นเราต้องการกฎการอนุรักษ์ข้อที่สอง &mdash; พลังงาน &mdash;
+      และผลลัพธ์คือสมการที่มีชื่อเสียงที่สุดในวิชากลศาสตร์ของไหล</p>
+
+    <h3>พลังงานสามรูปแบบ</h3>
+    <p>พิจารณาธาตุของไหลมวล <var>m</var> ที่เคลื่อนที่ไปตามเส้นกระแส มันพาพลังงานไปในสามรูปแบบ</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>รูปแบบ</th><th>พลังงานของธาตุ</th><th>มาจากไหน</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>พลังงานจลน์</b></td>
+            <td>&frac12;<var>mu</var><sup>2</sup></td>
+            <td>การเคลื่อนที่ของมัน</td>
+          </tr>
+          <tr>
+            <td><b>พลังงานศักย์</b></td>
+            <td><var>mgz</var></td>
+            <td>ความสูง <var>z</var> เหนือระดับอ้างอิงที่เลือกไว้</td>
+          </tr>
+          <tr>
+            <td><b>พลังงานความดัน</b></td>
+            <td><var>pm</var>/<var>&rho;</var></td>
+            <td>งานที่ของไหลด้านหลังทำกับธาตุขณะดันมันไปข้างหน้า มักเรียกว่า
+              <em>งานเนื่องจากการไหล</em> (flow work)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>รูปแบบที่สามเป็นรูปแบบที่ไม่คุ้นเคย จึงควรพิสูจน์ให้เห็น การดันธาตุไปเป็นระยะ <var>&delta;s</var>
+      ผ่านหน้าตัดพื้นที่ <var>A</var> ของไหลด้านหลังออกแรง <var>pA</var> จึงทำงานเท่ากับ
+      <var>pA&delta;s</var> แต่ <var>A&delta;s</var> คือปริมาตรของธาตุ ซึ่งเท่ากับ
+      <var>m</var>/<var>&rho;</var> ดังนั้นงานที่ทำกับมันคือ <var>pm</var>/<var>&rho;</var></p>
+
+    <h3>สมมติฐาน</h3>
+    <div class="callout rule">
+      <span class="label">สมการแบร์นูลลีใช้ได้ก็ต่อเมื่อ</span>
+      <ol>
+        <li>การไหล<b>คงตัว</b></li>
+        <li>ความหนาแน่น<b>คงที่</b> &mdash; ของไหลอัดตัวไม่ได้</li>
+        <li>การสูญเสียเนื่องจากความเสียดทาน<b>น้อยจนละเลยได้</b> &mdash; ของไหลเป็นของไหลอุดมคติตามนิยามใน &sect;1.4</li>
+        <li>สมการเชื่อมโยงสองจุดที่อยู่<b>บนเส้นกระแสเดียวกัน</b></li>
+        <li>ไม่มีการเพิ่มหรือดึงพลังงานออกระหว่างสองจุดนั้น &mdash; ไม่มีเครื่องสูบน้ำ ไม่มีกังหัน</li>
+      </ol>
+      <p>สมมติฐานข้อ&nbsp;3 คือข้อที่ล้มเหลวก่อนใครในระบบท่อจริง บทที่&nbsp;5 จะใส่ความเสียดทานกลับเข้าไป
+        ส่วนข้อ&nbsp;4 ในทางปฏิบัติผ่อนปรนได้สำหรับการไหลภายในท่อกระแสเดียว
+        ซึ่งทุกเส้นกระแสพาพลังงานรวมเท่ากัน</p>
+    </div>
+
+    <h3>การพิสูจน์</h3>
+    <p>เมื่อไม่มีการสูญเสียและไม่มีการเพิ่มงาน พลังงานรวมของธาตุย่อมเท่ากันที่จุดใด ๆ สองจุดบนเส้นกระแส
+      เขียนที่จุด 1 และ 2</p>
+
+    <div class="eq stack">
+      <div><var>p</var><sub>1</sub><var>m</var>/<var>&rho;</var> + &frac12;<var>mu</var><sub>1</sub><sup>2</sup>
+        + <var>mgz</var><sub>1</sub>
+        = <var>p</var><sub>2</sub><var>m</var>/<var>&rho;</var> + &frac12;<var>mu</var><sub>2</sub><sup>2</sup>
+        + <var>mgz</var><sub>2</sub></div>
+      <div>หารตลอดด้วย <var>m</var>: &nbsp;
+        <var>p</var><sub>1</sub>/<var>&rho;</var> + <var>u</var><sub>1</sub><sup>2</sup>/2 + <var>gz</var><sub>1</sub>
+        = <var>p</var><sub>2</sub>/<var>&rho;</var> + <var>u</var><sub>2</sub><sup>2</sup>/2 + <var>gz</var><sub>2</sub>
+        <span class="tag">(3.10)</span></div>
+      <div>หารตลอดด้วย <var>g</var>: &nbsp;
+        <var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>1</sub>
+        = <var>p</var><sub>2</sub>/<var>&rho;g</var> + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>2</sub>
+        = <var>H</var> = ค่าคงที่
+        <span class="tag">(3.11)</span></div>
+    </div>
+
+    <p>สมการ&nbsp;(3.10) คือสมการแบร์นูลลีในรูป<b>พลังงานต่อหนึ่งหน่วยมวล</b>
+      (จูล&nbsp;กก.<sup>&minus;1</sup>) ถ้าคูณด้วย <var>&rho;</var> แทน จะได้<b>รูปความดัน</b>
+      ซึ่งคือพลังงานต่อหนึ่งหน่วยปริมาตร</p>
+
+    <div class="eq stack">
+      <div><var>p</var><sub>1</sub> + &frac12;<var>&rho;u</var><sub>1</sub><sup>2</sup> + <var>&rho;gz</var><sub>1</sub>
+        = <var>p</var><sub>2</sub> + &frac12;<var>&rho;u</var><sub>2</sub><sup>2</sup> + <var>&rho;gz</var><sub>2</sub>
+        <span class="tag">(3.12)</span></div>
+    </div>
+
+    <p>แต่รูปที่&nbsp;(3.11) คือรูปที่วิศวกรใช้จริง เพราะทุกพจน์มีมิติเป็น<b>ความยาว</b> &mdash;
+      วัดเป็นเมตรของของไหลนั้น เหมือนใน &sect;2.4 ทุกประการ นั่นคือสิ่งที่ทำให้มันวาดเป็นรูปได้
+      และหัวข้อถัดไปก็จะวาดมันออกมา</p>
+
+    <div class="callout">
+      <span class="label">ลองตรวจมิติด้วยตนเอง</span>
+      <p class="dim">[p/&rho;g] = (ML<sup>-1</sup>T<sup>-2</sup>) &divide; (ML<sup>-3</sup> &middot; LT<sup>-2</sup>) = L &nbsp;&nbsp;
+         [u<sup>2</sup>/2g] = (L<sup>2</sup>T<sup>-2</sup>) &divide; (LT<sup>-2</sup>) = L &nbsp;&nbsp;
+         [z] = L</p>
+      <p>ทั้งสามพจน์เป็นความยาว สมการจึงเอกพันธ์เชิงมิติ ตามการตรวจสอบใน &sect;1.3
+        ถ้าสมการแบร์นูลลีที่นักศึกษาเขียนไม่ผ่านการตรวจนี้เมื่อใด แปลว่าทำ <var>g</var> หรือ
+        <var>&rho;</var> ตกไปตัวหนึ่ง</p>
+    </div>
+
+    <!-- ============================================================ 3.6 -->
+    <h2 id="s6">3.6 เฮดทั้งสี่ และเส้นระดับสองเส้น</h2>
+
+    <p>ทุกพจน์ในสมการ&nbsp;(3.11) มีชื่อเรียกของตนเอง และทุกพจน์วัดได้ด้วยหลอดแก้ว
+      จงจำชื่อเหล่านี้ให้ได้ เพราะเนื้อหาที่เหลือของบทเขียนขึ้นด้วยชื่อเหล่านี้</p>
+
+    <div class="nomen">
+      <div><b><var>z</var></b> &mdash; เฮดตำแหน่ง (potential head) <span class="u">ม.</span></div>
+      <div>ความสูงเหนือระดับอ้างอิงที่เลือก การย้ายระดับอ้างอิงไม่มีต้นทุน เพราะมีแต่ผลต่างที่สำคัญ</div>
+      <div><b><var>p</var>/<var>&rho;g</var></b> &mdash; เฮดความดัน (pressure head) <span class="u">ม.</span></div>
+      <div>ความสูงที่ของไหลจะขึ้นไปในปิโซมิเตอร์ ตามที่กล่าวใน &sect;2.5</div>
+      <div><b><var>u</var><sup>2</sup>/2<var>g</var></b> &mdash; เฮดความเร็ว (velocity head) <span class="u">ม.</span></div>
+      <div>ความสูงส่วนเพิ่มที่ของไหลจะขึ้นไปอีกถ้าถูกทำให้หยุดนิ่งด้วย</div>
+      <div><b><var>H</var></b> &mdash; เฮดรวม (total head) <span class="u">ม.</span></div>
+      <div>ผลรวมของทั้งสาม มีค่าคงที่ตลอดเส้นกระแส สำหรับของไหลอุดมคติ</div>
+    </div>
+
+    <p>ยังมีผลรวมอีกสองแบบที่มีชื่อเฉพาะ เพราะเป็นเส้นสองเส้นที่เราวาดลงบนรูปตัดตามยาวของท่อทุกครั้ง</p>
+
+    <ul>
+      <li><b>เฮดปิโซเมตริก</b> <var>p</var>/<var>&rho;g</var> + <var>z</var> เมื่อพล็อตไปตามแนวท่อ
+        จะได้<b>เส้นระดับชลศาสตร์</b> (hydraulic grade line, HGL)
+        คือระดับที่น้ำจะขึ้นไปยืนอยู่ในแถวของปิโซมิเตอร์ที่เจาะเข้าผนังท่อ</li>
+      <li><b>เฮดรวม</b> <var>H</var> เมื่อพล็อตไปตามแนวท่อ จะได้<b>เส้นระดับพลังงาน</b>
+        (energy grade line, EGL) เส้นนี้อยู่เหนือ HGL เท่ากับเฮดความเร็ว
+        <var>u</var><sup>2</sup>/2<var>g</var> ที่ทุกหน้าตัด</li>
+    </ul>
+
+    <figure>
+      <svg viewBox="0 0 860 330" role="img" aria-label="ท่อที่คอดตรงกลาง มีระดับอ้างอิงอยู่ด้านล่าง เส้นระดับพลังงานเป็นแนวราบสำหรับของไหลอุดมคติ ส่วนเส้นระดับชลศาสตร์ลดต่ำลงที่คอคอดซึ่งเฮดความเร็วเพิ่มขึ้น หลอดปิโซมิเตอร์แสดงเฮดความดันที่แต่ละหน้าตัด">
+        <defs>
+          <marker id="ha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="hb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <line x1="40" y1="40" x2="820" y2="40" stroke="#b03a2e" stroke-width="2.6"/>
+        <text x="596" y="32" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#b03a2e">เส้นระดับพลังงาน (EGL) &mdash; แนวราบ</text>
+
+        <path d="M40,80 L250,80 Q300,82 340,132 L470,132 Q510,84 560,80 L820,80" fill="none" stroke="#00788A" stroke-width="2.6" stroke-dasharray="9 5"/>
+        <text x="608" y="72" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#00788A">เส้นระดับชลศาสตร์ (HGL)</text>
+
+        <rect x="150" y="80" width="13" height="152" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="399" y="132" width="13" height="80" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="690" y="80" width="13" height="152" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+
+        <path d="M40,212 L280,212 L370,192 L500,192 L590,212 L820,212 L820,262 L590,262 L500,232 L370,232 L280,262 L40,262 z" fill="#eaf7fa" stroke="none"/>
+        <path d="M40,212 L280,212 L370,192 L500,192 L590,212 L820,212" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <path d="M40,262 L280,262 L370,232 L500,232 L590,262 L820,262" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+
+        <line x1="40" y1="306" x2="820" y2="306" stroke="#4b4540" stroke-width="1.8" stroke-dasharray="4 4"/>
+        <text x="40" y="324" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">ระดับอ้างอิง &nbsp; z = 0</text>
+
+        <line x1="112" y1="40" x2="112" y2="80" stroke="#1c1917" stroke-width="1.4" marker-start="url(#hb)" marker-end="url(#ha)"/>
+        <text x="50" y="66" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">u&#178;/2g</text>
+        <line x1="112" y1="80" x2="112" y2="237" stroke="#1c1917" stroke-width="1.4" marker-start="url(#hb)" marker-end="url(#ha)"/>
+        <text x="60" y="162" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">p/&#961;g</text>
+        <line x1="112" y1="237" x2="112" y2="306" stroke="#1c1917" stroke-width="1.4" marker-start="url(#hb)" marker-end="url(#ha)"/>
+        <text x="92" y="278" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">z</text>
+
+        <line x1="446" y1="40" x2="446" y2="132" stroke="#b03a2e" stroke-width="1.4" marker-start="url(#hb)" marker-end="url(#ha)"/>
+        <text x="452" y="92" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">เฮดความเร็วโตขึ้น</text>
+        <text x="452" y="110" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">ที่คอคอด</text>
+        <text x="300" y="176" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">&hellip; เฮดความดันจึงต้องลดลง</text>
+      </svg>
+      <figcaption><b>รูปที่ 3.4</b> สำหรับของไหลอุดมคติ EGL เป็นแนวราบ เพราะเฮดรวมไม่เปลี่ยนเลย
+        ตรงที่ท่อคอดลง เฮดความเร็วโตขึ้น เฮดความดันจึงต้องหดลงเท่ากัน และ HGL ก็ลดต่ำลง
+        ช่องว่างแนวดิ่งระหว่างสองเส้นเท่ากับ <var>u</var><sup>2</sup>/2<var>g</var> เสมอ
+        ในท่อจริง (บทที่&nbsp;5) ความเสียดทานทำให้ EGL เอียงลงตามทิศการไหล &mdash;
+        มันยกตัวขึ้นไม่ได้เลย เว้นแต่มีเครื่องสูบน้ำเติมพลังงานให้</figcaption>
+    </figure>
+
+    <div class="callout rule">
+      <span class="label">วิธีอ่านเส้นทั้งสอง</span>
+      <ul>
+        <li>EGL อยู่<b>เหนือ</b> HGL เสมอ เป็นระยะเท่ากับเฮดความเร็ว</li>
+        <li>ทั้งสองเส้นทับกันเฉพาะที่ความเร็วเป็นศูนย์ &mdash; ที่ผิวน้ำนิ่งของอ่างเก็บน้ำ</li>
+        <li>ตรงที่ HGL ตกลง<b>ต่ำกว่าตัวท่อ</b> ความดันที่นั่น<b>ต่ำกว่าบรรยากาศ</b>
+          นั่นคือสัญญาณเตือนเรื่องคาวิเทชัน (&sect;1.11) และเรื่องอากาศที่จะถูกดูดเข้าทางข้อต่อ</li>
+        <li>เครื่องสูบน้ำทำให้ทั้งสองเส้นกระโดด<em>ขึ้น</em> กังหันทำให้กระโดด<em>ลง</em></li>
+      </ul>
+    </div>
+
+    <h3>ความดันหายไปไหน</h3>
+    <p>สังเกตว่าสมการ&nbsp;(3.11) บอกอะไรกับท่อแนวราบ ซึ่ง <var>z</var><sub>1</sub> =
+      <var>z</var><sub>2</sub> และพจน์ตำแหน่งหายไป</p>
+
+    <div class="eq plain">
+      <var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var>
+      = <var>p</var><sub>2</sub>/<var>&rho;g</var> + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var>
+      <span class="tag">(3.13)</span>
+    </div>
+
+    <p>ไหลเร็วหมายถึงความดันต่ำ นำข้อนี้ไปรวมกับความต่อเนื่อง &mdash; แคบหมายถึงเร็ว &mdash;
+      ก็จะได้หลักการทำงานของอุปกรณ์ทุกชิ้นใน &sect;3.7 ถึง &sect;3.10:
+      <b>บีบการไหลให้แคบลง วัดความดันที่ลดลง แล้วอนุมานหาอัตราการไหล</b></p>
+
+    <!-- ============================================================ 3.7 -->
+    <h2 id="s7">3.7 ท่อพิโตต์และท่อพิโตต์-สแตติก</h2>
+
+    <p>พิจารณาหลอดงอที่สอดเข้าไปในกระแสน้ำที่ไหลอยู่ โดยหันปากที่เปิดอยู่ทวนกระแส
+      ของไหลจะไหลขึ้นไปในหลอดจนกระทั่งความดันที่ก้นหลอดสมดุลกับน้ำหนักลำน้ำที่อยู่เหนือขึ้นไป แล้วจึงหยุด
+      เมื่อของไหลในหลอดหยุดนิ่ง ของไหลที่มาถึงปากหลอดก็หยุดนิ่งด้วย จุดนั้นคือ<b>จุดหยุดนิ่ง</b>
+      (stagnation point) และความดันที่นั่นคือ<b>ความดันหยุดนิ่ง</b></p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="ซ้าย: ท่อพิโตต์อย่างง่ายหันทวนกระแสในสนามการไหล มีจุดหยุดนิ่งที่ปากหลอด และลำน้ำในหลอดสูงกว่าระดับผิวอิสระเท่ากับเฮดความเร็ว ขวา: ท่อพิโตต์-สแตติกที่มีรูหยุดนิ่งตรงกลางและรูสแตติกด้านข้าง ต่อเข้ากับมาโนมิเตอร์">
+        <defs>
+          <marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="pb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="pc" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <text x="26" y="24" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) ท่อพิโตต์อย่างง่าย</text>
+
+        <line x1="30" y1="112" x2="330" y2="112" stroke="#9fd8e2" stroke-width="1.8" stroke-dasharray="6 4"/>
+        <text x="30" y="106" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">ระดับสแตติก (ปิโซเมตริก)</text>
+        <line x1="30" y1="68" x2="330" y2="68" stroke="#b03a2e" stroke-width="1.8" stroke-dasharray="6 4"/>
+        <text x="30" y="62" font-family="Segoe UI, Arial" font-size="12" fill="#b03a2e">ระดับหยุดนิ่ง</text>
+
+        <line x1="292" y1="68" x2="292" y2="112" stroke="#1c1917" stroke-width="1.4" marker-start="url(#pc)" marker-end="url(#pb)"/>
+        <text x="300" y="96" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">h = u&#178;/2g</text>
+
+        <path d="M200,68 L200,208 Q200,236 172,236 L152,236" fill="none" stroke="#4b4540" stroke-width="3"/>
+        <path d="M214,68 L214,208 Q214,250 172,250 L152,250" fill="none" stroke="#4b4540" stroke-width="3"/>
+        <rect x="200" y="68" width="14" height="140" fill="#eaf7fa" stroke="none"/>
+
+        <line x1="40" y1="243" x2="140" y2="243" stroke="#00788A" stroke-width="2.6" marker-end="url(#pa)"/>
+        <line x1="40" y1="200" x2="150" y2="200" stroke="#00788A" stroke-width="2.2" marker-end="url(#pa)"/>
+        <line x1="40" y1="160" x2="150" y2="160" stroke="#00788A" stroke-width="2.2" marker-end="url(#pa)"/>
+        <text x="60" y="192" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">1</tspan></text>
+        <circle cx="150" cy="243" r="5" fill="#b03a2e"/>
+        <text x="86" y="278" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">จุดหยุดนิ่ง u = 0</text>
+
+        <line x1="370" y1="16" x2="370" y2="284" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="404" y="24" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) ท่อพิโตต์-สแตติก</text>
+
+        <path d="M430,150 Q446,128 470,128 L790,128 L790,172 L470,172 Q446,172 430,150 z" fill="#f4efe4" stroke="#1c1917" stroke-width="2.2"/>
+        <line x1="436" y1="150" x2="790" y2="150" stroke="#b03a2e" stroke-width="2.4" stroke-dasharray="7 4"/>
+        <circle cx="433" cy="150" r="5" fill="#b03a2e"/>
+        <text x="392" y="200" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">รูวัดความดันหยุดนิ่ง</text>
+
+        <circle cx="560" cy="128" r="4" fill="#00788A"/>
+        <circle cx="560" cy="172" r="4" fill="#00788A"/>
+        <text x="510" y="112" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">รูวัดความดันสแตติก</text>
+
+        <line x1="390" y1="112" x2="424" y2="128" stroke="#00788A" stroke-width="2.2" marker-end="url(#pa)"/>
+        <line x1="386" y1="150" x2="420" y2="150" stroke="#00788A" stroke-width="2.6" marker-end="url(#pa)"/>
+        <line x1="390" y1="188" x2="424" y2="172" stroke="#00788A" stroke-width="2.2" marker-end="url(#pa)"/>
+
+        <path d="M620,172 L620,246 L700,246 L700,196" fill="none" stroke="#4b4540" stroke-width="2.4"/>
+        <path d="M660,150 L660,232 L740,232 L740,196" fill="none" stroke="#4b4540" stroke-width="2.4"/>
+        <rect x="620" y="232" width="122" height="16" fill="#c8a14a" stroke="none"/>
+        <text x="756" y="220" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">h</text>
+        <line x1="752" y1="196" x2="752" y2="232" stroke="#1c1917" stroke-width="1.4" marker-start="url(#pc)" marker-end="url(#pb)"/>
+        <text x="576" y="280" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">มาโนมิเตอร์อ่านผลต่างได้โดยตรง ไม่ต้องมีผิวอิสระ</text>
+      </svg>
+      <figcaption><b>รูปที่ 3.5</b> (ก) ท่อพิโตต์อย่างง่ายต้องอ่านเทียบกับการวัดความดันสแตติกแยกต่างหาก
+        (ข) ท่อพิโตต์-สแตติกรวมรูวัดทั้งสองไว้ในตัวเดียว การอ่านมาโนมิเตอร์เพียงครั้งเดียวจึงให้เฮดความเร็ว
+        ท่อต้องวางให้ตรงแนวการไหล: เอียงเกินประมาณ 5&deg; ค่าความดันสแตติกจะเพี้ยน</figcaption>
+    </figure>
+
+    <h3>ท่อพิโตต์อย่างง่าย</h3>
+    <p>ใช้สมการแบร์นูลลีตามเส้นกระแสแกนกลางจากจุด&nbsp;1 ในกระแสที่ยังไม่ถูกรบกวน ไปยังจุดหยุดนิ่ง&nbsp;2
+      โดยให้ทั้งสองจุดอยู่ระดับเดียวกัน ดังนั้น <var>z</var><sub>1</sub> = <var>z</var><sub>2</sub>
+      และ <var>u</var><sub>2</sub> = 0</p>
+
+    <div class="eq stack">
+      <div><var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var>
+        = <var>p</var><sub>2</sub>/<var>&rho;g</var></div>
+      <div><var>p</var><sub>2</sub> = <var>p</var><sub>1</sub> + &frac12;<var>&rho;u</var><sub>1</sub><sup>2</sup>
+        <span class="tag">(3.14)</span></div>
+    </div>
+
+    <p>ความดันหยุดนิ่งสูงกว่าความดันสแตติกเท่ากับ<b>ความดันพลวัต</b>
+      &frac12;<var>&rho;u</var><sup>2</sup> พอดี ส่วนเกินนั้นดันลำน้ำในหลอดให้สูงขึ้นเท่ากับเฮดความเร็ว
+      <var>h</var> = <var>u</var><sup>2</sup>/2<var>g</var> ดังนั้นถ้าอ่านค่า <var>h</var> ได้</p>
+
+    <div class="eq plain">
+      <var>u</var> = <span class="sqrt"><span class="rad">2<var>gh</var></span></span>
+      <span class="tag">(3.15)</span>
+    </div>
+
+    <h3>ท่อพิโตต์-สแตติก</h3>
+    <p>ท่อพิโตต์อย่างง่ายให้เฉพาะความดันหยุดนิ่ง การจะหาความเร็วได้ต้องรู้ความดันสแตติก ณ จุดเดียวกันด้วย
+      ซึ่งการอ่านทั้งสองค่าด้วยเครื่องมือคนละตัวนั้นทั้งยุ่งยากและคลาดเคลื่อน
+      <b>ท่อพิโตต์-สแตติก</b> แก้ปัญหานี้ด้วยการรวมทั้งสองไว้ในตัวเดียว:
+      หลอดกลางที่หันทวนกระแสรับค่า <var>p</var><sub>2</sub>
+      และวงรูเล็ก ๆ ที่ด้านข้างซึ่งขนานกับการไหลรับค่าความดันสแตติก <var>p</var><sub>1</sub>
+      ต่อทั้งสองเข้ากับขาคนละข้างของมาโนมิเตอร์ ค่าที่อ่านได้คือผลต่าง</p>
+
+    <p>เมื่อวิเคราะห์มาโนมิเตอร์ตามวิธีใน &sect;2.5 โดยของไหลเกจมีความหนาแน่น
+      <var>&rho;</var><sub>man</sub> และอ่านค่าได้ <var>h</var> จะได้</p>
+
+    <div class="eq stack">
+      <div><var>p</var><sub>2</sub> &minus; <var>p</var><sub>1</sub>
+        = <var>gh</var>(<var>&rho;</var><sub>man</sub> &minus; <var>&rho;</var>)</div>
+      <div>และเนื่องจาก <var>p</var><sub>2</sub> &minus; <var>p</var><sub>1</sub> =
+        &frac12;<var>&rho;u</var><sup>2</sup></div>
+      <div><var>u</var> = <span class="sqrt"><span class="rad">2<var>gh</var>(<var>&rho;</var><sub>man</sub>
+        &minus; <var>&rho;</var>) / <var>&rho;</var></span></span>
+        <span class="tag">(3.16)</span></div>
+    </div>
+
+    <p>ในทางปฏิบัติเครื่องมือไม่ได้อุดมคติเสียทีเดียว &mdash; ตัวรูเองรบกวนการไหลอยู่บ้าง &mdash;
+      จึงต้องคูณด้วยสัมประสิทธิ์ <var>C</var><sub>v</sub> ที่ใกล้ 1
+      (โดยทั่วไป 0.98&ndash;1.00 สำหรับเครื่องมือที่ทำมาดี)
+      ท่อพิโตต์-สแตติกเป็นเครื่องมือมาตรฐานสำหรับวัดความเร็ว ณ จุดใดจุดหนึ่งในท่อหรือในทางน้ำเปิด
+      และเป็นวิธีที่ใช้วัดความเร็วอากาศของเครื่องบินด้วย</p>
+
+    <div class="callout">
+      <span class="label">วัดได้จุดเดียว ไม่ใช่ทั้งท่อ</span>
+      <p>ท่อพิโตต์วัดความเร็ว<b>ที่ตำแหน่งปากหลอด</b> ไม่ใช่ความเร็วเฉลี่ย
+        การจะหาอัตราการไหลต้องกวาดวัดตลอดหน้าตัดแล้วอินทิเกรต
+        หรือวางหลอดไว้ ณ ตำแหน่งที่รู้ว่าความเร็วเฉพาะที่เท่ากับค่าเฉลี่ย &mdash;
+        ในการไหลปั่นป่วนในท่อคือประมาณ 0.76&nbsp;<var>R</var> จากแกนกลาง
+        ส่วนในทางน้ำเปิด แนวปฏิบัติมาตรฐานคืออ่านที่ความลึก 0.6 ของความลึกทั้งหมดวัดจากผิวน้ำ
+        หรือเฉลี่ยค่าที่อ่านได้ที่ความลึก 0.2 และ 0.8</p>
+    </div>
+
+    <!-- ============================================================ 3.8 -->
+    <h2 id="s8">3.8 มาตรเวนจูรี</h2>
+
+    <p>มาตรเวนจูรีเป็นอุปกรณ์วัดอัตราการไหลในท่อ และเป็นการประยุกต์ใช้ &sect;3.6 อย่างตรงไปตรงมาที่สุด
+      คือจงใจบีบการไหลให้แคบลง แล้วอ่านความดันที่ลดลง</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="มาตรเวนจูรี: กรวยลู่เข้าสั้นสู่คอคอดแคบ แล้วตามด้วยกรวยผายออกที่ยาวและค่อยเป็นค่อยไป พร้อมมาโนมิเตอร์รูปตัวยูต่อระหว่างหน้าตัดต้นน้ำกับคอคอด">
+        <defs>
+          <marker id="va" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="vb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="vc" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <path d="M40,66 L200,66 L300,104 L380,104 L640,62 L820,62 L820,150 L640,150 L380,132 L300,132 L200,170 L40,170 z"
+              fill="#eaf7fa" stroke="#1c1917" stroke-width="2.4"/>
+
+        <line x1="40" y1="118" x2="820" y2="118" stroke="#9c9287" stroke-width="1.2" stroke-dasharray="10 5 3 5"/>
+
+        <line x1="70" y1="118" x2="160" y2="118" stroke="#00788A" stroke-width="2.6" marker-end="url(#va)"/>
+
+        <line x1="130" y1="66" x2="130" y2="170" stroke="#b03a2e" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="106" y="58" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#b03a2e">1</text>
+        <text x="80" y="192" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">พื้นที่ A&#8321;, z&#8321;</text>
+
+        <line x1="340" y1="104" x2="340" y2="132" stroke="#b03a2e" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="334" y="96" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#b03a2e">2</text>
+        <text x="292" y="192" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">คอคอด A&#8322;, z&#8322;</text>
+
+        <text x="190" y="50" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">กรวยลู่เข้า ชัน (~21&deg;)</text>
+        <text x="452" y="44" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">กรวยผายออก ลาดน้อย (5&deg;&ndash;7&deg;) &mdash; การไหลจะได้ไม่แยกตัวจากผนัง</text>
+
+        <path d="M130,170 L130,230 L200,230" fill="none" stroke="#4b4540" stroke-width="2.4"/>
+        <path d="M340,132 L340,214 L262,214" fill="none" stroke="#4b4540" stroke-width="2.4"/>
+        <path d="M200,230 L200,286 L262,286 L262,214" fill="none" stroke="#4b4540" stroke-width="2.4"/>
+        <rect x="200" y="252" width="62" height="34" fill="#c8a14a" stroke="none"/>
+        <line x1="200" y1="252" x2="262" y2="252" stroke="#4b4540" stroke-width="1.6"/>
+        <line x1="286" y1="252" x2="286" y2="286" stroke="#1c1917" stroke-width="1.4" marker-start="url(#vc)" marker-end="url(#vb)"/>
+        <text x="294" y="276" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">h</text>
+        <text x="330" y="300" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ของไหลเกจ ความหนาแน่น &#961;<tspan font-size="10" dy="3">man</tspan></text>
+      </svg>
+      <figcaption><b>รูปที่ 3.6</b> กรวยลู่เข้าสั้นและชันได้ เพราะการไหลที่ลู่เข้าจะไม่แยกตัว
+        ส่วนกรวยผายออกต้องยาวและค่อยเป็นค่อยไป มิฉะนั้นการไหลจะแยกตัวจากผนัง
+        และการสูญเสียพลังงานถาวรจะพุ่งสูงขึ้นมาก ความไม่สมมาตรนี้คือลักษณะสำคัญที่สุดของการออกแบบ</figcaption>
+    </figure>
+
+    <h3>การพิสูจน์สมการของมาตรวัด</h3>
+    <p>ใช้สมการแบร์นูลลีระหว่างหน้าตัดที่&nbsp;1 ทางต้นน้ำ กับหน้าตัดที่&nbsp;2 ที่คอคอด
+      โดยสมมติว่าไม่มีการสูญเสีย</p>
+
+    <div class="eq stack">
+      <div><var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>1</sub>
+        = <var>p</var><sub>2</sub>/<var>&rho;g</var> + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>2</sub></div>
+      <div>และความต่อเนื่องให้ <var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+        / <var>A</var><sub>1</sub></div>
+      <div>แทนค่าแล้วแก้หา <var>u</var><sub>2</sub></div>
+      <div><var>u</var><sub>2</sub> = <span class="sqrt"><span class="rad">2<var>g</var>[(<var>p</var><sub>1</sub>
+        &minus; <var>p</var><sub>2</sub>)/<var>&rho;g</var> + <var>z</var><sub>1</sub> &minus; <var>z</var><sub>2</sub>]
+        &divide; [1 &minus; (<var>A</var><sub>2</sub>/<var>A</var><sub>1</sub>)<sup>2</sup>]</span></span>
+        <span class="tag">(3.17)</span></div>
+      <div>ดังนั้นอัตราการไหลอุดมคติคือ <var>Q</var><sub>ideal</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+        <span class="tag">(3.18)</span></div>
+    </div>
+
+    <h3>ทำไมมาโนมิเตอร์จึงทำให้ความชันไม่สำคัญ</h3>
+    <p>สมการ&nbsp;(3.17) ยังมีพจน์ความสูงอยู่ ซึ่งไม่สะดวกถ้ามาตรวัดถูกติดตั้งบนแนวลาดเอียง
+      แต่เมื่อวิเคราะห์มาโนมิเตอร์ตามวิธีใน &sect;2.5 พจน์ความสูงจะตัดกันไปเอง</p>
+
+    <div class="eq stack">
+      <div>(<var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub>)/<var>&rho;g</var>
+        + <var>z</var><sub>1</sub> &minus; <var>z</var><sub>2</sub>
+        = <var>h</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)
+        <span class="tag">(3.19)</span></div>
+    </div>
+
+    <p>แทน (3.19) ลงใน (3.17) และ (3.18) พร้อมใส่สัมประสิทธิ์การไหล <var>C</var><sub>d</sub>
+      เพื่อชดเชยการสูญเสียจริงเล็กน้อยระหว่างจุดวัดทั้งสอง</p>
+
+    <div class="eq stack">
+      <div><var>Q</var> = <var>C</var><sub>d</sub> <var>A</var><sub>1</sub><var>A</var><sub>2</sub>
+        &divide; <span class="sqrt"><span class="rad"><var>A</var><sub>1</sub><sup>2</sup> &minus;
+        <var>A</var><sub>2</sub><sup>2</sup></span></span>
+        &nbsp;&times;&nbsp;
+        <span class="sqrt"><span class="rad">2<var>gh</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)</span></span>
+        <span class="tag">(3.20)</span></div>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">สามสิ่งที่สมการ (3.20) กำลังบอก</span>
+      <ul>
+        <li><b>ความชันของมาตรวัดไม่สำคัญ</b> ไม่ว่าเวนจูรีจะวางแนวราบ แนวดิ่ง หรือเอียง
+          ค่าที่มาโนมิเตอร์อ่านได้เท่ากันย่อมหมายถึงอัตราการไหลเท่ากัน
+          นี่เป็นข้อได้เปรียบเชิงปฏิบัติที่แท้จริงเหนือมาตรวัดที่อ่านจุดวัดสองจุดแยกกัน</li>
+        <li><b><var>Q</var> ขึ้นกับ &radic;<var>h</var></b> ไม่ใช่ <var>h</var>
+          การลดอัตราการไหลลงครึ่งหนึ่งทำให้ค่าที่อ่านได้เหลือเพียงหนึ่งในสี่
+          มาตรวัดตัวเดียวจึงมีช่วงใช้งานจำกัด &mdash; โดยทั่วไปประมาณ 4:1</li>
+        <li><b><var>C</var><sub>d</sub> สูง</b> ประมาณ 0.97&ndash;0.99
+          เพราะการสูญเสียระหว่างทางเข้ากับคอคอดน้อยจริง ๆ
+          เวนจูรีจึงเป็นมาตรวัดการไหลอย่างง่ายที่แม่นยำที่สุดชนิดหนึ่ง</li>
+      </ul>
+    </div>
+
+    <h3>การสูญเสียเฮดถาวร</h3>
+    <p>ความดันฟื้นคืนในกรวยผายออก แต่ไม่ครบถ้วน การสูญเสียเฮด<b>ถาวร</b>ของเวนจูรีที่ออกแบบดี
+      มีเพียงราว 10&ndash;20&nbsp;% ของผลต่างที่คอคอด &mdash; น้อยกว่าแผ่นออริฟิซ (&sect;3.11) มาก
+      ซึ่งเป็นเหตุผลที่เลือกใช้เวนจูรีในที่ที่ค่าพลังงานสูบน้ำมีราคาแพง แม้ค่าติดตั้งจะสูงกว่ามากก็ตาม</p>
+
+    <!-- ============================================================ 3.9 -->
+    <h2 id="s9">3.9 การไหลผ่านออริฟิซ</h2>
+
+    <p>ถังที่มีรูขอบคมเล็ก ๆ ที่ผนังด้านข้างคืออุปกรณ์การไหลที่ง่ายที่สุด
+      และการวิเคราะห์มันคือการอธิบายสมการแบร์นูลลีที่หมดจดที่สุดในวิชานี้</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="ถังที่มีออริฟิซขอบคมเล็ก ๆ ที่ผนังด้านข้าง ลึกลงไป h จากผิวอิสระ เส้นกระแสลู่เข้าผ่านรู และลำน้ำหดตัวลงจนมีพื้นที่น้อยที่สุดที่ระยะสั้น ๆ ถัดจากรู">
+        <defs>
+          <marker id="oa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="ob" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="oc" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <path d="M60,52 L60,272 L400,272 L400,206" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="400" y1="52" x2="400" y2="176" stroke="#1c1917" stroke-width="2.6"/>
+        <rect x="60" y="72" width="340" height="200" fill="#eaf7fa" stroke="none"/>
+        <line x1="60" y1="72" x2="400" y2="72" stroke="#00788A" stroke-width="2.4"/>
+        <text x="66" y="64" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">ผิวอิสระ จุดที่ 1: u &asymp; 0, p = ความดันบรรยากาศ</text>
+
+        <line x1="150" y1="72" x2="150" y2="191" stroke="#1c1917" stroke-width="1.4" marker-start="url(#oc)" marker-end="url(#ob)"/>
+        <text x="158" y="138" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#1c1917">h</text>
+
+        <path d="M250,96 Q350,120 396,178" fill="none" stroke="#00788A" stroke-width="1.6"/>
+        <path d="M250,142 Q350,156 396,184" fill="none" stroke="#00788A" stroke-width="1.6"/>
+        <path d="M250,191 L396,191" fill="none" stroke="#00788A" stroke-width="1.6"/>
+        <path d="M250,240 Q350,226 396,198" fill="none" stroke="#00788A" stroke-width="1.6"/>
+        <path d="M250,286 Q350,262 396,204" fill="none" stroke="#00788A" stroke-width="1.6"/>
+
+        <path d="M400,176 Q436,182 470,186 L560,186 L560,196 L470,196 Q436,200 400,206 z" fill="#d9eef3" stroke="none"/>
+        <path d="M400,176 Q436,182 470,186 L560,186" fill="none" stroke="#00788A" stroke-width="2.4"/>
+        <path d="M400,206 Q436,200 470,196 L560,196" fill="none" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="486" y1="191" x2="548" y2="191" stroke="#00788A" stroke-width="2.4" marker-end="url(#oa)"/>
+
+        <line x1="470" y1="160" x2="470" y2="222" stroke="#b03a2e" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="482" y="152" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#b03a2e">หน้าตัดหดตัว จุดที่ 2</text>
+        <text x="482" y="236" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">เส้นกระแสขนานกันที่นี่ &mdash; p = ความดันบรรยากาศ</text>
+
+        <line x1="424" y1="176" x2="424" y2="206" stroke="#1c1917" stroke-width="1.4" marker-start="url(#oc)" marker-end="url(#ob)"/>
+        <text x="400" y="252" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">A</text>
+        <text x="410" y="256" font-family="Segoe UI, Arial" font-size="11" fill="#1c1917">ออริฟิซ</text>
+        <line x1="470" y1="186" x2="470" y2="196" stroke="#b03a2e" stroke-width="4"/>
+        <text x="576" y="192" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">A<tspan font-size="11" dy="4">c</tspan><tspan font-size="15" dy="-4"> = C</tspan><tspan font-size="11" dy="4">c</tspan><tspan font-size="15" dy="-4">A</tspan></text>
+
+        <text x="608" y="126" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ของไหลที่เข้าใกล้รูมีโมเมนตัม</text>
+        <text x="608" y="146" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ในแนวข้างอยู่แล้ว ลำน้ำจึงยังหดตัว</text>
+        <text x="608" y="166" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ต่อไปอีกหลังจากพ้นรูออกมา</text>
+      </svg>
+      <figcaption><b>รูปที่ 3.7</b> ลำน้ำมีพื้นที่น้อยที่สุดที่ระยะราวครึ่งหนึ่งของเส้นผ่านศูนย์กลาง
+        ถัดจากออริฟิซขอบคม หน้าตัดนี้เรียกว่า <em>vena contracta</em> หรือหน้าตัดหดตัว
+        เป็นที่เดียวที่เส้นกระแสขนานกันและความดันจึงเท่ากับความดันบรรยากาศตลอดหน้าตัดของลำน้ำ &mdash;
+        จึงเป็นที่เดียวที่ใช้สมการแบร์นูลลีได้อย่างถูกต้อง</figcaption>
+    </figure>
+
+    <h3>ผลลัพธ์ของทอร์ริเชลลี</h3>
+    <p>ให้จุด&nbsp;1 อยู่ที่ผิวอิสระและจุด&nbsp;2 อยู่ที่หน้าตัดหดตัว ทั้งสองจุดมีความดันเท่าความดันบรรยากาศ
+      พจน์ความดันจึงตัดกัน ถ้าถังมีขนาดใหญ่ ผิวน้ำจะลดลงช้ามากจน <var>u</var><sub>1</sub> &asymp; 0
+      สมการ&nbsp;(3.11) จึงให้</p>
+
+    <div class="eq stack">
+      <div>0 + 0 + <var>z</var><sub>1</sub> = 0 + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>2</sub></div>
+      <div><var>u</var><sub>2</sub> = <span class="sqrt"><span class="rad">2<var>g</var>(<var>z</var><sub>1</sub>
+        &minus; <var>z</var><sub>2</sub>)</span></span>
+        = <span class="sqrt"><span class="rad">2<var>gh</var></span></span>
+        <span class="tag">(3.21)</span></div>
+    </div>
+
+    <p>นี่คือ<b>ความเร็วการพุ่งออกเชิงทฤษฎี</b> ซึ่งทอร์ริเชลลีเป็นผู้กล่าวไว้เป็นคนแรกในปี ค.ศ.&nbsp;1643
+      มันเท่ากับความเร็วที่ก้อนหินจะทำได้พอดีถ้าปล่อยตกจากผิวอิสระเป็นระยะ <var>h</var> &mdash;
+      ซึ่งก็คือสิ่งที่การอนุรักษ์พลังงานเรียกร้องนั่นเอง</p>
+
+    <h3>สัมประสิทธิ์ทั้งสาม</h3>
+    <p>ลำน้ำจริงด้อยกว่าอุดมคติในสองทางที่แยกจากกัน และแต่ละทางมีสัมประสิทธิ์ของตนเอง</p>
+
+    <div class="table-wrap">
+      <table id="t2">
+        <caption><b>ตารางที่ 3.2</b> สัมประสิทธิ์ทั้งสามของออริฟิซ
+          พร้อมค่าโดยทั่วไปสำหรับออริฟิซกลมขอบคมที่ปล่อยน้ำออกสู่บรรยากาศ</caption>
+        <thead>
+          <tr><th>สัมประสิทธิ์</th><th>นิยาม</th><th>ค่าทั่วไป</th><th>ชดเชยอะไร</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>สัมประสิทธิ์การหดตัว</b> <var>C</var><sub>c</sub></td>
+            <td><var>A</var><sub>c</sub> / <var>A</var> &mdash; พื้นที่หน้าตัดหดตัว &divide; พื้นที่ออริฟิซ</td>
+            <td>0.61&ndash;0.66</td>
+            <td>โมเมนตัมในแนวข้างที่ของไหลมีอยู่แล้วเมื่อมาถึงรู</td>
+          </tr>
+          <tr>
+            <td><b>สัมประสิทธิ์ความเร็ว</b> <var>C</var><sub>v</sub></td>
+            <td><var>u</var><sub>จริง</sub> / <var>u</var><sub>อุดมคติ</sub></td>
+            <td>0.97&ndash;0.99</td>
+            <td>ความเสียดทานที่ขอบรู</td>
+          </tr>
+          <tr>
+            <td><b>สัมประสิทธิ์การไหล</b> <var>C</var><sub>d</sub></td>
+            <td><var>C</var><sub>c</sub> &times; <var>C</var><sub>v</sub></td>
+            <td>0.60&ndash;0.65</td>
+            <td>ทั้งสองอย่างรวมกัน &mdash; และเป็นตัวเดียวที่มักต้องใช้</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="crumbs">ออริฟิซปากระฆัง (ขอบมน): การหดตัวแทบหมดไป
+              <var>C</var><sub>c</sub> &asymp; 1 และ <var>C</var><sub>d</sub> &asymp; 0.97</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>อัตราการไหลจริงจึงเท่ากับ</p>
+
+    <div class="eq stack">
+      <div><var>Q</var><sub>จริง</sub> = <var>A</var><sub>c</sub> <var>u</var><sub>จริง</sub>
+        = <var>C</var><sub>c</sub><var>A</var> &middot; <var>C</var><sub>v</sub>
+        <span class="sqrt"><span class="rad">2<var>gh</var></span></span></div>
+      <div><var>Q</var> = <var>C</var><sub>d</sub> <var>A</var>
+        <span class="sqrt"><span class="rad">2<var>gh</var></span></span>
+        <span class="tag">(3.22)</span></div>
+    </div>
+
+    <div class="callout">
+      <span class="label">ทำไมต้องใช้ที่หน้าตัดหดตัว ไม่ใช่ที่ตัวรู</span>
+      <p>นักศึกษามักใช้สมการแบร์นูลลีที่ระนาบของรูเอง นั่นผิด และการเข้าใจว่าทำไมจึงผิดนั้นคุ้มค่าแก่ความพยายาม:
+        ที่ตัวรู เส้นกระแสยังโค้งมาก จึงมีเกรเดียนต์ความดันตัดขวางลำน้ำ และความดัน<em>ไม่</em>เท่ากับความดันบรรยากาศ
+        มีแต่ที่หน้าตัดหดตัว ซึ่งเส้นกระแสกลายเป็นขนานกันแล้วเท่านั้น
+        ที่ความดันเท่ากับความดันบรรยากาศตลอดทั้งหน้าตัด
+        <b>จงใช้สมการแบร์นูลลี ณ ที่ที่เส้นกระแสขนานกัน</b></p>
+    </div>
+
+    <h3>เวลาที่ถังใช้ระบายน้ำจนหมด</h3>
+    <p>นี่คือโจทย์กึ่งไม่คงตัวหนึ่งข้อที่สัญญาไว้ใน &sect;3.1 ขณะถังระบายน้ำ <var>h</var> ลดลง
+      <var>Q</var> จึงลดลง ถังก็ยิ่งระบายช้าลงเรื่อย ๆ เราจัดการด้วยการมองแต่ละขณะเป็นสภาวะคงตัว</p>
+
+    <p>ในช่วงเวลาสั้น ๆ <var>&delta;t</var> ระดับน้ำลดลง <var>&minus;&delta;h</var>
+      และปริมาตรที่ไหลออกคือ <var>Q&delta;t</var> ถ้าถังมีพื้นที่หน้าตัดในผัง <var>A</var><sub>t</sub></p>
+
+    <div class="eq stack">
+      <div><var>Q&delta;t</var> = &minus;<var>A</var><sub>t</sub><var>&delta;h</var></div>
+      <div><var>&delta;t</var> = &minus;<var>A</var><sub>t</sub><var>&delta;h</var> &divide;
+        (<var>C</var><sub>d</sub><var>A</var><span class="sqrt"><span class="rad">2<var>gh</var></span></span>)</div>
+      <div>อินทิเกรตจาก <var>h</var><sub>1</sub> ลงถึง <var>h</var><sub>2</sub></div>
+      <div><var>t</var> = 2<var>A</var><sub>t</sub>
+        (<span class="sqrt"><span class="rad"><var>h</var><sub>1</sub></span></span> &minus;
+         <span class="sqrt"><span class="rad"><var>h</var><sub>2</sub></span></span>)
+        &divide; (<var>C</var><sub>d</sub><var>A</var>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span>)
+        <span class="tag">(3.23)</span></div>
+    </div>
+
+    <p>สังเกตว่าการระบายน้ำจนหมดถัง (<var>h</var><sub>2</sub> = 0) ใช้เวลาเป็น<em>สองเท่า</em>
+      ของการระบายเฮดครึ่งบน &mdash; ไม่ใช่สี่เท่าอย่างที่กฎ &radic;<var>h</var> อาจชวนให้คิดเมื่อมองผ่าน ๆ
+      สมการ&nbsp;(3.23) ใช้ได้กับถังที่มีพื้นที่ในผังคงที่เท่านั้น ถ้า <var>A</var><sub>t</sub>
+      เปลี่ยนไปตาม <var>h</var> จะต้องคงมันไว้ในอินทิกรัล</p>
+
+    <!-- ============================================================ 3.10 -->
+    <h2 id="s10">3.10 ช่องเปิดวัดน้ำและฝายน้ำล้น</h2>
+
+    <p><b>ช่องเปิดวัดน้ำ</b> (notch) คือช่องที่เปิดไว้ที่ผนังถังหรืออ่างเก็บน้ำ โดยขอบบนสูงพ้นผิวน้ำ
+      กล่าวได้ว่ามันคือออริฟิซขนาดใหญ่ที่ไม่มีขอบด้านบน ส่วน<b>ฝายน้ำล้น</b> (weir)
+      คือสิ่งเดียวกันในมาตราส่วนของแม่น้ำหรือคลอง &mdash; โดยทั่วไปคือกำแพงที่ขวางทางน้ำและมีน้ำไหลข้าม
+      สำหรับวิศวกรชลประทาน นี่คือหัวข้อที่สำคัญที่สุดของบทนี้:
+      ฝายคือวิธีที่ใช้วัดอัตราการไหลในทางน้ำเปิดจริง ๆ ในสนาม</p>
+
+    <p>เนื่องจากช่องเปิดขยายขึ้นถึงผิวน้ำ ความเร็วจึงเปลี่ยนไปจากบนลงล่างของช่อง
+      ไม่มี <var>h</var> ค่าเดียว เราจึงเขียน <var>Q</var> =
+      <var>C</var><sub>d</sub><var>A</var>&radic;(2<var>gh</var>) ตรง ๆ ไม่ได้ แต่ต้องอินทิเกรตแทน</p>
+
+    <h3>สมการทั่วไปของช่องเปิด</h3>
+    <p>พิจารณาแถบแนวนอนของช่องเปิด หนา <var>&delta;h</var> ที่ความลึก <var>h</var> ใต้ผิวน้ำ
+      และมีความกว้าง <var>b</var> ซึ่งอาจขึ้นกับ <var>h</var> เอง เมื่อมองแถบนั้นเป็นออริฟิซเล็ก ๆ</p>
+
+    <div class="eq stack">
+      <div>ความเร็วผ่านแถบ = <span class="sqrt"><span class="rad">2<var>gh</var></span></span></div>
+      <div>อัตราการไหลผ่านแถบ = <var>b&delta;h</var>
+        <span class="sqrt"><span class="rad">2<var>gh</var></span></span></div>
+      <div>อินทิเกรตจากสันฝาย (<var>h</var> = <var>H</var>) ขึ้นไปถึงผิวน้ำ (<var>h</var> = 0)</div>
+      <div><var>Q</var><sub>ideal</sub> = <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+        &int;<sub>0</sub><sup><var>H</var></sup> <var>b h</var><sup>1/2</sup> d<var>h</var>
+        <span class="tag">(3.24)</span></div>
+    </div>
+
+    <p>ทุกอย่างจากนี้ขึ้นอยู่กับรูปร่างของช่องเปิด ผ่านทาง <var>b</var>(<var>h</var>)</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="ช่องเปิดวัดน้ำสามรูปแบบมองจากด้านต้นน้ำ: ช่องสี่เหลี่ยมกว้าง B ช่องสามเหลี่ยมมุมยอด theta และช่องสี่เหลี่ยมคางหมูแบบซิโปเลตติที่มีด้านลาด 1 ต่อ 4 แต่ละรูปแสดงเฮด H วัดจากสันถึงผิวน้ำด้านต้นน้ำ">
+        <defs>
+          <marker id="na" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="nb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <text x="30" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(ก) สี่เหลี่ยม</text>
+        <rect x="20" y="48" width="240" height="196" fill="#f4efe4" stroke="#1c1917" stroke-width="2.2"/>
+        <rect x="64" y="72" width="152" height="120" fill="#eaf7fa" stroke="#1c1917" stroke-width="2.2"/>
+        <line x1="20" y1="72" x2="260" y2="72" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="64" y1="192" x2="216" y2="192" stroke="#1c1917" stroke-width="3"/>
+        <line x1="40" y1="72" x2="40" y2="192" stroke="#1c1917" stroke-width="1.4" marker-start="url(#nb)" marker-end="url(#na)"/>
+        <text x="26" y="138" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">H</text>
+        <line x1="64" y1="212" x2="216" y2="212" stroke="#1c1917" stroke-width="1.4" marker-start="url(#nb)" marker-end="url(#na)"/>
+        <text x="134" y="230" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">B</text>
+        <text x="30" y="266" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">b = B คงที่</text>
+        <text x="30" y="286" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">Q &prop; H<tspan font-size="10" dy="-5">3/2</tspan></text>
+
+        <text x="310" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(ข) สามเหลี่ยม (V-notch)</text>
+        <rect x="300" y="48" width="240" height="196" fill="#f4efe4" stroke="#1c1917" stroke-width="2.2"/>
+        <path d="M344,72 L420,192 L496,72 z" fill="#eaf7fa" stroke="#1c1917" stroke-width="2.2"/>
+        <line x1="300" y1="72" x2="540" y2="72" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="320" y1="72" x2="320" y2="192" stroke="#1c1917" stroke-width="1.4" marker-start="url(#nb)" marker-end="url(#na)"/>
+        <text x="306" y="138" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">H</text>
+        <path d="M406,146 A28,28 0 0 1 434,146" fill="none" stroke="#b03a2e" stroke-width="1.8"/>
+        <text x="412" y="172" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#b03a2e">&#952;</text>
+        <text x="310" y="266" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">b = 2(H &minus; h) tan(&#952;/2)</text>
+        <text x="310" y="286" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">Q &prop; H<tspan font-size="10" dy="-5">5/2</tspan></text>
+
+        <text x="590" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(ค) ซิโปเลตติ (คางหมู)</text>
+        <rect x="580" y="48" width="240" height="196" fill="#f4efe4" stroke="#1c1917" stroke-width="2.2"/>
+        <path d="M624,72 L654,192 L746,192 L776,72 z" fill="#eaf7fa" stroke="#1c1917" stroke-width="2.2"/>
+        <line x1="580" y1="72" x2="820" y2="72" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="600" y1="72" x2="600" y2="192" stroke="#1c1917" stroke-width="1.4" marker-start="url(#nb)" marker-end="url(#na)"/>
+        <text x="586" y="138" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">H</text>
+        <line x1="654" y1="212" x2="746" y2="212" stroke="#1c1917" stroke-width="1.4" marker-start="url(#nb)" marker-end="url(#na)"/>
+        <text x="692" y="230" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">B</text>
+        <text x="590" y="266" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ด้านลาด 1 ราบ : 4 ดิ่ง</text>
+        <text x="590" y="286" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">Q &prop; H<tspan font-size="10" dy="-5">3/2</tspan> ไม่ต้องแก้ปลาย</text>
+      </svg>
+      <figcaption><b>รูปที่ 3.8</b> ช่องเปิดมาตรฐานสามรูปแบบมองจากด้านต้นน้ำ ทุกกรณี <var>H</var>
+        คือเฮดที่วัดจากสันฝายถึงผิวน้ำด้านต้นน้ำที่<em>ยังไม่ถูกรบกวน</em> &mdash;
+        วัดให้ห่างขึ้นไปทางต้นน้ำมากพอ (ราว 4<var>H</var>)
+        เพื่อไม่ให้การลดระดับใกล้สันฝายมีผลต่อค่าที่อ่าน</figcaption>
+    </figure>
+
+    <h3>ช่องเปิดสี่เหลี่ยม</h3>
+    <p>ในกรณีนี้ความกว้างคงที่ <var>b</var> = <var>B</var> จึงดึงออกนอกอินทิกรัลได้</p>
+
+    <div class="eq stack">
+      <div><var>Q</var><sub>ideal</sub> = <var>B</var>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+        &int;<sub>0</sub><sup><var>H</var></sup> <var>h</var><sup>1/2</sup> d<var>h</var>
+        = <sup>2</sup>&frasl;<sub>3</sub> <var>B</var>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>3/2</sup></div>
+      <div>และเมื่อใส่สัมประสิทธิ์การไหล</div>
+      <div><var>Q</var> = <sup>2</sup>&frasl;<sub>3</sub> <var>C</var><sub>d</sub> <var>B</var>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>3/2</sup>
+        <span class="tag">(3.25)</span></div>
+    </div>
+
+    <p>ค่า <var>C</var><sub>d</sub> โดยทั่วไปของฝายสี่เหลี่ยมสันคมคือ <b>0.62</b>
+      เฮดถูกยกกำลัง <sup>3</sup>&frasl;<sub>2</sub> ซึ่งเป็นกฎที่นุ่มนวลกว่า <var>H</var><sup>1/2</sup>
+      ของออริฟิซมาก &mdash; และนั่นเองที่ทำให้ฝายเป็นอุปกรณ์วัดที่ดีในช่วงอัตราการไหลที่กว้าง</p>
+
+    <h3>ช่องเปิดสามเหลี่ยม</h3>
+    <p>สำหรับช่องเปิดสามเหลี่ยมที่มีมุมยอด <var>&theta;</var> เรขาคณิตให้ความกว้างของแถบที่ความลึก
+      <var>h</var> ใต้ผิวน้ำเท่ากับ <var>b</var> = 2(<var>H</var> &minus; <var>h</var>)
+      tan(<var>&theta;</var>/2) แทนลงใน (3.24) แล้วอินทิเกรต</p>
+
+    <div class="eq stack">
+      <div><var>Q</var><sub>ideal</sub> = 2 tan(<var>&theta;</var>/2)
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+        &int;<sub>0</sub><sup><var>H</var></sup> (<var>H</var> &minus; <var>h</var>)<var>h</var><sup>1/2</sup> d<var>h</var></div>
+      <div>= 2 tan(<var>&theta;</var>/2)
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+        [<sup>2</sup>&frasl;<sub>3</sub><var>Hh</var><sup>3/2</sup> &minus;
+         <sup>2</sup>&frasl;<sub>5</sub><var>h</var><sup>5/2</sup>]<sub>0</sub><sup><var>H</var></sup>
+        = <sup>8</sup>&frasl;<sub>15</sub> tan(<var>&theta;</var>/2)
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>5/2</sup></div>
+      <div><var>Q</var> = <sup>8</sup>&frasl;<sub>15</sub> <var>C</var><sub>d</sub> tan(<var>&theta;</var>/2)
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>5/2</sup>
+        <span class="tag">(3.26)</span></div>
+    </div>
+
+    <p>ค่า <var>C</var><sub>d</sub> โดยทั่วไปคือ <b>0.58</b> สำหรับช่องเปิดสามเหลี่ยม 90&deg; มาตรฐาน
+      tan&nbsp;45&deg;&nbsp;=&nbsp;1 สมการ&nbsp;(3.26) จึงยุบลงเหลือสูตรภาคสนามที่ช่างชลประทานทุกคนรู้จัก</p>
+
+    <div class="eq plain">
+      <var>Q</var> &asymp; 1.37 <var>H</var><sup>5/2</sup> &nbsp; (<var>Q</var> หน่วย
+      ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup>, <var>H</var> หน่วยเมตร)
+      <span class="tag">(3.27)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">เลือกช่องเปิดแบบใดกับงานแบบใด</span>
+      <ul>
+        <li>ช่องเปิดสามเหลี่ยม<b>ไวกว่ามากที่อัตราการไหลน้อย</b> ด้วย <var>Q</var> &prop;
+          <var>H</var><sup>5/2</sup> การไหลน้อย ๆ ก็ยังให้เฮดที่อ่านได้ ใช้กับ <var>Q</var>
+          ต่ำกว่าราว 50&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup> &mdash; คลองซอยในไร่นา ทางระบายน้ำ
+          และการวัดน้ำซึม</li>
+        <li>ช่องเปิดสี่เหลี่ยม<b>ระบายน้ำได้มากกว่ามากที่เฮดเท่ากัน</b>
+          ใช้กับคลองสายหลักที่การไหลมากและมีระยะพ้นน้ำ (freeboard) จำกัด</li>
+        <li><b>ซิโปเลตติ</b> (Cipoletti) เป็นรูปคางหมูที่ประนีประนอมระหว่างสองแบบ
+          ด้านลาด 1:4 ของมันถูกเลือกให้พื้นที่ส่วนเพิ่มด้านข้างชดเชยการหดตัวที่ปลายพอดี
+          จึงไม่ต้องแก้ค่าปลาย และเป็นไปตามกฎ <var>H</var><sup>3/2</sup> อย่างง่าย
+          ความสะดวกข้อนี้เองที่ทำให้มันเป็นโครงสร้างมาตรฐานของคลองชลประทานทั่วโลก</li>
+      </ul>
+    </div>
+
+    <h3>การหดตัวที่ปลาย และความเร็วของน้ำที่ไหลเข้า</h3>
+    <p>ในทางปฏิบัติมีการแก้ค่าสองอย่าง และข้อสอบคาดหวังให้นักศึกษารู้ว่ามันมีอยู่</p>
+
+    <p><b>การหดตัวที่ปลาย</b> ถ้าช่องเปิดแคบกว่าทางน้ำ เส้นกระแสต้องเลี้ยวเข้ามาจากด้านข้าง
+      ทำให้ความกว้างที่ใช้งานได้จริงหดลง <b>การแก้ค่าแบบฟรานซิส</b> (Francis) ลดความกว้างลง
+      0.1<var>H</var> ต่อการหดตัวที่ปลายหนึ่งด้าน</p>
+
+    <div class="eq plain">
+      <var>B</var><sub>ใช้งาน</sub> = <var>B</var> &minus; 0.1<var>nH</var> &nbsp; โดย <var>n</var> = 0,
+      1 หรือ 2 คือจำนวนปลายที่หดตัว
+      <span class="tag">(3.28)</span>
+    </div>
+
+    <p><b>ความเร็วของน้ำที่ไหลเข้า</b> การพิสูจน์ข้างต้นสมมติว่าน้ำด้านต้นน้ำอยู่นิ่ง
+      ถ้าทางน้ำด้านต้นน้ำมีขนาดเล็ก น้ำจะเคลื่อนที่อยู่แล้วด้วยความเร็ว <var>u</var><sub>a</sub>
+      ซึ่งพาเฮดความเร็ว <var>h</var><sub>a</sub> = <var>u</var><sub>a</sub><sup>2</sup>/2<var>g</var>
+      มาบวกเพิ่มกับเฮดที่ใช้งานจริง</p>
+
+    <div class="eq plain">
+      <var>Q</var> = <sup>2</sup>&frasl;<sub>3</sub> <var>C</var><sub>d</sub><var>B</var>
+      <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+      [(<var>H</var> + <var>h</var><sub>a</sub>)<sup>3/2</sup> &minus; <var>h</var><sub>a</sub><sup>3/2</sup>]
+      <span class="tag">(3.29)</span>
+    </div>
+
+    <p>ในการติดตั้งที่ออกแบบมาดี ซึ่งมีสระน้ำนิ่งอยู่ด้านต้นน้ำ <var>h</var><sub>a</sub> เล็กจนละเลยได้
+      และใช้ (3.25) ได้โดยตรง นี่คือเหตุผลที่มาตรฐานต่าง ๆ ยืนยันให้มีสระรับน้ำด้านต้นน้ำ</p>
+
+    <div class="callout">
+      <span class="label">การติดตั้งฝายวัดน้ำ &mdash; กฎที่ทำให้สูตรเป็นจริง</span>
+      <ul>
+        <li>สันฝายต้อง<b>คม</b> (หนาราว 1&ndash;2&nbsp;มม. ลบมุม 45&deg; ทางด้านท้ายน้ำ)
+          เพื่อให้แผ่นน้ำล้นกระเด็นพ้นออกไป</li>
+        <li>แผ่นน้ำล้นต้อง<b>มีอากาศเข้าถึงใต้แผ่น</b> ถ้าแผ่นน้ำแนบสัน ค่าที่อ่านจะสูงเกินไป
+          5&ndash;10&nbsp;%</li>
+        <li>ฝายต้อง<b>ไหลอิสระ</b> ไม่จม: ระดับน้ำด้านท้ายน้ำต้องอยู่ต่ำกว่าสันฝาย</li>
+        <li>วัด <var>H</var> <b>เหนือบริเวณที่ผิวน้ำถูกดึงลง</b> อย่างน้อย 4<var>H</var> จากสันฝาย
+          ในบ่อวัดระดับ</li>
+        <li>สระรับน้ำด้านต้นน้ำควรลึกอย่างน้อย 3&nbsp;<var>H</var> และการไหลในสระต้องช้าและราบเรียบ</li>
+      </ul>
+      <p>ถ้าทำผิดข้อใดข้อหนึ่ง สัมประสิทธิ์ในตารางก็ใช้ไม่ได้อีกต่อไป &mdash;
+        และนี่คือสาเหตุที่พบบ่อยที่สุดที่ค่าวัดในสนามไม่ตรงกับค่าออกแบบ</p>
+    </div>
+
+    <!-- ============================================================ 3.11 -->
+    <h2 id="s11">3.11 เนื้อหาเสริม &mdash; การวัดการไหลในสนาม</h2>
+
+    <div class="callout rule">
+      <span class="label">เนื้อหาเสริม &mdash; ไม่ออกสอบ</span>
+      <p>หัวข้อนี้อยู่นอกขอบเขต CIVE&nbsp;1400 &sect;3.1&ndash;3.5 ที่นำมาไว้ที่นี่
+        เพราะอุปกรณ์ใน &sect;3.7&ndash;&sect;3.10 เป็นของคลาสสิก
+        ขณะที่บัณฑิตซึ่งก้าวเข้าสู่โครงการชลประทานในวันนี้จะพบอุปกรณ์อีกหลายชนิด
+        ไม่มีอะไรในหัวข้อนี้ออกสอบ แต่แนวคิดเหล่านี้คุ้มค่าแก่เวลาสิบนาที
+        ตัวอย่างหรือโจทย์ใดที่อาศัยหัวข้อนี้จะกำกับด้วย <span class="pill">&sect;3.11</span></p>
+    </div>
+
+    <h3>แผ่นออริฟิซ</h3>
+    <p>แผ่นออริฟิซ (orifice plate) คือแผ่นกลมแบนที่มีรูตรงกลาง ประกบไว้ระหว่างหน้าแปลนท่อสองอัน
+      จุดวัดความดันอยู่ห่างไปทางต้นน้ำหนึ่งเท่าของเส้นผ่านศูนย์กลางท่อ และทางท้ายน้ำครึ่งเท่า
+      อัตราการไหลเป็นไปตามสูตรของเวนจูรี&nbsp;(3.20) ทุกประการ เพียงแต่ใช้สัมประสิทธิ์ต่างกัน</p>
+
+    <div class="eq plain">
+      <var>Q</var> = <var>C</var><sub>d</sub> <var>A</var><sub>1</sub><var>A</var><sub>2</sub>
+      &divide; <span class="sqrt"><span class="rad"><var>A</var><sub>1</sub><sup>2</sup> &minus;
+      <var>A</var><sub>2</sub><sup>2</sup></span></span>
+      &nbsp;&times;&nbsp;
+      <span class="sqrt"><span class="rad">2<var>gh</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)</span></span>
+      &nbsp; โดย <var>C</var><sub>d</sub> &asymp; 0.6
+      <span class="tag">(3.30)</span>
+    </div>
+
+    <p>การเปรียบเทียบกับเวนจูรีให้บทเรียนที่ดี และเป็นข้อแลกเปลี่ยนทางวิศวกรรมที่เกิดขึ้นจริง</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th></th><th>มาตรเวนจูรี</th><th>แผ่นออริฟิซ</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b><var>C</var><sub>d</sub></b></td><td>0.97&ndash;0.99</td><td>&asymp; 0.6</td></tr>
+          <tr><td><b>การสูญเสียเฮดถาวร</b></td><td>10&ndash;20&nbsp;% ของผลต่างที่วัดได้</td><td>50&ndash;70&nbsp;%</td></tr>
+          <tr><td><b>ราคาและความยาว</b></td><td>สูง ต้องการช่วงท่อตรงยาว</td><td>ต่ำมาก ประกบระหว่างหน้าแปลนได้เลย</td></tr>
+          <tr><td><b>การสึกหรอและการอุดตัน</b></td><td>ทนทาน</td><td>ขอบคมสึก และดักเศษขยะ</td></tr>
+          <tr><td><b>เหมาะกับ</b></td><td>การวัดต่อเนื่องในที่ที่ค่าพลังงานสูบน้ำแพง</td><td>การวัดเป็นครั้งคราว ของไหลสะอาด งบประมาณจำกัด</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>มาตรวัดที่ไม่มีชิ้นส่วนเคลื่อนที่และไม่สูญเสียความดัน</h3>
+    <ul>
+      <li><b>มาตรวัดแบบแม่เหล็กไฟฟ้า</b> ขดลวดสร้างสนามแม่เหล็กขวางท่อ น้ำที่เคลื่อนที่เป็นตัวนำไฟฟ้า
+        ตามกฎของฟาราเดย์มันจึงเหนี่ยวนำแรงดันไฟฟ้าที่เป็นสัดส่วนกับความเร็วเฉลี่ย
+        มาตรวัดชนิดนี้เปิดโล่งเต็มหน้าตัดท่อ &mdash; ไม่มีสิ่งกีดขวาง ไม่มีการสูญเสียเฮด ไม่มีการอุดตัน
+        &mdash; แต่ของเหลวต้องนำไฟฟ้าได้ ซึ่งน้ำชลประทานนำได้เสมอ ความแม่นยำโดยทั่วไป &plusmn;0.5&nbsp;%</li>
+      <li><b>มาตรวัดอัลตราโซนิกแบบวัดเวลาเดินทาง</b> ตัวส่ง-รับสองตัวยิงคลื่นเสียงทแยงข้ามลำน้ำ
+        ตัวหนึ่งตามกระแสและอีกตัวทวนกระแส คลื่นที่เดินทางตามกระแสมาถึงก่อน
+        ผลต่างของเวลาเดินทางจึงให้ความเร็ว รุ่นแบบหนีบภายนอกไม่ต้องเจาะท่อเลย
+        จึงเป็นเครื่องมือมาตรฐานสำหรับตรวจสอบท่อที่ติดตั้งไว้แล้ว</li>
+      <li><b>มาตรวัดแบบดอปเพลอร์</b> อ่านการเลื่อนความถี่จากอนุภาคหรือฟองอากาศในลำน้ำ
+        ราคาถูกกว่าแบบวัดเวลาเดินทาง และต่างจากแบบนั้นตรงที่มัน<em>ต้องการ</em>ให้น้ำขุ่น
+        &mdash; จึงเข้ากันได้ดีกับน้ำในคลองและทางระบายน้ำ</li>
+    </ul>
+
+    <h3>การวัดทางน้ำเปิดโดยไม่ใช้ฝาย</h3>
+    <ul>
+      <li><b>รางวัดน้ำพาร์แชล</b> (Parshall flume) ฝายกั้นทางน้ำและดักตะกอนไว้ด้านหลัง แต่รางวัดไม่ดัก
+        รางพาร์แชลบีบทางน้ำให้แคบลงที่คอคอดและยกพื้นขึ้น บังคับให้การไหลผ่านสภาวะวิกฤต
+        หลังจากนั้นการอ่านความลึกด้านต้นน้ำเพียงค่าเดียวก็ให้อัตราการไหลได้
+        มันใช้เฮดน้อยมาก &mdash; โดยทั่วไปราวหนึ่งในสี่ของที่ฝายใช้ &mdash;
+        จึงเป็นโครงสร้างมาตรฐานของระบบชลประทานบนพื้นที่ราบซึ่งมีเฮดเหลือน้อย</li>
+      <li><b>วิธีความเร็ว&ndash;พื้นที่</b> แบ่งหน้าตัดออกเป็นแถบแนวดิ่ง วัดความเร็วเฉลี่ยของแต่ละแถบ
+        ด้วยมาตรวัดกระแสน้ำหรือใบพัด (ที่ความลึก 0.6 หรือเฉลี่ยค่าที่ 0.2 กับ 0.8)
+        คูณด้วยพื้นที่ของแถบแล้วรวมกัน นี่คือวิธีที่ใช้สอบเทียบสถานีวัดน้ำท่า
+        และเป็นวิธีที่นักศึกษาจะใช้ในห้องปฏิบัติการ</li>
+      <li><b>การวัดด้วยการเจือจาง</b> ฉีดสารติดตามที่ทราบความเข้มข้นด้วยอัตราคงที่
+        แล้ววัดความเข้มข้นที่เจือจางแล้วทางท้ายน้ำ อัตราส่วนให้อัตราการไหล
+        วิธีนี้ไม่ต้องการข้อมูลรูปเรขาคณิตเลย จึงเป็นวิธีเดียวที่ทำได้จริงในลำธารชันที่เต็มไปด้วยหินและปั่นป่วน</li>
+    </ul>
+
+    <h3>ข้อควรระวังเชิงปฏิบัติเกี่ยวกับ <var>C</var><sub>d</sub></h3>
+    <p>สัมประสิทธิ์ทุกค่าที่อ้างในบทนี้เป็นค่าโดยทั่วไปของอุปกรณ์ที่ทำมาดี
+      ในสภาพการไหลที่สะอาด คงตัว และพัฒนาเต็มที่แล้ว ในสนามจริง <var>C</var><sub>d</sub> เลื่อนได้:
+      ขอบออริฟิซมนขึ้นเมื่อสึก (และ <var>C</var><sub>d</sub> <em>สูงขึ้น</em>)
+      สันฝายมีตะไคร่น้ำเกาะ ข้อโค้งทางต้นน้ำทิ้งการหมุนวนไว้ไกลถึงยี่สิบเท่าของเส้นผ่านศูนย์กลาง
+      มาตรฐานอย่าง ISO&nbsp;5167 สำหรับมาตรวัดในท่อ และ ISO&nbsp;1438 สำหรับฝายแผ่นบาง
+      มีอยู่เพื่อกำหนดเงื่อนไขการติดตั้งที่ทำให้สัมประสิทธิ์ที่ตีพิมพ์ไว้เชื่อถือได้</p>
+
+    <p><b>นิสัยทางวิศวกรรมที่ควรสร้าง:</b> ค่าวัดการไหลดีได้เท่าที่การติดตั้งดีเท่านั้น
+      การอ้างค่า <var>Q</var> ถึงสี่ตัวเลขนัยสำคัญจากมาตรวัดที่ติดตั้งห่างจากข้องอเพียงสองเท่าของเส้นผ่านศูนย์กลาง
+      คือการหลอกตัวเอง</p>
+
+    <!-- ============================================================ 3.12 -->
+    <h2 id="s12">3.12 ตัวอย่างการคำนวณ</h2>
+
+    <p>ตัวอย่างที่ 3.1 และ 3.2 อยู่ใน &sect;3.3 และ &sect;3.4 ซึ่งเป็นที่ที่มันควรอยู่
+      ส่วนหกข้อในหัวข้อนี้นำความต่อเนื่องกับสมการแบร์นูลลีมาใช้ร่วมกัน
+      ซึ่งเป็นรูปแบบที่โจทย์จริงเกือบทุกข้อมาถึงเรา ตลอดทั้งหัวข้อกำหนด
+      <var>g</var> = 9.81&nbsp;ม.&nbsp;วินาที<sup>&minus;2</sup> และ <var>&rho;</var> ของน้ำเท่ากับ
+      1000&nbsp;กก.&nbsp;ม.<sup>&minus;3</sup></p>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 3.3 &mdash; ท่อเรียวที่ยกตัวสูงขึ้นด้วย</h4>
+      <p>น้ำไหลด้วยอัตรา 40&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup> ผ่านท่อที่ลดขนาดจาก 200&nbsp;มม.
+        เหลือ 100&nbsp;มม. โดยหน้าตัด 100&nbsp;มม. อยู่สูงกว่าหน้าตัด 200&nbsp;มม. เป็นระยะ 3.0&nbsp;ม.
+        ความดันเกจที่หน้าตัดใหญ่คือ 250&nbsp;kPa จงหาความดันที่หน้าตัดเล็ก โดยละเลยการสูญเสีย</p>
+      <p class="step"><b>เริ่มที่ความต่อเนื่องก่อน</b>
+        <var>A</var><sub>1</sub> = <var>&pi;</var>(0.200)<sup>2</sup>/4 = 0.03142&nbsp;ม.<sup>2</sup>
+        <var>u</var><sub>1</sub> = 0.040/0.03142 = 1.273&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup><br>
+        <var>A</var><sub>2</sub> = <var>&pi;</var>(0.100)<sup>2</sup>/4 =
+        7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;ม.<sup>2</sup>
+        <var>u</var><sub>2</sub> = 0.040/7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        5.093&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></p>
+      <p class="step"><b>เฮดต่าง ๆ ที่หน้าตัด 1</b> โดยให้ระดับอ้างอิงอยู่ที่หน้าตัด&nbsp;1<br>
+        เฮดความดัน = 250&nbsp;000/(1000&nbsp;&times;&nbsp;9.81) = 25.484&nbsp;ม.<br>
+        เฮดความเร็ว = 1.273<sup>2</sup>/(2&nbsp;&times;&nbsp;9.81) = 0.083&nbsp;ม.<br>
+        เฮดตำแหน่ง = 0<br>
+        <var>H</var> = 25.567&nbsp;ม.</p>
+      <p class="step"><b>ที่หน้าตัด 2</b> เฮดรวมเท่าเดิม (ไม่มีการสูญเสีย) แต่
+        เฮดความเร็ว = 5.093<sup>2</sup>/19.62 = 1.322&nbsp;ม. และเฮดตำแหน่ง = 3.0&nbsp;ม. ดังนั้น<br>
+        เฮดความดัน = 25.567 &minus; 1.322 &minus; 3.000 = 21.245&nbsp;ม.</p>
+      <p class="result"><var>p</var><sub>2</sub> = 21.245 &times; 1000 &times; 9.81 =
+        <b>208&nbsp;kPa เกจ</b><br>
+        ความดันลดลง 42&nbsp;kPa โดย 13&nbsp;kPa ใช้ไปกับการเร่งน้ำ
+        และ 29&nbsp;kPa ใช้ยกน้ำขึ้นไป 3&nbsp;ม.</p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 3.4 &mdash; ท่อพิโตต์-สแตติก</h4>
+      <p>ท่อพิโตต์-สแตติกที่แกนกลางของท่อน้ำต่อเข้ากับมาโนมิเตอร์รูปตัวยูบรรจุปรอท ซึ่งอ่านค่าได้ 25&nbsp;มม.
+        กำหนด <var>C</var><sub>v</sub> = 0.98 และ <var>&rho;</var><sub>Hg</sub> =
+        13&thinsp;600&nbsp;กก.&nbsp;ม.<sup>&minus;3</sup> จงหาความเร็วเฉพาะที่</p>
+      <p class="step">จากสมการ&nbsp;(3.16)<br>
+        <var>u</var><sub>อุดมคติ</sub> = &radic;[2 &times; 9.81 &times; 0.025 &times;
+        (13&thinsp;600 &minus; 1000)/1000]
+        = &radic;(0.4905 &times; 12.6) = &radic;6.180 = 2.486&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></p>
+      <p class="step">ใส่สัมประสิทธิ์: <var>u</var> = 0.98 &times; 2.486</p>
+      <p class="result"><var>u</var> = <b>2.44&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></b> ที่แกนกลาง<br>
+        สังเกตว่านี่คือความเร็ว<em>สูงสุด</em> ไม่ใช่ค่าเฉลี่ย ถ้าการไหลปั่นป่วน
+        ค่าเฉลี่ยจะราว 0.82 &times; 2.44 &asymp; 2.0&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup>
+        และนั่นคือค่าที่ต้องใช้หาอัตราการไหล</p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 3.5 &mdash; มาตรเวนจูรี</h4>
+      <p>มาตรเวนจูรีมีเส้นผ่านศูนย์กลางทางเข้า 150&nbsp;มม. และคอคอด 75&nbsp;มม. ใช้กับน้ำ
+        มาโนมิเตอร์ปรอทระหว่างทางเข้ากับคอคอดอ่านค่าได้ 180&nbsp;มม. กำหนด
+        <var>C</var><sub>d</sub> = 0.97 จงหาอัตราการไหลและความเร็วที่คอคอด
+        คำตอบจะเปลี่ยนไปหรือไม่ถ้าติดตั้งมาตรวัดบนแนวลาดเอียง 30&deg;</p>
+      <p class="step"><var>A</var><sub>1</sub> = 0.017671&nbsp;ม.<sup>2</sup>
+        <var>A</var><sub>2</sub> = 4.4179&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;ม.<sup>2</sup><br>
+        <var>A</var><sub>1</sub><var>A</var><sub>2</sub> &divide;
+        &radic;(<var>A</var><sub>1</sub><sup>2</sup> &minus; <var>A</var><sub>2</sub><sup>2</sup>)
+        = 7.807&nbsp;&times;&nbsp;10<sup>&minus;5</sup> / 0.017110
+        = 4.563&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;ม.<sup>2</sup></p>
+      <p class="step">พจน์เฮด: 2<var>gh</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)
+        = 2 &times; 9.81 &times; 0.180 &times; (13.6 &minus; 1) = 44.50 รากที่สองคือ
+        6.671&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></p>
+      <p class="step">จากสมการ&nbsp;(3.20):
+        <var>Q</var> = 0.97 &times; 4.563&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; 6.671</p>
+      <p class="result"><var>Q</var> = <b>0.0295&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup> =
+        29.5&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup></b><br>
+        ความเร็วที่คอคอด <var>u</var><sub>2</sub> = <var>Q</var>/<var>A</var><sub>2</sub> =
+        0.0295/4.4179&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        <b>6.68&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></b><br>
+        <b>ไม่เปลี่ยน</b> &mdash; ความลาดเอียงไม่มีผล พจน์ความสูงตัดกันไปแล้วในสมการ&nbsp;(3.19)
+        ตอนวิเคราะห์มาโนมิเตอร์ ค่าที่อ่านได้เท่ากันจึงหมายถึงอัตราการไหลเท่ากันไม่ว่าจะเอียงเท่าใด</p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 3.6 &mdash; ถังที่ระบายน้ำผ่านออริฟิซ</h4>
+      <p>ถังสี่เหลี่ยมขนาดในผัง 2.0&nbsp;ม. &times; 1.5&nbsp;ม. มีออริฟิซขอบคมเส้นผ่านศูนย์กลาง 50&nbsp;มม.
+        ที่ก้นถัง โดย <var>C</var><sub>d</sub> = 0.62 น้ำลึกเริ่มต้น 2.5&nbsp;ม. จงหา
+        (ก) อัตราการไหลเริ่มต้น (ข) เวลาที่ระดับลดลงเหลือ 1.0&nbsp;ม. และ (ค) เวลาที่ถังระบายจนหมด</p>
+      <p class="step"><b>(ก)</b> <var>A</var> = <var>&pi;</var>(0.050)<sup>2</sup>/4 =
+        1.9635&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;ม.<sup>2</sup><br>
+        <var>Q</var> = <var>C</var><sub>d</sub><var>A</var>&radic;(2<var>gh</var>)
+        = 0.62 &times; 1.9635&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; &radic;(2 &times; 9.81 &times; 2.5)
+        = 0.62 &times; 1.9635&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; 7.004
+        = <b>8.53&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup>
+        = 8.53&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup></b></p>
+      <p class="step">สำหรับ (ข) และ (ค) ใช้สมการ&nbsp;(3.23) โดย
+        <var>A</var><sub>t</sub> = 2.0 &times; 1.5 = 3.0&nbsp;ม.<sup>2</sup><br>
+        ตัวส่วน <var>C</var><sub>d</sub><var>A</var>&radic;(2<var>g</var>)
+        = 0.62 &times; 1.9635&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; 4.429
+        = 5.392&nbsp;&times;&nbsp;10<sup>&minus;3</sup></p>
+      <p class="step"><b>(ข)</b> <var>t</var> = 2 &times; 3.0 &times; (&radic;2.5 &minus; &radic;1.0)
+        &divide; 5.392&nbsp;&times;&nbsp;10<sup>&minus;3</sup>
+        = 6.0 &times; (1.5811 &minus; 1.0000) / 5.392&nbsp;&times;&nbsp;10<sup>&minus;3</sup>
+        = <b>647&nbsp;วินาที = 10.8&nbsp;นาที</b></p>
+      <p class="result"><b>(ค)</b> <var>t</var> = 6.0 &times; (1.5811 &minus; 0) &divide;
+        5.392&nbsp;&times;&nbsp;10<sup>&minus;3</sup> = <b>1760&nbsp;วินาที = 29.3&nbsp;นาที</b><br>
+        น้ำลึก 1.5&nbsp;ม. แรกใช้เวลา 11&nbsp;นาที แต่ 1.0&nbsp;ม. สุดท้ายใช้ 18&nbsp;นาที
+        ถังหมดเฮดก่อนหมดน้ำเสียอีก</p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 3.7 &mdash; เลือกระหว่างช่องเปิดสามเหลี่ยมกับสี่เหลี่ยม</h4>
+      <p>ต้องการวัดน้ำในคลองซอยของไร่นา จงเปรียบเทียบช่องเปิดสามเหลี่ยม 90&deg;
+        (<var>C</var><sub>d</sub> = 0.58) กับช่องเปิดสี่เหลี่ยมกว้าง 0.6&nbsp;ม.
+        (<var>C</var><sub>d</sub> = 0.62) ที่เฮด 0.25&nbsp;ม. เท่ากัน
+        แล้วหาเฮดที่แต่ละแบบจะให้เมื่ออัตราการไหลเท่ากับ 5&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup>
+        และบอกว่าจะเลือกติดตั้งแบบใด</p>
+      <p class="step"><b>ช่องเปิดสามเหลี่ยมที่ <var>H</var> = 0.25&nbsp;ม.</b> จากสมการ&nbsp;(3.26)
+        โดย tan&nbsp;45&deg; = 1<br>
+        <var>Q</var> = <sup>8</sup>&frasl;<sub>15</sub> &times; 0.58 &times; 1 &times; 4.429 &times;
+        0.25<sup>5/2</sup> = 1.370 &times; 0.03125 =
+        <b>0.0428&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup> =
+        42.8&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup></b></p>
+      <p class="step"><b>ช่องเปิดสี่เหลี่ยมที่ <var>H</var> = 0.25&nbsp;ม.</b> จากสมการ&nbsp;(3.25)<br>
+        <var>Q</var> = <sup>2</sup>&frasl;<sub>3</sub> &times; 0.62 &times; 0.6 &times; 4.429 &times;
+        0.25<sup>3/2</sup> = 1.0985 &times; 0.125 =
+        <b>0.137&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup> =
+        137&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup></b><br>
+        ที่เฮดเท่ากัน ช่องเปิดสี่เหลี่ยมระบายน้ำได้มากกว่าสามเท่า</p>
+      <p class="step"><b>ทีนี้ย้อนกลับที่ <var>Q</var> = 5&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup></b><br>
+        สามเหลี่ยม: <var>H</var><sup>5/2</sup> = 0.005/1.370 =
+        3.649&nbsp;&times;&nbsp;10<sup>&minus;3</sup> ได้ <var>H</var> = <b>106&nbsp;มม.</b><br>
+        สี่เหลี่ยม: <var>H</var><sup>3/2</sup> = 0.005/1.0985 =
+        4.552&nbsp;&times;&nbsp;10<sup>&minus;3</sup> ได้ <var>H</var> = <b>27&nbsp;มม.</b></p>
+      <p class="result"><b>เลือกช่องเปิดสามเหลี่ยม</b> ความคลาดเคลื่อน 1&nbsp;มม. ในการอ่านเกจ
+        คิดเป็นราว 1&nbsp;% ของเฮดของช่องสามเหลี่ยม แต่เกือบ 4&nbsp;% ของเฮดของช่องสี่เหลี่ยม &mdash;
+        และเนื่องจาก <var>Q</var> &prop; <var>H</var><sup>3/2</sup>
+        นั่นกลายเป็นความคลาดเคลื่อน 5&ndash;6&nbsp;% ในอัตราการไหล
+        ช่องเปิดสามเหลี่ยมกระจายการไหลน้อย ๆ ออกไปบนเฮดที่ใหญ่และอ่านได้ ซึ่งเป็นสิ่งที่คลองซอยต้องการพอดี
+        ส่วนในคลองสายหลักที่อัตราการไหลมากกว่าสิบเท่า ช่องเปิดสี่เหลี่ยมชนะด้วยเหตุผลตรงกันข้าม
+        เพราะช่องสามเหลี่ยมจะต้องเจาะลึกจนเป็นไปไม่ได้</p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 3.8 &mdash; กาลักน้ำ และมันสูงได้แค่ไหน</h4>
+      <p>ท่อกาลักน้ำขนาด 75&nbsp;มม. ดูดน้ำจากอ่างเก็บน้ำข้ามคันดิน แล้วปล่อยออกสู่บรรยากาศอย่างอิสระ
+        ที่ระดับต่ำกว่าผิวน้ำในอ่าง 3.5&nbsp;ม. ยอดของกาลักน้ำอยู่สูงกว่าผิวน้ำในอ่าง 1.8&nbsp;ม.
+        จงหาอัตราการไหลและความดันที่ยอด โดยละเลยการสูญเสีย
+        และหาความสูงมากที่สุดที่ยอดจะยกขึ้นได้ ถ้าน้ำมีอุณหภูมิ 20&nbsp;&deg;C
+        (<var>p</var><sub>v</sub> = 2.34&nbsp;kPa) และความดันบรรยากาศเท่ากับ 101.3&nbsp;kPa</p>
+      <p class="step"><b>อัตราการไหล</b> หาได้จากผิวน้ำกับปากทางออก ซึ่งทั้งคู่มีความดันเท่าบรรยากาศ
+        และผิวน้ำอยู่นิ่ง ให้ระดับอ้างอิงอยู่ที่ผิวน้ำในอ่าง ปากทางออกอยู่ที่
+        <var>z</var> = &minus;3.5&nbsp;ม.<br>
+        <var>u</var> = &radic;(2 &times; 9.81 &times; 3.5) = 8.29&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></p>
+      <p class="step"><var>A</var> = <var>&pi;</var>(0.075)<sup>2</sup>/4 =
+        4.4179&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;ม.<sup>2</sup> ดังนั้น
+        <var>Q</var> = 8.29 &times; 4.4179&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        <b>0.0366&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup> =
+        36.6&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup></b><br>
+        สังเกตว่าความสูงของยอดไม่ปรากฏในการคำนวณเลย
+        อัตราการไหลถูกกำหนดโดยระดับ<em>ปากทางออก</em>เพียงอย่างเดียว</p>
+      <p class="step"><b>ความดันที่ยอด</b> ท่อมีขนาดเดียวตลอด ตามความต่อเนื่องความเร็วที่ยอดจึงเท่ากับ
+        8.29&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup> ด้วย และเฮดความเร็วเท่ากับ
+        8.29<sup>2</sup>/19.62 = 3.50&nbsp;ม. ใช้สมการแบร์นูลลีจากผิวน้ำไปยังยอด ซึ่งอยู่ที่
+        <var>z</var> = +1.8&nbsp;ม.<br>
+        0 = <var>p</var><sub>c</sub>/<var>&rho;g</var> + 3.50 + 1.80 ดังนั้น
+        <var>p</var><sub>c</sub>/<var>&rho;g</var> = &minus;5.30&nbsp;ม.</p>
+      <p class="step"><var>p</var><sub>c</sub> = &minus;5.30 &times; 9810 = <b>&minus;52.0&nbsp;kPa
+        เกจ</b> นั่นคือ 101.3 &minus; 52.0 = 49.3&nbsp;kPa สัมบูรณ์ &mdash;
+        สูงกว่าความดันไออย่างสบาย ๆ กาลักน้ำจึงทำงานได้</p>
+      <p class="result"><b>ขีดจำกัด</b> คาวิเทชันเริ่มขึ้นเมื่อความดันสัมบูรณ์ลดลงถึง
+        <var>p</var><sub>v</sub> เมื่อคิดเป็นเฮด: ความดันบรรยากาศ = 101&thinsp;300/9810 = 10.33&nbsp;ม.
+        และความดันไอ = 2340/9810 = 0.24&nbsp;ม. เฮดความดันที่ยอดจึงลดต่ำกว่า
+        &minus;(10.33 &minus; 0.24) = &minus;10.09&nbsp;ม. ไม่ได้
+        เมื่อ 3.50&nbsp;ม. ในนั้นถูกใช้ไปกับเฮดความเร็วแล้ว ยอดจึงอยู่ได้สูงสุดเพียง
+        <b><var>z</var><sub>max</sub> = 10.09 &minus; 3.50 = 6.6&nbsp;ม.</b> เหนือผิวน้ำในอ่าง<br>
+        ในทางปฏิบัติไม่มีใครออกแบบกาลักน้ำให้สูงเกินราว 5&nbsp;ม. เพราะการสูญเสียจากความเสียดทาน
+        (บทที่&nbsp;5) กินระยะเผื่อไป และอากาศที่ละลายอยู่จะแยกตัวออกมาก่อนที่น้ำจะเดือดเสียอีก
+        <span class="pill">&sect;1.11</span></p>
+    </div>
+
+    <!-- ============================================================ 3.13 -->
+    <h2 id="s13">3.13 สัญลักษณ์</h2>
+
+    <div class="nomen">
+      <div><var>A</var> &mdash; พื้นที่หน้าตัด <span class="u">ม.<sup>2</sup></span></div>
+      <div><var>A</var><sub>c</sub> &mdash; พื้นที่หน้าตัดหดตัว <span class="u">ม.<sup>2</sup></span></div>
+      <div><var>A</var><sub>t</sub> &mdash; พื้นที่ถังในผัง <span class="u">ม.<sup>2</sup></span></div>
+      <div><var>b</var> &mdash; ความกว้างของแถบย่อยของช่องเปิด <span class="u">ม.</span></div>
+      <div><var>B</var> &mdash; ความกว้างเต็มของช่องเปิดสี่เหลี่ยม <span class="u">ม.</span></div>
+      <div><var>C</var><sub>c</sub> &mdash; สัมประสิทธิ์การหดตัว <span class="u">&ndash;</span></div>
+      <div><var>C</var><sub>d</sub> &mdash; สัมประสิทธิ์การไหล <span class="u">&ndash;</span></div>
+      <div><var>C</var><sub>v</sub> &mdash; สัมประสิทธิ์ความเร็ว <span class="u">&ndash;</span></div>
+      <div><var>d</var> &mdash; เส้นผ่านศูนย์กลาง <span class="u">ม.</span></div>
+      <div><var>g</var> &mdash; ความเร่งโน้มถ่วง 9.81 <span class="u">ม.&nbsp;วินาที<sup>&minus;2</sup></span></div>
+      <div><var>h</var> &mdash; เฮด หรือความลึกใต้ผิวอิสระ <span class="u">ม.</span></div>
+      <div><var>h</var><sub>a</sub> &mdash; เฮดความเร็วของน้ำที่ไหลเข้า <span class="u">ม.</span></div>
+      <div><var>H</var> &mdash; เฮดรวม และเฮดเหนือสันฝาย <span class="u">ม.</span></div>
+      <div><var>m</var> &mdash; มวล <span class="u">กก.</span></div>
+      <div><var>m&#775;</var> &mdash; อัตราการไหลเชิงมวล <span class="u">กก.&nbsp;วินาที<sup>&minus;1</sup></span></div>
+      <div><var>p</var> &mdash; ความดัน <span class="u">Pa = N&nbsp;ม.<sup>&minus;2</sup></span></div>
+      <div><var>p</var><sub>v</sub> &mdash; ความดันไอ <span class="u">Pa</span></div>
+      <div><var>Q</var> &mdash; อัตราการไหลเชิงปริมาตร <span class="u">ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup></span></div>
+      <div><var>t</var> &mdash; เวลา <span class="u">วินาที</span></div>
+      <div><var>u</var> &mdash; ความเร็ว โดยทั่วไปตัดขีดบนที่แทนค่าเฉลี่ยออก <span class="u">ม.&nbsp;วินาที<sup>&minus;1</sup></span></div>
+      <div><var>z</var> &mdash; ความสูงเหนือระดับอ้างอิง <span class="u">ม.</span></div>
+      <div><var>&theta;</var> &mdash; มุมยอดของช่องเปิดสามเหลี่ยม <span class="u">องศา</span></div>
+      <div><var>&rho;</var> &mdash; ความหนาแน่นของของไหลที่ไหล <span class="u">กก.&nbsp;ม.<sup>&minus;3</sup></span></div>
+      <div><var>&rho;</var><sub>man</sub> &mdash; ความหนาแน่นของของไหลเกจในมาโนมิเตอร์ <span class="u">กก.&nbsp;ม.<sup>&minus;3</sup></span></div>
+      <div>EGL &mdash; เส้นระดับพลังงาน คือกราฟของ <var>H</var> <span class="u">&ndash;</span></div>
+      <div>HGL &mdash; เส้นระดับชลศาสตร์ คือกราฟของ <var>p</var>/<var>&rho;g</var> + <var>z</var> <span class="u">&ndash;</span></div>
+    </div>
+
+    <!-- ============================================================ 3.14 -->
+    <h2 id="s14">3.14 แบบทดสอบทบทวน</h2>
+
+    <p>คำถาม 48 ข้อจากบทนี้ ตรวจให้ในเบราว์เซอร์ของนักศึกษาเองขณะตอบ ไม่มีการเก็บและไม่มีการส่งข้อมูลไปที่ใด
+      แต่ละข้อระบุหัวข้อที่เป็นที่มา และสรุปตอนท้ายจะแสดงรายการหัวข้อที่ควรกลับไปทบทวน</p>
+
+    <p>ควรทำชุดนี้<em>ก่อน</em>ทำโจทย์ใน &sect;3.15 คำถามสี่ข้อมาจากเนื้อหาเสริมใน &sect;3.11
+      และมีการระบุกำกับไว้</p>
+
+    <noscript>
+      <div class="quiz-noscript">
+        <b>หัวข้อนี้ต้องใช้จาวาสคริปต์</b> คำถามถูกตรวจในเบราว์เซอร์ของนักศึกษาเอง
+        เมื่อปิดสคริปต์ไว้จึงไม่มีอะไรแสดงขึ้น เนื้อหาเดียวกันนี้ครอบคลุมด้วยโจทย์เขียนตอบใน
+        <a href="#s15">&sect;3.15</a>
+      </div>
+    </noscript>
+
+    <div id="quiz"></div>
+
+    <!-- ============================================================ 3.15 -->
+    <h2 id="s15">3.15 โจทย์ปัญหา</h2>
+
+    <p>กำหนด <var>g</var> = 9.81&nbsp;ม./วินาที<sup>2</sup>, <var>&rho;</var><sub>น้ำ</sub> =
+      1000&nbsp;กก./ม.<sup>3</sup> และ <var>&rho;</var><sub>Hg</sub> =
+      13&thinsp;600&nbsp;กก./ม.<sup>3</sup> เว้นแต่จะระบุเป็นอย่างอื่น
+      ให้ถือว่าของไหลทุกชนิดเป็นของไหลอุดมคติ &mdash; ความเสียดทานจะมาถึงในบทที่&nbsp;5
+      มีเฉลยให้เพื่อให้ตรวจสอบตนเองได้ แต่คะแนนอยู่ที่วิธีทำ โจทย์ที่กำกับ
+      <span class="pill">&sect;3.11</span> อาศัยเนื้อหาเสริมและไม่ออกสอบ</p>
+
+    <ol class="problems">
+      <li>น้ำไหลในท่อขนาด 100&nbsp;มม. ด้วยความเร็วเฉลี่ย 2.5&nbsp;ม./วินาที
+        จงหาอัตราการไหลเป็นลิตร/วินาที และเป็น ม.<sup>3</sup>/ชั่วโมง พร้อมทั้งอัตราการไหลเชิงมวล
+        <span class="ans">19.6 ลิตร/วินาที = 70.7 ม.<sup>3</sup>/ชั่วโมง; 19.6 กก./วินาที</span></li>
+
+      <li>ท่อขนาด 200&nbsp;มม. ที่พาน้ำ 60&nbsp;ลิตร/วินาที ลดขนาดลงเหลือ 125&nbsp;มม.
+        แล้วแยกเป็นท่อขนาด 80&nbsp;มม. สองเส้นที่แบ่งน้ำเท่ากัน จงหาความเร็วเฉลี่ยในท่อทั้งสี่เส้น
+        <span class="ans">1.91 ม./วินาที; 4.89 ม./วินาที; 5.97 ม./วินาที ในท่อแยกแต่ละเส้น</span></li>
+
+      <li>ท่อแนวราบลดขนาดจาก 150&nbsp;มม. เหลือ 75&nbsp;มม. และพาน้ำ 25&nbsp;ลิตร/วินาที
+        ความดันเกจที่หน้าตัดใหญ่เท่ากับ 180&nbsp;kPa จงหาความดันที่หน้าตัดเล็ก
+        แล้ววาด EGL และ HGL ตลอดแนวท่อ พร้อมระบุว่าเส้นใดเปลี่ยนและเส้นใดไม่เปลี่ยน
+        <span class="ans">165 kPa &mdash; ลดลง 15 kPa; EGL เป็นแนวราบ ส่วน HGL ลดลง 1.53 ม. ที่จุดคอด</span></li>
+
+      <li>ท่อพิโตต์-สแตติกที่แกนกลางของท่อน้ำขนาด 200&nbsp;มม. ต่อกับมาโนมิเตอร์ปรอทที่อ่านได้ 40&nbsp;มม.
+        กำหนด <var>C</var><sub>v</sub> = 0.98 จงหาความเร็วที่แกนกลาง
+        แล้วประมาณอัตราการไหลถ้าการไหลปั่นป่วนโดยมีความเร็วเฉลี่ยเป็น 0.82 เท่าของค่าสูงสุด
+        <span class="ans">3.08 ม./วินาที ที่แกนกลาง; ค่าเฉลี่ย 2.53 ม./วินาที ดังนั้น Q &asymp; 79 ลิตร/วินาที</span></li>
+
+      <li>มาตรเวนจูรีที่มีเส้นผ่านศูนย์กลางทางเข้า 200&nbsp;มม. คอคอด 100&nbsp;มม. และ
+        <var>C</var><sub>d</sub> = 0.98 มีมาโนมิเตอร์ปรอทระหว่างทางเข้ากับคอคอดที่อ่านได้ 250&nbsp;มม.
+        จงหาอัตราการไหลและความเร็วที่คอคอด
+        <span class="ans">62.5 ลิตร/วินาที; 7.96 ม./วินาที ที่คอคอด</span></li>
+
+      <li>เปลี่ยนมาตรวัดในโจทย์ข้อ 5 เป็นแผ่นออริฟิซที่มีพื้นที่คอคอดเท่ากัน โดย
+        <var>C</var><sub>d</sub> = 0.60 ที่อัตราการไหลเท่าเดิม มาโนมิเตอร์จะอ่านได้เท่าใด
+        และผลลัพธ์นี้บอกอะไรเกี่ยวกับขนาดมาโนมิเตอร์ที่ต้องใช้
+        <span class="ans">667 มม. ปรอท &mdash; เกือบสามเท่าของเดิม เพราะ Q &prop; C<sub>d</sub>&radic;h และ C<sub>d</sub> ลดลง 1.63 เท่า</span></li>
+
+      <li>ออริฟิซขอบคมเส้นผ่านศูนย์กลาง 40&nbsp;มม. ปล่อยน้ำจากถังภายใต้เฮดคงที่ 1.8&nbsp;ม.
+        การวัดให้ <var>C</var><sub>d</sub> = 0.61 และ <var>C</var><sub>v</sub> = 0.97
+        จงหาอัตราการไหล ความเร็วจริงที่หน้าตัดหดตัว สัมประสิทธิ์การหดตัว และพื้นที่หน้าตัดหดตัว
+        <span class="ans">4.56 ลิตร/วินาที; 5.76 ม./วินาที; C<sub>c</sub> = 0.629; A<sub>c</sub> = 7.90 &times; 10<sup>&minus;4</sup> ม.<sup>2</sup></span></li>
+
+      <li>ถังทรงกระบอกเส้นผ่านศูนย์กลาง 1.5&nbsp;ม. มีน้ำลึก 3.0&nbsp;ม. เหนือออริฟิซขอบคมขนาด 40&nbsp;มม.
+        ที่ก้นถัง โดย <var>C</var><sub>d</sub> = 0.61 จงหาเวลาที่ระดับน้ำลดลงเหลือ 1.0&nbsp;ม.
+        และเวลาที่ถังระบายจนหมด
+        <span class="ans">762 วินาที = 12.7 นาที; 1803 วินาที = 30.0 นาที</span></li>
+
+      <li>ช่องเปิดสี่เหลี่ยมสันคมกว้าง 0.9&nbsp;ม. มี <var>C</var><sub>d</sub> = 0.62 ทำงานที่เฮด
+        0.30&nbsp;ม. จงหาอัตราการไหล ครั้งแรกโดยไม่คิดการหดตัวที่ปลาย
+        แล้วครั้งที่สองโดยใช้การแก้ค่าแบบฟรานซิสสำหรับการหดตัวสองปลาย คำตอบทั้งสองต่างกันกี่เปอร์เซ็นต์
+        <span class="ans">271 ลิตร/วินาที เมื่อไม่คิด; 253 ลิตร/วินาที เมื่อแก้ค่า &mdash; ต่ำลง 6.7 %</span></li>
+
+      <li>ช่องเปิดสามเหลี่ยม 90&deg; มี <var>C</var><sub>d</sub> = 0.58 (ก) จงหาอัตราการไหลที่เฮด
+        0.20&nbsp;ม. (ข) เฮดเท่าใดที่ให้อัตราการไหล 30&nbsp;ลิตร/วินาที
+        (ค) ถ้าอ่านเฮดที่ 0.20&nbsp;ม. สูงเกินไป 3&nbsp;มม. จะเกิดความคลาดเคลื่อนในอัตราการไหลกี่เปอร์เซ็นต์
+        <span class="ans">(ก) 24.5 ลิตร/วินาที (ข) 0.217 ม. (ค) สูงเกินไป 3.8 % &mdash; เลขชี้กำลัง 5/2 ขยายความคลาดเคลื่อน 1.5 % ของการอ่านขึ้น 2.5 เท่า</span></li>
+
+      <li>กาลักน้ำขนาด 50&nbsp;มม. ดูดน้ำจากอ่างเก็บน้ำข้ามคันดิน แล้วปล่อยออกอย่างอิสระที่ระดับต่ำกว่า
+        ผิวน้ำในอ่าง 4.0&nbsp;ม. ยอดของกาลักน้ำอยู่สูงกว่าผิวน้ำ 2.0&nbsp;ม.
+        จงหาอัตราการไหลและความดันเกจที่ยอด โดยละเลยการสูญเสีย การยกยอดให้สูงขึ้นจะทำให้อัตราการไหลเปลี่ยนหรือไม่
+        <span class="ans">17.4 ลิตร/วินาที; &minus;58.9 kPa เกจ ที่ยอด ไม่เปลี่ยน &mdash; อัตราการไหลขึ้นกับระดับปากทางออกเท่านั้น แม้ความดันที่ยอดจะยิ่งต่ำลงจนในที่สุดกาลักน้ำจะขาดตอน</span></li>
+
+      <li><span class="pill">&sect;3.11</span> แผ่นออริฟิซรูขนาด 75&nbsp;มม. ติดตั้งในท่อน้ำขนาด
+        150&nbsp;มม. โดย <var>C</var><sub>d</sub> = 0.60 มาโนมิเตอร์ปรอทคร่อมแผ่นอ่านได้ 300&nbsp;มม.
+        จงหาอัตราการไหล แล้วเมื่อถือว่าการสูญเสียเฮดถาวรเท่ากับ 60&nbsp;% ของผลต่างที่วัดได้
+        จงหาค่าการสูญเสียนั้นเป็นเมตรของน้ำ และกำลังสูบน้ำที่สูญเปล่าไป
+        <span class="ans">23.6 ลิตร/วินาที; ผลต่าง 3.78 ม. ของน้ำ การสูญเสียถาวร 2.27 ม. = 22.3 kPa สูญเปล่าราว 525 W ตลอดเวลา</span></li>
+    </ol>
+
+    <!-- ============================================================ 3.16 -->
+    <h2 id="s16">3.16 เอกสารอ้างอิง</h2>
+
+    <ol class="refs">
+      <li lang="en">Sleigh, A. <em>An Introduction to Fluid Mechanics</em>, CIVE 1400, School of Civil
+        Engineering, University of Leeds. &sect;3.1&ndash;3.5 &mdash; หัวข้อที่บทนี้ยึดเป็นหลัก
+        รวมถึงการใช้ท่อกระแสพิสูจน์ความต่อเนื่อง และการอินทิเกรตช่องเปิดใน &sect;3.5</li>
+      <li lang="en">Massey, B. S. <em>Mechanics of Fluids</em>, Van Nostrand Reinhold. บทที่ 3
+        สำหรับสมการพลังงาน และ &sect;3.7 สำหรับการระบุอย่างรอบคอบว่าสมการแบร์นูลลีใช้ได้และใช้ไม่ได้ที่ใด</li>
+      <li lang="en">Douglas, J. F., Gasiorek, J. M. and Swaffield, J. A. <em>Fluid Mechanics</em>, Longman.
+        บทที่ 5 และ 6 มีโจทย์เวนจูรีและออริฟิซพร้อมวิธีทำจำนวนมาก</li>
+      <li lang="en">Featherstone, R. E. and Nalluri, C. <em>Civil Engineering Hydraulics</em>, Blackwell
+        Science. เขียนสำหรับวิศวกรน้ำ การอธิบายเส้นระดับชัดเจนที่สุดในระดับนี้</li>
+      <li lang="en">Chadwick, A. and Morfett, J. <em>Hydraulics in Civil and Environmental
+        Engineering</em>, Spon. บทที่ 3 และบทที่ 13 สำหรับโครงสร้างวัดน้ำในทางน้ำเปิด</li>
+      <li lang="en">US Bureau of Reclamation, <em>Water Measurement Manual</em>, ฉบับที่ 3
+        <span class="units">(ดาวน์โหลดได้ฟรี)</span> เอกสารอ้างอิงเชิงปฏิบัติสำหรับฝาย รางวัดน้ำ
+        และพิกัดความคลาดเคลื่อนของการติดตั้ง &mdash; เป็นที่มาของกฎเรื่องซิโปเลตติและช่องเปิดสามเหลี่ยมใน
+        &sect;3.10</li>
+      <li lang="en">Bos, M. G. (ed.) <em>Discharge Measurement Structures</em>, ILRI Publication 20.
+        <span class="units">(ดาวน์โหลดได้ฟรี)</span>
+        เอกสารอ้างอิงระดับสากลสำหรับการวัดการไหลในงานชลประทาน
+        พร้อมแบบที่ให้ขนาดครบของโครงสร้างทุกชนิดใน &sect;3.10 และ &sect;3.11</li>
+      <li lang="en">ISO 5167 &mdash; การวัดการไหลด้วยอุปกรณ์ผลต่างความดัน (ท่อเวนจูรี แผ่นออริฟิซ หัวฉีด);
+        ISO 1438 &mdash; ฝายแผ่นบาง <span class="units">(นอกขอบเขตวิชา)</span>
+        มาตรฐานที่กำหนดเงื่อนไขการติดตั้งซึ่งทำให้สัมประสิทธิ์ที่ตีพิมพ์ไว้เชื่อถือได้</li>
+    </ol>
+
+    <div class="chapter-nav">
+      <span><a href="chapter2-th.html">&larr; บทที่ 2: แรงในของไหลสถิต</a></span>
+      <span class="muted-nav">บทที่ 4: สมการโมเมนตัม &mdash; อยู่ระหว่างจัดทำ</span>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h3>รายวิชา</h3>
+      <ul>
+        <li><a href="index-th.html">หน้าแรกของรายวิชา</a></li>
+        <li><a href="chapter1-th.html">บทที่ 1: สมบัติของของไหล</a></li>
+        <li><a href="chapter2-th.html">บทที่ 2: แรงในของไหลสถิต</a></li>
+        <li><a href="chapter3-th.html">บทที่ 3: ความต่อเนื่องและแบร์นูลลี</a></li>
+        <li><a href="chapter3.html" lang="en">Chapter 3 (English)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>ในบทนี้</h3>
+      <ul>
+        <li><a href="#t1">ตารางที่ 3.1 &mdash; ประเภทของการไหล</a></li>
+        <li><a href="#t2">ตารางที่ 3.2 &mdash; สัมประสิทธิ์ของออริฟิซ</a></li>
+        <li><a href="#s12">ตัวอย่างการคำนวณ</a></li>
+        <li><a href="#s14">แบบทดสอบทบทวน</a></li>
+        <li><a href="#s15">โจทย์ปัญหา</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>เกี่ยวกับ</h3>
+      <p>เอกสารประกอบการบรรยายวิชา ASE 221 สงวนลิขสิทธิ์
+        รูปแบบหน้าเว็บอ้างอิงเทมเพลตสื่อการสอนของภาควิชา ส่วนเนื้อหาและโค้ดจัดทำขึ้นใหม่สำหรับรายวิชานี้</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2569 จรัสชัย เย็นพยับ สงวนลิขสิทธิ์ ASE 221 กลศาสตร์ของไหลเบื้องต้น &mdash;
+    เอกสารประกอบการสอน ภาคเรียนที่ 1 ปีการศึกษา 2569
+    ห้ามทำซ้ำ ดัดแปลง หรือเผยแพร่ส่วนหนึ่งส่วนใดของเว็บไซต์นี้โดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร
+  </div>
+</footer>
+
+<script>
+/* แบบทดสอบทบทวนของบทที่ 3 ตรวจในเบราว์เซอร์ของผู้อ่านเองทั้งหมดโดย quiz.js
+   ไม่มีการเก็บหรือส่งผลลัพธ์ออกไปที่ใด */
+window.QUIZ = {
+  text: {
+    answered:     "ตอบแล้ว",
+    correctCount: "ถูก",
+    section:      "&sect;",
+    markCorrect:  "คำตอบที่ถูก",
+    markYours:    "คำตอบของคุณ",
+    whyLabel:     "เหตุผล",
+    readMore:     "ทบทวน &sect;{ref}",
+    reset:        "เริ่มใหม่",
+    revealAll:    "เฉลยข้อที่เหลือ",
+    resultTitle:  "ทำแบบทดสอบครบแล้ว",
+    band90: "แน่นดี ไปทำโจทย์เขียนตอบใน &sect;3.15 ได้เลย",
+    band70: "ผ่านในระดับดี ทบทวนหัวข้อที่แสดงด้านล่างก่อน แล้วค่อยทำ &sect;3.15",
+    band50: "เข้าใจไปแล้วครึ่งทาง กลับไปอ่านหัวข้อด้านล่างอีกครั้งก่อนทำโจทย์",
+    band0:  "ควรอ่านทั้งบทอีกรอบก่อนไปต่อ เริ่มจากหัวข้อที่แสดงด้านล่าง",
+    revise: "หัวข้อที่ควรทบทวน"
+  },
+  questions: [
+
+    /* ----------------------------- 3.1 การจำแนกการไหล */
+    { ref: "3.1", href: "#s1", a: 2,
+      q: "การไหลถูกเรียกว่า<b>คงตัว</b> เมื่อใด",
+      opts: [
+        "เมื่อความเร็วเท่ากันทุกจุดในของไหล",
+        "เมื่อของไหลอัดตัวไม่ได้",
+        "เมื่อสภาวะ ณ จุดใดจุดหนึ่งไม่เปลี่ยนแปลงตามเวลา",
+        "เมื่อเส้นกระแสตรงและขนานกัน"
+      ],
+      why: "คำว่าคงตัวหมายถึง<i>เวลา</i>เท่านั้น สภาวะอาจต่างกันในแต่ละตำแหน่งได้ ซึ่งเป็นคำถามเรื่องสม่ำเสมอ/ไม่สม่ำเสมอ อันเป็นคนละคำถามกัน" },
+
+    { ref: "3.1", href: "#s1", a: 0,
+      q: "น้ำไหลด้วยอัตราคงที่ผ่านท่อที่ค่อย ๆ เรียวลงตลอดความยาว การไหลนี้เป็นแบบใด",
+      opts: [
+        "คงตัวและไม่สม่ำเสมอ",
+        "คงตัวและสม่ำเสมอ",
+        "ไม่คงตัวและไม่สม่ำเสมอ",
+        "ไม่คงตัวและสม่ำเสมอ"
+      ],
+      why: "ไม่มีอะไรเปลี่ยนตามเวลา จึงคงตัว แต่ความเร็วเปลี่ยนไปในแต่ละหน้าตัดเมื่อพื้นที่เปลี่ยน จึงไม่สม่ำเสมอ นี่คือแถวที่สองของตารางที่ 3.1" },
+
+    { ref: "3.1", href: "#s1", a: 3,
+      q: "เครื่องสูบน้ำที่ป้อนท่อเส้นผ่านศูนย์กลางคงที่ถูกปิดลง ระหว่างที่การไหลชะลอตัว การไหลในท่อนั้นเป็นแบบใด",
+      opts: [
+        "คงตัวและสม่ำเสมอ",
+        "คงตัวและไม่สม่ำเสมอ",
+        "ไม่คงตัวและไม่สม่ำเสมอ",
+        "ไม่คงตัวและสม่ำเสมอ"
+      ],
+      why: "ความเร็วกำลังลดลง จึงไม่คงตัว แต่ ณ ขณะหนึ่ง ๆ ความเร็วเท่ากันตลอดท่อที่มีหน้าตัดคงที่ จึงสม่ำเสมอ นี่คือแถวที่สามของตารางที่ 3.1" },
+
+    { ref: "3.1", href: "#s1", a: 1,
+      q: "เหตุใดวิชานี้จึงถือว่าของเหลวอัดตัวไม่ได้ ขณะที่แก๊สมักถือว่าอัดตัวได้",
+      opts: [
+        "เพราะของเหลวไม่มีมอดุลัสเชิงปริมาตรเลย",
+        "เพราะความหนาแน่นของของเหลวเปลี่ยนน้อยมากในช่วงความดันที่พบในการไหลคงตัวทั่วไป",
+        "เพราะของเหลวอยู่นิ่งเสมอ",
+        "เพราะสมการความต่อเนื่องใช้ได้กับของเหลวเท่านั้น"
+      ],
+      why: "บทที่ 1 &sect;1.11 ให้มอดุลัสเชิงปริมาตรของน้ำราว 2 GPa การเปลี่ยนความดันตามปกติจึงเปลี่ยนความหนาแน่นเพียงเศษเสี้ยวของหนึ่งเปอร์เซ็นต์ ส่วนแก๊สยืดหยุ่นกว่ามาก แม้ว่าแก๊สที่เคลื่อนที่ช้าก็ถือว่าอัดตัวไม่ได้เช่นกัน" },
+
+    { ref: "3.1", href: "#s1", a: 1,
+      q: "การเรียกการไหลในท่อว่า &ldquo;หนึ่งมิติ&rdquo; เป็นการประมาณอย่างเคร่งครัด เพราะเหตุใด",
+      opts: [
+        "เพราะท่อเป็นทรงกลมไม่ใช่ทรงเหลี่ยม",
+        "เพราะความเร็วต้องเป็นศูนย์ที่ผนังและสูงสุดที่แกน จึงมีการเปลี่ยนแปลงตามหน้าตัดอยู่จริง",
+        "เพราะความดันเปลี่ยนไปตามความยาวท่อ",
+        "เพราะความหนาแน่นเปลี่ยนไปตามความยาวท่อ"
+      ],
+      why: "การละเลยการเปลี่ยนแปลงนั้นแล้วใช้ความเร็วเฉลี่ยค่าเดียวคือการลดทอนหลักของ &sect;3.1 มันจ่ายราคาเพียงไม่กี่เปอร์เซ็นต์ และแก้ด้วยสัมประสิทธิ์เมื่อความแม่นยำเรียกร้อง" },
+
+    /* ----------------------------- 3.2 เส้นกระแสและท่อกระแส */
+    { ref: "3.2", href: "#s2", a: 2,
+      q: "เส้นกระแสสองเส้นตัดกันไม่ได้เลย เพราะที่จุดตัดนั้น",
+      opts: [
+        "ความดันจะกลายเป็นอนันต์",
+        "ความหนาแน่นจะต้องเปลี่ยนไป",
+        "ของไหลจะต้องมีความเร็วสองค่าที่ต่างกันพร้อมกัน",
+        "การไหลจะต้องกลายเป็นไม่คงตัว"
+      ],
+      why: "เส้นกระแสถูกนิยามด้วยทิศทางความเร็วเฉพาะที่ การมีสองทิศทาง ณ จุดเดียวเป็นไปไม่ได้ในทางกายภาพ เส้นกระแสจึงไม่ตัดกัน" },
+
+    { ref: "3.2", href: "#s2", a: 0,
+      q: "เมื่ออยู่ใกล้ขอบเขตของแข็ง เส้นกระแสวางตัวอย่างไร",
+      opts: [
+        "ขนานกับขอบเขตนั้น",
+        "ตั้งฉากกับขอบเขตนั้น",
+        "ทำมุม 45&deg; กับขอบเขตนั้น",
+        "ไปตามทิศทางที่เกรเดียนต์ความดันชี้"
+      ],
+      why: "ของไหลผ่านเข้าหรือออกจากผิวของแข็งไม่ได้ ความเร็วที่นั่นจึงไม่มีองค์ประกอบในแนวตั้งฉากกับผิว และเส้นกระแสจึงขนานกับผิวนั้น" },
+
+    { ref: "3.2", href: "#s2", a: 3,
+      q: "สมบัติของท่อกระแสที่ทำให้มันมีประโยชน์ในการทำบัญชีคือข้อใด",
+      opts: [
+        "ความดันภายในคงที่",
+        "ความเร็วภายในคงที่",
+        "มันมีผนังแข็ง",
+        "ไม่มีของไหลข้ามผนังของมัน เพราะผนังสร้างจากเส้นกระแส"
+      ],
+      why: "นั่นคือสิ่งที่ทำให้เราพูดได้ว่ามวลทั้งหมดเข้าทางปลายหนึ่งและออกทางอีกปลายหนึ่ง อันเป็นขั้นตอนที่ให้กำเนิดสมการความต่อเนื่องใน &sect;3.4" },
+
+    { ref: "3.2", href: "#s2", a: 1,
+      q: "ท่อกระแสต่างจากท่อจริงตรงที่",
+      opts: [
+        "ของไหลรั่วผ่านผนังของมันได้",
+        "ผนังของมันเคลื่อนที่ไปกับของไหล และในการไหลไม่คงตัวผนังยังเปลี่ยนตำแหน่งตามเวลา",
+        "มันวาดได้เฉพาะในของเหลว ไม่ได้ในแก๊ส",
+        "มันต้องมีหน้าตัดเป็นวงกลม"
+      ],
+      why: "มันคือผิวที่นิยามขึ้นจากตัวการไหลเอง ไม่ใช่วัตถุ ในการไหลคงตัวตำแหน่งของมันตรึงอยู่กับที่ ซึ่งเป็นอีกเหตุผลที่วิชานี้จำกัดอยู่ที่การไหลคงตัว" },
+
+    /* ----------------------------- 3.3 อัตราการไหล */
+    { ref: "3.3", href: "#s3", a: 2,
+      q: "อัตราการไหล 1 ม.<sup>3</sup>/วินาที เท่ากับข้อใด",
+      opts: [
+        "100 ลิตร/วินาที",
+        "1000 ม.<sup>3</sup>/ชั่วโมง",
+        "1000 ลิตร/วินาที หรือ 3600 ม.<sup>3</sup>/ชั่วโมง",
+        "60 ลิตร/วินาที"
+      ],
+      why: "หนึ่งลูกบาศก์เมตรคือ 1000 ลิตร และหนึ่งชั่วโมงคือ 3600 วินาที ทั้งสองการแปลงหน่วยนี้ใช้ตลอดเวลาในงานชลประทาน จึงควรจำให้ได้ตั้งแต่ตอนนี้" },
+
+    { ref: "3.3", href: "#s3", a: 1,
+      q: "ถังหนึ่งรองน้ำจากท่อได้ 15 กก. ใน 20 วินาที อัตราการไหลเท่ากับเท่าใด",
+      opts: [
+        "0.75 ม.<sup>3</sup>/วินาที",
+        "0.75 ลิตร/วินาที",
+        "1.33 ลิตร/วินาที",
+        "300 ลิตร/วินาที"
+      ],
+      why: "<i>m&#775;</i> = 15/20 = 0.75 กก./วินาที และ <i>Q</i> = <i>m&#775;</i>/<i>&rho;</i> = 0.75/1000 = 7.5 &times; 10<sup>&minus;4</sup> ม.<sup>3</sup>/วินาที ซึ่งคือ 0.75 ลิตร/วินาที สำหรับน้ำตัวเลขสองค่านี้บังเอิญตรงกัน เพราะน้ำ 1 ลิตรหนัก 1 กก." },
+
+    { ref: "3.3", href: "#s3", a: 0,
+      q: "<b>ความเร็วเฉลี่ย</b> ตลอดหน้าตัดนิยามว่าอย่างไร",
+      opts: [
+        "ความเร็วสม่ำเสมอที่จะพาอัตราการไหลเท่าเดิมผ่านพื้นที่เดิม",
+        "ค่าเฉลี่ยเลขคณิตของความเร็วที่ผนังกับความเร็วที่แกนกลาง",
+        "ครึ่งหนึ่งของความเร็วสูงสุดเสมอ",
+        "ความเร็วที่วัดได้ที่ผนังท่อ"
+      ],
+      why: "โดยนิยาม <i>u&#772;</i> = <i>Q</i>/<i>A</i> ส่วนกฎครึ่งหนึ่งของค่าสูงสุดใช้ได้เฉพาะการไหลราบเรียบที่พัฒนาเต็มที่ในท่อ ในการไหลปั่นป่วนอัตราส่วนอยู่ราว 0.82" },
+
+    { ref: "3.3", href: "#s3", a: 3,
+      q: "น้ำไหลด้วยความเร็ว 1.2 ม./วินาที ในท่อขนาด 150 มม. อัตราการไหลใกล้เคียงข้อใดที่สุด",
+      opts: [
+        "2.1 ลิตร/วินาที",
+        "8.5 ลิตร/วินาที",
+        "14 ลิตร/วินาที",
+        "21 ลิตร/วินาที"
+      ],
+      why: "<i>A</i> = <i>&pi;</i>(0.15)<sup>2</sup>/4 = 0.01767 ม.<sup>2</sup> และ <i>Q</i> = <i>Au</i> = 0.01767 &times; 1.2 = 0.0212 ม.<sup>3</sup>/วินาที = 21.2 ลิตร/วินาที" },
+
+    /* ----------------------------- 3.4 ความต่อเนื่อง */
+    { ref: "3.4", href: "#s4", a: 1,
+      q: "สมการความต่อเนื่องเป็นการกล่าวถึงการอนุรักษ์สิ่งใด",
+      opts: [
+        "พลังงาน",
+        "มวล",
+        "โมเมนตัม",
+        "ความดัน"
+      ],
+      why: "ไม่ใช่สิ่งอื่นเลย นั่นคือเหตุผลที่มันไม่ต้องการข้อมูลเรื่องความเสียดทาน ความดัน หรือชนิดของไหล และเป็นเหตุผลที่มันมักเป็นสมการแรกที่ต้องเขียนลงเสมอ" },
+
+    { ref: "3.4", href: "#s4", a: 2,
+      q: "ความหนาแน่นตัดกันไปจาก <i>&rho;</i><sub>1</sub><i>A</i><sub>1</sub><i>u</i><sub>1</sub> = <i>&rho;</i><sub>2</sub><i>A</i><sub>2</sub><i>u</i><sub>2</sub> ได้ก็ต่อเมื่อใด",
+      opts: [
+        "เมื่อท่อวางแนวราบ",
+        "เมื่อการไหลไร้ความเสียดทาน",
+        "เมื่อการไหลอัดตัวไม่ได้ ความหนาแน่นที่สองหน้าตัดจึงเท่ากัน",
+        "เมื่อสองหน้าตัดมีพื้นที่เท่ากัน"
+      ],
+      why: "นี่เป็นที่เดียวที่สมมติฐานเรื่องอัดตัวไม่ได้เข้ามาในสมการความต่อเนื่อง สมการ (3.5) ที่ยังมีความหนาแน่นอยู่ใช้ได้กับของไหลที่อัดตัวได้ด้วย" },
+
+    { ref: "3.4", href: "#s4", a: 3,
+      q: "ท่อเส้นผ่านศูนย์กลาง 100 มม. ลดลงเหลือ 50 มม. ถ้าความเร็วในท่อใหญ่คือ 1.5 ม./วินาที ความเร็วในท่อเล็กเท่ากับเท่าใด",
+      opts: [
+        "0.375 ม./วินาที",
+        "0.75 ม./วินาที",
+        "3.0 ม./วินาที",
+        "6.0 ม./วินาที"
+      ],
+      why: "พื้นที่เป็นสัดส่วนกับกำลังสองของเส้นผ่านศูนย์กลาง การลดเส้นผ่านศูนย์กลางลงครึ่งหนึ่งจึงทำให้พื้นที่เหลือหนึ่งในสี่และความเร็วเป็นสี่เท่า: 1.5 &times; (100/50)<sup>2</sup> = 6.0 ม./วินาที ตามสมการ (3.7)" },
+
+    { ref: "3.4", href: "#s4", a: 0,
+      q: "ท่อที่พาน้ำ 40 ลิตร/วินาที แยกออกเป็นสองเส้น เส้นหนึ่งพา 15 ลิตร/วินาที อีกเส้นพาเท่าใด",
+      opts: [
+        "25 ลิตร/วินาที ไม่ว่าท่อแยกจะทำมุมเท่าใด",
+        "25 ลิตร/วินาที แต่เฉพาะเมื่อท่อแยกทั้งสองสมมาตรกัน",
+        "40 ลิตร/วินาที เพราะความต่อเนื่องใช้กับท่อแยกแต่ละเส้นแยกกัน",
+        "ค่าที่หาไม่ได้ถ้าไม่ทราบความดัน"
+      ],
+      why: "ผลรวมที่เข้าเท่ากับผลรวมที่ออก และรูปเรขาคณิตไม่เกี่ยวกับความต่อเนื่อง มุมจะสำคัญก็เฉพาะกับสมการโมเมนตัมในบทที่ 4 ซึ่งให้แรงที่กระทำต่อจุดแยก" },
+
+    /* ----------------------------- 3.5 สมการแบร์นูลลี */
+    { ref: "3.5", href: "#s5", a: 1,
+      q: "ข้อใด<b>ไม่ใช่</b>สมมติฐานเบื้องหลังสมการแบร์นูลลีตามที่พิสูจน์ใน &sect;3.5",
+      opts: [
+        "การไหลคงตัว",
+        "ท่อวางแนวราบ",
+        "การสูญเสียจากความเสียดทานน้อยจนละเลยได้",
+        "ไม่มีการเพิ่มหรือดึงพลังงานออกระหว่างสองจุด"
+      ],
+      why: "พจน์ความสูง <i>z</i> มีอยู่ก็เพื่อให้ท่อไม่จำเป็นต้องวางแนวราบนั่นเอง อีกสามข้อเป็นสมมติฐานจริง และข้อไร้ความเสียดทานคือข้อที่ล้มเหลวก่อนในทางปฏิบัติ" },
+
+    { ref: "3.5", href: "#s5", a: 2,
+      q: "พจน์ <i>p</i>/<i>&rho;</i> ในรูปพลังงานต่อหน่วยมวลของสมการแบร์นูลลีแทนสิ่งใด",
+      opts: [
+        "พลังงานจลน์ของของไหล",
+        "พลังงานศักย์ของของไหล",
+        "งานที่ของไหลซึ่งดันอยู่ข้างหลังทำกับธาตุนั้น",
+        "พลังงานที่สูญเสียไปกับความเสียดทาน"
+      ],
+      why: "การดันธาตุพื้นที่ <i>A</i> ไปเป็นระยะ <i>&delta;s</i> ใช้งาน <i>pA&delta;s</i> ปริมาตร <i>A&delta;s</i> เท่ากับ <i>m</i>/<i>&rho;</i> งานต่อหน่วยมวลจึงเท่ากับ <i>p</i>/<i>&rho;</i> มักเรียกว่างานเนื่องจากการไหล" },
+
+    { ref: "3.5", href: "#s5", a: 0,
+      q: "สมการแบร์นูลลีเป็นการกล่าวถึงการอนุรักษ์สิ่งใด",
+      opts: [
+        "พลังงาน",
+        "มวล",
+        "โมเมนตัม",
+        "ปริมาตร"
+      ],
+      why: "มวลให้สมการความต่อเนื่อง (&sect;3.4) พลังงานให้แบร์นูลลี (&sect;3.5) และโมเมนตัมให้สมการแรงในบทที่ 4 การแยกแยะทั้งสามให้ชัดคือครึ่งหนึ่งของวิชานี้" },
+
+    { ref: "3.5", href: "#s5", a: 3,
+      q: "ทุกพจน์ในรูป <i>p</i>/<i>&rho;g</i> + <i>u</i><sup>2</sup>/2<i>g</i> + <i>z</i> มีมิติเป็นอะไร",
+      opts: [
+        "ความดัน ML<sup>&minus;1</sup>T<sup>&minus;2</sup>",
+        "พลังงาน ML<sup>2</sup>T<sup>&minus;2</sup>",
+        "พลังงานต่อหน่วยมวล L<sup>2</sup>T<sup>&minus;2</sup>",
+        "ความยาว L"
+      ],
+      why: "นั่นคือเหตุผลที่เรียกรูปนี้ว่ารูปเฮดและวัดเป็นเมตรของของไหล และเป็นเหตุผลที่มันวาดออกมาเป็นเส้นระดับสองเส้นใน &sect;3.6 ได้ ลองตรวจด้วยวิธีใน &sect;1.3" },
+
+    { ref: "3.5", href: "#s5", a: 1,
+      q: "ในท่อ<b>แนวราบ</b> ถ้าความเร็วที่หน้าตัดหนึ่งเพิ่มขึ้น ความดันที่นั่นต้องเป็นอย่างไร",
+      opts: [
+        "เพิ่มขึ้นเป็นสัดส่วนกัน",
+        "ลดลง เพราะเฮดรวมไม่เปลี่ยน",
+        "เท่าเดิม เพราะท่ออยู่ในแนวราบ",
+        "เพิ่มขึ้นเป็นกำลังสองของความเร็ว"
+      ],
+      why: "เมื่อ <i>z</i> คงที่ สมการ (3.13) บอกว่าผลรวมของเฮดความดันกับเฮดความเร็วตายตัว ได้อย่างหนึ่งต้องเสียอีกอย่าง นี่คือหลักการเบื้องหลังเวนจูรี แผ่นออริฟิซ และท่อพิโตต์เหมือนกันหมด" },
+
+    { ref: "3.5", href: "#s5", a: 2,
+      q: "มีเครื่องสูบน้ำติดตั้งอยู่ระหว่างหน้าตัดที่ 1 กับ 2 ของท่อส่งน้ำ สมการแบร์นูลลีในรูปสมการ (3.11)",
+      opts: [
+        "ยังใช้ได้เหมือนเดิม",
+        "ใช้ได้ถ้าท่ออยู่ในแนวราบ",
+        "ใช้ไม่ได้ เพราะมีการเพิ่มพลังงานเข้าไประหว่างสองจุดนั้น",
+        "ใช้ได้เฉพาะเมื่อปิดเครื่องสูบน้ำ &mdash; แต่ถ้าปิดแล้วก็ไม่มีการไหล"
+      ],
+      why: "สมมติฐานข้อ 5 ถูกละเมิด วิธีแก้คือเพิ่มเฮดของเครื่องสูบน้ำเข้าไปทางซ้ายมือ ได้เป็น <i>H</i><sub>1</sub> + <i>h</i><sub>p</sub> = <i>H</i><sub>2</sub> กังหันก็ทำแบบเดียวกันแต่กลับทิศ และความเสียดทานในบทที่ 5 ก็เช่นกัน" },
+
+    /* ----------------------------- 3.6 เฮดและเส้นระดับ */
+    { ref: "3.6", href: "#s6", a: 3,
+      q: "ระยะในแนวดิ่งระหว่างเส้นระดับพลังงานกับเส้นระดับชลศาสตร์ ณ หน้าตัดใด ๆ เท่ากับอะไร",
+      opts: [
+        "เฮดตำแหน่ง",
+        "เฮดความดัน",
+        "การสูญเสียจากความเสียดทานที่สะสมมาถึงจุดนั้น",
+        "เฮดความเร็ว <i>u</i><sup>2</sup>/2<i>g</i>"
+      ],
+      why: "EGL คือกราฟของ <i>p</i>/<i>&rho;g</i> + <i>u</i><sup>2</sup>/2<i>g</i> + <i>z</i> และ HGL คือกราฟของ <i>p</i>/<i>&rho;g</i> + <i>z</i> ผลต่างจึงเป็นเฮดความเร็ว สองเส้นนี้บรรจบกันเฉพาะที่ของไหลอยู่นิ่ง" },
+
+    { ref: "3.6", href: "#s6", a: 0,
+      q: "ถ้าเส้นระดับชลศาสตร์ตกลง<b>ต่ำกว่า</b>ตัวท่อที่จุดใดจุดหนึ่ง ที่จุดนั้นจะเป็นอย่างไร",
+      opts: [
+        "ความดันในท่อต่ำกว่าความดันบรรยากาศ",
+        "การไหลกลับทิศแล้ว",
+        "ท่อต้องมีรอยรั่ว",
+        "เฮดความเร็วกลายเป็นค่าลบ"
+      ],
+      why: "HGL คือระดับที่น้ำจะยืนอยู่ในปิโซมิเตอร์ การอยู่ต่ำกว่าท่อหมายถึงความดันเกจเป็นลบ &mdash; สัญญาณเตือนเรื่องคาวิเทชัน เรื่องอากาศที่จะถูกดูดเข้าทางข้อต่อ และเรื่องกาลักน้ำที่กำลังจะขาดตอน" },
+
+    { ref: "3.6", href: "#s6", a: 2,
+      q: "สำหรับของไหล<b>อุดมคติ</b>ที่ไหลผ่านท่อซึ่งคอดลงแล้วผายกลับ เส้นระดับพลังงานเป็นอย่างไร",
+      opts: [
+        "ลาดลงตามทิศการไหล",
+        "ตกลงที่คอคอดแล้วฟื้นกลับหลังจากนั้น",
+        "เป็นแนวราบตลอด",
+        "ลาดขึ้นตามทิศการไหล"
+      ],
+      why: "เฮดรวมคงที่สำหรับของไหลอุดมคติ EGL จึงเปลี่ยนไม่ได้ สิ่งที่ตกลงที่คอคอดคือ <i>HGL</i> ต่างหาก ส่วนในท่อจริง (บทที่ 5) ความเสียดทานทำให้ EGL เอียงลงเล็กน้อย และมันยกขึ้นไม่ได้เลยหากไม่มีเครื่องสูบน้ำ" },
+
+    { ref: "3.6", href: "#s6", a: 1,
+      q: "<b>เฮดปิโซเมตริก</b> คืออะไร",
+      opts: [
+        "<i>u</i><sup>2</sup>/2<i>g</i> + <i>z</i>",
+        "<i>p</i>/<i>&rho;g</i> + <i>z</i>",
+        "<i>p</i>/<i>&rho;g</i> + <i>u</i><sup>2</sup>/2<i>g</i>",
+        "<i>p</i>/<i>&rho;g</i> เพียงอย่างเดียว"
+      ],
+      why: "มันคือค่าที่ปิโซมิเตอร์ซึ่งเจาะเข้าผนังท่ออ่านได้ วัดจากระดับอ้างอิง คือเฮดความดันบวกเฮดตำแหน่ง เมื่อพล็อตไปตามแนวท่อก็คือเส้นระดับชลศาสตร์" },
+
+    /* ----------------------------- 3.7 พิโตต์ */
+    { ref: "3.7", href: "#s7", a: 2,
+      q: "ที่จุดหยุดนิ่ง สภาวะเป็นอย่างไร",
+      opts: [
+        "ความดันเท่ากับความดันบรรยากาศ",
+        "เฮดรวมเป็นศูนย์",
+        "ความเร็วเป็นศูนย์ ความดันจึงสูงที่สุด",
+        "ความเร็วมีค่าสูงสุด"
+      ],
+      why: "เฮดความเร็วทั้งหมดถูกแปลงเป็นเฮดความดัน ดังนั้น <i>p</i><sub>หยุดนิ่ง</sub> = <i>p</i><sub>สแตติก</sub> + &frac12;<i>&rho;u</i><sup>2</sup> ส่วนเกิน &frac12;<i>&rho;u</i><sup>2</sup> นั้นคือความดันพลวัต" },
+
+    { ref: "3.7", href: "#s7", a: 3,
+      q: "ข้อได้เปรียบของท่อพิโตต์-<b>สแตติก</b> เหนือท่อพิโตต์อย่างง่ายคืออะไร",
+      opts: [
+        "มันอ่านความเร็วเฉลี่ยแทนความเร็วเฉพาะจุด",
+        "มันไม่ต้องใช้สัมประสิทธิ์",
+        "มันใช้ได้กับการไหลที่อัดตัวได้",
+        "มันรับความดันหยุดนิ่งและความดันสแตติกไว้ในตัวเดียว มาโนมิเตอร์ตัวเดียวจึงให้ผลต่างได้เลย"
+      ],
+      why: "ท่อพิโตต์อย่างง่ายให้เฉพาะความดันหยุดนิ่ง ต้องหาความดันสแตติกแยกต่างหาก ซึ่งทั้งยุ่งยากและคลาดเคลื่อน ทั้งสองเครื่องมือยังคงวัดความเร็ว<i>เฉพาะจุด</i>และยังต้องใช้สัมประสิทธิ์เหมือนกัน" },
+
+    { ref: "3.7", href: "#s7", a: 0,
+      q: "ท่อพิโตต์อ่านเฮดความเร็วในน้ำได้ 0.45 ม. ความเร็วเฉพาะที่เท่ากับเท่าใด",
+      opts: [
+        "2.97 ม./วินาที",
+        "4.41 ม./วินาที",
+        "8.83 ม./วินาที",
+        "0.45 ม./วินาที"
+      ],
+      why: "<i>u</i> = &radic;(2<i>gh</i>) = &radic;(2 &times; 9.81 &times; 0.45) = &radic;8.829 = 2.97 ม./วินาที ตามสมการ (3.15)" },
+
+    { ref: "3.7", href: "#s7", a: 1,
+      q: "ท่อพิโตต์-สแตติกที่วางไว้ที่แกนกลางของท่อวัดอะไรได้",
+      opts: [
+        "ความเร็วเฉลี่ยโดยตรง จึงใช้ <i>Q</i> = <i>Au</i> ได้ทันที",
+        "ความเร็วสูงสุด ซึ่งต้องแปลงเป็นค่าเฉลี่ยก่อนจึงจะหาอัตราการไหลได้",
+        "อัตราการไหลโดยตรง",
+        "ความดันที่ลดลงตามแนวท่อ"
+      ],
+      why: "มันวัดความเร็ว ณ ตำแหน่งปากหลอด สำหรับการไหลปั่นป่วนในท่อ ค่าเฉลี่ยอยู่ราว 0.82 ของค่าสูงสุดที่แกน หรืออีกทางคือวางหลอดไว้ที่ราว 0.76<i>R</i> จากแกน ซึ่งความเร็วเฉพาะที่เท่ากับค่าเฉลี่ยพอดี" },
+
+    /* ----------------------------- 3.8 เวนจูรี */
+    { ref: "3.8", href: "#s8", a: 3,
+      q: "กรวยผายออกของมาตรเวนจูรีถูกทำให้ยาวกว่าและลาดน้อยกว่ากรวยลู่เข้ามาก เพื่อจุดประสงค์ใด",
+      opts: [
+        "เพื่อให้หล่อขึ้นรูปได้ง่ายขึ้น",
+        "เพื่อเพิ่มผลต่างความดันที่คอคอด",
+        "เพื่อลดความเร็วที่คอคอด",
+        "เพื่อไม่ให้การไหลแยกตัวจากผนัง ซึ่งจะทำให้สูญเสียพลังงานถาวรมาก"
+      ],
+      why: "การไหลที่ลู่เข้ามีเสถียรภาพและไม่แยกตัว กรวยทางเข้าจึงชันได้ ส่วนการไหลที่ผายออกอยู่ที่ปากเหวของการแยกตัว จึงต้องค่อย ๆ ผายที่ 5&ndash;7&deg; ความไม่สมมาตรนี้คือลักษณะประจำของการออกแบบ" },
+
+    { ref: "3.8", href: "#s8", a: 0,
+      q: "มาตรเวนจูรีถูกเอียงจากแนวราบไปเป็น 30&deg; โดยอัตราการไหลไม่เปลี่ยน ค่าที่มาโนมิเตอร์อ่านได้จะเป็นอย่างไร",
+      opts: [
+        "ไม่เปลี่ยน เพราะพจน์ความสูงตัดกันไปในการวิเคราะห์มาโนมิเตอร์",
+        "เพิ่มขึ้น เพราะคอคอดอยู่สูงกว่าเดิม",
+        "ลดลง เพราะเฮดส่วนหนึ่งถูกใช้ยกน้ำ",
+        "ไม่มีความหมายอีกต่อไป ต้องสอบเทียบมาตรวัดใหม่"
+      ],
+      why: "สมการ (3.19) แสดงว่า <i>z</i><sub>1</sub> &minus; <i>z</i><sub>2</sub> ถูกดูดกลืนเข้าไปในค่าที่มาโนมิเตอร์อ่านได้ ความไม่ไวต่อความลาดเอียงนี้คือข้อได้เปรียบเชิงปฏิบัติข้อสำคัญที่สุดข้อหนึ่งของมาตรวัดชนิดนี้" },
+
+    { ref: "3.8", href: "#s8", a: 2,
+      q: "สัมประสิทธิ์การไหลของมาตรเวนจูรีที่ทำมาดีมีค่าประมาณเท่าใด",
+      opts: [
+        "0.5",
+        "0.62",
+        "0.98",
+        "1.25"
+      ],
+      why: "การสูญเสียระหว่างทางเข้ากับคอคอดน้อยจริง ๆ มาตรวัดจึงเข้าใกล้อุดมคติ เทียบกับแผ่นออริฟิซที่ราว 0.6 และออริฟิซขอบคมที่ราว 0.62 ซึ่งทั้งคู่ถูกครอบงำด้วยการหดตัว อันเป็นสิ่งที่เวนจูรีไม่ประสบ" },
+
+    { ref: "3.8", href: "#s8", a: 1,
+      q: "ในมาตรเวนจูรี ถ้าอัตราการไหลลดลงครึ่งหนึ่ง ค่าที่มาโนมิเตอร์อ่านได้จะเหลือเท่าใด",
+      opts: [
+        "ครึ่งหนึ่ง",
+        "หนึ่งในสี่",
+        "หนึ่งในแปด",
+        "หนึ่งในสิบหก"
+      ],
+      why: "<i>Q</i> &prop; &radic;<i>h</i> ดังนั้น <i>h</i> &prop; <i>Q</i><sup>2</sup> กฎกำลังสองนี้เองที่ทำให้มาตรวัดผลต่างความดันตัวเดียวมีช่วงใช้งานได้เพียงราว 4:1 ต่ำกว่านั้นค่าที่อ่านจะเล็กเกินกว่าจะอ่านได้แม่นยำ" },
+
+    /* ----------------------------- 3.9 ออริฟิซ */
+    { ref: "3.9", href: "#s9", a: 2,
+      q: "<b>หน้าตัดหดตัว</b> (vena contracta) ของลำน้ำที่พุ่งออกจากออริฟิซขอบคมคืออะไร",
+      opts: [
+        "ระนาบของตัวออริฟิซเอง",
+        "จุดที่ลำน้ำตกกระทบพื้น",
+        "หน้าตัดที่อยู่ถัดออกไปเล็กน้อย ซึ่งลำน้ำมีพื้นที่น้อยที่สุดและเส้นกระแสขนานกัน",
+        "ส่วนที่กว้างที่สุดของลำน้ำ"
+      ],
+      why: "ของไหลที่เข้าใกล้รูมีโมเมนตัมในแนวข้างอยู่แล้ว ลำน้ำจึงยังหดตัวต่อไปหลังพ้นรูออกมา และเล็กที่สุดที่ระยะราวครึ่งหนึ่งของเส้นผ่านศูนย์กลาง" },
+
+    { ref: "3.9", href: "#s9", a: 0,
+      q: "เหตุใดจึงต้องใช้สมการแบร์นูลลีที่หน้าตัดหดตัว ไม่ใช่ที่ระนาบของออริฟิซ",
+      opts: [
+        "เพราะมีแต่ที่นั่นที่เส้นกระแสขนานกัน ความดันจึงเท่ากับความดันบรรยากาศตลอดหน้าตัดของลำน้ำ",
+        "เพราะความเร็วสูงที่สุดที่นั่น",
+        "เพราะความเสียดทานเป็นศูนย์ที่นั่น",
+        "เพราะลำน้ำไหลเร็วที่สุดที่นั่น"
+      ],
+      why: "ที่ตัวรูเส้นกระแสยังโค้งมาก จึงมีเกรเดียนต์ความดันตัดขวางลำน้ำและความดันไม่เท่าบรรยากาศ จงใช้แบร์นูลลี ณ ที่ที่เส้นกระแสขนานกัน &mdash; กฎที่ควรพกติดตัวไปใช้กับโจทย์ทุกข้อในภายหลัง" },
+
+    { ref: "3.9", href: "#s9", a: 1,
+      q: "ความเร็วการพุ่งออกเชิงทฤษฎีจากออริฟิซภายใต้เฮด <i>h</i> คือ &radic;(2<i>gh</i>) ซึ่งยังเท่ากับอะไรอีก",
+      opts: [
+        "ความเร็วเสียงในของไหลนั้น",
+        "ความเร็วที่ก้อนหินจะทำได้ถ้าปล่อยตกจากความสูง <i>h</i> เท่ากัน",
+        "สองเท่าของความเร็วเฉลี่ยในถัง",
+        "ค่าที่ไม่ขึ้นกับ <i>g</i> เพราะของไหลเป็นของเหลว"
+      ],
+      why: "ผลลัพธ์ของทอร์ริเชลลีคือการอนุรักษ์พลังงานล้วน ๆ พลังงานศักย์จากความสูง <i>h</i> กลายเป็นพลังงานจลน์ ทั้งกับก้อนหินที่ตกและกับธาตุของไหลเหมือนกัน" },
+
+    { ref: "3.9", href: "#s9", a: 3,
+      q: "สัมประสิทธิ์การไหล <i>C</i><sub>d</sub> ของออริฟิซเท่ากับอะไร",
+      opts: [
+        "<i>C</i><sub>c</sub> + <i>C</i><sub>v</sub>",
+        "<i>C</i><sub>v</sub> / <i>C</i><sub>c</sub>",
+        "<i>C</i><sub>c</sub> / <i>C</i><sub>v</sub>",
+        "<i>C</i><sub>c</sub> &times; <i>C</i><sub>v</sub>"
+      ],
+      why: "อัตราการไหลจริงคือพื้นที่ที่หดตัวแล้วคูณด้วยความเร็วที่ลดลงแล้ว สัมประสิทธิ์สองตัวจึงคูณกัน สำหรับออริฟิซขอบคมประมาณ 0.63 &times; 0.98 &asymp; 0.62" },
+
+    { ref: "3.9", href: "#s9", a: 2,
+      q: "ถ้าเปลี่ยนออริฟิซขอบคมเป็นแบบปากระฆังที่มีรูขนาดเท่ากัน ภายใต้เฮดเท่ากัน จะเกิดอะไรขึ้น",
+      opts: [
+        "อัตราการไหลลดลง เพราะปากระฆังเพิ่มความเสียดทาน",
+        "อัตราการไหลเท่าเดิม เปลี่ยนเพียงรูปร่างของลำน้ำ",
+        "อัตราการไหลเพิ่มขึ้นมาก เพราะการหดตัวแทบหมดไปและ <i>C</i><sub>c</sub> เข้าใกล้ 1",
+        "อัตราการไหลเพิ่มขึ้น เพราะ <i>C</i><sub>v</sub> สูงเกิน 1"
+      ],
+      why: "<i>C</i><sub>d</sub> ขยับจากราว 0.62 ไปราว 0.97 &mdash; ได้น้ำเพิ่มขึ้นกว่าครึ่งเท่า ส่วนสัมประสิทธิ์ความเร็วที่เกิน 1 จะหมายถึงการสร้างพลังงานขึ้นใหม่ ซึ่งเกิดขึ้นไม่ได้" },
+
+    /* ----------------------------- 3.10 ช่องเปิดและฝาย */
+    { ref: "3.10", href: "#s10", a: 1,
+      q: "อัตราการไหลข้ามช่องเปิดสี่เหลี่ยมสันคมแปรผันกับอะไร",
+      opts: [
+        "<i>H</i><sup>1/2</sup>",
+        "<i>H</i><sup>3/2</sup>",
+        "<i>H</i><sup>5/2</sup>",
+        "<i>H</i><sup>2</sup>"
+      ],
+      why: "การอินทิเกรตใน &sect;3.10 ให้ <i>Q</i> = <sup>2</sup>&frasl;<sub>3</sub><i>C</i><sub>d</sub><i>B</i>&radic;(2<i>g</i>)<i>H</i><sup>3/2</sup> เลขชี้กำลังมาจากการอินทิเกรต <i>h</i><sup>1/2</sup> บนแถบที่มีความกว้างคงที่" },
+
+    { ref: "3.10", href: "#s10", a: 3,
+      q: "เหตุใดจึงนิยมใช้ช่องเปิดสามเหลี่ยมแทนช่องเปิดสี่เหลี่ยมในการวัดอัตราการไหลน้อย ๆ",
+      opts: [
+        "เพราะสัมประสิทธิ์การไหลสูงกว่า",
+        "เพราะตัดด้วยเลื่อยธรรมดาก็ได้",
+        "เพราะไม่ได้รับผลจากความเร็วของน้ำที่ไหลเข้า",
+        "เพราะด้วย <i>Q</i> &prop; <i>H</i><sup>5/2</sup> การไหลน้อย ๆ ก็ยังให้เฮดที่ใหญ่พอจะอ่านได้"
+      ],
+      why: "ตัวอย่างที่ 3.7 แสดงเป็นตัวเลขไว้แล้ว: ที่ 5 ลิตร/วินาที ช่องสามเหลี่ยมให้เฮด 106 มม. ส่วนช่องสี่เหลี่ยมให้เพียง 27 มม. อันที่จริง <i>C</i><sub>d</sub> ของมันต่ำกว่าเล็กน้อยที่ราว 0.58" },
+
+    { ref: "3.10", href: "#s10", a: 0,
+      q: "ช่องเปิดซิโปเลตติมีด้านลาด 1 ราบต่อ 4 ดิ่ง เพราะเหตุใด",
+      opts: [
+        "เพราะพื้นที่ส่วนเพิ่มด้านข้างชดเชยการหดตัวที่ปลายพอดี จึงไม่ต้องแก้ค่าปลาย",
+        "เพราะเป็นความลาดที่ชันที่สุดที่ตัดแผ่นเหล็กได้",
+        "เพราะทำให้อัตราการไหลแปรผันตาม <i>H</i><sup>5/2</sup>",
+        "เพราะป้องกันไม่ให้ตะกอนสะสมหลังฝาย"
+      ],
+      why: "ความสะดวกข้อนี้ &mdash; กฎ <i>H</i><sup>3/2</sup> อย่างง่ายโดยไม่ต้องแก้ค่าในสนาม &mdash; คือเหตุผลที่มันเป็นโครงสร้างชลประทานมาตรฐานทั่วโลก" },
+
+    { ref: "3.10", href: "#s10", a: 2,
+      q: "เฮด <i>H</i> เหนือฝายวัดน้ำต้องอ่านที่ใด",
+      opts: [
+        "ที่สันฝายเอง ซึ่งแผ่นน้ำบางที่สุด",
+        "ถัดจากสันฝายไปทางท้ายน้ำเล็กน้อย ในแผ่นน้ำล้น",
+        "เหนือบริเวณที่ผิวน้ำถูกดึงลง ห่างจากสันฝายไปทางต้นน้ำราว 4<i>H</i>",
+        "ที่ใดก็ได้ในสระ เพราะน้ำอยู่นิ่ง"
+      ],
+      why: "ใกล้สันฝายผิวน้ำถูกดึงลงขณะที่น้ำเร่งตัว ค่าที่อ่านที่นั่นจึงต่ำเกินไป การอ่านเหนือบริเวณนั้นในบ่อวัดระดับเป็นหนึ่งในกฎการติดตั้งหลายข้อที่ทำให้สัมประสิทธิ์ที่ตีพิมพ์ไว้เป็นจริง" },
+
+    /* ----------------------------- 3.11 เนื้อหาเสริม */
+    { ref: "3.11", href: "#s11", a: 1,
+      q: "<b>เนื้อหาเสริม</b> เมื่อเทียบกับมาตรเวนจูรี แผ่นออริฟิซที่มีขนาดคอคอดเท่ากันเป็นอย่างไร",
+      opts: [
+        "ให้ค่าที่อ่านได้น้อยกว่าที่อัตราการไหลเท่ากัน แต่สูญเสียถาวรน้อยกว่า",
+        "ราคาถูกกว่าและสั้นกว่ามาก แต่ <i>C</i><sub>d</sub> ต่ำกว่ามากและสูญเสียเฮดถาวรมากกว่ามาก",
+        "มี <i>C</i><sub>d</sub> สูงกว่าและสูญเสียถาวรน้อยกว่า",
+        "ใช้กับน้ำไม่ได้"
+      ],
+      why: "ราว 0.6 เทียบกับ 0.98 และสูญเสียถาวร 50&ndash;70 % เทียบกับ 10&ndash;20 % แผ่นออริฟิซชนะเรื่องราคาและความยาว ส่วนเวนจูรีชนะเรื่องพลังงานสูบน้ำ จึงถูกเลือกใช้กับการวัดต่อเนื่อง" },
+
+    { ref: "3.11", href: "#s11", a: 3,
+      q: "<b>เนื้อหาเสริม</b> มาตรวัดการไหลแบบแม่เหล็กไฟฟ้าทำงานอย่างไร",
+      opts: [
+        "จับเวลาคลื่นอัลตราโซนิกที่ยิงข้ามลำน้ำ",
+        "วัดความดันที่ลดลงคร่อมจุดคอดแม่เหล็ก",
+        "นับรอบการหมุนของโรเตอร์ที่มีแม่เหล็ก",
+        "ตรวจจับแรงดันไฟฟ้าที่ของเหลวนำไฟฟ้าซึ่งกำลังเคลื่อนที่เหนี่ยวนำขึ้นขณะตัดผ่านสนามแม่เหล็ก"
+      ],
+      why: "เป็นไปตามกฎการเหนี่ยวนำของฟาราเดย์ หน้าตัดท่อถูกเปิดโล่งไว้ทั้งหมด จึงไม่มีสิ่งกีดขวาง ไม่มีการสูญเสียเฮด และไม่มีอะไรอุดตัน แต่ของเหลวต้องนำไฟฟ้าได้ ซึ่งน้ำชลประทานนำได้เสมอ" },
+
+    { ref: "3.11", href: "#s11", a: 0,
+      q: "<b>เนื้อหาเสริม</b> เหตุใดจึงมักเลือกรางวัดน้ำพาร์แชลแทนฝายในคลองชลประทานบนพื้นที่ราบ",
+      opts: [
+        "เพราะใช้เฮดน้อยกว่ามากและไม่ดักตะกอนไว้ด้านหลัง",
+        "เพราะแม่นยำกว่าที่อัตราการไหลต่ำมาก",
+        "เพราะไม่ต้องอ่านเฮดเลย",
+        "เพราะทำงานได้ดีเท่าเดิมแม้จะจมน้ำ"
+      ],
+      why: "ฝายกั้นทางน้ำ จึงต้องการเฮดเหลือเผื่อและมีตะกอนทับถมด้านหลัง ส่วนรางวัดน้ำบีบทางน้ำและยกพื้นแทน บังคับให้เกิดการไหลวิกฤตโดยใช้เฮดเพียงเศษส่วนเดียว &mdash; ข้อได้เปรียบชี้ขาดบนโครงการพื้นที่ราบ" },
+
+    { ref: "3.11", href: "#s11", a: 2,
+      q: "<b>เนื้อหาเสริม</b> มาตรฐานอย่าง ISO 5167 และ ISO 1438 มีอยู่เพื่อจุดประสงค์หลักใด",
+      opts: [
+        "กำหนดอัตราการไหลสูงสุดที่มาตรวัดรับได้",
+        "ระบุวัสดุที่ใช้ทำมาตรวัด",
+        "กำหนดเงื่อนไขการติดตั้งที่ทำให้สัมประสิทธิ์ที่ตีพิมพ์ไว้เชื่อถือได้",
+        "นิยามหน่วย SI ของอัตราการไหล"
+      ],
+      why: "สัมประสิทธิ์มีความหมายก็ต่อเมื่ออยู่คู่กับรูปเรขาคณิตที่ใช้วัดมันมา &mdash; ช่วงท่อตรงด้านต้นน้ำ ตำแหน่งจุดวัด ความหนาของสัน สระรับน้ำ ค่าวัดการไหลดีได้เท่าที่การติดตั้งดีเท่านั้น" }
+
+  ]
+};
+</script>
+<script src="lang.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>
