@@ -1,0 +1,2393 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>บทที่ 2: แรงในของไหลสถิต | ASE 221 กลศาสตร์ของไหลเบื้องต้น</title>
+<meta name="description" content="ความดันและกฎของปาสกาล สมการความดันสถิต ความดันกับเฮด ความดันเกจและความดันสัมบูรณ์ ปิโซมิเตอร์และมาโนมิเตอร์ และแรงลัพธ์กับจุดศูนย์กลางความดันบนผิวราบและผิวโค้งที่จมอยู่ในของเหลว">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index-th.html">
+      <span class="logo-mark">FM</span>
+      <span class="logo-text">ASE-FM<small lang="en">Biosystem and Agricultural Engineering, KMITL</small></span>
+    </a>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="index-th.html">เกี่ยวกับวิชา</a>
+      <a href="chapter1-th.html">เอกสารประกอบการสอน</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="chapter2.html" lang="en">EN</a>
+      <a href="chapter2-th.html" class="active">ไทย</a>
+    </div>
+    <a class="btn-give" href="#s11">ตัวอย่างการคำนวณ</a>
+  </div>
+</header>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ASE 221 <span>|</span> บทที่ 2 <span>|</span> เอกสารประกอบการบรรยาย</p>
+    <h1>แรงในของไหลสถิต</h1>
+    <p class="tagline">ของไหลที่อยู่นิ่งรับความเค้นเฉือนไม่ได้ ทุกแรงที่มันกระทำจึงตั้งฉากกับผิวที่มันสัมผัส
+      จากข้อเท็จจริงเพียงข้อนี้ตามมาด้วยความดัน ณ ความลึกใด ๆ ค่าที่อ่านได้จากมาโนมิเตอร์ทุกตัว
+      และแรงผลักบนประตูน้ำ กำแพง และเขื่อนทุกตัวที่นักศึกษาจะออกแบบ</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="course-menu">
+      <h2>สารบัญรายวิชา</h2>
+      <ul>
+        <li><a href="index-th.html">หน้าแรกของรายวิชา</a></li>
+        <li><a href="chapter1-th.html">บทที่&nbsp;1 &mdash; สมบัติของของไหล</a></li>
+        <li><a href="chapter2-th.html" class="active">บทที่&nbsp;2 &mdash; แรงในของไหลสถิต</a></li>
+        <li><span class="muted">บทที่&nbsp;3 &mdash; ความต่อเนื่องและแบร์นูลลี<em>ยังไม่เผยแพร่</em></span></li>
+        <li><span class="muted">บทที่&nbsp;4 &mdash; สมการโมเมนตัม<em>ยังไม่เผยแพร่</em></span></li>
+        <li><span class="muted">บทที่&nbsp;5 &mdash; ของไหลจริงในท่อ<em>ยังไม่เผยแพร่</em></span></li>
+      </ul>
+    </nav>
+
+    <section class="course-info">
+      <h2>ข้อมูลประจำบท</h2>
+      <dl>
+        <dt>จำนวนคาบ</dt>
+        <dd>5 คาบ (7 ชั่วโมงครึ่ง)</dd>
+
+        <dt>เอกสารอ้างอิง</dt>
+        <dd class="crumbs">Sleigh, CIVE 1400 &mdash; &sect;2</dd>
+
+        <dt>สมการสำคัญ</dt>
+        <dd>
+          <ul>
+            <li><var>p</var> = <var>F</var>/<var>A</var></li>
+            <li><var>p</var> = <var>&rho;gh</var></li>
+            <li><var>R</var> = <var>&rho;gA</var><var>z&#772;</var></li>
+            <li><var>D</var> = <var>I</var><sub>o</sub> sin<var>&theta;</var> /(<var>Ax&#772;</var>)</li>
+            <li><var>R</var> = &frac12;<var>&rho;gH</var><sup>2</sup></li>
+          </ul>
+        </dd>
+
+        <dt>ตาราง</dt>
+        <dd>
+          <ul>
+            <li><a href="#t1">2.1 หน่วยความดัน</a></li>
+            <li><a href="#t2">2.2 โมเมนต์ที่สองของพื้นที่</a></li>
+          </ul>
+        </dd>
+
+        <dt>ความรู้ที่ต้องใช้</dt>
+        <dd class="crumbs">บทที่ 1 &gt; ความหนาแน่นและน้ำหนักจำเพาะ</dd>
+        <dd class="crumbs">สถิตยศาสตร์ &gt; การแยกแรง โมเมนต์</dd>
+        <dd class="crumbs">คณิตศาสตร์ &gt; ปริพันธ์จำกัดเขต</dd>
+      </dl>
+    </section>
+  </aside>
+
+  <main class="content">
+
+    <p class="lead">บทที่&nbsp;1 บอกว่าของไหลสถิตรับความดันได้แต่รับความเค้นเฉือนไม่ได้ บทนี้จะนำประโยคนั้น
+      มาบีบออกมาเป็นวิธีออกแบบทั้งชุด ตั้งแต่ความดัน ณ จุดหนึ่ง ความดัน ณ ความลึกหนึ่ง เครื่องมือที่ใช้วัดมัน
+      ไปจนถึงแรงที่มันกระทำบนผิวที่จมอยู่ในน้ำ</p>
+
+    <nav class="toc">
+      <h2>สารบัญประจำบท</h2>
+      <ol>
+        <li><a href="#s1">กฎพื้นฐานของสถิตยศาสตร์ของไหล</a></li>
+        <li><a href="#s2">ความดัน และกฎของปาสกาล</a></li>
+        <li><a href="#s3">ความดันเปลี่ยนแปลงตามความลึกอย่างไร</a></li>
+        <li><a href="#s4">ความดันกับเฮด ความดันเกจกับความดันสัมบูรณ์</a></li>
+        <li><a href="#s5">มาโนมิเตอร์</a></li>
+        <li><a href="#s6">แรงบนผิวราบที่จมอยู่ในของเหลว</a></li>
+        <li><a href="#s7">จุดศูนย์กลางความดัน</a></li>
+        <li><a href="#s8">แผนภาพความดัน</a></li>
+        <li><a href="#s9">แรงบนผิวโค้งที่จมอยู่ในของเหลว</a></li>
+        <li><a href="#s10">นอกขอบเขตหลัก &mdash; แรงลอยตัวและเกจสมัยใหม่</a></li>
+        <li><a href="#s11">ตัวอย่างการคำนวณ</a></li>
+        <li><a href="#s12">สัญลักษณ์</a></li>
+        <li><a href="#s13">แบบทบทวนตนเอง &mdash; 45 ข้อ</a></li>
+        <li><a href="#s14">แบบฝึกหัด</a></li>
+        <li><a href="#s15">เอกสารอ้างอิง</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================ 2.1 -->
+    <h2 id="s1">2.1 กฎพื้นฐานของสถิตยศาสตร์ของไหล</h2>
+
+    <p>กฎทั่วไปของสถิตยศาสตร์ที่นักศึกษาเรียนมาสำหรับของแข็งใช้ได้กับของไหลที่อยู่นิ่งโดยไม่เปลี่ยนแปลง
+      สิ่งที่เปลี่ยนคือของไหลรับอะไรได้และรับอะไรไม่ได้ จากบทที่&nbsp;1 เรารู้อยู่แล้วสองข้อ
+      และเนื้อหาทั้งบทนี้สร้างขึ้นบนสองข้อนั้น</p>
+
+    <div class="callout rule">
+      <span class="label">กฎตั้งต้นสองข้อ</span>
+      <ul>
+        <li>ของไหลสถิต <b>ไม่มีแรงเฉือน</b> กระทำอยู่เลย</li>
+        <li>ดังนั้นแรงใด ๆ ระหว่างของไหลกับขอบเขตจึงต้องกระทำ <b>ในแนวตั้งฉากกับขอบเขตนั้น</b></li>
+      </ul>
+    </div>
+
+    <p>ข้อที่สองใช้ได้กับผิวโค้งด้วย กล่าวคือ ณ ทุกจุด แรงจะตั้งฉากกับผิว <em>ที่จุดนั้น</em>
+      ทิศทางของมันจึงเปลี่ยนไปเรื่อย ๆ เมื่อเลื่อนไปตามผิว นั่นคือเหตุผลทั้งหมดที่ &sect;2.9
+      ต้องแยกผิวโค้งออกมาพิจารณาต่างหากจากผิวราบ</p>
+
+    <p>และข้อนี้ยังใช้ได้กับระนาบ <em>สมมติ</em> ใด ๆ ที่ลากขึ้นมาภายในเนื้อของไหลสถิตด้วย
+      เราใช้ข้อนี้ตลอดเวลา คือตัดธาตุของไหลออกมาจากก้อนใหญ่ด้วยระนาบสมมติ เขียนแรงที่กระทำบนแต่ละหน้า
+      แล้วใช้เงื่อนไขสมดุล</p>
+
+    <figure>
+      <svg viewBox="0 0 860 260" role="img" aria-label="ซ้าย: แรงดันกระทำตั้งฉากกับขอบเขตที่เป็นระนาบ ขวา: แรงดันกระทำตั้งฉากกับผิวโค้ง ณ ทุกจุด โดยแต่ละจุดมีทิศทางต่างกัน">
+        <defs>
+          <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.3" fill="#9fd8e2"/>
+          </pattern>
+        </defs>
+
+        <text x="40" y="30" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) ขอบเขตราบ &mdash; ทิศเดียว</text>
+
+        <path d="M40,60 L40,240 L300,240 L150,60 z" fill="url(#dots)" stroke="none"/>
+        <path d="M150,60 L300,240" stroke="#1c1917" stroke-width="2.5" fill="none"/>
+        <text x="60" y="150" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">ของไหล</text>
+
+        <line x1="205" y1="132" x2="262" y2="99" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ap)"/>
+        <line x1="240" y1="192" x2="297" y2="159" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ap)"/>
+        <line x1="170" y1="72" x2="227" y2="39" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ap)"/>
+        <text x="272" y="92" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#DF301C">R</text>
+        <text x="50" y="258" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">ลูกศรทุกตัวขนานกัน จึงบวกกันแบบสเกลาร์ได้</text>
+
+        <line x1="430" y1="20" x2="430" y2="250" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="470" y="30" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) ขอบเขตโค้ง &mdash; ทุกจุดคนละทิศ</text>
+
+        <path d="M470,60 L470,240 L760,240 Q660,150 600,60 z" fill="url(#dots)" stroke="none"/>
+        <path d="M600,60 Q660,150 760,240" stroke="#1c1917" stroke-width="2.5" fill="none"/>
+        <text x="492" y="160" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">ของไหล</text>
+
+        <line x1="614" y1="82" x2="672" y2="62" stroke="#DF301C" stroke-width="2.2" marker-end="url(#ap)"/>
+        <line x1="640" y1="128" x2="694" y2="102" stroke="#DF301C" stroke-width="2.2" marker-end="url(#ap)"/>
+        <line x1="678" y1="170" x2="724" y2="132" stroke="#DF301C" stroke-width="2.2" marker-end="url(#ap)"/>
+        <line x1="724" y1="208" x2="762" y2="164" stroke="#DF301C" stroke-width="2.2" marker-end="url(#ap)"/>
+        <text x="678" y="52" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#DF301C">R<tspan font-size="11" dy="4">1</tspan></text>
+        <text x="768" y="158" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#DF301C">R<tspan font-size="11" dy="4">n</tspan></text>
+        <text x="480" y="258" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">ลูกศรไม่ขนานกัน จึงต้องรวมกันแบบเวกเตอร์</text>
+      </svg>
+      <figcaption><b>รูปที่ 2.1</b> แรงดันตั้งฉากกับขอบเขตเสมอ บนผิวราบ แรงย่อยทุกแรงชี้ไปทางเดียวกัน
+        จึงรวมกันทางเลขคณิตเป็นแรงลัพธ์เดียวได้ ส่วนบนผิวโค้งไม่เป็นเช่นนั้น นั่นคือเหตุผลที่ &sect;2.9
+        ต้องแยกแรงเหล่านั้นเป็นองค์ประกอบแนวราบและแนวดิ่งเสียก่อน</figcaption>
+    </figure>
+
+    <p>เงื่อนไขสมดุลอีกสองข้อทำให้เครื่องมือครบชุด</p>
+    <ul>
+      <li>สำหรับธาตุของไหลที่อยู่นิ่ง ผลรวมขององค์ประกอบของแรงในทิศทางใด ๆ เป็น <b>ศูนย์</b></li>
+      <li>ผลรวมของโมเมนต์ของแรงเหล่านั้นรอบจุดใด ๆ ก็เป็น <b>ศูนย์</b> เช่นกัน</li>
+    </ul>
+
+    <p>ในทางปฏิบัติเราตรวจสอบสมดุลด้วยการแยกแรงตามแกนตั้งฉากสามแกน และหาโมเมนต์ในระนาบตั้งฉากสามระนาบ
+      แล้วให้แต่ละค่าเท่ากับศูนย์ ทุกเรื่องที่ตามมาคือกระบวนการนี้ที่ใช้กับธาตุของไหลซึ่งเลือกมาอย่างแยบคาย</p>
+
+    <!-- ============================================================ 2.2 -->
+    <h2 id="s2">2.2 ความดัน และกฎของปาสกาล</h2>
+
+    <p>ของไหลออกแรงตั้งฉากบนทุกขอบเขตที่มันสัมผัส ขอบเขตเหล่านั้นอาจมีขนาดใหญ่ และแรงอาจต่างกันไปแต่ละจุด
+      จึงสะดวกกว่าที่จะทำงานกับแรงต่อหนึ่งหน่วยพื้นที่ แทนที่จะทำงานกับแรง นั่นคือ <b>ความดัน</b></p>
+
+    <div class="eq">
+      <span class="body"><var>p</var> = <span class="frac"><span><var>F</var></span><span class="den"><var>A</var></span></span></span>
+      <span class="tag">(2.1)</span>
+    </div>
+
+    <p>ถ้าแรงที่กระทำบนแต่ละหน่วยพื้นที่เท่ากันหมด เรียกว่าความดันนั้น <b>สม่ำเสมอ</b> หน่วยคือ
+      N/m<sup>2</sup> ซึ่งก็คือ <b>พาสคัล</b> (Pa) มิติคือ
+      <span class="dim">M L<sup>&minus;1</sup> T<sup>&minus;2</sup></span> ตรงกับตารางที่&nbsp;1.2
+      ของบทที่&nbsp;1 ส่วน <b>บาร์</b> เป็นพหุคูณที่ใช้สะดวก คือ
+      1&nbsp;bar = 10<sup>5</sup>&nbsp;N/m<sup>2</sup> = 100&nbsp;kPa</p>
+
+    <div class="callout warn">
+      <span class="label">ความดันเป็นสเกลาร์ แรงเป็นเวกเตอร์</span>
+      <p>ความแตกต่างข้อนี้ควรตรึงไว้ตั้งแต่ตอนนี้ เพราะ &sect;2.6 ต้องอาศัยมัน <b>ความดัน</b> ณ จุดหนึ่ง
+        มีขนาดแต่ไม่มีทิศทาง มันเท่ากันในทุกทิศทาง ดังที่เรากำลังจะพิสูจน์ ส่วน <b>แรง</b> มีทั้งขนาด
+        <em>และ</em> ทิศทาง โดยทิศทางนั้นถูกกำหนดด้วยการวางตัวของผิวที่มันกระทำ แรงสองแรงที่มีขนาดเท่ากัน
+        แต่กระทำบนผิวที่วางตัวต่างกัน รวมกันแล้วไม่ได้เป็นสองเท่า</p>
+    </div>
+
+    <h3>กฎของปาสกาล: ความดัน ณ จุดหนึ่งเท่ากันทุกทิศทาง</h3>
+
+    <p>นำธาตุของไหลเล็ก ๆ รูปปริซึมสามเหลี่ยมที่บรรจุจุด&nbsp;P ไว้ ให้ <var>p</var><sub>x</sub>
+      กระทำบนหน้าตั้ง <var>p</var><sub>y</sub> บนหน้านอน และ <var>p</var><sub>s</sub> บนหน้าเอียง
+      ซึ่งทำมุม <var>&theta;</var> กับแนวราบ ปริซึมมีความลึก <var>&delta;z</var> เข้าไปในหน้ากระดาษ</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="ธาตุของไหลรูปปริซึมสามเหลี่ยม พร้อมความดันที่กระทำตั้งฉากกับแต่ละหน้าทั้งสามหน้า">
+        <defs>
+          <marker id="aq" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4b4540"/>
+          </marker>
+        </defs>
+
+        <path d="M200,90 L200,230 L470,230 z" fill="#eaf7fa" stroke="#1c1917" stroke-width="2"/>
+        <path d="M200,90 L270,55 L540,195 L470,230" fill="#d9f0f5" fill-opacity=".7" stroke="#1c1917" stroke-width="1.6"/>
+        <path d="M200,230 L270,195 L540,195" fill="none" stroke="#1c1917" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <path d="M270,55 L270,195" stroke="#1c1917" stroke-width="1.4" stroke-dasharray="5 4"/>
+
+        <text x="184" y="84" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+        <text x="186" y="248" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">E</text>
+        <text x="474" y="248" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">D</text>
+        <text x="266" y="48" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+        <text x="546" y="192" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">C</text>
+
+        <line x1="120" y1="160" x2="196" y2="160" stroke="#DF301C" stroke-width="2.6" marker-end="url(#aq)"/>
+        <text x="92" y="154" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#DF301C">p<tspan font-size="12" dy="5">x</tspan></text>
+
+        <line x1="330" y1="288" x2="330" y2="236" stroke="#DF301C" stroke-width="2.6" marker-end="url(#aq)"/>
+        <text x="338" y="280" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#DF301C">p<tspan font-size="12" dy="5">y</tspan></text>
+
+        <line x1="420" y1="60" x2="368" y2="141" stroke="#DF301C" stroke-width="2.6" marker-end="url(#aq)"/>
+        <text x="424" y="54" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#DF301C">p<tspan font-size="12" dy="5">s</tspan></text>
+
+        <line x1="168" y1="90" x2="168" y2="230" stroke="#726b64" stroke-width="1.3" marker-end="url(#ag)" marker-start="url(#ag)"/>
+        <text x="140" y="164" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&delta;y</text>
+        <line x1="200" y1="266" x2="470" y2="266" stroke="#726b64" stroke-width="1.3" marker-end="url(#ag)" marker-start="url(#ag)"/>
+        <text x="322" y="262" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&delta;x</text>
+        <line x1="486" y1="238" x2="552" y2="205" stroke="#726b64" stroke-width="1.3" marker-end="url(#ag)" marker-start="url(#ag)"/>
+        <text x="514" y="242" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&delta;z</text>
+        <text x="330" y="142" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&delta;s</text>
+
+        <path d="M430,230 A40,40 0 0,0 444,214" fill="none" stroke="#4b4540" stroke-width="1.4"/>
+        <text x="424" y="216" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&theta;</text>
+      </svg>
+      <figcaption><b>รูปที่ 2.2</b> ธาตุของไหลรูปปริซึมสามเหลี่ยม ของไหลอยู่นิ่ง จึงไม่มีแรงเฉือน
+        และความดันทุกตัวกระทำตั้งฉากกับหน้าที่มันอยู่ ได้แก่ <var>p</var><sub>s</sub> บน ABCD
+        <var>p</var><sub>x</sub> บน ABFE และ <var>p</var><sub>y</sub> บน FECD</figcaption>
+    </figure>
+
+    <p><b>รวมแรงในทิศ <var>x</var></b> หน้าตั้งมีพื้นที่ <var>&delta;y&thinsp;&delta;z</var>
+      ส่วนหน้าเอียงมีพื้นที่ <var>&delta;s&thinsp;&delta;z</var> ซึ่งองค์ประกอบในทิศ <var>x</var>
+      ได้จากการคูณด้วย sin<var>&theta;</var> = <var>&delta;y</var>/<var>&delta;s</var> และ
+      <var>p</var><sub>y</sub> ไม่มีองค์ประกอบในทิศ <var>x</var> เลย เมื่อเข้าสู่สมดุล</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.2)</span>
+      <span class="body"><var>p</var><sub>x</sub> <var>&delta;y&thinsp;&delta;z</var> &minus; <var>p</var><sub>s</sub> <var>&delta;s&thinsp;&delta;z</var> <span class="frac"><span><var>&delta;y</var></span><span class="den"><var>&delta;s</var></span></span> = 0</span>
+      <span class="body"><var>p</var><sub>x</sub> <var>&delta;y&thinsp;&delta;z</var> = <var>p</var><sub>s</sub> <var>&delta;y&thinsp;&delta;z</var> &nbsp;&rArr;&nbsp; <var>p</var><sub>x</sub> = <var>p</var><sub>s</sub></span>
+    </div>
+
+    <p><b>รวมแรงในทิศ <var>y</var></b> หน้านอนมีพื้นที่ <var>&delta;x&thinsp;&delta;z</var>
+      องค์ประกอบในทิศ <var>y</var> ของหน้าเอียงได้จาก
+      cos<var>&theta;</var> = <var>&delta;x</var>/<var>&delta;s</var> และคราวนี้ยังมีน้ำหนักของธาตุ
+      <var>&rho;g</var> &times; &frac12;<var>&delta;x&thinsp;&delta;y&thinsp;&delta;z</var>
+      กระทำลงด้วย</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.3)</span>
+      <span class="body"><var>p</var><sub>y</sub> <var>&delta;x&thinsp;&delta;z</var> &minus; <var>p</var><sub>s</sub> <var>&delta;x&thinsp;&delta;z</var> &minus; <var>&rho;g</var> <span class="frac"><span>1</span><span class="den">2</span></span><var>&delta;x&thinsp;&delta;y&thinsp;&delta;z</var> = 0</span>
+      <span class="body"><var>p</var><sub>y</sub> = <var>p</var><sub>s</sub> + <span class="frac"><span>1</span><span class="den">2</span></span><var>&rho;g&thinsp;&delta;y</var></span>
+    </div>
+
+    <p>ทีนี้ให้หดธาตุลง เมื่อ <var>&delta;y</var> &rarr; 0 พจน์น้ำหนักจะหายไป เพราะมันมีผลคูณของ
+      ความยาวเล็ก ๆ สามตัว ขณะที่พจน์ความดันมีเพียงสองตัว จึงละเลยได้ และได้ว่า</p>
+
+    <div class="callout rule">
+      <span class="label">กฎของปาสกาล</span>
+      <div class="eq plain"><span class="body"><var>p</var><sub>x</sub> = <var>p</var><sub>y</sub> = <var>p</var><sub>s</sub></span></div>
+      <p>ธาตุนี้เล็กมากจนถือเป็นจุดได้ และ <var>&theta;</var> จะเป็นมุมใดในทิศทางใดก็ได้ ดังนั้น
+        <b>ความดัน ณ จุดใด ๆ ในของไหลสถิตจึงเท่ากันทุกทิศทาง</b> บทพิสูจน์ขยายไปยังแกน <var>z</var>
+        ได้ด้วยวิธีเดียวกันทุกประการ</p>
+    </div>
+
+    <p>นี่คือเหตุผลที่ความดันเป็นปริมาณสเกลาร์ และเป็นเหตุผลที่เกจวัดความดันให้ค่าเท่ากันไม่ว่าจะขันเข้าท่อ
+      ในทิศทางใด และเป็นเหตุผลที่ความดันด้านในผนังถังไม่ขึ้นกับว่าผนังนั้นเอียงอย่างไร</p>
+
+    <!-- ============================================================ 2.3 -->
+    <h2 id="s3">2.3 ความดันเปลี่ยนแปลงตามความลึกอย่างไร</h2>
+
+    <h3>ในแนวดิ่ง: ความดันเพิ่มขึ้นตามความลึก</h3>
+    <p>พิจารณาลำของไหลในแนวดิ่งที่มีพื้นที่หน้าตัดคงที่ <var>A</var> ล้อมรอบด้วยของไหลชนิดเดียวกัน
+      ความหนาแน่น <var>&rho;</var> หน้าล่างอยู่ที่ระดับ <var>z</var><sub>1</sub> ซึ่งมีความดัน
+      <var>p</var><sub>1</sub> และหน้าบนอยู่ที่ <var>z</var><sub>2</sub> ซึ่งมีความดัน
+      <var>p</var><sub>2</sub></p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="ซ้าย: ธาตุของไหลทรงกระบอกแนวดิ่ง พร้อมความดันบนหน้าบนและหน้าล่างและน้ำหนักของมัน ขวา: ธาตุทรงกระบอกแนวนอนที่มีความดันเท่ากันที่ปลายทั้งสอง">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <marker id="ag2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <text x="40" y="26" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) ธาตุแนวดิ่ง</text>
+
+        <rect x="150" y="90" width="90" height="130" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.8"/>
+        <ellipse cx="195" cy="90" rx="45" ry="13" fill="#d9f0f5" stroke="#1c1917" stroke-width="1.8"/>
+        <ellipse cx="195" cy="220" rx="45" ry="13" fill="none" stroke="#1c1917" stroke-width="1.8" stroke-dasharray="5 4"/>
+
+        <line x1="195" y1="46" x2="195" y2="82" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ar2)"/>
+        <text x="204" y="56" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">p<tspan font-size="11" dy="4">2</tspan>A</text>
+
+        <line x1="195" y1="270" x2="195" y2="234" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ar2)"/>
+        <text x="204" y="270" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">p<tspan font-size="11" dy="4">1</tspan>A</text>
+
+        <line x1="130" y1="140" x2="130" y2="182" stroke="#4b4540" stroke-width="2" marker-end="url(#ag2)"/>
+        <text x="84" y="160" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">mg</text>
+
+        <line x1="290" y1="90" x2="290" y2="220" stroke="#726b64" stroke-width="1.3" marker-end="url(#ag2)" marker-start="url(#ag2)"/>
+        <text x="298" y="160" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">z<tspan font-size="11" dy="4">2</tspan>&minus;z<tspan font-size="11" dy="4">1</tspan></text>
+
+        <text x="52" y="248" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">p<tspan font-size="10" dy="3">1</tspan><tspan dy="-3">A = p</tspan><tspan font-size="10" dy="3">2</tspan><tspan dy="-3">A + mg</tspan></text>
+
+        <line x1="400" y1="20" x2="400" y2="280" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="440" y="26" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) ธาตุแนวนอน</text>
+
+        <rect x="510" y="115" width="230" height="80" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.8"/>
+        <ellipse cx="510" cy="155" rx="13" ry="40" fill="#d9f0f5" stroke="#1c1917" stroke-width="1.8"/>
+        <ellipse cx="740" cy="155" rx="13" ry="40" fill="none" stroke="#1c1917" stroke-width="1.8" stroke-dasharray="5 4"/>
+
+        <line x1="452" y1="155" x2="502" y2="155" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ar2)"/>
+        <text x="430" y="140" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">p<tspan font-size="11" dy="4">l</tspan>A</text>
+
+        <line x1="800" y1="155" x2="750" y2="155" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ar2)"/>
+        <text x="790" y="140" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">p<tspan font-size="11" dy="4">r</tspan>A</text>
+
+        <line x1="625" y1="200" x2="625" y2="242" stroke="#4b4540" stroke-width="2" marker-end="url(#ag2)"/>
+        <text x="634" y="230" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">mg</text>
+
+        <text x="432" y="272" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">น้ำหนักไม่มีองค์ประกอบแนวนอน ดังนั้น p<tspan font-size="10" dy="3">l</tspan><tspan dy="-3"> = p</tspan><tspan font-size="10" dy="3">r</tspan></text>
+      </svg>
+      <figcaption><b>รูปที่ 2.3</b> ธาตุสองแบบ ผลลัพธ์สองข้อ ธาตุแนวดิ่งต้องแบกน้ำหนักของตัวเอง
+        ความดันที่ฐานจึงมากกว่าที่ยอด ส่วนธาตุแนวนอนไม่ต้องแบก เพราะแรงโน้มถ่วงกระทำตั้งฉากกับแกนของมัน
+        ความดันที่ปลายทั้งสองจึงต้องเท่ากัน</figcaption>
+    </figure>
+
+    <p>เมื่อให้ทิศขึ้นเป็นบวก แรงที่กระทำบนธาตุแนวดิ่งคือ <var>p</var><sub>1</sub><var>A</var> ขึ้น
+      <var>p</var><sub>2</sub><var>A</var> ลง และน้ำหนัก
+      <var>mg</var> = <var>&rho;gA</var>(<var>z</var><sub>2</sub> &minus; <var>z</var><sub>1</sub>) ลง
+      เมื่อเข้าสู่สมดุล</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.4)</span>
+      <span class="body"><var>p</var><sub>1</sub><var>A</var> &minus; <var>p</var><sub>2</sub><var>A</var> &minus; <var>&rho;gA</var>(<var>z</var><sub>2</sub> &minus; <var>z</var><sub>1</sub>) = 0</span>
+      <span class="body"><var>p</var><sub>2</sub> &minus; <var>p</var><sub>1</sub> = &minus;<var>&rho;g</var>(<var>z</var><sub>2</sub> &minus; <var>z</var><sub>1</sub>)</span>
+    </div>
+
+    <p>เครื่องหมายลบบอกในสิ่งที่สัญชาตญาณรู้อยู่แล้ว นั่นคือ <b>ในของไหลภายใต้แรงโน้มถ่วง ความดันลดลง
+      เมื่อระดับความสูงเพิ่มขึ้น</b> ยิ่งลึกลงไปความดันก็ยิ่งเพิ่ม</p>
+
+    <h3>ในแนวนอน: ความดันคงที่ที่ระดับเดียวกัน</h3>
+    <p>คราวนี้ใช้ทรงกระบอกแนวนอนของของไหลชนิดเดียวกัน หน้าตัด <var>A</var> โดยมีความดัน
+      <var>p</var><sub>l</sub> ที่ปลายซ้ายและ <var>p</var><sub>r</sub> ที่ปลายขวา น้ำหนักของมันกระทำ
+      ในแนวดิ่งจึงไม่มีองค์ประกอบตามแกน เมื่อรวมแรงในทิศ <var>x</var></p>
+
+    <div class="eq">
+      <span class="body"><var>p</var><sub>l</sub><var>A</var> = <var>p</var><sub>r</sub><var>A</var> &nbsp;&rArr;&nbsp; <var>p</var><sub>l</sub> = <var>p</var><sub>r</sub></span>
+      <span class="tag">(2.5)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">กฎที่จะได้ใช้มากที่สุดในรายวิชานี้</span>
+      <p><b>ความดันในแนวนอนคงที่ ตลอดทั่วของไหลผืนเดียวที่ต่อเนื่องกัน</b> คำว่า
+        &ldquo;ต่อเนื่อง&rdquo; คือคำที่ทำงานหนักที่สุด จุดสองจุดนั้นไม่จำเป็นต้องเชื่อมกันด้วยท่อตรง
+        หรือแม้แต่อยู่ในภาชนะเดียวกัน ขอเพียงมีเนื้อของไหลที่ไม่ขาดตอนคั่นอยู่ระหว่างกันเท่านั้น
+        นี่คือสิ่งที่ทำให้มาโนมิเตอร์ทุกตัวใน &sect;2.5 อ่านค่าได้</p>
+    </div>
+
+    <h3>กรณีทั่วไป: ทิศทางใดก็ได้</h3>
+    <p>ผลลัพธ์สองข้อข้างต้นเป็นกรณีเฉพาะของสมการเดียว นำธาตุทรงกระบอกยาว <var>&delta;s</var>
+      พื้นที่ <var>A</var> เอียงทำมุม <var>&theta;</var> กับแนวดิ่ง แล้วแยกแรงตามแกนของมันเอง
+      โดยน้ำหนัก <var>&rho;gA&thinsp;&delta;s</var> ให้องค์ประกอบ
+      <var>&rho;gA&thinsp;&delta;s</var> cos<var>&theta;</var></p>
+
+    <div class="eq stack">
+      <span class="tag">(2.6)</span>
+      <span class="body"><var>pA</var> &minus; (<var>p</var> + <var>&delta;p</var>)<var>A</var> &minus; <var>&rho;gA&thinsp;&delta;s</var> cos<var>&theta;</var> = 0</span>
+      <span class="body"><span class="frac"><span>d<var>p</var></span><span class="den">d<var>s</var></span></span> = &minus;<var>&rho;g</var> cos<var>&theta;</var></span>
+    </div>
+
+    <p>ใส่ <var>&theta;</var> = 90&deg; แล้ว <var>s</var> จะอยู่ในแนวนอน ได้
+      d<var>p</var>/d<var>x</var> = d<var>p</var>/d<var>y</var> = 0 นั่นคือความดันคงที่บนระนาบแนวนอนใด ๆ
+      ใส่ <var>&theta;</var> = 0 แล้ว <var>s</var> จะอยู่ในแนวดิ่ง ได้</p>
+
+    <div class="eq">
+      <span class="body"><span class="frac"><span>d<var>p</var></span><span class="den">d<var>z</var></span></span> = &minus;<var>&rho;g</var></span>
+      <span class="tag">(2.7)</span>
+    </div>
+
+    <p>ซึ่งก็คือสมการ&nbsp;(2.4) อีกครั้ง ผลลัพธ์ทั้งสองข้อก่อนหน้าหล่นออกมาจากข้อความทั่วไปข้อเดียว
+      และข้อความนั้น คือสมการ&nbsp;(2.7) คือสิ่งที่เนื้อหาที่เหลือของบทนี้นำไปอินทิเกรต</p>
+
+    <!-- ============================================================ 2.4 -->
+    <h2 id="s4">2.4 ความดันกับเฮด ความดันเกจกับความดันสัมบูรณ์</h2>
+
+    <p>ในของไหลสถิตที่มีความหนาแน่นคงที่ d<var>p</var>/d<var>z</var> = &minus;<var>&rho;g</var>
+      อินทิเกรตได้ทันทีเป็น</p>
+
+    <div class="eq plain">
+      <span class="body"><var>p</var> = &minus;<var>&rho;gz</var> + ค่าคงที่</span>
+    </div>
+
+    <p>ในของเหลวที่มีผิวอิสระ การวัดลงจากผิวเป็นธรรมชาติกว่า เมื่อให้ <var>h</var> เป็นความลึกใต้ผิวอิสระ
+      นั่นคือ <var>z</var> = &minus;<var>h</var> จะได้</p>
+
+    <div class="eq">
+      <span class="body"><var>p</var> = <var>&rho;gh</var> + <var>p</var><sub>ที่ผิว</sub></span>
+      <span class="tag">(2.8)</span>
+    </div>
+
+    <p>ที่ผิวของของไหลที่เราจัดการด้วย ความดันที่ผิวนั้นคือความดันบรรยากาศ เนื่องจากเราอยู่ใต้บรรยากาศ
+      และทุกสิ่งรอบตัวก็รับภาระจากบรรยากาศอยู่แล้ว จึงสะดวกที่จะใช้ความดันบรรยากาศเป็น <b>ระดับอ้างอิง</b>
+      แล้วระบุความดันว่าสูงหรือต่ำกว่านั้นเท่าใด</p>
+
+    <div class="callout rule">
+      <span class="label">ความดันเกจกับความดันสัมบูรณ์</span>
+      <div class="eq plain"><span class="body"><var>p</var><sub>เกจ</sub> = <var>&rho;gh</var></span></div>
+      <p>ขีดจำกัดล่างของความดันใด ๆ คือศูนย์ ซึ่งก็คือความดันในสุญญากาศสมบูรณ์ เมื่อวัดจากระดับอ้างอิงนั้น
+        แทน จะเรียกว่า <b>ความดันสัมบูรณ์</b></p>
+      <div class="eq plain"><span class="body"><var>p</var><sub>สัมบูรณ์</sub> = <var>&rho;gh</var> + <var>p</var><sub>atm</sub> = <var>p</var><sub>เกจ</sub> + <var>p</var><sub>atm</sub></span></div>
+      <p>ความดันบรรยากาศมาตรฐานคือ <b>101.325&nbsp;kPa</b> ซึ่งเท่ากับ 1.013&nbsp;bar หรือ
+        10.33&nbsp;เมตรน้ำ หรือ 760&nbsp;มม.ปรอท</p>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="มาตราส่วนแนวดิ่งแสดงศูนย์สัมบูรณ์ที่ด้านล่าง ความดันบรรยากาศอยู่ตรงกลาง และจุดที่อยู่เหนือและใต้เส้นนั้น พร้อมวงเล็บแสดงความดันเกจและความดันสัมบูรณ์">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4b4540"/>
+          </marker>
+          <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#A85E00"/>
+          </marker>
+        </defs>
+
+        <line x1="300" y1="270" x2="300" y2="30" stroke="#4b4540" stroke-width="2" marker-end="url(#ah)"/>
+
+        <line x1="180" y1="270" x2="560" y2="270" stroke="#1c1917" stroke-width="2.4"/>
+        <text x="180" y="290" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" font-weight="700" fill="#1c1917">ศูนย์สัมบูรณ์ &mdash; สุญญากาศสมบูรณ์</text>
+
+        <line x1="180" y1="170" x2="700" y2="170" stroke="#00788A" stroke-width="2.4" stroke-dasharray="9 5"/>
+        <text x="560" y="164" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" font-weight="700" fill="#00788A">ระดับอ้างอิงบรรยากาศ</text>
+        <text x="560" y="186" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#00788A">101.3 kPa = 10.33 เมตรน้ำ</text>
+
+        <line x1="180" y1="80" x2="560" y2="80" stroke="#DF301C" stroke-width="2"/>
+        <circle cx="380" cy="80" r="5" fill="#DF301C"/>
+        <text x="392" y="74" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" font-weight="700" fill="#DF301C">A &mdash; ในท่อส่งน้ำที่มีแรงดัน</text>
+
+        <line x1="180" y1="222" x2="560" y2="222" stroke="#A85E00" stroke-width="2"/>
+        <circle cx="380" cy="222" r="5" fill="#A85E00"/>
+        <text x="392" y="240" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" font-weight="700" fill="#A85E00">B &mdash; ในท่อดูดของเครื่องสูบน้ำ</text>
+
+        <line x1="238" y1="80" x2="238" y2="170" stroke="#DF301C" stroke-width="1.6" marker-end="url(#ah)" marker-start="url(#ah)"/>
+        <text x="152" y="122" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#DF301C">เกจเป็นบวก</text>
+
+        <line x1="238" y1="170" x2="238" y2="222" stroke="#A85E00" stroke-width="1.6" marker-end="url(#ah2)" marker-start="url(#ah2)"/>
+        <text x="118" y="202" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#A85E00">เกจเป็นลบ (สุญญากาศ)</text>
+
+        <line x1="672" y1="80" x2="672" y2="270" stroke="#4b4540" stroke-width="1.6" marker-end="url(#ah)" marker-start="url(#ah)"/>
+        <text x="682" y="180" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#4b4540">ความดันสัมบูรณ์ที่ A</text>
+
+        <line x1="724" y1="170" x2="724" y2="270" stroke="#00788A" stroke-width="1.6" marker-end="url(#ah)" marker-start="url(#ah)"/>
+        <text x="734" y="228" font-family="Segoe UI, Arial" font-size="12" fill="#00788A">p<tspan font-size="10" dy="3">atm</tspan></text>
+      </svg>
+      <figcaption><b>รูปที่ 2.4</b> ระดับอ้างอิงสองแบบ ความดันเกจวัดจากเส้นบรรยากาศและติดลบได้
+        ส่วนความดันสัมบูรณ์วัดจากสุญญากาศสมบูรณ์และติดลบไม่ได้เลย ค่าที่อ่านได้ว่า
+        &ldquo;&minus;30&nbsp;kPa&rdquo; บนเกจท่อดูดของเครื่องสูบน้ำ หมายถึง 71.3&nbsp;kPa สัมบูรณ์
+        และบทที่&nbsp;1 &sect;1.11 อธิบายไว้แล้วว่าทำไมจึงต้องไม่ปล่อยให้ต่ำกว่านี้มากนัก</figcaption>
+    </figure>
+
+    <h3>ความดันในรูปของเฮด</h3>
+    <p>เนื่องจาก <var>g</var> คงที่โดยพื้นฐาน ความดันเกจใด ๆ จึงระบุเป็นความสูงในแนวดิ่งของลำของไหล
+      ความหนาแน่น <var>&rho;</var> ที่จะสร้างความดันนั้นขึ้นมาได้ ความสูงดังกล่าวเรียกว่า
+      <b>เฮด</b> ของของไหล</p>
+
+    <div class="eq">
+      <span class="body"><var>h</var> = <span class="frac"><span><var>p</var></span><span class="den"><var>&rho;g</var></span></span> = <span class="frac"><span><var>p</var></span><span class="den"><var>&gamma;</var></span></span></span>
+      <span class="tag">(2.9)</span>
+    </div>
+
+    <div class="callout warn">
+      <span class="label">เฮดไร้ความหมายหากไม่บอกว่าเป็นของไหลอะไร</span>
+      <p>หากระบุความดันเป็นเฮด <b>ต้องบอกความหนาแน่นของของไหลด้วยเสมอ</b> น้ำห้าเมตรกับปรอทห้าเมตร
+        ไม่ใช่ความดันเดียวกันแม้แต่น้อย มันต่างกันถึง 13.6 เท่า คำว่า &ldquo;เฮด 5&nbsp;ม.&rdquo;
+        โดด ๆ ไม่ใช่คำตอบ</p>
+    </div>
+
+    <p>เฮดเป็นหน่วยเงินตราตามธรรมชาติของงานชลประทานและงานประปา เพราะเป็นสิ่งที่วัดได้จริงหน้างาน ได้แก่
+      ความสูงของอ่างเก็บน้ำเหนือแปลงนา ระดับน้ำที่ขึ้นในท่อยืน หรือระดับในหลอดปิโซมิเตอร์
+      ด้วยเหตุนี้บทที่&nbsp;3 ถึง&nbsp;5 จะทำงานในหน่วยเมตรน้ำเกือบทั้งหมด</p>
+
+    <h3>หน่วยที่นักศึกษาจะพบในทางปฏิบัติ</h3>
+
+    <div class="callout">
+      <span class="label">เพิ่มเติมจากเอกสารอ้างอิง</span>
+      <p>ตารางด้านล่างเป็นส่วนที่เพิ่มเข้ามาในหลักสูตร ไม่ได้อยู่ในเอกสารอ้างอิง ที่ใส่ไว้เพราะข้อมูล
+        แคตตาล็อกของเครื่องสูบน้ำ ท่อ และเกจที่ขายในประเทศไทยใช้หน่วยเหล่านี้ปนกันอย่างน้อยสี่หน่วย
+        และการแปลงหน่วยให้ถูกต้องคือเส้นแบ่งระหว่างการเลือกชั้นคุณภาพท่อได้ถูก กับการทำให้ท่อแตก</p>
+    </div>
+
+    <div class="table-wrap">
+      <table id="t1">
+        <caption><b>ตารางที่ 2.1</b> หน่วยความดันที่พบบนอุปกรณ์จริง และค่าของแต่ละหน่วยในระบบ SI
+          อ่านตามแถวเพื่อแปลงหน่วย</caption>
+        <thead>
+          <tr><th>หน่วย</th><th class="num">เป็นพาสคัล</th><th class="num">เป็น kPa</th><th class="num">เป็นเมตรน้ำ</th><th>พบที่ไหน</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1 Pa (N/m<sup>2</sup>)</td><td class="num">1</td><td class="num">0.001</td><td class="num">1.02 &times; 10<sup>&minus;4</sup></td><td>หน่วยฐาน SI เล็กเกินกว่าจะใช้จริง</td></tr>
+          <tr><td>1 kPa</td><td class="num">1 000</td><td class="num">1</td><td class="num">0.102</td><td>หน่วยที่ใช้ทำงานในรายวิชานี้</td></tr>
+          <tr><td>1 bar</td><td class="num">100 000</td><td class="num">100</td><td class="num">10.2</td><td>เส้นโค้งเครื่องสูบน้ำ พิกัด PN ของท่อ</td></tr>
+          <tr><td>1 kgf/cm<sup>2</sup> (&ldquo;ksc&rdquo;)</td><td class="num">98 067</td><td class="num">98.07</td><td class="num">10.0</td><td>เกจและถังรุ่นเก่าในไทย</td></tr>
+          <tr><td>1 เมตรน้ำ</td><td class="num">9 810</td><td class="num">9.81</td><td class="num">1</td><td>เฮดชลประทาน สมรรถนะเครื่องสูบน้ำ</td></tr>
+          <tr><td>1 มม.ปรอท (torr)</td><td class="num">133.3</td><td class="num">0.1333</td><td class="num">0.0136</td><td>บารอมิเตอร์ งานสุญญากาศ</td></tr>
+          <tr><td>1 psi (lbf/in<sup>2</sup>)</td><td class="num">6 895</td><td class="num">6.895</td><td class="num">0.703</td><td>อุปกรณ์นำเข้า ข้อมูลสปริงเกลอร์</td></tr>
+          <tr><td>1 บรรยากาศมาตรฐาน</td><td class="num">101 325</td><td class="num">101.3</td><td class="num">10.33</td><td>ระดับอ้างอิงของความดันสัมบูรณ์</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>มีสองการแปลงที่ควรจำให้ขึ้นใจ เพราะโผล่มาในเกือบทุกการคำนวณงานชลประทาน นั่นคือ
+      <b>1&nbsp;bar &asymp; 10&nbsp;เมตรน้ำ</b> และ <b>1&nbsp;kgf/cm<sup>2</sup> &asymp;
+      10&nbsp;เมตรน้ำ</b> ท่อ PN&nbsp;10 มีพิกัด 10&nbsp;bar จึงรับ static head ได้ราว 100&nbsp;ม.
+      และค่านี้ ไม่ใช่อัตราการไหล ที่มักเป็นตัวตัดสินชั้นคุณภาพของท่อ</p>
+
+    <!-- ============================================================ 2.5 -->
+    <h2 id="s5">2.5 มาโนมิเตอร์</h2>
+
+    <p>ความสัมพันธ์ระหว่างความดันกับเฮดไม่ได้เป็นเพียงวิธีระบุตัวเลข แต่เป็นวิธี <em>วัด</em> ด้วย
+      เครื่องมือที่วัดความดันด้วยความสูงของลำของเหลวเรียกว่า <b>มาโนมิเตอร์</b> หรือเกจของเหลว</p>
+
+    <h3>หลอดปิโซมิเตอร์</h3>
+    <p>มาโนมิเตอร์ที่ง่ายที่สุดคือหลอดแนวดิ่งเปิดปลายบน ต่อเข้ากับภาชนะที่ต้องการวัดความดัน
+      เนื่องจากหลอดเปิดสู่บรรยากาศ สิ่งที่อ่านได้จึงเป็น <b>ความดันเกจ</b></p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="ซ้าย: หลอดปิโซมิเตอร์ที่ตั้งขึ้นจากท่อ พร้อมความสูงของลำน้ำ ขวา: มาโนมิเตอร์รูปตัวยูที่บรรจุปรอท ต่อเข้ากับท่อที่ลำเลียงน้ำ">
+        <defs>
+          <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <text x="30" y="26" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) หลอดปิโซมิเตอร์</text>
+
+        <rect x="30" y="238" width="300" height="52" fill="#9fe0ea" stroke="#1c1917" stroke-width="2"/>
+        <text x="44" y="270" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#1c1917">ของเหลว &rho;</text>
+
+        <rect x="132" y="96" width="22" height="142" fill="#57c2d3" stroke="#1c1917" stroke-width="1.8"/>
+        <line x1="132" y1="96" x2="154" y2="96" stroke="#00788A" stroke-width="2"/>
+        <circle cx="143" cy="264" r="4" fill="#1c1917"/>
+        <text x="122" y="284" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+
+        <rect x="248" y="140" width="22" height="98" fill="#57c2d3" stroke="#1c1917" stroke-width="1.8"/>
+        <line x1="248" y1="140" x2="270" y2="140" stroke="#00788A" stroke-width="2"/>
+        <circle cx="259" cy="264" r="4" fill="#1c1917"/>
+        <text x="252" y="284" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+
+        <line x1="104" y1="96" x2="104" y2="264" stroke="#726b64" stroke-width="1.3" marker-end="url(#am)" marker-start="url(#am)"/>
+        <text x="80" y="184" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">1</tspan></text>
+
+        <line x1="300" y1="140" x2="300" y2="264" stroke="#726b64" stroke-width="1.3" marker-end="url(#am)" marker-start="url(#am)"/>
+        <text x="308" y="208" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">2</tspan></text>
+
+        <text x="30" y="60" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">เปิดสู่บรรยากาศ จึงอ่านได้เป็นความดันเกจ</text>
+
+        <line x1="380" y1="20" x2="380" y2="300" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="420" y="26" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) มาโนมิเตอร์รูปตัวยู</text>
+
+        <circle cx="486" cy="140" r="42" fill="#9fe0ea" stroke="#1c1917" stroke-width="2"/>
+        <text x="466" y="145" font-family="Segoe UI, Arial" font-size="13" fill="#1c1917">&rho;</text>
+        <circle cx="486" cy="140" r="4" fill="#1c1917"/>
+        <text x="468" y="118" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+
+        <rect x="518" y="152" width="90" height="18" fill="#9fe0ea" stroke="#1c1917" stroke-width="1.6"/>
+        <rect x="590" y="152" width="18" height="70" fill="#9fe0ea" stroke="#1c1917" stroke-width="1.6"/>
+
+        <path d="M591,222 L591,269 Q592,287 609,287 L667,287 L667,96 L685,96 L685,270 Q685,287 668,287 L608,287 Q592,287 592,270 z" fill="#c8c6c4"/>
+        <path d="M590,222 L590,270 Q590,288 608,288 L668,288 Q686,288 686,270 L686,96" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <path d="M608,222 L608,270 L668,270 L668,96" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <line x1="590" y1="222" x2="608" y2="222" stroke="#6f6d6b" stroke-width="2"/>
+        <line x1="668" y1="96" x2="686" y2="96" stroke="#6f6d6b" stroke-width="2"/>
+
+        <circle cx="599" cy="222" r="4" fill="#1c1917"/>
+        <text x="562" y="228" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+        <circle cx="677" cy="222" r="4" fill="#1c1917"/>
+        <text x="690" y="228" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">C</text>
+        <text x="690" y="92" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">D</text>
+        <line x1="590" y1="222" x2="686" y2="222" stroke="#00788A" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+        <line x1="556" y1="152" x2="556" y2="222" stroke="#726b64" stroke-width="1.3" marker-end="url(#am)" marker-start="url(#am)"/>
+        <text x="530" y="192" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">1</tspan></text>
+
+        <line x1="726" y1="96" x2="726" y2="222" stroke="#726b64" stroke-width="1.3" marker-end="url(#am)" marker-start="url(#am)"/>
+        <text x="734" y="164" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">2</tspan></text>
+
+        <text x="420" y="312" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">ของไหลมาโนเมตริก &rho;<tspan font-size="10" dy="3">man</tspan><tspan dy="-3"> (ปรอท) &mdash; หนาแน่นกว่าและไม่ผสมกัน</tspan></text>
+      </svg>
+      <figcaption><b>รูปที่ 2.5</b> มาโนมิเตอร์พื้นฐานสองแบบ ปิโซมิเตอร์ใช้ได้เฉพาะกับของเหลว และเฉพาะเมื่อ
+        ความสูงของลำสะดวกต่อการวัด ส่วนหลอดรูปตัวยูขจัดข้อจำกัดทั้งสองด้วยการเพิ่มของเหลวตัวที่สอง
+        ซึ่งหนาแน่นกว่าเข้าไป</figcaption>
+    </figure>
+
+    <p>สำหรับปิโซมิเตอร์ ความดันที่จุดต่อใด ๆ ก็คือน้ำหนักของลำที่ตั้งอยู่เหนือจุดนั้นนั่นเอง</p>
+
+    <div class="eq plain">
+      <span class="body"><var>p</var><sub>A</sub> = <var>&rho;gh</var><sub>1</sub> &nbsp;&nbsp;&nbsp;&nbsp; <var>p</var><sub>B</sub> = <var>&rho;gh</var><sub>2</sub></span>
+    </div>
+
+    <p>ข้อจำกัดของมันรุนแรง และควรกล่าวถึงเพราะเป็นแรงจูงใจของทุกอย่างที่ตามมา มันใช้ได้
+      <b>กับของเหลวเท่านั้น</b> ไม่ได้กับแก๊สซึ่งจะรั่วหนีออกไปเฉย ๆ และความสูงต้องพอเหมาะ
+      เล็กเกินไปก็ตรวจจับการเปลี่ยนแปลงไม่ได้ ใหญ่เกินไปหลอดก็ยาวจนไร้สาระ ความดัน 2&nbsp;bar
+      ต้องใช้ปิโซมิเตอร์สูงกว่า 20&nbsp;ม. และอย่าลืมจากบทที่&nbsp;1 &sect;1.11 ว่าหลอดที่แคบกว่า
+      ราว 10&nbsp;มม. จะเพิ่มความคลาดเคลื่อนจากคาพิลลารีอีกหลายมิลลิเมตร</p>
+
+    <h3>มาโนมิเตอร์รูปตัวยู</h3>
+    <p>การดัดหลอดให้เป็นรูปตัวยูแล้วเติมของเหลวตัวที่สองลงในส่วนโค้ง ซึ่งเรียกว่า
+      <b>ของไหลมาโนเมตริก</b> แก้ปัญหาทั้งสองข้อพร้อมกัน และยังทำให้วัดแก๊สได้ด้วยนอกจากของเหลว
+      ของไหลมาโนเมตริกต้อง <b>หนาแน่นกว่า</b> ของไหลที่ถูกวัด และทั้งสองต้อง <b>ไม่ผสมกัน</b>
+      เพื่อให้เกิดรอยต่อที่ชัดเจน</p>
+
+    <p>การวิเคราะห์ใช้สมการ&nbsp;(2.5) คือความดันเท่ากันที่ระดับเดียวกันในของไหลที่ต่อเนื่อง จุด B และ C
+      อยู่บนระดับแนวนอนเดียวกันในเนื้อปรอทที่ต่อเนื่อง ดังนั้น</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.10)</span>
+      <span class="body"><var>p</var><sub>B</sub> = <var>p</var><sub>C</sub></span>
+      <span class="body">ขาซ้าย: &nbsp; <var>p</var><sub>B</sub> = <var>p</var><sub>A</sub> + <var>&rho;gh</var><sub>1</sub></span>
+      <span class="body">ขาขวา: &nbsp; <var>p</var><sub>C</sub> = <var>p</var><sub>atm</sub> + <var>&rho;</var><sub>man</sub><var>gh</var><sub>2</sub></span>
+      <span class="body">&there4; &nbsp; <var>p</var><sub>A</sub> = <var>&rho;</var><sub>man</sub><var>gh</var><sub>2</sub> &minus; <var>&rho;gh</var><sub>1</sub> &nbsp;&nbsp;(เกจ)</span>
+    </div>
+
+    <p>ถ้าของไหลที่ถูกวัดเป็น <b>แก๊ส</b> ความหนาแน่นของมันน้อยจนละเลยได้เมื่อเทียบกับของไหลมาโนเมตริก
+      คือ <var>&rho;</var><sub>man</sub> &gg; <var>&rho;</var> จึงตัดพจน์ที่สองทิ้งได้</p>
+
+    <div class="eq">
+      <span class="body"><var>p</var><sub>A</sub> = <var>&rho;</var><sub>man</sub><var>gh</var><sub>2</sub></span>
+      <span class="tag">(2.11)</span>
+    </div>
+
+    <div class="callout">
+      <span class="label">วิธีอ่านมาโนมิเตอร์ทุกแบบโดยไม่ต้องท่องสูตร</span>
+      <p>เริ่มจากปลายด้านที่รู้ความดัน แล้วเดินไปตามเนื้อของไหลจนถึงปลายอีกด้าน โดยในแต่ละก้าว
+        <b>เดินลงให้บวก <var>&rho;gh</var></b> <b>เดินขึ้นให้ลบ <var>&rho;gh</var></b>
+        โดยใช้ความหนาแน่นของของไหลที่กำลังเดินผ่านอยู่ และไม่ต้องเปลี่ยนอะไรเมื่อเดินในแนวนอน
+        ภายในของไหลผืนเดียวที่ต่อเนื่อง เมื่อถึงปลายทางแล้วให้ผลรวมเท่ากับความดันที่ปลายนั้น
+        สมการมาโนมิเตอร์ทุกสมการในหัวข้อนี้เขียนขึ้นด้วยวิธีนี้ได้ และวิธีนี้จะไม่ทิ้งนักศึกษา
+        เมื่อเจอรูปแบบที่ไม่คุ้นเคย</p>
+    </div>
+
+    <h3>การวัดผลต่างความดัน</h3>
+    <p>ต่อปลายทั้งสองของหลอดตัวยูเข้ากับสองจุดบนระบบที่มีแรงดัน แทนที่จะปล่อยปลายหนึ่งเปิดไว้
+      เครื่องมือก็จะวัด <em>ผลต่าง</em> ระหว่างสองจุดนั้น ซึ่งเป็นสิ่งที่ต้องการจริง ๆ เวลาหาขนาดท่อ
+      หรืออ่านค่ามาตรวัดการไหลในบทที่&nbsp;3</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="มาโนมิเตอร์รูปตัวยูต่อระหว่างจุด A และ B บนท่อเอียง เพื่อวัดผลต่างความดันระหว่างสองจุด">
+        <defs>
+          <marker id="am2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <path d="M60,250 L640,60 L640,110 L60,300 z" fill="#9fe0ea" stroke="#1c1917" stroke-width="2"/>
+        <text x="108" y="252" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#1c1917">ของไหล &rho;</text>
+
+        <circle cx="180" cy="242" r="5" fill="#1c1917"/>
+        <text x="164" y="232" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+        <circle cx="520" cy="130" r="5" fill="#1c1917"/>
+        <text x="510" y="118" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+
+        <path d="M176,250 L176,268 L264,268 L264,236" fill="none" stroke="#1c1917" stroke-width="1.8"/>
+        <path d="M516,138 L516,236" fill="none" stroke="#1c1917" stroke-width="1.8"/>
+        <rect x="256" y="236" width="16" height="18" fill="#9fe0ea"/>
+        <rect x="508" y="138" width="16" height="98" fill="#9fe0ea" stroke="#1c1917" stroke-width="1.6"/>
+
+        <path d="M256,236 L256,286 Q256,302 272,302 L508,302 Q524,302 524,286 L524,236" fill="#c8c6c4" stroke="#1c1917" stroke-width="2"/>
+        <line x1="256" y1="236" x2="272" y2="236" stroke="#6f6d6b" stroke-width="2"/>
+        <line x1="508" y1="236" x2="524" y2="236" stroke="#6f6d6b" stroke-width="2"/>
+
+        <circle cx="264" cy="236" r="4" fill="#1c1917"/>
+        <text x="232" y="232" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">C</text>
+        <circle cx="516" cy="236" r="4" fill="#1c1917"/>
+        <text x="530" y="232" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">D</text>
+        <line x1="256" y1="236" x2="524" y2="236" stroke="#00788A" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+        <line x1="60" y1="286" x2="800" y2="286" stroke="#c9c9c9" stroke-width="1.4" stroke-dasharray="7 5"/>
+        <text x="726" y="302" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#726b64">ระดับอ้างอิง</text>
+
+        <line x1="120" y1="242" x2="120" y2="286" stroke="#726b64" stroke-width="1.3" marker-end="url(#am2)" marker-start="url(#am2)"/>
+        <text x="94" y="268" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">a</tspan></text>
+
+        <line x1="700" y1="130" x2="700" y2="286" stroke="#726b64" stroke-width="1.3" marker-end="url(#am2)" marker-start="url(#am2)"/>
+        <text x="708" y="212" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">b</tspan></text>
+
+        <line x1="580" y1="236" x2="580" y2="286" stroke="#A85E00" stroke-width="1.5" marker-end="url(#am2)" marker-start="url(#am2)"/>
+        <text x="588" y="268" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#A85E00">h</text>
+
+        <text x="290" y="60" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">ของไหลมาโนเมตริก &rho;<tspan font-size="10" dy="3">man</tspan></text>
+      </svg>
+      <figcaption><b>รูปที่ 2.6</b> มาโนมิเตอร์วัดผลต่าง จุด C และ D อยู่ที่ระดับเดียวกันในของไหลมาโนเมตริก
+        ที่ต่อเนื่อง ความดันจึงเท่ากัน และที่เหลือทั้งหมดได้จากการเดินลงขาหนึ่งแล้วเดินขึ้นอีกขาหนึ่ง</figcaption>
+    </figure>
+
+    <p>เมื่อให้ความดันที่ C และ D เท่ากัน แล้วไล่ลงแต่ละขา จะได้</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.12)</span>
+      <span class="body"><var>p</var><sub>A</sub> + <var>&rho;gh</var><sub>a</sub> = <var>p</var><sub>B</sub> + <var>&rho;g</var>(<var>h</var><sub>b</sub> &minus; <var>h</var>) + <var>&rho;</var><sub>man</sub><var>gh</var></span>
+      <span class="body"><var>p</var><sub>A</sub> &minus; <var>p</var><sub>B</sub> = <var>&rho;g</var>(<var>h</var><sub>b</sub> &minus; <var>h</var><sub>a</sub>) + (<var>&rho;</var><sub>man</sub> &minus; <var>&rho;</var>)<var>gh</var></span>
+    </div>
+
+    <p>อีกครั้ง ถ้าของไหลเป็นแก๊ส พจน์ <var>&rho;</var> จะหายไป และผลลัพธ์ยุบลงเหลือรูปที่สะดวกมาก คือ
+      <var>p</var><sub>A</sub> &minus; <var>p</var><sub>B</sub> =
+      <var>&rho;</var><sub>man</sub><var>gh</var></p>
+
+    <h3>ทำให้เครื่องมือดีขึ้น</h3>
+    <p>หลอดตัวยูธรรมดามีข้อน่ารำคาญอยู่ข้อหนึ่ง คือระดับขยับทั้งสองข้าง จึงต้องอ่านสองค่าพร้อมกัน
+      ถ้าทำให้หน้าตัดของขาหนึ่งใหญ่กว่ามาก คือเส้นผ่านศูนย์กลาง <var>D</var> เทียบกับ <var>d</var>
+      ข้างที่กว้างจะแทบไม่ขยับ ขณะที่ข้างแคบขยับมาก ปริมาตรที่ถ่ายเทเท่ากันทั้งสองข้าง ระดับที่ลดลง
+      ทางข้างกว้างจึงเป็น
+      <var>z</var><sub>1</sub> = <var>z</var><sub>2</sub>(<var>d</var>/<var>D</var>)<sup>2</sup> และ</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.13)</span>
+      <span class="body"><var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub> = <var>&rho;gz</var><sub>2</sub> [ 1 + (<var>d</var>/<var>D</var>)<sup>2</sup> ]</span>
+      <span class="body">และเมื่อ <var>D</var> &gg; <var>d</var> &nbsp;&rArr;&nbsp; <var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub> &asymp; <var>&rho;gz</var><sub>2</sub></span>
+    </div>
+
+    <p>จึงอ่านค่าเดียวก็พอ แต่ถ้าความดันที่ต้องวัดนั้น <em>เล็กมาก</em> เช่นไม่กี่ร้อยพาสคัลคร่อมท่อระบาย
+      อากาศหรือคร่อมชั้นเมล็ดพืชในเครื่องอบ ให้เอียงขาที่แคบแทน ของเหลวจะต้องเดินทางเป็นระยะทางยาว
+      <var>x</var> ไปตามหลอดเพื่อให้ยกตัวขึ้นในแนวดิ่งเพียงเล็กน้อย <var>z</var><sub>2</sub>
+      สเกลจึงถูกยืดออก</p>
+
+    <div class="eq">
+      <span class="body"><var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub> = <var>&rho;gz</var><sub>2</sub> = <var>&rho;gx</var> sin<var>&theta;</var></span>
+      <span class="tag">(2.14)</span>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="ซ้าย: มาโนมิเตอร์ที่มีขาหนึ่งเส้นผ่านศูนย์กลางใหญ่ จึงอ่านค่าเดียวก็พอ ขวา: เครื่องมือเดียวกันแต่เอียงขาแคบ ทำให้สเกลถูกยืด">
+        <defs>
+          <marker id="am3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <text x="30" y="26" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) ขยายขาหนึ่ง &mdash; อ่านค่าเดียว</text>
+
+        <path d="M50,80 L50,250 L200,250 L200,80" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <rect x="52" y="168" width="146" height="82" fill="#c8c6c4"/>
+        <line x1="52" y1="168" x2="198" y2="168" stroke="#6f6d6b" stroke-width="2"/>
+        <text x="60" y="70" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">D</text>
+        <line x1="50" y1="60" x2="200" y2="60" stroke="#726b64" stroke-width="1.2" marker-end="url(#am3)" marker-start="url(#am3)"/>
+
+        <rect x="270" y="96" width="20" height="154" fill="#c8c6c4" stroke="#1c1917" stroke-width="1.8"/>
+        <rect x="52" y="240" width="238" height="10" fill="#c8c6c4" stroke="none"/>
+        <line x1="270" y1="96" x2="290" y2="96" stroke="#6f6d6b" stroke-width="2"/>
+        <text x="296" y="70" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">d</text>
+        <line x1="270" y1="60" x2="290" y2="60" stroke="#726b64" stroke-width="1.2" marker-end="url(#am3)" marker-start="url(#am3)"/>
+
+        <line x1="40" y1="150" x2="330" y2="150" stroke="#00788A" stroke-width="1.5" stroke-dasharray="7 5"/>
+        <text x="40" y="144" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#00788A">ระดับอ้างอิง (&Delta;p = 0)</text>
+
+        <line x1="234" y1="150" x2="234" y2="168" stroke="#726b64" stroke-width="1.3" marker-end="url(#am3)" marker-start="url(#am3)"/>
+        <text x="216" y="188" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">z<tspan font-size="11" dy="4">1</tspan></text>
+
+        <line x1="318" y1="96" x2="318" y2="150" stroke="#726b64" stroke-width="1.3" marker-end="url(#am3)" marker-start="url(#am3)"/>
+        <text x="326" y="128" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">z<tspan font-size="11" dy="4">2</tspan></text>
+
+        <text x="30" y="282" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">z<tspan font-size="10" dy="3">1</tspan><tspan dy="-3"> &asymp; 0 เมื่อ D &gg; d</tspan></text>
+
+        <line x1="400" y1="20" x2="400" y2="290" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="440" y="26" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) ขาเอียง &mdash; สเกลที่ถูกยืด</text>
+
+        <path d="M450,90 L450,250 L580,250 L580,90" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <rect x="452" y="178" width="126" height="72" fill="#c8c6c4"/>
+        <line x1="452" y1="178" x2="578" y2="178" stroke="#6f6d6b" stroke-width="2"/>
+
+        <path d="M580,244 L806,128 L806,146 L580,262 z" fill="#c8c6c4" stroke="#1c1917" stroke-width="1.8"/>
+        <line x1="742" y1="166" x2="742" y2="184" stroke="#6f6d6b" stroke-width="2.5"/>
+
+        <line x1="592" y1="256" x2="734" y2="184" stroke="#A85E00" stroke-width="1.6" marker-end="url(#am3)" marker-start="url(#am3)"/>
+        <text x="648" y="240" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#A85E00">x</text>
+
+        <line x1="778" y1="176" x2="778" y2="248" stroke="#726b64" stroke-width="1.3" marker-end="url(#am3)" marker-start="url(#am3)"/>
+        <text x="786" y="218" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">z<tspan font-size="11" dy="4">2</tspan></text>
+        <line x1="592" y1="248" x2="800" y2="248" stroke="#c9c9c9" stroke-width="1.3" stroke-dasharray="6 4"/>
+
+        <path d="M624,248 A44,44 0 0,0 632,232" fill="none" stroke="#4b4540" stroke-width="1.4"/>
+        <text x="630" y="244" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">&theta;</text>
+
+        <text x="440" y="290" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">ความเอียง 15&deg; เปลี่ยนเฮด 1 มม. ให้เป็นสเกลเกือบ 4 มม.</text>
+      </svg>
+      <figcaption><b>รูปที่ 2.7</b> การปรับปรุงสองแบบ การขยายขาหนึ่งทำให้ไม่ต้องอ่านสองค่า ส่วนการเอียงอีกขา
+        หนึ่งคูณระยะการเคลื่อนที่ด้วย 1/sin<var>&theta;</var> ความไวยังเพิ่มได้อีกด้วยการใช้ของไหล
+        มาโนเมตริกที่เบากว่า</figcaption>
+    </figure>
+
+    <h3>การเลือกมาโนมิเตอร์</h3>
+    <p>เวลาต่อมาโนมิเตอร์เข้ากับภาชนะ ต้องแน่ใจว่าไม่มีครีบเสี้ยนรอบรูต่อ เพราะครีบจะรบกวนการไหลที่ผ่านมัน
+      และสร้างการเปลี่ยนแปลงความดันเฉพาะที่ซึ่งทำให้ค่าที่อ่านได้ผิดเพี้ยน นอกจากนั้น เครื่องมือนี้มี
+      จุดแข็งและจุดอ่อนที่ชัดเจน</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>ข้อดี</h3>
+        <p>เรียบง่ายมาก ไม่มีอะไรให้เสีย <b>ไม่ต้องสอบเทียบ</b> เพราะความดันคำนวณได้จากหลักการพื้นฐาน
+          กับไม้บรรทัด ราคาถูก และประกอบขึ้นเองหน้างานได้ง่าย</p>
+      </div>
+      <div class="card">
+        <h3>ข้อเสีย</h3>
+        <p>ตอบสนองช้า จึงใช้กับความดันที่แกว่งไม่ได้เลย หลอดตัวยูธรรมดาต้องอ่านสองค่าพร้อมกัน
+          การเปลี่ยนแปลงเล็ก ๆ มองเห็นยาก วัดความดันสูงมากไม่ได้เว้นแต่ต่อกันหลายตัวเป็นอนุกรม
+          และสำหรับงานที่ต้องการความแม่นยำ ต้องรู้อุณหภูมิและความสัมพันธ์ระหว่างอุณหภูมิกับ
+          <var>&rho;</var> ด้วย</p>
+      </div>
+    </div>
+
+    <!-- ============================================================ 2.6 -->
+    <h2 id="s6">2.6 แรงบนผิวราบที่จมอยู่ในของเหลว</h2>
+
+    <p>ตอนนี้เรามีทุกอย่างที่ต้องใช้ตอบคำถามที่เป็นเหตุผลของการมีอยู่ของบทนี้ นั่นคือ
+      <em>น้ำกระทำแรงเท่าไรกับประตูน้ำบานนั้น และแรงนั้นกระทำที่ตำแหน่งใด</em> สี่ข้อเท็จจริงที่เราถือติดตัวมา
+      คือการกระจายความดันสถิต ความดันเท่ากันที่ความลึกเท่ากัน กฎของปาสกาล และแรงตั้งฉากกับขอบเขต</p>
+
+    <p>ความดันที่กระทำบนพื้นที่เล็ก ๆ <var>&delta;A</var> ให้แรง
+      <var>F</var> = <var>p&thinsp;&delta;A</var> ในแนวตั้งฉากกับผิว สำหรับผิว <b>ราบ</b>
+      แรงย่อยทั้งหมดนี้ขนานกัน จึงรวมกันทางเลขคณิตเป็น <b>แรงลัพธ์</b> <var>R</var> เพียงแรงเดียว
+      ที่กระทำตั้งฉากกับระนาบ ผ่านจุดที่เรียกว่า <b>จุดศูนย์กลางความดัน</b></p>
+
+    <div class="callout">
+      <span class="label">กรณีง่ายก่อน</span>
+      <p>สำหรับผิว <b>แนวนอน</b> ที่จมอยู่ในของเหลว ทุกจุดอยู่ที่ความลึกเดียวกัน ความดันจึงสม่ำเสมอ
+        ทั่วทั้งผิว และแรงลัพธ์คือ</p>
+      <div class="eq plain"><span class="body"><var>R</var> = <var>pA</var> = <var>&rho;ghA</var></span></div>
+      <p>กระทำที่เซนทรอยด์ พื้นถัง ก้นสระน้ำในไร่นา ฝาปิดแนวนอนของบ่อพัก ทั้งหมดนี้จบในบรรทัดเดียว</p>
+    </div>
+
+    <h3>ผิวราบที่มุมใดก็ได้</h3>
+    <p>คราวนี้นำผิวราบที่จมอยู่ในของเหลวความหนาแน่น <var>&rho;</var> ทั้งแผ่น และเอียงทำมุม
+      <var>&theta;</var> กับแนวราบ วัด <var>z</var> ลงจากผิวอิสระ และวัด <var>s</var> ไปตามระนาบจากจุด O
+      ซึ่งเป็นจุดที่ระนาบนั้นถ้าต่อออกไปจะตัดผิวอิสระ ทั้งสองสัมพันธ์กันด้วย
+      <var>z</var> = <var>s</var> sin<var>&theta;</var></p>
+
+    <figure>
+      <svg viewBox="0 0 860 340" role="img" aria-label="ผิวราบที่จมอยู่ในของเหลวและเอียงทำมุมธีตากับแนวราบ แสดงผิวอิสระ จุด O ที่ระนาบตัดผิวอิสระ เซนทรอยด์ G ที่ความลึก z-bar และจุดศูนย์กลางความดัน C ที่ความลึก D">
+        <defs>
+          <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+          <marker id="an2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+        </defs>
+
+        <rect x="40" y="52" width="560" height="270" fill="#eaf7fa"/>
+        <line x1="40" y1="52" x2="600" y2="52" stroke="#00788A" stroke-width="2.4"/>
+        <text x="46" y="44" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#00788A">ผิวอิสระ</text>
+
+        <circle cx="130" cy="52" r="5" fill="#1c1917"/>
+        <text x="116" y="40" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">O</text>
+
+        <line x1="130" y1="52" x2="290" y2="140" stroke="#8a8378" stroke-width="1.6" stroke-dasharray="6 4"/>
+        <path d="M290,140 L470,239 L492,286 L312,187 z" fill="#FFF1D1" stroke="#1c1917" stroke-width="2.2"/>
+        <text x="300" y="150" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">P</text>
+        <text x="474" y="256" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">Q</text>
+
+        <circle cx="366" cy="203" r="5" fill="#00788A"/>
+        <text x="344" y="198" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#00788A">G</text>
+        <circle cx="400" cy="222" r="5" fill="#DF301C"/>
+        <text x="406" y="216" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#DF301C">C</text>
+
+        <line x1="400" y1="222" x2="466" y2="186" stroke="#DF301C" stroke-width="2.6" marker-end="url(#an2)"/>
+        <text x="472" y="180" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#DF301C">R</text>
+
+        <rect x="330" y="176" width="16" height="12" fill="#00B7CD" stroke="#00788A" stroke-width="1.2" transform="rotate(29 338 182)"/>
+        <text x="296" y="172" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#00788A">&delta;A</text>
+
+        <line x1="640" y1="52" x2="640" y2="203" stroke="#726b64" stroke-width="1.3" marker-end="url(#an)" marker-start="url(#an)"/>
+        <line x1="366" y1="203" x2="644" y2="203" stroke="#c9c9c9" stroke-width="1.2" stroke-dasharray="5 4"/>
+        <text x="650" y="132" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#4b4540">z&#772;</text>
+
+        <line x1="712" y1="52" x2="712" y2="222" stroke="#DF301C" stroke-width="1.3" marker-end="url(#an)" marker-start="url(#an)"/>
+        <line x1="400" y1="222" x2="716" y2="222" stroke="#f0c8c2" stroke-width="1.2" stroke-dasharray="5 4"/>
+        <text x="722" y="144" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">D</text>
+
+        <line x1="146" y1="76" x2="374" y2="200" stroke="#A85E00" stroke-width="1.4" marker-end="url(#an)"/>
+        <text x="228" y="118" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#A85E00">x&#772;</text>
+
+        <line x1="130" y1="52" x2="240" y2="52" stroke="#4b4540" stroke-width="1.4"/>
+        <path d="M186,52 A56,56 0 0,1 174,79" fill="none" stroke="#4b4540" stroke-width="1.4"/>
+        <text x="182" y="80" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&theta;</text>
+      </svg>
+      <figcaption><b>รูปที่ 2.8</b> เรขาคณิตของผิวราบที่จมอยู่ในของเหลว <var>z&#772;</var> คือความลึกถึง
+        เซนทรอยด์ G ส่วน <var>x&#772;</var> คือระยะถึง G ที่วัด <em>ไปตามระนาบ</em> จาก O
+        ทั้งสองสัมพันธ์กันด้วย <var>z&#772;</var> = <var>x&#772;</var>&thinsp;sin<var>&theta;</var>
+        แรงลัพธ์กระทำผ่าน C ซึ่งเป็นจุดศูนย์กลางความดัน ที่ความลึก <var>D</var> และอยู่
+        <em>ใต้</em> G เสมอ</figcaption>
+    </figure>
+
+    <p>เมื่อให้ความดันที่ผิวอิสระเป็นศูนย์ ความดันบนธาตุที่ความลึก <var>z</var> คือ
+      <var>p</var> = <var>&rho;gz</var> แรงบนธาตุนั้นจึงเป็น <var>&rho;gz&thinsp;&delta;A</var>
+      เมื่อรวมทั่วทั้งพื้นที่ โดย <var>&rho;</var> และ <var>g</var> คงที่</p>
+
+    <div class="eq plain">
+      <span class="body"><var>R</var> = <var>&rho;g</var> &Sigma; <var>z&thinsp;&delta;A</var></span>
+    </div>
+
+    <p>พจน์ &Sigma;<var>z&thinsp;&delta;A</var> คือ <b>โมเมนต์ที่หนึ่งของพื้นที่</b> ของระนาบนั้น
+      รอบเส้นที่ระนาบตัดผิวอิสระ และตามนิยามของเซนทรอยด์มันเท่ากับ <var>Az&#772;</var> ดังนั้น</p>
+
+    <div class="callout rule">
+      <span class="label">แรงลัพธ์บนผิวราบ</span>
+      <div class="eq stack">
+        <span class="tag">(2.15)</span>
+        <span class="body"><var>R</var> = <var>&rho;gAz&#772;</var> = <var>&gamma;Az&#772;</var> = <var>&rho;gAx&#772;</var> sin<var>&theta;</var></span>
+      </div>
+      <p>พูดเป็นคำ <b>แรงลัพธ์เท่ากับความดันที่เซนทรอยด์คูณด้วยพื้นที่</b> และกระทำตั้งฉากกับระนาบ
+        พึงสังเกตว่าคำตอบไม่สนใจว่าผิวนั้นรูปร่างอย่างไร สนใจเพียงพื้นที่และความลึกของเซนทรอยด์เท่านั้น</p>
+    </div>
+
+    <div class="callout warn">
+      <span class="label">ความผิดพลาดที่พบบ่อยที่สุดในบทนี้</span>
+      <p>แรงลัพธ์หาได้จากความลึกของ <b>เซนทรอยด์</b> แต่มัน <b>ไม่ได้กระทำที่นั่น</b>
+        มันกระทำที่จุดศูนย์กลางความดัน ซึ่งลึกกว่าเสมอ เพราะความดันบนครึ่งล่างของผิวมากกว่าครึ่งบน
+        การหา <var>R</var> ได้ถูกแล้วนำไปกระทำที่ G จะให้แรงถูกแต่โมเมนต์ผิด และโมเมนต์นี่แหละ
+        ที่ทำให้กำแพงล้มหรือประตูน้ำติดขัด</p>
+    </div>
+
+    <!-- ============================================================ 2.7 -->
+    <h2 id="s7">2.7 จุดศูนย์กลางความดัน</h2>
+
+    <p>ในการหาตำแหน่ง C เราใช้หลักที่ว่าโมเมนต์ของแรงลัพธ์รอบจุดใด ๆ เท่ากับผลรวมของโมเมนต์ของแรงย่อย
+      ทั้งหมดรอบจุดเดียวกันนั้น สะดวกที่จะหาโมเมนต์รอบ O ซึ่งเป็นจุดที่ระนาบต่อออกไปตัดผิวอิสระ
+      และทำงานด้วยระยะ <var>s</var> ที่วัดไปตามระนาบ</p>
+
+    <p>แรงบนธาตุคือ
+      <var>&rho;gz&thinsp;&delta;A</var> = <var>&rho;gs</var> sin<var>&theta;</var> <var>&delta;A</var>
+      และแขนโมเมนต์รอบ O คือ <var>s</var> ดังนั้นผลรวมของโมเมนต์คือ</p>
+
+    <div class="eq plain">
+      <span class="body"><var>&rho;g</var> sin<var>&theta;</var> &Sigma; <var>s</var><sup>2</sup><var>&delta;A</var></span>
+    </div>
+
+    <p>แรงลัพธ์ <var>R</var> = <var>&rho;gAx&#772;</var> sin<var>&theta;</var> กระทำที่ระยะ
+      <var>S</var><sub>c</sub> จาก O ไปตามระนาบ โมเมนต์ของมันจึงเป็น
+      <var>&rho;gAx&#772;</var> sin<var>&theta;</var> <var>S</var><sub>c</sub> เมื่อให้เท่ากันและตัด
+      <var>&rho;g</var> sin<var>&theta;</var> ออก</p>
+
+    <div class="eq">
+      <span class="body"><var>S</var><sub>c</sub> = <span class="frac"><span>&Sigma; <var>s</var><sup>2</sup><var>&delta;A</var></span><span class="den"><var>Ax&#772;</var></span></span> = <span class="frac"><span><var>I</var><sub>o</sub></span><span class="den"><var>Ax&#772;</var></span></span></span>
+      <span class="tag">(2.16)</span>
+    </div>
+
+    <p>เพราะผลรวม &Sigma;<var>s</var><sup>2</sup><var>&delta;A</var> ก็คือ
+      <b>โมเมนต์ที่สองของพื้นที่</b> <var>I</var><sub>o</sub> ของระนาบนั้นรอบแกนที่ผ่าน O พอดี
+      ความลึกของจุดศูนย์กลางความดันใต้ผิวอิสระจึงเป็น</p>
+
+    <div class="eq">
+      <span class="body"><var>D</var> = <var>S</var><sub>c</sub> sin<var>&theta;</var></span>
+      <span class="tag">(2.17)</span>
+    </div>
+
+    <p>พูดเป็นคำ และควรจำในรูปนี้</p>
+
+    <div class="eq plain">
+      <span class="body"><var>S</var><sub>c</sub> = <span class="frac"><span>โมเมนต์ที่สองของพื้นที่รอบแกนผ่าน O</span><span class="den">โมเมนต์ที่หนึ่งของพื้นที่รอบแกนผ่าน O</span></span></span>
+    </div>
+
+    <h3>การหา <var>I</var><sub>o</sub>: ทฤษฎีบทแกนขนาน</h3>
+    <p>ตารางให้โมเมนต์ที่สองของพื้นที่รอบแกนที่ผ่าน <em>เซนทรอยด์</em> ไม่ใช่รอบแกนที่ผ่าน O
+      <b>ทฤษฎีบทแกนขนาน</b> เป็นสะพานเชื่อมช่องว่างนั้น</p>
+
+    <div class="eq">
+      <span class="body"><var>I</var><sub>o</sub> = <var>I</var><sub>GG</sub> + <var>Ax&#772;</var><sup>2</sup></span>
+      <span class="tag">(2.18)</span>
+    </div>
+
+    <p>แทนลงใน (2.16) และ (2.17) จะได้สองสูตรที่นักศึกษาจะใช้จริง</p>
+
+    <div class="callout rule">
+      <span class="label">จุดศูนย์กลางความดัน</span>
+      <div class="eq stack">
+        <span class="tag">(2.19)</span>
+        <span class="body"><var>S</var><sub>c</sub> = <span class="frac"><span><var>I</var><sub>GG</sub></span><span class="den"><var>Ax&#772;</var></span></span> + <var>x&#772;</var></span>
+        <span class="body"><var>D</var> = sin<var>&theta;</var> &nbsp;( <span class="frac"><span><var>I</var><sub>GG</sub></span><span class="den"><var>Ax&#772;</var></span></span> + <var>x&#772;</var> )</span>
+      </div>
+      <p>พจน์แรกเป็นบวกเสมอ ดังนั้น <var>S</var><sub>c</sub> &gt; <var>x&#772;</var> เสมอ นั่นคือ
+        จุดศูนย์กลางความดันอยู่ใต้เซนทรอยด์เสมอ และจะเป็นเช่นนั้นตลอดไป เพราะ
+        <var>I</var><sub>GG</sub>/<var>Ax&#772;</var> จะหดลงเมื่อ <var>x&#772;</var> โตขึ้น
+        ซึ่งเป็นเหตุผลที่ประตูน้ำที่จมลึกมีจุดศูนย์กลางความดันเกือบตรงกับเซนทรอยด์พอดี ขณะที่ประตูน้ำ
+        ที่โผล่ถึงผิวน้ำจะมีจุดนั้นอยู่ที่หนึ่งในสามจากก้นขึ้นมา</p>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 200" role="img" aria-label="รูปสี่แบบ สี่เหลี่ยมผืนผ้า สามเหลี่ยม วงกลม และครึ่งวงกลม พร้อมแกนเซนทรอยด์ G-G กำกับบนแต่ละรูป">
+        <g stroke="#1c1917" stroke-width="2" fill="#FFF1D1">
+          <rect x="60" y="56" width="110" height="96"/>
+          <path d="M270,152 L410,152 L340,56 z"/>
+          <circle cx="560" cy="104" r="48"/>
+          <path d="M700,140 A52,52 0 0,1 804,140 z"/>
+        </g>
+        <g stroke="#DF301C" stroke-width="1.6" stroke-dasharray="8 5">
+          <line x1="40" y1="104" x2="190" y2="104"/>
+          <line x1="250" y1="120" x2="430" y2="120"/>
+          <line x1="496" y1="104" x2="624" y2="104"/>
+          <line x1="684" y1="118" x2="820" y2="118"/>
+        </g>
+        <g font-family="Segoe UI, Arial" font-size="12" font-weight="700" fill="#DF301C">
+          <text x="24" y="109">G</text><text x="194" y="109">G</text>
+          <text x="234" y="125">G</text><text x="434" y="125">G</text>
+          <text x="480" y="109">G</text><text x="628" y="109">G</text>
+          <text x="668" y="123">G</text><text x="824" y="123">G</text>
+        </g>
+        <g font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540" text-anchor="middle">
+          <text x="115" y="184">สี่เหลี่ยมผืนผ้า</text>
+          <text x="340" y="184">สามเหลี่ยม</text>
+          <text x="560" y="184">วงกลม</text>
+          <text x="752" y="184">ครึ่งวงกลม</text>
+        </g>
+        <g font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#4b4540">
+          <text x="110" y="42">b &times; d</text>
+          <text x="330" y="42">b &times; d</text>
+          <text x="556" y="42">R</text>
+          <text x="748" y="42">R</text>
+        </g>
+      </svg>
+      <figcaption><b>รูปที่ 2.9</b> รูปสี่แบบที่นักศึกษาจะต้องใช้โมเมนต์ที่สองของพื้นที่ ในแต่ละรูป
+        G&ndash;G คือแกนเซนทรอยด์ และเป็นแกนที่ค่า <var>I</var><sub>GG</sub> ในตารางอ้างอิงถึง</figcaption>
+    </figure>
+
+    <div class="table-wrap">
+      <table id="t2">
+        <caption><b>ตารางที่ 2.2</b> พื้นที่ ตำแหน่งเซนทรอยด์ และโมเมนต์ที่สองของพื้นที่รอบแกนเซนทรอยด์
+          สำหรับรูปทรงที่ครอบคลุมประตูน้ำและฝาปิดเกือบทุกแบบที่จะพบ ในการสอบมักให้ทฤษฎีบทแกนขนาน
+          และค่าเหล่านี้มาด้วย</caption>
+        <thead>
+          <tr><th>รูปทรง</th><th class="num">พื้นที่ <var>A</var></th><th>เซนทรอยด์</th><th class="num"><var>I</var><sub>GG</sub></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>สี่เหลี่ยมผืนผ้า ฐาน <var>b</var> สูง <var>d</var></td><td class="num"><var>bd</var></td><td><var>d</var>/2 จากขอบใดขอบหนึ่ง</td><td class="num"><var>bd</var><sup>3</sup>/12</td></tr>
+          <tr><td>สามเหลี่ยม ฐาน <var>b</var> สูง <var>d</var></td><td class="num"><var>bd</var>/2</td><td><var>d</var>/3 จากฐาน</td><td class="num"><var>bd</var><sup>3</sup>/36</td></tr>
+          <tr><td>วงกลม รัศมี <var>R</var></td><td class="num"><var>&pi;R</var><sup>2</sup></td><td>ที่จุดศูนย์กลาง</td><td class="num"><var>&pi;R</var><sup>4</sup>/4</td></tr>
+          <tr><td>ครึ่งวงกลม รัศมี <var>R</var></td><td class="num"><var>&pi;R</var><sup>2</sup>/2</td><td>4<var>R</var>/3<var>&pi;</var> จากเส้นผ่านศูนย์กลาง</td><td class="num">0.1102 <var>R</var><sup>4</sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>ตำแหน่งของ C ในแนวข้าง</h3>
+    <p>ถ้าผิวสมมาตรรอบเส้นแนวดิ่ง จุดศูนย์กลางความดันจะอยู่บนเส้นสมมาตรนั้นและไม่ต้องทำอะไรอีก
+      ซึ่งครอบคลุมประตูน้ำสี่เหลี่ยม ฝาปิดกลม และงานส่วนใหญ่ที่จะออกแบบ แต่ถ้าไม่สมมาตร
+      ตำแหน่งในแนวข้างหาได้จากการหาโมเมนต์รอบเส้น OG ด้วยวิธีเดียวกันทุกประการ ได้</p>
+
+    <div class="eq">
+      <span class="body"><var>d</var> = <span class="frac"><span>&Sigma; <var>&delta;A&thinsp;zx</var></span><span class="den"><var>Az&#772;</var></span></span></span>
+      <span class="tag">(2.20)</span>
+    </div>
+
+    <!-- ============================================================ 2.8 -->
+    <h2 id="s8">2.8 แผนภาพความดัน</h2>
+
+    <p>สำหรับ <b>กำแพงแนวดิ่งที่มีความกว้างคงที่</b> เช่น ตลิ่งคลอง ผนังถัง หรือหน้าเหนือน้ำของเขื่อนขนาดเล็ก
+      มีเส้นทางที่เร็วกว่าและให้ความรู้สึกต่อสิ่งที่เกิดขึ้นดีกว่ามาก คือพล็อตความดันเกจเทียบกับความลึก
+      เนื่องจาก <var>p</var> = <var>&rho;gz</var> กราฟจึงเป็นเส้นตรงที่วิ่งจากศูนย์ที่ผิวไปถึง
+      <var>&rho;gH</var> ที่ฐาน กลายเป็นรูปสามเหลี่ยม</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="ถังลึก H พร้อมการกระจายความดันรูปสามเหลี่ยมที่เขียนไว้ข้างผนังแนวดิ่ง และแรงลัพธ์ที่กระทำที่หนึ่งในสามของความลึกเหนือฐาน">
+        <defs>
+          <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <marker id="ao2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <rect x="90" y="56" width="230" height="200" fill="#9fe0ea" stroke="none"/>
+        <path d="M90,40 L90,256 L320,256" fill="none" stroke="#1c1917" stroke-width="3"/>
+        <line x1="90" y1="56" x2="320" y2="56" stroke="#00788A" stroke-width="2.2"/>
+        <text x="104" y="48" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#00788A">ผิวอิสระ</text>
+
+        <line x1="62" y1="56" x2="62" y2="256" stroke="#726b64" stroke-width="1.3" marker-end="url(#ao2)" marker-start="url(#ao2)"/>
+        <text x="38" y="162" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#4b4540">H</text>
+
+        <path d="M400,56 L400,256 L600,256 z" fill="#fdf1ef" stroke="#DF301C" stroke-width="2.4"/>
+        <line x1="400" y1="40" x2="400" y2="276" stroke="#4b4540" stroke-width="1.6"/>
+        <text x="420" y="104" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#DF301C">p = &rho;gz</text>
+        <line x1="400" y1="272" x2="600" y2="272" stroke="#726b64" stroke-width="1.3" marker-end="url(#ao2)" marker-start="url(#ao2)"/>
+        <text x="482" y="292" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&rho;gH</text>
+
+        <circle cx="466" cy="190" r="5" fill="#DF301C"/>
+        <line x1="466" y1="190" x2="580" y2="190" stroke="#DF301C" stroke-width="2.8" marker-end="url(#ao)"/>
+        <text x="590" y="184" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#DF301C">R</text>
+
+        <line x1="668" y1="190" x2="668" y2="256" stroke="#726b64" stroke-width="1.3" marker-end="url(#ao2)" marker-start="url(#ao2)"/>
+        <line x1="466" y1="256" x2="672" y2="256" stroke="#c9c9c9" stroke-width="1.2" stroke-dasharray="5 4"/>
+        <text x="678" y="230" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">H/3</text>
+
+        <line x1="726" y1="56" x2="726" y2="190" stroke="#DF301C" stroke-width="1.3" marker-end="url(#ao2)" marker-start="url(#ao2)"/>
+        <text x="736" y="128" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#DF301C">D = 2H/3</text>
+      </svg>
+      <figcaption><b>รูปที่ 2.10</b> แผนภาพความดันของกำแพงแนวดิ่ง <em>พื้นที่</em> ของมันคือแรงลัพธ์
+        ต่อหนึ่งหน่วยความกว้าง และ <em>เซนทรอยด์</em> ของมันคือตำแหน่งที่แรงนั้นกระทำ สำหรับสามเหลี่ยม
+        เซนทรอยด์อยู่ที่หนึ่งในสามจากฐานขึ้นมา</figcaption>
+    </figure>
+
+    <p>พื้นที่ของสามเหลี่ยมคือแรงลัพธ์ต่อหนึ่งหน่วยความกว้างของกำแพง ในหน่วย N/m</p>
+
+    <div class="eq">
+      <span class="body"><var>R</var> = <span class="frac"><span>1</span><span class="den">2</span></span> &times; <var>H</var> &times; <var>&rho;gH</var> = <span class="frac"><span>1</span><span class="den">2</span></span><var>&rho;gH</var><sup>2</sup></span>
+      <span class="tag">(2.21)</span>
+    </div>
+
+    <p>และกระทำในแนวราบผ่านเซนทรอยด์ของแผนภาพ ซึ่งสำหรับสามเหลี่ยมอยู่ที่ <var>H</var>/3 เหนือฐาน
+      นั่นคือที่ความลึก</p>
+
+    <div class="eq">
+      <span class="body"><var>D</var> = <span class="frac"><span>2</span><span class="den">3</span></span><var>H</var></span>
+      <span class="tag">(2.22)</span>
+    </div>
+
+    <h3>ตรวจเทียบกับวิธีโมเมนต์</h3>
+    <p>สองวิธีต้องให้ผลตรงกัน และควรได้เห็นว่ามันตรงกันจริง ใช้ (2.15) กับกำแพงกว้างหนึ่งหน่วย
+      <var>A</var> = <var>H</var> &times; 1 และ <var>z&#772;</var> = <var>H</var>/2</p>
+
+    <div class="eq plain">
+      <span class="body"><var>R</var> = <var>&rho;g</var>(<var>H</var> &times; 1)(<var>H</var>/2) = &frac12;<var>&rho;gH</var><sup>2</sup> &nbsp;&#10003;</span>
+    </div>
+
+    <p>และใช้ (2.19) กับ <var>&theta;</var> = 90&deg; <var>I</var><sub>GG</sub> =
+      1 &times; <var>H</var><sup>3</sup>/12 และ <var>x&#772;</var> = <var>H</var>/2</p>
+
+    <div class="eq plain">
+      <span class="body"><var>D</var> = <span class="frac"><span><var>H</var><sup>3</sup>/12</span><span class="den"><var>H</var> &times; <var>H</var>/2</span></span> + <span class="frac"><span><var>H</var></span><span class="den">2</span></span> = <span class="frac"><span><var>H</var></span><span class="den">6</span></span> + <span class="frac"><span><var>H</var></span><span class="den">2</span></span> = <span class="frac"><span>2<var>H</var></span><span class="den">3</span></span> &nbsp;&#10003;</span>
+    </div>
+
+    <div class="callout">
+      <span class="label">เมื่อแผนภาพคุ้มค่าที่จะใช้</span>
+      <p>วิธีแผนภาพความดันเปล่งประกายเมื่อถังบรรจุ <b>ของเหลวสองชนิด</b> ซึ่งกรณีมาตรฐานคือน้ำมันลอย
+        อยู่บนน้ำ และอีกกรณีคือชั้นสลัดจ์ที่ตกตะกอนอยู่ใต้ของเหลวใส แผนภาพจะกลายเป็นสามเหลี่ยม
+        วางบนสี่เหลี่ยมคางหมู กล่าวคือของเหลวชั้นบนสร้างสามเหลี่ยมลงมาถึงรอยต่อ ส่วนใต้รอยต่อลงไป
+        ของเหลวชั้นล่างเพิ่มสามเหลี่ยมของตัวเองทับบนความดันคงที่ที่รับสืบทอดมาจากข้างบน
+        ให้หาพื้นที่และเซนทรอยด์ของแต่ละส่วนแยกกัน แล้วรวมแรงทั้งสองด้วยการหาโมเมนต์
+        การพยายามทำงานเดียวกันนี้ด้วยสมการ&nbsp;(2.19) ทำได้แต่ผิดพลาดง่ายกว่ามาก</p>
+      <p>สำหรับระนาบที่ไม่ใช่สี่เหลี่ยมหรือไม่ได้ตั้งดิ่ง ให้กลับไปใช้วิธีโมเมนต์ เพราะการเขียนแผนภาพ
+        จะยุ่งยากกว่าที่ประหยัดได้</p>
+    </div>
+
+    <!-- ============================================================ 2.9 -->
+    <h2 id="s9">2.9 แรงบนผิวโค้งที่จมอยู่ในของเหลว</h2>
+
+    <p>บนผิวโค้ง แรงย่อยยังคงตั้งฉากกับผิว แต่เส้นตั้งฉากของผิวเปลี่ยนทิศไปเรื่อย ๆ จากจุดหนึ่งไปอีกจุดหนึ่ง
+      แรงเหล่านั้นจึงไม่ขนานกันและบวกกันเฉย ๆ ไม่ได้ เส้นทางที่ใช้ได้จริงคือคำนวณ
+      <b>องค์ประกอบแนวราบและแนวดิ่งแยกกัน</b> แล้วรวมกันแบบเวกเตอร์</p>
+
+    <h3>กรณีที่ 1: ของไหลวางอยู่เหนือผิวโค้ง</h3>
+    <p>แยกลิ่มของไหล ABC ที่ล้อมด้วยผิวโค้ง AB ระนาบแนวดิ่ง AC และระนาบแนวนอน CB ออกมา
+      ของไหลในนั้นอยู่นิ่ง จึงอยู่ในสมดุล</p>
+
+    <p><b>ในแนวราบ</b> ไม่มีแรงใดกระทำบน CB ได้ เพราะ CB เป็นแนวนอนและของไหลสถิตไม่มีแรงเฉือน
+      ดังนั้นแรงในแนวราบมีเพียงแรงบน AC กับแรงบนหน้าโค้ง ซึ่งต้องสมดุลกัน</p>
+
+    <div class="callout rule">
+      <span class="label">องค์ประกอบแนวราบ</span>
+      <p><var>R</var><sub>H</sub> = แรงลัพธ์บน <b>ภาพฉายของผิวโค้งลงบนระนาบแนวดิ่ง</b>
+        คำนวณด้วยวิธีเดียวกับ &sect;2.6&ndash;2.8 ทุกประการ และกระทำในแนวราบผ่านจุดศูนย์กลางความดัน
+        ของภาพฉายนั้น</p>
+    </div>
+
+    <p><b>ในแนวดิ่ง</b> ไม่มีแรงเฉือนบนขอบแนวดิ่ง แรงในแนวดิ่งที่มีให้ใช้จึงมีเพียงน้ำหนักของของไหลในลิ่ม</p>
+
+    <div class="callout rule">
+      <span class="label">องค์ประกอบแนวดิ่ง</span>
+      <p><var>R</var><sub>V</sub> = <b>น้ำหนักของของไหลที่อยู่เหนือผิวโค้งโดยตรง</b> กระทำลงในแนวดิ่ง
+        ผ่านจุดศูนย์ถ่วงของปริมาตรนั้น</p>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="ซ้าย: น้ำวางอยู่บนฐานโค้ง โดยองค์ประกอบแนวราบกระทำบนภาพฉายแนวดิ่ง และองค์ประกอบแนวดิ่งเท่ากับน้ำหนักน้ำที่อยู่ข้างบน ขวา: ประตูน้ำโค้งที่มีของไหลอยู่ใต้ผิว องค์ประกอบแนวดิ่งคือน้ำหนักของปริมาตรสมมติที่อยู่ข้างบนและกระทำขึ้น">
+        <defs>
+          <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <pattern id="ghost" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#c9dfe4" stroke-width="2"/>
+          </pattern>
+        </defs>
+
+        <text x="30" y="26" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) ของไหลอยู่เหนือผิว</text>
+
+        <path d="M60,56 L60,240 Q170,240 230,150 L230,56 z" fill="#9fe0ea" stroke="none"/>
+        <line x1="60" y1="56" x2="300" y2="56" stroke="#00788A" stroke-width="2.2"/>
+        <path d="M60,240 Q170,240 230,150" fill="none" stroke="#1c1917" stroke-width="3"/>
+        <line x1="60" y1="40" x2="60" y2="252" stroke="#1c1917" stroke-width="3"/>
+
+        <text x="66" y="48" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#00788A">ผิวอิสระ</text>
+        <text x="204" y="252" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+        <text x="236" y="146" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+
+        <line x1="230" y1="150" x2="230" y2="240" stroke="#A85E00" stroke-width="2.4" stroke-dasharray="7 4"/>
+        <text x="240" y="200" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#A85E00">ภาพฉายแนวดิ่ง</text>
+
+        <line x1="150" y1="196" x2="228" y2="196" stroke="#DF301C" stroke-width="2.6" marker-end="url(#ax)"/>
+        <text x="152" y="188" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">R<tspan font-size="12" dy="5">H</tspan></text>
+        <line x1="150" y1="196" x2="150" y2="266" stroke="#DF301C" stroke-width="2.6" marker-end="url(#ax)"/>
+        <text x="106" y="252" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">R<tspan font-size="12" dy="5">V</tspan></text>
+        <line x1="150" y1="196" x2="238" y2="272" stroke="#DF301C" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#ax)"/>
+        <text x="244" y="284" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#DF301C">R</text>
+
+        <text x="30" y="302" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">R<tspan font-size="10" dy="3">V</tspan><tspan dy="-3"> = น้ำหนักน้ำจริงเหนือ AB กระทำลง</tspan></text>
+
+        <line x1="420" y1="20" x2="420" y2="310" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="450" y="26" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) ของไหลอยู่ใต้ผิว</text>
+
+        <path d="M600,56 L600,150 Q660,240 770,240 L770,56 z" fill="url(#ghost)" stroke="#9fd8e2" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <path d="M460,56 L460,240 L660,240 Q612,196 600,150 L600,56 z" fill="#9fe0ea" stroke="none"/>
+        <line x1="460" y1="56" x2="800" y2="56" stroke="#00788A" stroke-width="2.2"/>
+        <path d="M600,150 Q660,240 770,240" fill="none" stroke="#1c1917" stroke-width="3"/>
+        <line x1="460" y1="40" x2="460" y2="252" stroke="#1c1917" stroke-width="3"/>
+
+        <text x="596" y="146" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+        <text x="772" y="254" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+        <text x="672" y="104" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#5fa6b5">ปริมาตรสมมติ</text>
+
+        <line x1="600" y1="150" x2="600" y2="240" stroke="#A85E00" stroke-width="2.4" stroke-dasharray="7 4"/>
+
+        <line x1="546" y1="196" x2="598" y2="196" stroke="#DF301C" stroke-width="2.6" marker-end="url(#ax)"/>
+        <text x="512" y="190" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">R<tspan font-size="12" dy="5">H</tspan></text>
+        <line x1="678" y1="252" x2="678" y2="184" stroke="#DF301C" stroke-width="2.6" marker-end="url(#ax)"/>
+        <text x="686" y="220" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">R<tspan font-size="12" dy="5">V</tspan></text>
+
+        <text x="450" y="302" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">R<tspan font-size="10" dy="3">V</tspan><tspan dy="-3"> = น้ำหนักน้ำสมมติเหนือ AB กระทำ &ldquo;ขึ้น&rdquo;</tspan></text>
+      </svg>
+      <figcaption><b>รูปที่ 2.11</b> สองกรณี องค์ประกอบแนวราบหาด้วยวิธีเดียวกันทั้งสองกรณี คือแรงบนภาพฉาย
+        แนวดิ่ง สิ่งที่เปลี่ยนมีเพียงองค์ประกอบแนวดิ่ง คือน้ำหนักจริงกระทำลงเมื่อของไหลอยู่ข้างบน
+        และน้ำหนักสมมติกระทำขึ้นเมื่อของไหลอยู่ข้างใต้</figcaption>
+    </figure>
+
+    <h3>กรณีที่ 2: ของไหลอยู่ใต้ผิวโค้ง</h3>
+    <p>นี่คือกรณีของประตูระบายน้ำโค้ง ประตูน้ำแบบเรเดียล (Tainter) หรือด้านล่างของท่อที่จมน้ำ
+      และเป็นกรณีที่ทำให้คนพลาดกันมาก องค์ประกอบแนวราบหาด้วยวิธีเดียวกับก่อนหน้านี้ทุกประการ
+      ส่วนองค์ประกอบแนวดิ่งนั้น ให้จินตนาการว่าเอาผิวโค้งออกไปแล้วเติมของไหลลงในที่ว่างที่มันเคยอยู่
+      ทั้งระบบจะอยู่ในสมดุล ดังนั้นแรงที่ผิวนั้นต้องจ่ายเพื่อรักษาสมดุลจึงเท่ากับน้ำหนักของของไหลที่
+      <em>น่าจะ</em> อยู่ตรงนั้น</p>
+
+    <div class="callout warn">
+      <span class="label">ของไหลอยู่ใต้ผิว: องค์ประกอบแนวดิ่งกระทำขึ้น</span>
+      <p><var>R</var><sub>V</sub> = น้ำหนักของปริมาตร <b>สมมติ</b> ของของไหลที่อยู่เหนือผิวโค้งในแนวดิ่ง
+        ขึ้นไปจนถึงระดับผิวอิสระ และกระทำ <b>ขึ้น</b> การลืมคำว่า &ldquo;สมมติ&rdquo;
+        หรือใส่ทิศผิด คือความผิดพลาดคลาสสิกของเรื่องนี้ ถ้าไม่แน่ใจ ให้ถามตัวเองว่าน้ำกำลังพยายามดันประตู
+        ไปทางไหน มันกำลังพยายามยกประตูเรเดียลขึ้น ไม่ใช่กดลง</p>
+    </div>
+
+    <h3>การรวมองค์ประกอบ</h3>
+    <div class="eq stack">
+      <span class="tag">(2.23)</span>
+      <span class="body"><var>R</var> = <span class="sqrt">&radic;<span class="rad"><var>R</var><sub>H</sub><sup>2</sup> + <var>R</var><sub>V</sub><sup>2</sup></span></span></span>
+      <span class="body"><var>&theta;</var> = tan<sup>&minus;1</sup> ( <var>R</var><sub>V</sub> / <var>R</var><sub>H</sub> )</span>
+    </div>
+
+    <p>แรงลัพธ์กระทำผ่านจุด O ซึ่งเป็นจุดที่แนวแรงในแนวราบของ <var>R</var><sub>H</sub> ตัดกับแนวแรง
+      ในแนวดิ่งของ <var>R</var><sub>V</sub> โดยทำมุม <var>&theta;</var> กับแนวราบ</p>
+
+    <div class="callout">
+      <span class="label">ทางลัดสำหรับผิวที่เป็นส่วนโค้งวงกลม &mdash; เพิ่มเติมจากเอกสารอ้างอิง</span>
+      <p>ถ้าผิวโค้งเป็นส่วนหนึ่งของ <b>วงกลม</b> แรงดันย่อยทุกแรงตั้งฉากกับผิวจึงพุ่งไปตามรัศมี
+        นั่นคือพุ่งตรงเข้าหาจุดศูนย์กลางความโค้ง และชุดของแรงที่ผ่านจุดเดียวกันทั้งหมด
+        ย่อมมีแรงลัพธ์ที่ผ่านจุดนั้นด้วย</p>
+      <p>ดังนั้นสำหรับประตูน้ำโค้งวงกลมใด ๆ <b>แรงลัพธ์ผ่านจุดศูนย์กลางความโค้งเสมอ</b>
+        เราจึงได้แนวแรงมาฟรี ๆ โดยไม่ต้องคำนวณว่า <var>R</var><sub>H</sub> และ
+        <var>R</var><sub>V</sub> กระทำที่ไหน นี่คือเหตุผลที่ประตูน้ำแบบเรเดียลถูกสร้างเป็นส่วนโค้ง
+        ที่มีบานพับอยู่ที่จุดศูนย์กลาง เพราะแรงดันน้ำทั้งหมดผ่านสลักบานพับพอดี จึงไม่สร้างโมเมนต์
+        รอบบานพับเลย และยกประตูได้ด้วยแรงเท่าน้ำหนักบานเอง เป็นงานวิศวกรรมที่งดงามมาก
+        และมันหล่นออกมาจากประโยคว่า &ldquo;ความดันกระทำตั้งฉากกับผิว&rdquo; ตรง ๆ</p>
+    </div>
+
+    <!-- ============================================================ 2.10 -->
+    <h2 id="s10">2.10 นอกขอบเขตหลัก &mdash; แรงลอยตัวและเกจสมัยใหม่</h2>
+
+    <div class="callout warn">
+      <span class="label">เนื้อหาเสริม</span>
+      <p>สี่หัวข้อในส่วนนี้ <b>ไม่ได้อยู่ในเอกสารอ้างอิง</b> ของบทนี้ และอยู่ <b>นอกขอบเขตที่ใช้ออกข้อสอบ</b>
+        ของรายวิชา ASE&nbsp;221 ที่ใส่ไว้เพราะแต่ละเรื่องตามมาจากสิ่งที่เพิ่งพิสูจน์ไปโดยตรง
+        และเพราะนักศึกษาจะพบทั้งสี่เรื่องในการทำงานจริง ทั้งแรงลอยตัวทุกครั้งที่มีอะไรลอยน้ำหรือจุ่ม
+        ไฮโดรมิเตอร์ ปฏิทรรศน์ทุกครั้งที่มีคนเถียงกันเรื่องรูปทรงถัง และเกจสมัยใหม่บนสถานีสูบน้ำ
+        ทุกแห่งที่สร้างในสี่สิบปีที่ผ่านมา</p>
+    </div>
+
+    <h3>แรงลอยตัวและหลักของอาร์คิมิดีส</h3>
+    <p>หัวข้อ&nbsp;2.9 แทบจะยกผลลัพธ์นี้ให้ฟรี ๆ นำวัตถุที่จมมิดอยู่ในของเหลวมาพิจารณา แรงในแนวดิ่ง
+      บนผิว <em>ล่าง</em> ของมันคือน้ำหนักของลำของไหลสมมติที่อยู่เหนือผิวนั้น กระทำ <b>ขึ้น</b>
+      ส่วนแรงในแนวดิ่งบนผิว <em>บน</em> คือน้ำหนักของของไหลจริงที่อยู่เหนือมัน กระทำ <b>ลง</b>
+      ผลต่างระหว่างลำทั้งสองคือปริมาตรของวัตถุพอดี แรงลัพธ์ในแนวดิ่งจึงเป็น</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var><sub>B</sub> = <var>&rho;gV</var></span>
+      <span class="tag">(2.24)</span>
+    </div>
+
+    <p>โดย <var>V</var> คือปริมาตรของของไหลที่ถูกแทนที่ ส่วนแรงในแนวราบหักล้างกันหมด เพราะภาพฉายแนวดิ่ง
+      ของครึ่งซ้ายของวัตถุเหมือนกับของครึ่งขวาทุกประการ นี่คือ <b>หลักของอาร์คิมิดีส</b> ที่ว่า
+      <em>แรงพยุงที่กระทำต่อวัตถุเท่ากับน้ำหนักของของไหลที่วัตถุนั้นแทนที่</em> และกระทำขึ้นผ่าน
+      เซนทรอยด์ของปริมาตรที่ถูกแทนที่ ซึ่งเรียกว่า <b>จุดศูนย์กลางการลอยตัว</b></p>
+
+    <figure>
+      <svg viewBox="0 0 860 280" role="img" aria-label="ซ้าย: ก้อนวัตถุที่จมมิด แสดงแรงดันลงบนหน้าบน แรงดันขึ้นที่มากกว่าบนหน้าล่าง และแรงพยุงสุทธิ ขวา: ทุ่นลอยที่น้ำหนักสมดุลกับแรงพยุงของน้ำที่ถูกแทนที่ พร้อมระยะกินน้ำลึก">
+        <defs>
+          <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <marker id="ab2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <text x="30" y="26" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ก) จมมิด &mdash; แรงพยุงมาจากไหน</text>
+
+        <rect x="40" y="52" width="330" height="210" fill="#9fe0ea"/>
+        <line x1="40" y1="52" x2="370" y2="52" stroke="#00788A" stroke-width="2.2"/>
+        <rect x="152" y="130" width="110" height="70" fill="#FFF1D1" stroke="#1c1917" stroke-width="2"/>
+
+        <line x1="207" y1="92" x2="207" y2="126" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ab)"/>
+        <text x="214" y="104" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#DF301C">&rho;gz&#8321;A (ลง)</text>
+        <line x1="207" y1="248" x2="207" y2="204" stroke="#DF301C" stroke-width="3.4" marker-end="url(#ab)"/>
+        <text x="214" y="246" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#DF301C">&rho;gz&#8322;A (ขึ้น มากกว่า)</text>
+
+        <line x1="112" y1="52" x2="112" y2="130" stroke="#726b64" stroke-width="1.2" marker-end="url(#ab2)" marker-start="url(#ab2)"/>
+        <text x="92" y="98" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">z&#8321;</text>
+        <line x1="80" y1="52" x2="80" y2="200" stroke="#726b64" stroke-width="1.2" marker-end="url(#ab2)" marker-start="url(#ab2)"/>
+        <text x="58" y="132" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">z&#8322;</text>
+
+        <text x="30" y="278" font-family="Leelawadee UI, Tahoma, Arial" font-size="13" fill="#4b4540">สุทธิขึ้น = &rho;g(z&#8322;&minus;z&#8321;)A = &rho;gV คือน้ำหนักน้ำที่ถูกแทนที่</text>
+
+        <line x1="420" y1="20" x2="420" y2="270" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="450" y="26" font-family="Leelawadee UI, Tahoma, Arial" font-size="14" font-weight="700" fill="#1c1917">(ข) ลอยน้ำ &mdash; แรงพยุงเท่ากับน้ำหนัก</text>
+
+        <rect x="450" y="140" width="380" height="122" fill="#9fe0ea"/>
+        <line x1="450" y1="140" x2="830" y2="140" stroke="#00788A" stroke-width="2.2"/>
+        <rect x="560" y="92" width="180" height="96" fill="#FFF1D1" stroke="#1c1917" stroke-width="2"/>
+        <rect x="562" y="140" width="176" height="46" fill="#57c2d3" stroke="none"/>
+        <line x1="560" y1="140" x2="740" y2="140" stroke="#00788A" stroke-width="1.6"/>
+
+        <line x1="650" y1="80" x2="650" y2="122" stroke="#4b4540" stroke-width="2.4" marker-end="url(#ab2)"/>
+        <text x="600" y="76" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">W = mg</text>
+        <line x1="650" y1="212" x2="650" y2="166" stroke="#DF301C" stroke-width="2.6" marker-end="url(#ab)"/>
+        <text x="600" y="232" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#DF301C">F<tspan font-size="11" dy="4">B</tspan><tspan dy="-4"> = &rho;gV</tspan></text>
+
+        <line x1="778" y1="140" x2="778" y2="188" stroke="#726b64" stroke-width="1.2" marker-end="url(#ab2)" marker-start="url(#ab2)"/>
+        <text x="786" y="170" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#4b4540">กินน้ำลึก</text>
+        <line x1="778" y1="92" x2="778" y2="140" stroke="#726b64" stroke-width="1.2" marker-end="url(#ab2)" marker-start="url(#ab2)"/>
+        <text x="786" y="120" font-family="Leelawadee UI, Tahoma, Arial" font-size="12" fill="#4b4540">พ้นน้ำ</text>
+      </svg>
+      <figcaption><b>รูปที่ 2.12</b> แรงลอยตัวไม่ใช่หลักการใหม่ แต่คือ &sect;2.9 ที่ใช้กับวัตถุซึ่งมีของไหล
+        อยู่รอบทุกด้าน วัตถุที่ลอยน้ำจะจมลงจนกระทั่งปริมาตรที่มันเบียดออกไปมีน้ำหนักเท่ากับน้ำหนักของ
+        ตัวมันพอดี</figcaption>
+    </figure>
+
+    <p>สำหรับวัตถุที่ <b>ลอยน้ำ</b> สมดุลกำหนดให้แรงพยุงเท่ากับน้ำหนัก นั่นคือ
+      <var>&rho;gV</var><sub>แทนที่</sub> = <var>mg</var> และระยะที่มันจมลงไป ซึ่งเรียกว่า
+      <b>ระยะกินน้ำลึก</b> ก็ตามมาทันที มีผลสองข้อที่ควรนำติดตัวไป</p>
+
+    <ul>
+      <li><b>ไฮโดรมิเตอร์ทำงานได้เพราะเรื่องนี้</b> เครื่องมือในบทที่&nbsp;1 &sect;1.9 คือทุ่นถ่วงน้ำหนัก
+        ที่มีน้ำหนักคงที่ ในของเหลวที่หนาแน่นกว่ามันต้องแทนที่ปริมาตรน้อยลง จึงลอยสูงขึ้น
+        สเกลบนก้านของมันก็คือสเกลความหนาแน่นสัมพัทธ์ที่อ่านกลับด้านนั่นเอง การจุ่มไฮโดรมิเตอร์ลงในน้ำนม
+        น้ำยาง หรือกากน้ำตาล คือการวัด <var>&rho;</var> โดยตรง</li>
+      <li><b>ระยะกินน้ำลึกขึ้นกับน้ำ ไม่ใช่แค่น้ำหนักบรรทุก</b> ทุ่นลอยหรือแพเครื่องสูบน้ำจะกินน้ำลึกกว่า
+        ในน้ำจืดเมื่อเทียบกับน้ำทะเล เพราะน้ำจืดมีความหนาแน่นน้อยกว่าจึงต้องเบียดออกไปมากกว่า
+        ตัวอย่างที่&nbsp;2.6 ใส่ตัวเลขให้เห็น</li>
+    </ul>
+
+    <h3>ปฏิทรรศน์ความดันสถิต</h3>
+    <p>สมการ&nbsp;(2.8) บอกว่าความดันที่ความลึกหนึ่งขึ้นกับความลึกเท่านั้น ไม่ขึ้นกับรูปทรงของภาชนะ
+      และไม่ขึ้นกับว่าบรรจุของเหลวไว้มากเท่าใด นำภาชนะสามใบที่มีพื้นที่ฐานเท่ากัน
+      0.5&nbsp;m<sup>2</sup> และมีน้ำลึกเท่ากัน 1.2&nbsp;ม. ใบหนึ่งเป็นทรงกระบอกตรง ใบหนึ่งบานออก
+      ใบหนึ่งคอดเป็นคอขวด แรงบนฐานของทั้งสามใบเท่ากันหมด</p>
+
+    <div class="eq plain">
+      <span class="body"><var>F</var> = <var>&rho;ghA</var> = 1000 &times; 9.81 &times; 1.2 &times; 0.5 = 5886 N = 5.89 kN</span>
+    </div>
+
+    <p>ทั้งที่ใบที่บานออกอาจบรรจุน้ำหนักน้ำมากกว่าใบคอขวดถึงห้าเท่า นี่คือ
+      <b>ปฏิทรรศน์ความดันสถิต</b> ซึ่งไม่ได้เป็นปฏิทรรศน์เลยเมื่อนึกได้ว่าผนังเอียงก็รับองค์ประกอบแรง
+      ในแนวดิ่งด้วย คือกดลงในภาชนะที่คอดขึ้นด้านบน และดันขึ้นในภาชนะที่บานออก แรงแนวดิ่งบนผนังชดเชย
+      ส่วนต่างพอดี ซึ่งก็คือ &sect;2.9 กำลังทำหน้าที่ของมันอยู่</p>
+
+    <p>ประเด็นเชิงปฏิบัติสำหรับนักศึกษาคือ <b>พิกัดความดันของถัง ท่อ หรือวาล์ว ถูกกำหนดด้วยเฮดที่อยู่
+      เหนือมัน ไม่ใช่ด้วยปริมาตรที่อยู่ข้างหลังมัน</b> ท่อส่งขนาด 200&nbsp;มม. จากถังพักบนเนินสูง
+      80&nbsp;ม. ต้องมีพิกัด 8&nbsp;bar แม้ว่าถังนั้นจะจุแค่ไม่กี่ลูกบาศก์เมตรก็ตาม</p>
+
+    <h3>บารอมิเตอร์</h3>
+    <p>คว่ำหลอดที่เต็มไปด้วยปรอทลงในอ่างปรอท ลำปรอทจะตกลงจนกระทั่งน้ำหนักของมันสมดุลกับบรรยากาศ
+      ที่กดบนอ่าง เหลือสภาพเกือบเป็นสุญญากาศอยู่ข้างบน ความสูงของลำจึงเป็นค่าที่อ่าน
+      ความดันบรรยากาศ <b>สัมบูรณ์</b> ได้โดยตรง</p>
+
+    <div class="eq plain">
+      <span class="body"><var>p</var><sub>atm</sub> = <var>&rho;</var><sub>Hg</sub><var>gh</var> = 13 600 &times; 9.81 &times; 0.760 = 101.4 kPa</span>
+    </div>
+
+    <p>เหตุผลที่ใช้ปรอทแทนน้ำนั้นชัดเจน คือบารอมิเตอร์น้ำจะต้องสูงกว่า 10&nbsp;ม.
+      ความดันบรรยากาศลดลงราว 1.2&nbsp;kPa ต่อทุก 100&nbsp;ม. ของระดับความสูง ซึ่งมีผลต่อการดูดของ
+      เครื่องสูบน้ำในโครงการบนพื้นที่ลาดเขา ดังที่โจทย์ข้อ&nbsp;11 ของบทที่&nbsp;1 แสดงไว้</p>
+
+    <h3>สิ่งที่ใช้จริงหน้างาน</h3>
+    <p>มาโนมิเตอร์ยังคงอยู่ในห้องปฏิบัติการและในงานสอบเทียบ แต่แทบไม่มีการติดตั้งในสนามที่ใช้มันแล้ว
+      มีเครื่องมือสองชนิดที่เข้ามาแทนที่</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>เกจบูร์ดอง</h3>
+        <p>หลอดแบนที่ขดเป็นส่วนโค้งจะคลายตัวออกเล็กน้อยเมื่อความดันภายในเพิ่มขึ้น แล้วชุดกลไกจะขยาย
+          การเคลื่อนที่นั้นไปที่หน้าปัด ทนทาน ราคาถูก อ่านค่าได้ทันที และไม่ต้องใช้ของเหลว
+          แต่มันเป็นเครื่องมือเชิงกล จึง <b>ต้อง</b> สอบเทียบและมีการเคลื่อนค่า
+          ควรตรวจก่อนเสมอว่าหน้าปัดเป็นหน่วย bar, kgf/cm<sup>2</sup> หรือ psi ก่อนจะเชื่อค่าที่อ่านได้
+          และพึงจำว่ามันอ่านเป็น <em>ความดันเกจ</em></p>
+      </div>
+      <div class="card">
+        <h3>ทรานสดิวเซอร์ความดัน</h3>
+        <p>ไดอะแฟรมโก่งตัวภายใต้ความดัน แล้วสเตรนเกจหรือชิ้นส่วนพีโซรีซิสทีฟจะเปลี่ยนการโก่งนั้นเป็น
+          แรงดันไฟฟ้าหรือกระแส 4&ndash;20&nbsp;mA เร็วพอที่จะตามสภาวะชั่วครู่ได้ บันทึกข้อมูลได้
+          และให้ความแม่นยำเทียบเท่ามาโนมิเตอร์โดยไม่เปราะบาง นี่คือสิ่งที่วัดความดันในสถานีสูบน้ำ
+          สมัยใหม่ และเป็นสิ่งที่งานปฏิบัติการในชั้นปีที่&nbsp;2 จะใช้</p>
+      </div>
+    </div>
+
+    <p>สิ่งที่ไม่เปลี่ยนเลยคือตัวฟิสิกส์ เครื่องมือทั้งสองชนิดถูกสอบเทียบไม่ทางตรงก็ทางอ้อมกับลำของเหลว
+      ที่รู้ความหนาแน่น กล่าวคือสอบเทียบกับสมการ&nbsp;(2.8) นั่นเอง</p>
+
+    <!-- ============================================================ 2.11 -->
+    <h2 id="s11">2.11 ตัวอย่างการคำนวณ</h2>
+
+    <div class="example">
+      <h3>ตัวอย่างที่ 2.1 &mdash; ความดัน เฮด และหน่วยที่จะถูกยื่นให้</h3>
+      <p>เกจบนท่อส่งน้ำชลประทานอ่านได้ 500&nbsp;kPa จงแสดงค่านี้ (ก) เป็นเฮดของน้ำ (ข) เป็นเฮดของปรอท
+        (ค) ในหน่วย bar, kgf/cm<sup>2</sup> และ psi และ (ง) เป็นความดันสัมบูรณ์ กำหนด
+        <var>&rho;</var><sub>น้ำ</sub> = 1000&nbsp;kg/m<sup>3</sup>,
+        <var>&rho;</var><sub>Hg</sub> = 13&thinsp;600&nbsp;kg/m<sup>3</sup></p>
+
+      <div class="step">
+        <h4>ขั้นที่ 1 &mdash; เฮดของน้ำ</h4>
+        <div class="eq plain"><span class="body"><var>h</var> = <span class="frac"><span><var>p</var></span><span class="den"><var>&rho;g</var></span></span> = <span class="frac"><span>500 &times; 10<sup>3</sup></span><span class="den">1000 &times; 9.81</span></span> = 50.97 เมตรน้ำ</span></div>
+        <p class="result"><var>h</var> = 51.0 เมตรน้ำ</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 2 &mdash; เฮดของปรอท</h4>
+        <div class="eq plain"><span class="body"><var>h</var> = <span class="frac"><span>500 &times; 10<sup>3</sup></span><span class="den">13 600 &times; 9.81</span></span> = 3.75 เมตรปรอท</span></div>
+        <p>ความดันเท่ากัน แต่ลำสั้นกว่า 13.6 เท่า นี่คือเหตุผลที่มาโนมิเตอร์ซึ่งวัดความดันมาก ๆ
+          ใช้ปรอทแทนน้ำ</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 3 &mdash; หน่วยที่ใช้จริง</h4>
+        <p>จากตารางที่&nbsp;2.1</p>
+        <p>500 kPa &divide; 100 = <b>5.00 bar</b> &nbsp;&middot;&nbsp;
+           500 &divide; 98.07 = <b>5.10 kgf/cm<sup>2</sup></b> &nbsp;&middot;&nbsp;
+           500 &divide; 6.895 = <b>72.5 psi</b></p>
+        <p>สังเกตว่า 5.00&nbsp;bar กับ 5.10&nbsp;kgf/cm<sup>2</sup> ใกล้กันมาก ผลต่าง 2&nbsp;%
+          นี้แทบไม่มีผลกับการประมาณเบื้องต้น แต่มันเป็นผลต่างจริง และควรรู้ว่าเกจตรงหน้ากำลังแสดงหน่วยไหน</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 4 &mdash; ความดันสัมบูรณ์</h4>
+        <div class="eq plain"><span class="body"><var>p</var><sub>สัมบูรณ์</sub> = 500 + 101.3 = 601.3 kPa สัมบูรณ์</span></div>
+        <p class="result">601 kPa สัมบูรณ์ หรือ 6.01 bar (a)</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 5 &mdash; ความหมายต่อตัวท่อ</h4>
+        <p>เฮดสถิต 51&nbsp;ม. เป็นค่าที่ท่อ PN&nbsp;6 (6&nbsp;bar) พอจะรอดได้เฉียดฉิว โดยไม่เผื่อ
+          สภาวะเสิร์จเลย บทที่&nbsp;1 &sect;1.11 เตือนไว้แล้วว่าการปิดวาล์วอย่างรวดเร็วบนแนวท่อยาว
+          อาจเพิ่มความดันเป็นหลายเท่าของความดันสถิตในรูปคลื่นค้อนน้ำ ซึ่งเป็นเหตุผลที่ในทางปฏิบัติ
+          จะระบุ PN&nbsp;10 ตรงนี้</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>ตัวอย่างที่ 2.2 &mdash; การอ่านมาโนมิเตอร์รูปตัวยู</h3>
+      <p>มาโนมิเตอร์ปรอทรูปตัวยูต่อเข้ากับท่อที่ลำเลียงน้ำ ผิวปรอทในขาที่อยู่ใกล้ท่ออยู่ต่ำกว่า
+        แนวศูนย์กลางท่อ 0.15&nbsp;ม. และปรอทในขาเปิดตั้งสูงกว่าระดับนั้น 0.40&nbsp;ม.
+        จงหาความดันเกจของน้ำในท่อ และแสดงเป็นเฮดของน้ำ</p>
+
+      <div class="step">
+        <h4>ขั้นที่ 1 &mdash; ระบุระดับที่ความดันเท่ากัน</h4>
+        <p>ให้ B เป็นผิวปรอทในขาใกล้ และ C เป็นจุดที่ระดับเดียวกันในขาเปิด B กับ C อยู่บนระนาบแนวนอน
+          เดียวกันในเนื้อปรอทที่ต่อเนื่อง ดังนั้น <var>p</var><sub>B</sub> = <var>p</var><sub>C</sub>
+          ทุกอย่างตามมาจากข้อความเดียวนี้</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 2 &mdash; เดินลงขาซ้าย</h4>
+        <p>เริ่มที่ A ในน้ำแล้วเดินลง 0.15&nbsp;ม. ถึง B ผ่านน้ำ</p>
+        <div class="eq plain"><span class="body"><var>p</var><sub>B</sub> = <var>p</var><sub>A</sub> + <var>&rho;gh</var><sub>1</sub> = <var>p</var><sub>A</sub> + (1000)(9.81)(0.15) = <var>p</var><sub>A</sub> + 1471.5</span></div>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 3 &mdash; เดินลงขาขวา</h4>
+        <p>เริ่มที่ผิวเปิดซึ่งความดันเกจเป็นศูนย์ แล้วเดินลง 0.40&nbsp;ม. ถึง C ผ่านปรอท</p>
+        <div class="eq plain"><span class="body"><var>p</var><sub>C</sub> = 0 + <var>&rho;</var><sub>man</sub><var>gh</var><sub>2</sub> = (13 600)(9.81)(0.40) = 53 366 Pa</span></div>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 4 &mdash; ให้เท่ากันแล้วแก้สมการ</h4>
+        <div class="eq plain"><span class="body"><var>p</var><sub>A</sub> + 1471.5 = 53 366 &nbsp;&rArr;&nbsp; <var>p</var><sub>A</sub> = 51 895 Pa</span></div>
+        <p class="result"><var>p</var><sub>A</sub> = 51.9 kPa เกจ</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 5 &mdash; แสดงเป็นเฮดของน้ำ</h4>
+        <div class="eq plain"><span class="body"><var>h</var> = <span class="frac"><span>51 895</span><span class="den">1000 &times; 9.81</span></span> = 5.29 เมตรน้ำ</span></div>
+        <p class="result">5.29 เมตรน้ำ</p>
+        <p>ตรวจความสมเหตุสมผลของคำตอบ ปรอทถูกดันขึ้นไปในขาเปิด 0.40&nbsp;ม. ซึ่งเทียบเท่ากับน้ำ
+          13.6 &times; 0.40 = 5.44&nbsp;ม. เมื่อหักน้ำ 0.15&nbsp;ม. ในอีกขาออก เหลือ 5.29&nbsp;ม.
+          ตัวเลขตรงกัน และเส้นทางที่สองนี้เป็นการตรวจสอบในใจที่ใช้ได้ดี</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>ตัวอย่างที่ 2.3 &mdash; แรงและจุดศูนย์กลางความดันบนประตูระบายน้ำแนวดิ่ง</h3>
+      <p>ประตูระบายน้ำสี่เหลี่ยมกว้าง 1.5&nbsp;ม. สูง 2.0&nbsp;ม. ปิดช่องเปิดในผนังแนวดิ่งของคลองชลประทาน
+        ขอบบนของมันอยู่ต่ำกว่าผิวน้ำ 1.0&nbsp;ม. จงหาแรงลัพธ์บนประตู ความลึกของจุดศูนย์กลางความดัน
+        และโมเมนต์รอบบานพับที่ธรณีประตู กำหนด <var>&rho;</var> = 1000&nbsp;kg/m<sup>3</sup></p>
+
+      <div class="step">
+        <h4>ขั้นที่ 1 &mdash; เรขาคณิต</h4>
+        <p><var>A</var> = 1.5 &times; 2.0 = 3.0&nbsp;m<sup>2</sup> ประตูกินตั้งแต่ความลึก 1.0&nbsp;ม.
+          ถึง 3.0&nbsp;ม. เซนทรอยด์จึงอยู่ที่
+          <var>z&#772;</var> = 1.0 + 1.0 = 2.0&nbsp;ม. ประตูตั้งดิ่ง ดังนั้น
+          <var>&theta;</var> = 90&deg; และ <var>x&#772;</var> = <var>z&#772;</var> = 2.0&nbsp;ม.</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 2 &mdash; แรงลัพธ์</h4>
+        <div class="eq plain"><span class="body"><var>R</var> = <var>&rho;gAz&#772;</var> = (1000)(9.81)(3.0)(2.0) = 58 860 N</span></div>
+        <p class="result"><var>R</var> = 58.9 kN ในแนวราบ</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 3 &mdash; โมเมนต์ที่สองของพื้นที่</h4>
+        <p>สี่เหลี่ยมผืนผ้า ฐาน <var>b</var> = 1.5&nbsp;ม. สูง <var>d</var> = 2.0&nbsp;ม.</p>
+        <div class="eq plain"><span class="body"><var>I</var><sub>GG</sub> = <span class="frac"><span><var>bd</var><sup>3</sup></span><span class="den">12</span></span> = <span class="frac"><span>(1.5)(2.0)<sup>3</sup></span><span class="den">12</span></span> = 1.00 m<sup>4</sup></span></div>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 4 &mdash; ความลึกของจุดศูนย์กลางความดัน</h4>
+        <div class="eq plain"><span class="body"><var>D</var> = <span class="frac"><span><var>I</var><sub>GG</sub></span><span class="den"><var>Ax&#772;</var></span></span> + <var>x&#772;</var> = <span class="frac"><span>1.00</span><span class="den">(3.0)(2.0)</span></span> + 2.0 = 0.167 + 2.0 = 2.167 ม.</span></div>
+        <p class="result"><var>D</var> = 2.17 ม. ใต้ผิวอิสระ</p>
+        <p>นั่นคือต่ำกว่าขอบบนของประตู 1.17&nbsp;ม. หรือสูงจากธรณีประตู 0.83&nbsp;ม.
+          ซึ่งอยู่ใต้กึ่งกลางความสูง ตามที่ต้องเป็น</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 5 &mdash; โมเมนต์รอบบานพับที่ธรณีประตู</h4>
+        <div class="eq plain"><span class="body"><var>M</var> = <var>R</var> &times; 0.833 = (58 860)(0.833) = 49 030 N&middot;m</span></div>
+        <p class="result"><var>M</var> = 49.0 kN&middot;m</p>
+        <p>หากเผลอนำ <var>R</var> ไปกระทำที่เซนทรอยด์แทน แขนโมเมนต์จะเป็น 1.0&nbsp;ม. และโมเมนต์
+          จะเป็น 58.9&nbsp;kN&middot;m ซึ่งสูงเกินไป 20&nbsp;% แรงจะถูก แต่การออกแบบบานพับจะผิด</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>ตัวอย่างที่ 2.4 &mdash; ฝาปิดกลมที่วางเอียง</h3>
+      <p>ฝาปิดกลมเส้นผ่านศูนย์กลาง 0.8&nbsp;ม. ติดตั้งอยู่ในผนังที่เอียง 60&deg; กับแนวราบ
+        จุดศูนย์กลางของฝาอยู่ต่ำกว่าผิวอิสระ 2.5&nbsp;ม. จงหาแรงลัพธ์และความลึกของจุดศูนย์กลางความดัน</p>
+
+      <div class="step">
+        <h4>ขั้นที่ 1 &mdash; เรขาคณิต</h4>
+        <p><var>A</var> = <var>&pi;R</var><sup>2</sup> = <var>&pi;</var>(0.4)<sup>2</sup> =
+          0.5027&nbsp;m<sup>2</sup>, <var>z&#772;</var> = 2.5&nbsp;ม. และระยะไปตามระนาบจาก O คือ</p>
+        <div class="eq plain"><span class="body"><var>x&#772;</var> = <span class="frac"><span><var>z&#772;</var></span><span class="den">sin<var>&theta;</var></span></span> = <span class="frac"><span>2.5</span><span class="den">sin 60&deg;</span></span> = <span class="frac"><span>2.5</span><span class="den">0.8660</span></span> = 2.887 ม.</span></div>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 2 &mdash; แรงลัพธ์</h4>
+        <div class="eq plain"><span class="body"><var>R</var> = <var>&rho;gAz&#772;</var> = (1000)(9.81)(0.5027)(2.5) = 12 328 N</span></div>
+        <p class="result"><var>R</var> = 12.3 kN ตั้งฉากกับฝา</p>
+        <p>สังเกตว่ามุมเอียงไม่เข้ามาในการคำนวณแรงเลย มีเพียงความลึกของเซนทรอยด์เท่านั้นที่เข้ามา</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 3 &mdash; จุดศูนย์กลางความดัน</h4>
+        <p>สำหรับวงกลม <var>I</var><sub>GG</sub> = <var>&pi;R</var><sup>4</sup>/4 =
+          <var>&pi;</var>(0.4)<sup>4</sup>/4 = 0.02011&nbsp;m<sup>4</sup> จากนั้น</p>
+        <div class="eq plain"><span class="body"><var>S</var><sub>c</sub> = <span class="frac"><span>0.02011</span><span class="den">(0.5027)(2.887)</span></span> + 2.887 = 0.0139 + 2.887 = 2.901 ม.</span></div>
+        <div class="eq plain"><span class="body"><var>D</var> = <var>S</var><sub>c</sub> sin<var>&theta;</var> = (2.901)(0.8660) = 2.512 ม.</span></div>
+        <p class="result"><var>D</var> = 2.51 ม. ใต้ผิวอิสระ</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 4 &mdash; ข้อสังเกต</h4>
+        <p>จุดศูนย์กลางความดันอยู่ต่ำกว่าเซนทรอยด์เพียง <b>12&nbsp;มม.</b> นั่นคือรูปแบบทั่วไป
+          ยิ่งประตูจมลึกและมีขนาดเล็กเท่าใด ความดันบนตัวมันก็ยิ่งสม่ำเสมอ และ C ก็ยิ่งคืบเข้าใกล้ G
+          สำหรับประตูขนาดนี้ที่ความลึกนี้ จะถือว่าภาระสม่ำเสมอก็ผิดเพียงครึ่งเปอร์เซ็นต์
+          แต่ควรรู้ตัวว่ากำลังประมาณอยู่ และควรระบุไว้ด้วย</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>ตัวอย่างที่ 2.5 &mdash; ผิวโค้ง: มุมโค้งที่ฐานถัง</h3>
+      <p>ถังน้ำลึก 2.4&nbsp;ม. มีผนังแนวดิ่งเชื่อมกับพื้นด้วยมุมโค้งรูปเสี้ยววงกลมรัศมี 1.0&nbsp;ม.
+        จงหาองค์ประกอบแนวราบและแนวดิ่งของแรงลัพธ์ที่กระทำบนมุมโค้งนั้น ต่อหนึ่งเมตรความกว้าง
+        พร้อมขนาดและทิศทางของแรงลัพธ์</p>
+
+      <div class="step">
+        <h4>ขั้นที่ 1 &mdash; เรขาคณิต</h4>
+        <p>มุมโค้งเริ่มจาก B บนผนังที่ความลึก 2.4 &minus; 1.0 = 1.4&nbsp;ม. ไปถึง A บนพื้นที่ความลึก
+          2.4&nbsp;ม. ซึ่งอยู่ห่างจากผนังในแนวราบ 1.0&nbsp;ม. น้ำอยู่เหนือเส้นโค้ง จึงเป็นกรณีที่&nbsp;1
+          ของ &sect;2.9</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 2 &mdash; องค์ประกอบแนวราบ</h4>
+        <p>ภาพฉายแนวดิ่งของ AB คือสี่เหลี่ยมสูง 1.0&nbsp;ม. กว้าง 1&nbsp;ม. กินตั้งแต่ความลึก 1.4
+          ถึง 2.4&nbsp;ม. ดังนั้น <var>A</var> = 1.0&nbsp;m<sup>2</sup> และ
+          <var>z&#772;</var> = 1.9&nbsp;ม.</p>
+        <div class="eq plain"><span class="body"><var>R</var><sub>H</sub> = <var>&rho;gAz&#772;</var> = (1000)(9.81)(1.0)(1.9) = 18 639 N</span></div>
+        <p class="result"><var>R</var><sub>H</sub> = 18.6 kN ต่อเมตรความกว้าง</p>
+        <p>กระทำที่ความลึก <var>D</var> = (1&times;1<sup>3</sup>/12)/(1.0&times;1.9) + 1.9 =
+          1.944&nbsp;ม.</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 3 &mdash; องค์ประกอบแนวดิ่ง</h4>
+        <p>คือน้ำหนักของน้ำจริงที่วางอยู่เหนือเส้นโค้งโดยตรง ในช่วงกว้าง 1.0&nbsp;ม. ในแนวราบ
+          พื้นที่นั้นคือสี่เหลี่ยม 1.0 &times; 1.4&nbsp;ม. บวกกับเสี้ยววงกลม</p>
+        <div class="eq plain"><span class="body"><var>A</var><sub>เหนือ</sub> = (1.0)(1.4) + <span class="frac"><span><var>&pi;</var>(1.0)<sup>2</sup></span><span class="den">4</span></span> = 1.400 + 0.785 = 2.185 m<sup>2</sup></span></div>
+        <div class="eq plain"><span class="body"><var>R</var><sub>V</sub> = <var>&rho;g</var> &times; <var>A</var><sub>เหนือ</sub> &times; 1 = (1000)(9.81)(2.185) = 21 439 N</span></div>
+        <p class="result"><var>R</var><sub>V</sub> = 21.4 kN ต่อเมตรความกว้าง กระทำลง</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 4 &mdash; แรงลัพธ์</h4>
+        <div class="eq plain"><span class="body"><var>R</var> = <span class="sqrt">&radic;<span class="rad">18.64<sup>2</sup> + 21.44<sup>2</sup></span></span> = <span class="sqrt">&radic;<span class="rad">807.0</span></span> = 28.4 kN</span></div>
+        <div class="eq plain"><span class="body"><var>&theta;</var> = tan<sup>&minus;1</sup> <span class="frac"><span>21.44</span><span class="den">18.64</span></span> = 49.0&deg; ใต้แนวราบ</span></div>
+        <p class="result"><var>R</var> = 28.4 kN/ม. ทำมุม 49.0&deg; ใต้แนวราบ</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 5 &mdash; การตรวจสอบที่ได้มาฟรี</h4>
+        <p>มุมโค้งนี้เป็นส่วนโค้งวงกลม ตามทางลัดใน &sect;2.9 แรงลัพธ์จึงต้องผ่านจุดศูนย์กลางความโค้ง
+          ซึ่งคือจุดที่อยู่ห่างจากผนัง 1.0&nbsp;ม. ที่ความลึก 1.4&nbsp;ม. การลากเส้นทำมุม 49.0&deg;
+          ผ่านจุดนั้นจะระบุแนวแรงที่กระทำต่อโครงสร้างได้โดยไม่ต้องคำนวณเพิ่ม และเป็นการตรวจสอบอิสระ
+          ว่ารวมสององค์ประกอบถูกทางหรือไม่</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>ตัวอย่างที่ 2.6 &mdash; ทุ่นลอยของเครื่องสูบน้ำ <span class="pill">&sect;2.10</span></h3>
+      <p>ทุ่นเหล็กสี่เหลี่ยมยาว 4.0&nbsp;ม. กว้าง 2.0&nbsp;ม. ลึก 1.0&nbsp;ม. บรรทุกชุดเครื่องสูบน้ำ
+        รวมทั้งชุดมีมวล 3000&nbsp;kg จงหาระยะกินน้ำลึกในน้ำจืด
+        (<var>&rho;</var> = 1000&nbsp;kg/m<sup>3</sup>) และการเปลี่ยนแปลงเมื่อย้ายไปอยู่ในน้ำกร่อย
+        ที่ <var>&rho;</var> = 1025&nbsp;kg/m<sup>3</sup></p>
+
+      <div class="step">
+        <h4>ขั้นที่ 1 &mdash; เงื่อนไขสมดุล</h4>
+        <p>วัตถุที่ลอยน้ำแทนที่ของไหลที่มีน้ำหนักเท่ากับตัวมันเอง</p>
+        <div class="eq plain"><span class="body"><var>mg</var> = <var>&rho;gV</var><sub>แทนที่</sub> &nbsp;&rArr;&nbsp; <var>m</var> = <var>&rho;</var> (<var>L</var> &times; <var>B</var> &times; <var>d</var>)</span></div>
+        <p>สังเกตว่า <var>g</var> ตัดกันไป ระยะกินน้ำลึกจึงไม่ขึ้นกับความเร่งโน้มถ่วง</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 2 &mdash; ระยะกินน้ำลึกในน้ำจืด</h4>
+        <div class="eq plain"><span class="body"><var>d</var> = <span class="frac"><span><var>m</var></span><span class="den"><var>&rho;LB</var></span></span> = <span class="frac"><span>3000</span><span class="den">(1000)(4.0)(2.0)</span></span> = 0.375 ม.</span></div>
+        <p class="result"><var>d</var> = 0.375 ม. ระยะพ้นน้ำ 0.625 ม.</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 3 &mdash; ระยะกินน้ำลึกในน้ำกร่อย</h4>
+        <div class="eq plain"><span class="body"><var>d</var> = <span class="frac"><span>3000</span><span class="den">(1025)(4.0)(2.0)</span></span> = 0.366 ม.</span></div>
+        <p class="result"><var>d</var> = 0.366 ม. ทุ่นลอยสูงขึ้น 9 มม.</p>
+      </div>
+
+      <div class="step">
+        <h4>ขั้นที่ 4 &mdash; ข้อสังเกต</h4>
+        <p>เก้ามิลลิเมตรฟังดูเล็กน้อย และสำหรับทุ่นลอยก็เล็กน้อยจริง แต่มันไม่เล็กน้อยสำหรับไฮโดรมิเตอร์
+          ซึ่งสร้างด้วยก้านยาวเรียวโดยตั้งใจ เพื่อให้ความหนาแน่นที่เปลี่ยนเพียงเล็กน้อยทำให้ระยะกินน้ำลึก
+          เปลี่ยนไปมาก นั่นคือสมการเดียวกันที่ใช้เป็นเครื่องมือวัดแทนที่จะใช้เป็นการตรวจสอบ
+          และเป็นวิธีที่ค่าความหนาแน่นสัมพัทธ์ในตารางที่&nbsp;1.4 ของบทที่&nbsp;1 ถูกวัดขึ้นมาแต่แรก</p>
+      </div>
+    </div>
+
+    <!-- ============================================================ 2.12 -->
+    <h2 id="s12">2.12 สัญลักษณ์</h2>
+
+    <dl class="nomen">
+      <dt>A</dt><dd>พื้นที่ของผิว <span class="u">(m&sup2;)</span></dd>
+      <dt>b, d</dt><dd>ฐานและความสูงของรูปทรงระนาบ <span class="u">(m)</span></dd>
+      <dt>D</dt><dd>ความลึกของจุดศูนย์กลางความดันใต้ผิวอิสระ <span class="u">(m)</span></dd>
+      <dt>F</dt><dd>แรง <span class="u">(N)</span></dd>
+      <dt>F<sub>B</sub></dt><dd>แรงลอยตัว แรงพยุง <span class="u">(N)</span></dd>
+      <dt>g</dt><dd>ความเร่งโน้มถ่วง 9.81 <span class="u">(m/s&sup2;)</span></dd>
+      <dt>h</dt><dd>ความลึกใต้ผิวอิสระ หรือเฮดของของไหล <span class="u">(m)</span></dd>
+      <dt>H</dt><dd>ความลึกรวมของของเหลวที่กระทำต่อกำแพง <span class="u">(m)</span></dd>
+      <dt>I<sub>GG</sub></dt><dd>โมเมนต์ที่สองของพื้นที่รอบแกนเซนทรอยด์ <span class="u">(m&#8308;)</span></dd>
+      <dt>I<sub>o</sub></dt><dd>โมเมนต์ที่สองของพื้นที่รอบแกนที่ผ่าน O <span class="u">(m&#8308;)</span></dd>
+      <dt>p</dt><dd>ความดัน <span class="u">(Pa)</span></dd>
+      <dt>p<sub>atm</sub></dt><dd>ความดันบรรยากาศ 101.3 <span class="u">(kPa)</span></dd>
+      <dt>R</dt><dd>แรงลัพธ์บนผิว <span class="u">(N)</span></dd>
+      <dt>R<sub>H</sub>, R<sub>V</sub></dt><dd>องค์ประกอบแนวราบและแนวดิ่งของ <var>R</var> <span class="u">(N)</span></dd>
+      <dt>s</dt><dd>ระยะที่วัดไปตามระนาบเอียงจาก O <span class="u">(m)</span></dd>
+      <dt>S<sub>c</sub></dt><dd>ระยะจาก O ถึงจุดศูนย์กลางความดัน วัดไปตามระนาบ <span class="u">(m)</span></dd>
+      <dt>V</dt><dd>ปริมาตร หรือปริมาตรของของไหลที่ถูกแทนที่ <span class="u">(m&sup3;)</span></dd>
+      <dt>x&#772;</dt><dd>ระยะจาก O ถึงเซนทรอยด์ วัดไปตามระนาบ <span class="u">(m)</span></dd>
+      <dt>z</dt><dd>ความลึกใต้ผิวอิสระ หรือระดับความสูง <span class="u">(m)</span></dd>
+      <dt>z&#772;</dt><dd>ความลึกของเซนทรอยด์ใต้ผิวอิสระ <span class="u">(m)</span></dd>
+      <dt>&gamma;</dt><dd>น้ำหนักจำเพาะ <var>&rho;g</var> <span class="u">(N/m&sup3;)</span></dd>
+      <dt>&theta;</dt><dd>มุมของระนาบกับแนวราบ หรือมุมของแรงลัพธ์ <span class="u">(&deg;)</span></dd>
+      <dt>&rho;</dt><dd>ความหนาแน่นเชิงมวลของของไหล <span class="u">(kg/m&sup3;)</span></dd>
+      <dt>&rho;<sub>man</sub></dt><dd>ความหนาแน่นของของไหลมาโนเมตริก <span class="u">(kg/m&sup3;)</span></dd>
+      <dt>&delta;A</dt><dd>ธาตุของพื้นที่ <span class="u">(m&sup2;)</span></dd>
+    </dl>
+
+    <!-- ============================================================ 2.13 -->
+    <h2 id="s13">2.13 แบบทบทวนตนเอง</h2>
+
+    <p>คำถามปรนัย 45 ข้อครอบคลุมบทนี้ ระบบตรวจให้ในเบราว์เซอร์ของนักศึกษาเองขณะตอบ ไม่มีการบันทึก
+      หรือส่งข้อมูลออกไปที่ใด ทุกข้อกำกับไว้ว่ามาจากหัวข้อใด และเมื่อทำครบ ระบบจะสรุปรายการหัวข้อ
+      ที่ควรทบทวนให้</p>
+
+    <p>ควรทำชุดนี้ <em>ก่อน</em> ทำโจทย์ใน &sect;2.14 มีคำถาม 3 ข้อที่มาจากเนื้อหาเสริมใน &sect;2.10
+      และกำกับไว้ให้เห็นชัด</p>
+
+    <noscript>
+      <div class="quiz-noscript">
+        <b>หัวข้อนี้ต้องใช้ JavaScript</b> ระบบตรวจคำตอบในเบราว์เซอร์ของนักศึกษาเอง หากปิดสคริปต์ไว้
+        จะไม่มีอะไรแสดงขึ้นมา เนื้อหาส่วนเดียวกันนี้ครอบคลุมอยู่ในโจทย์คำนวณที่
+        <a href="#s14">&sect;2.14</a> ด้วย
+      </div>
+    </noscript>
+
+    <div id="quiz"></div>
+
+    <!-- ============================================================ 2.14 -->
+    <h2 id="s14">2.14 แบบฝึกหัด</h2>
+
+    <p>ใช้ <var>g</var> = 9.81&nbsp;m/s<sup>2</sup>, <var>&rho;</var><sub>น้ำ</sub> =
+      1000&nbsp;kg/m<sup>3</sup> และ <var>&rho;</var><sub>Hg</sub> = 13&thinsp;600&nbsp;kg/m<sup>3</sup>
+      เว้นแต่จะระบุเป็นอย่างอื่น เฉลยแสดงไว้เพื่อให้ตรวจสอบตนเองได้ แต่คะแนนอยู่ที่วิธีทำ ข้อที่กำกับ
+      <span class="pill">&sect;2.10</span> อาศัยเนื้อหาเสริมและไม่ออกข้อสอบ</p>
+
+    <ol class="problems">
+      <li>ถังบรรจุน้ำลึก 3.5&nbsp;ม. จงหาความดันเกจบนฐานในหน่วย kPa และแสดงเป็นเฮดของปรอท
+        <span class="ans">34.3 kPa; 0.258 เมตรปรอท</span></li>
+
+      <li>เกจบนภาชนะปิดอ่านได้ 350&nbsp;kPa สัมบูรณ์ ณ สถานที่ซึ่งมีความดันบรรยากาศ 101.3&nbsp;kPa
+        จงแสดงความดันนี้เป็นความดันเกจในหน่วย kPa และ bar และเป็นเฮดของน้ำ
+        <span class="ans">248.7 kPa เกจ = 2.49 bar เกจ; 25.35 เมตรน้ำ</span></li>
+
+      <li>มาโนมิเตอร์ปรอทรูปตัวยูต่อเข้ากับท่อน้ำ ผิวปรอทในขาใกล้อยู่ต่ำกว่าแนวศูนย์กลางท่อ 0.20&nbsp;ม.
+        และปรอทในขาเปิดตั้งสูงกว่าระดับนั้น 0.35&nbsp;ม. จงหาความดันเกจในท่อ
+        <span class="ans">44.7 kPa</span></li>
+
+      <li>มาโนมิเตอร์แบบเอียงที่หลอดทำมุม 15&deg; กับแนวราบ บรรจุน้ำมันความหนาแน่นสัมพัทธ์ 0.82
+        น้ำมันเคลื่อนที่ไปตามหลอด 250&nbsp;มม. จงหาผลต่างความดัน และระบุว่าความดันเท่ากันนี้จะอ่านได้
+        เท่าใดบนมาโนมิเตอร์แนวดิ่งที่ใช้น้ำมันชนิดเดียวกัน
+        <span class="ans">521 Pa; ในแนวดิ่งได้เพียง 64.7 มม. คือได้เปรียบ 3.9 เท่า</span></li>
+
+      <li>ประตูสี่เหลี่ยมแนวดิ่งกว้าง 2.0&nbsp;ม. สูง 1.5&nbsp;ม. มีขอบบนอยู่ที่ผิวน้ำพอดี
+        จงหาแรงลัพธ์และความลึกของจุดศูนย์กลางความดัน
+        <span class="ans">22.1 kN; D = 1.00 ม.</span></li>
+
+      <li>ลดประตูบานเดียวกันลงจนขอบบนอยู่ต่ำกว่าผิวน้ำ 2.0&nbsp;ม. จงหาแรงลัพธ์และจุดศูนย์กลางความดันใหม่
+        พร้อมวิจารณ์ว่า C ขยับเข้าใกล้ G มากน้อยเพียงใด
+        <span class="ans">80.9 kN; D = 2.82 ม. &mdash; C อยู่ต่ำกว่า G เพียง 68 มม. เทียบกับ 250 มม. ก่อนหน้า</span></li>
+
+      <li>กำแพงคลองสูง 2.5&nbsp;ม. กั้นน้ำเต็มถึงขอบบน จงใช้วิธีแผนภาพความดันหาแรงลัพธ์ต่อเมตรความยาว
+        และความสูงเหนือฐานที่แรงนั้นกระทำ
+        <span class="ans">30.7 kN/ม.; 0.833 ม. เหนือฐาน</span></li>
+
+      <li>ฝาปิดตรวจสอบรูปกลมเส้นผ่านศูนย์กลาง 1.0&nbsp;ม. ติดตั้งในแนวดิ่งบนผนังถัง โดยจุดศูนย์กลาง
+        อยู่ต่ำกว่าผิวน้ำ 3.0&nbsp;ม. จงหาแรงลัพธ์และความลึกของจุดศูนย์กลางความดัน
+        <span class="ans">23.1 kN; D = 3.02 ม.</span></li>
+
+      <li>ถังลึก 3.0&nbsp;ม. มีมุมโค้งรูปเสี้ยววงกลมรัศมี 1.5&nbsp;ม. เชื่อมผนังแนวดิ่งเข้ากับพื้น
+        จงหา <var>R</var><sub>H</sub>, <var>R</var><sub>V</sub> และขนาดกับทิศทางของแรงลัพธ์
+        ต่อหนึ่งเมตรความกว้าง
+        <span class="ans">33.1 kN; 39.4 kN; R = 51.5 kN ทำมุม 50.0&deg; ใต้แนวราบ</span></li>
+
+      <li>ภาชนะสามใบรูปทรงต่างกัน ใบหนึ่งผนังตรง ใบหนึ่งบานออก ใบหนึ่งคอดเป็นคอขวด ทั้งสามมีพื้นที่ฐาน
+        0.5&nbsp;m<sup>2</sup> และบรรจุน้ำลึก 1.2&nbsp;ม. เท่ากัน จงหาแรงบนฐานของแต่ละใบ
+        และอธิบายในหนึ่งประโยคว่าเหตุใดจึงเท่ากันทั้งที่บรรจุน้ำหนักน้ำต่างกันมาก
+        <span class="ans">5.89 kN เท่ากันทั้งสามใบ &mdash; ผนังเอียงรับส่วนต่างไว้ในรูปองค์ประกอบแนวดิ่ง</span></li>
+
+      <li><span class="pill">&sect;2.10</span> ทุ่นลอยสี่เหลี่ยมขนาด 5.0&nbsp;ม. &times; 2.5&nbsp;ม.
+        ลึก 1.2&nbsp;ม. มวลรวม 4500&nbsp;kg ลอยอยู่ในน้ำจืด จงหาระยะกินน้ำลึกและระยะพ้นน้ำ
+        <span class="ans">กินน้ำลึก 0.360 ม.; พ้นน้ำ 0.840 ม.</span></li>
+
+      <li><span class="pill">&sect;2.10</span> ลูกบาศก์ไม้ด้านละ 0.3&nbsp;ม. ความหนาแน่นสัมพัทธ์ 0.65
+        ลอยอยู่ในน้ำ จงหาความลึกที่มันจมลงไป และแรงในแนวดิ่งที่ต้องใช้กดให้มันจมมิดทั้งก้อน
+        <span class="ans">0.195 ม.; 92.7 N</span></li>
+    </ol>
+
+    <!-- ============================================================ 2.15 -->
+    <h2 id="s15">2.15 เอกสารอ้างอิง</h2>
+
+    <ol class="refs">
+      <li>Sleigh, A. <em>An Introduction to Fluid Mechanics</em>, CIVE 1400, School of Civil Engineering,
+        University of Leeds. &sect;2 คือหัวข้อที่บทนี้ยึดตาม รวมถึงบทพิสูจน์กฎของปาสกาลด้วยปริซึม
+        และตารางโมเมนต์ที่สองใน &sect;2.4.2.2</li>
+      <li>Massey, B. S. <em>Mechanics of Fluids</em>, Van Nostrand Reinhold. บทที่ 2 เป็นการนำเสนอ
+        สถิตยศาสตร์ของไหลที่ครบถ้วนที่สุดในระดับนี้ และเป็นที่ที่ควรไปหาเรื่องเสถียรภาพของวัตถุลอยน้ำ</li>
+      <li>Douglas, J. F., Gasiorek, J. M. and Swaffield, J. A. <em>Fluid Mechanics</em>, Longman.
+        มีตัวอย่างการคำนวณเรื่องมาโนมิเตอร์และแรงลอยตัวที่ดี</li>
+      <li>Featherstone, R. E. and Nalluri, C. <em>Civil Engineering Hydraulics</em>, Blackwell Science.
+        เขียนสำหรับวิศวกรแหล่งน้ำ มีเรื่องประตูน้ำและโครงสร้างกั้นน้ำในหน่วยที่ใช้จริงหน้างาน</li>
+      <li>Chadwick, A. and Morfett, J. <em>Hydraulics in Civil and Environmental Engineering</em>, Spon.
+        บทที่ 2 สำหรับสถิตยศาสตร์ของไหล และบทถัด ๆ ไปสำหรับสิ่งที่มันนำไปสู่</li>
+      <li>Novak, P., Moffat, A. I. B., Nalluri, C. and Narayanan, R. <em>Hydraulic Structures</em>, Taylor
+        &amp; Francis. <span class="units">(นอกหลักสูตร)</span> การออกแบบประตูน้ำ ฝาย และเขื่อน
+        ซึ่งเป็นสิ่งที่นักศึกษาเพิ่งเรียนวิธีคำนวณแรงกระทำไป รวมถึงประตูน้ำแบบเรเดียลและเหตุผล
+        ที่บานพับของมันอยู่ที่จุดศูนย์กลางความโค้ง</li>
+      <li>US Bureau of Reclamation, <em>Design of Small Dams</em> และ <em>Water Measurement Manual</em>.
+        <span class="units">(นอกหลักสูตร ดาวน์โหลดได้ฟรี)</span> ข้อมูลการออกแบบเชิงปฏิบัติสำหรับ
+        สระน้ำในไร่นา ประตูน้ำในคลอง และอาคารวัดน้ำ</li>
+      <li>ISO 7268 / BS EN 1452 &mdash; ระบบเรียกพิกัดความดันของท่อ (พิกัด PN) มาตรฐานที่อยู่เบื้องหลัง
+        คำว่า &ldquo;PN 6 / PN 10 / PN 16&rdquo; ที่พิมพ์อยู่บนท่อพีวีซีชลประทานทุกเส้น</li>
+    </ol>
+
+    <div class="chapter-nav">
+      <span><a href="chapter1-th.html">&larr; บทที่ 1: สมบัติของของไหล</a></span>
+      <span class="muted-nav">บทที่ 3: ความต่อเนื่องและแบร์นูลลี &mdash; อยู่ระหว่างจัดทำ</span>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h3>รายวิชา</h3>
+      <ul>
+        <li><a href="index-th.html">หน้าแรกของรายวิชา</a></li>
+        <li><a href="chapter1-th.html">บทที่ 1: สมบัติของของไหล</a></li>
+        <li><a href="chapter2-th.html">บทที่ 2: แรงในของไหลสถิต</a></li>
+        <li><a href="chapter2.html" lang="en">Chapter 2 (English)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>ในบทนี้</h3>
+      <ul>
+        <li><a href="#t1">ตารางที่ 2.1 &mdash; หน่วยความดัน</a></li>
+        <li><a href="#t2">ตารางที่ 2.2 &mdash; โมเมนต์ที่สองของพื้นที่</a></li>
+        <li><a href="#s11">ตัวอย่างการคำนวณ</a></li>
+        <li><a href="#s13">แบบทบทวนตนเอง</a></li>
+        <li><a href="#s14">แบบฝึกหัด</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>เกี่ยวกับ</h3>
+      <p>เอกสารประกอบการสอนรายวิชา ASE 221 สงวนลิขสิทธิ์ รูปแบบหน้าเว็บเป็นไปตามเทมเพลตสื่อการสอนของภาควิชา
+        ส่วนเนื้อหาและโค้ดจัดทำขึ้นใหม่สำหรับรายวิชานี้โดยเฉพาะ</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2569 ชาตรีชัย เย็นพยับ สงวนลิขสิทธิ์ ASE 221 กลศาสตร์ของไหลเบื้องต้น &mdash; เอกสารประกอบการสอน
+    ภาคการศึกษาที่ 1 / 2569 ห้ามทำซ้ำ ดัดแปลง หรือเผยแพร่ส่วนหนึ่งส่วนใดของเว็บไซต์นี้ก่อนได้รับอนุญาต
+    เป็นลายลักษณ์อักษร
+  </div>
+</footer>
+
+<script>
+/* แบบทบทวนตนเองของบทที่ 2 ตรวจในเบราว์เซอร์ของผู้อ่านด้วย quiz.js ทั้งหมด
+   ไม่มีการเก็บหรือส่งผลลัพธ์ออกไปที่ใด */
+window.QUIZ = {
+  text: {
+    answered:     "ตอบแล้ว",
+    correctCount: "ถูก",
+    section:      "&sect;",
+    markCorrect:  "คำตอบที่ถูก",
+    markYours:    "คำตอบของคุณ",
+    whyLabel:     "เหตุผล",
+    readMore:     "กลับไปอ่าน &sect;{ref}",
+    revealAll:    "เฉลยข้อที่เหลือ",
+    reset:        "เริ่มใหม่",
+    resultTitle:  "ทำแบบทบทวนครบแล้ว",
+    band90: "แน่นดี ไปทำโจทย์ใน &sect;2.14 ได้เลย",
+    band70: "ผ่านในระดับดี ลองกลับไปอ่านหัวข้อที่ระบุข้างล่าง แล้วค่อยทำ &sect;2.14",
+    band50: "เข้าใจไปได้ราวครึ่งทาง ควรทบทวนหัวข้อข้างล่างอีกรอบก่อนทำโจทย์",
+    band0:  "ควรอ่านบทนี้อีกหนึ่งรอบก่อนไปต่อ โดยเริ่มจากหัวข้อที่ระบุไว้ข้างล่าง",
+    revise: "หัวข้อที่ควรทบทวน:"
+  },
+  questions: [
+
+    /* --------------------- 2.1 กฎพื้นฐานของสถิตยศาสตร์ */
+    { ref: "2.1", href: "#s1", a: 2,
+      q: "ข้อใดที่ของไหลซึ่งอยู่นิ่ง <b>รับไม่ได้</b>",
+      opts: [
+        "ความเค้นตั้งฉาก",
+        "น้ำหนักของตัวมันเอง",
+        "ความเค้นเฉือน",
+        "ความดัน"
+      ],
+      why: "ถ้ามีความเค้นเฉือนกระทำ ตามนิยามในบทที่ 1 มันจะเสียรูปอย่างต่อเนื่อง นั่นคือมันกำลังเคลื่อนที่และไม่ได้อยู่นิ่ง ทุกอย่างในบทนี้ตามมาจากข้อนั้น" },
+
+    { ref: "2.1", href: "#s1", a: 0,
+      q: "ณ จุดใด ๆ บนขอบเขต <i>โค้ง</i> แรงระหว่างของไหลสถิตกับขอบเขตกระทำในทิศใด",
+      opts: [
+        "ตั้งฉากกับผิวที่จุดนั้น ทิศทางจึงเปลี่ยนไปตามตำแหน่งบนผิว",
+        "ในแนวสัมผัสกับผิว",
+        "ในแนวดิ่งลงทุกจุด",
+        "ในแนวราบทุกจุด"
+      ],
+      why: "กฎไม่มีแรงเฉือนใช้ได้ทีละจุด และเนื่องจากเส้นตั้งฉากกวาดไปเรื่อย ๆ เมื่อเลื่อนไปตามผิวโค้ง แรงย่อยจึงไม่ขนานกัน ซึ่งเป็นเหตุผลที่ &sect;2.9 ต้องแยกเป็นองค์ประกอบก่อนจะรวมกัน" },
+
+    { ref: "2.1", href: "#s1", a: 3,
+      q: "สำหรับธาตุของไหลที่อยู่นิ่ง เงื่อนไขสมดุลกำหนดว่า",
+      opts: [
+        "ผลรวมของแรงเป็นศูนย์ แต่โมเมนต์ไม่จำเป็นต้องเป็นศูนย์",
+        "ผลรวมของโมเมนต์เป็นศูนย์ แต่แรงไม่จำเป็นต้องเป็นศูนย์",
+        "ไม่จำเป็นต้องเป็นศูนย์ทั้งคู่ ขอเพียงของไหลอัดตัวไม่ได้",
+        "ทั้งผลรวมขององค์ประกอบของแรงในทิศใด ๆ และผลรวมของโมเมนต์รอบจุดใด ๆ เป็นศูนย์"
+      ],
+      why: "นี่คือเงื่อนไขสถิตยศาสตร์ตามปกติ ไม่ต่างจากกลศาสตร์ของแข็ง เราตรวจสอบด้วยการแยกแรงตามแกนตั้งฉากสามแกนและหาโมเมนต์ในระนาบตั้งฉากสามระนาบ" },
+
+    /* ------------------------ 2.2 ความดันและกฎของปาสกาล */
+    { ref: "2.2", href: "#s2", a: 1,
+      q: "ความดันนิยามว่าเป็น",
+      opts: [
+        "แรงคูณด้วยพื้นที่",
+        "แรงต่อหนึ่งหน่วยพื้นที่",
+        "แรงต่อหนึ่งหน่วยปริมาตร",
+        "น้ำหนักต่อหนึ่งหน่วยปริมาตร"
+      ],
+      why: "<i>p</i> = <i>F</i>/<i>A</i> ให้หน่วย N/m<sup>2</sup> หรือพาสคัล ส่วนตัวเลือกสุดท้ายคือน้ำหนักจำเพาะ ซึ่งมีมิติต่างออกไปโดยสิ้นเชิง ดูตารางที่ 1.2 ของบทที่ 1" },
+
+    { ref: "2.2", href: "#s2", a: 2,
+      q: "หนึ่งบาร์เท่ากับ",
+      opts: [
+        "10<sup>3</sup> N/m<sup>2</sup>",
+        "10<sup>4</sup> N/m<sup>2</sup>",
+        "10<sup>5</sup> N/m<sup>2</sup>",
+        "10<sup>6</sup> N/m<sup>2</sup>"
+      ],
+      why: "1 bar = 100 kPa ซึ่งใกล้เคียงกับหนึ่งบรรยากาศ (101.3 kPa) พอที่จะใช้ตรวจสอบในใจได้ และเท่ากับเกือบ 10 เมตรน้ำพอดี" },
+
+    { ref: "2.2", href: "#s2", a: 3,
+      q: "กฎของปาสกาลระบุว่า",
+      opts: [
+        "ความดันเพิ่มขึ้นเป็นเชิงเส้นตามความลึก",
+        "ความดันกระทำตั้งฉากกับผิวแนวนอนเท่านั้น",
+        "ความดันบนวัตถุที่จมน้ำเท่ากับน้ำหนักของของไหลที่ถูกแทนที่",
+        "ความดัน ณ จุดใด ๆ ในของไหลสถิตเท่ากันทุกทิศทาง"
+      ],
+      why: "บทพิสูจน์ด้วยปริซึมสามเหลี่ยมแสดงว่า <i>p</i><sub>x</sub> = <i>p</i><sub>y</sub> = <i>p</i><sub>s</sub> ไม่ว่าหน้าเอียงจะทำมุมเท่าใด และธาตุนั้นหดลงเป็นจุดได้ ตัวเลือกแรกจริงแต่เป็นผลลัพธ์คนละข้อ ส่วนตัวเลือกที่สามคืออาร์คิมิดีส" },
+
+    { ref: "2.2", href: "#s2", a: 2,
+      q: "ในบทพิสูจน์กฎของปาสกาล เราตัดพจน์น้ำหนักของปริซึมทิ้ง ทำเช่นนั้นได้เพราะเหตุใด",
+      opts: [
+        "เพราะของไหลที่อยู่นิ่งไม่มีน้ำหนัก",
+        "เพราะน้ำหนักกระทำในแนวดิ่ง และบทพิสูจน์พิจารณาเฉพาะแรงในแนวราบ",
+        "เพราะมันมีผลคูณของความยาวเล็ก ๆ สามตัว ขณะที่พจน์ความดันมีเพียงสองตัว มันจึงหายไปเร็วกว่าเมื่อธาตุหดลงเป็นจุด",
+        "เพราะมันถูกหักล้างพอดีด้วยแรงพยุงที่กระทำต่อปริซึม"
+      ],
+      why: "พจน์น้ำหนักคือ &frac12;<i>&rho;g&thinsp;&delta;x&thinsp;&delta;y&thinsp;&delta;z</i> เมื่อหารตลอดด้วย <i>&delta;x&thinsp;&delta;z</i> เหลือ &frac12;<i>&rho;g&thinsp;&delta;y</i> ซึ่งเป็นศูนย์เมื่อ <i>&delta;y</i> เป็นศูนย์ พึงสังเกตว่าน้ำหนักปรากฏเฉพาะในสมการทิศ <i>y</i> ตัวเลือก ข จึงไม่พอที่จะช่วยบทพิสูจน์ได้ด้วยตัวเอง" },
+
+    { ref: "2.2", href: "#s2", a: 1,
+      q: "เติมประโยคให้สมบูรณ์ ความดันเป็น ______ ส่วนแรงเป็น ______",
+      opts: [
+        "เวกเตอร์; สเกลาร์",
+        "สเกลาร์; เวกเตอร์",
+        "สเกลาร์; สเกลาร์",
+        "เวกเตอร์; เวกเตอร์"
+      ],
+      why: "กฎของปาสกาลก็คือข้อความที่ว่าความดันไม่มีทิศทางนั่นเอง ส่วนแรงมีทิศทาง และทิศทางนั้นถูกกำหนดด้วยการวางตัวของผิวที่มันกระทำ ซึ่งเป็นเหตุผลที่แรงบนหน้าที่วางตัวต่างกันบวกกันเฉย ๆ ไม่ได้" },
+
+    /* ----------------- 2.3 การแปรผันของความดัน */
+    { ref: "2.3", href: "#s3", a: 0,
+      q: "ในของไหลภายใต้แรงโน้มถ่วง เมื่อระดับความสูง <i>z</i> เพิ่มขึ้น ความดันจะ",
+      opts: [
+        "ลดลง",
+        "เพิ่มขึ้น",
+        "คงที่",
+        "ขึ้นกับรูปทรงของภาชนะ"
+      ],
+      why: "d<i>p</i>/d<i>z</i> = &minus;<i>&rho;g</i> ขึ้นไปข้างบนน้ำหนักของของไหลที่อยู่เหนือคุณก็ลดลง ความดันจึงลดตาม ลงไปข้างล่างก็เพิ่ม รูปทรงภาชนะไม่เกี่ยวเลย ดูปฏิทรรศน์ความดันสถิตใน &sect;2.10" },
+
+    { ref: "2.3", href: "#s3", a: 3,
+      q: "สมการความดันสถิตสำหรับของไหลที่มีความหนาแน่นคงที่คือ",
+      opts: [
+        "d<i>p</i>/d<i>z</i> = <i>&rho;g</i>",
+        "d<i>p</i>/d<i>z</i> = &minus;<i>&rho;</i>/<i>g</i>",
+        "d<i>p</i>/d<i>z</i> = &minus;<i>g</i>/<i>&rho;</i>",
+        "d<i>p</i>/d<i>z</i> = &minus;<i>&rho;g</i>"
+      ],
+      why: "เป็นสมการทั่วไป d<i>p</i>/d<i>s</i> = &minus;<i>&rho;g</i>cos<i>&theta;</i> เมื่อ <i>&theta;</i> = 0 นั่นคือให้ <i>s</i> อยู่ในแนวดิ่ง การอินทิเกรตสมการนี้คือที่มาของ <i>p</i> = <i>&rho;gh</i>" },
+
+    { ref: "2.3", href: "#s3", a: 0,
+      q: "จุดสองจุดที่อยู่ระดับเดียวกันในของไหลสถิตผืนเดียวที่ต่อเนื่องกันจะมี",
+      opts: [
+        "ความดันเท่ากัน",
+        "ความดันต่างกันอยู่ <i>&rho;gh</i>",
+        "แรงที่กระทำเท่ากัน",
+        "ความหนาแน่นเท่ากันแต่ความดันต่างกัน"
+      ],
+      why: "นี่คือผลลัพธ์ที่ถูกใช้มากที่สุดเพียงข้อเดียวของบทนี้ พึงสังเกตคำว่า <i>ต่อเนื่อง</i> จุดสองจุดต้องมีเนื้อของไหลไม่ขาดตอนคั่นอยู่ แต่ไม่จำเป็นต้องอยู่ในภาชนะเดียวกันหรือเชื่อมกันด้วยเส้นตรง" },
+
+    { ref: "2.3", href: "#s3", a: 2,
+      q: "ธาตุทรงกระบอกแนวนอนพิสูจน์ว่าความดันคงที่ที่ระดับเดียวกันได้เพราะเหตุใด",
+      opts: [
+        "เพราะธาตุนั้นไม่มีน้ำหนัก",
+        "เพราะพื้นที่ปลายทั้งสองเท่ากัน",
+        "เพราะน้ำหนักกระทำตั้งฉากกับแกน จึงไม่มีองค์ประกอบตามแกน",
+        "เพราะสมมติว่าของไหลอัดตัวไม่ได้"
+      ],
+      why: "แรงโน้มถ่วงอยู่ในแนวดิ่งส่วนแกนอยู่ในแนวนอน น้ำหนักจึงไม่มีส่วนร่วมเมื่อแยกแรงตามแกน เหลือเพียง <i>p</i><sub>l</sub><i>A</i> = <i>p</i><sub>r</sub><i>A</i> พื้นที่เท่ากันเพียงอย่างเดียวจะไม่พอหากมีองค์ประกอบของน้ำหนักอยู่" },
+
+    { ref: "2.3", href: "#s3", a: 1,
+      q: "การใส่ <i>&theta;</i> = 90&deg; ลงใน d<i>p</i>/d<i>s</i> = &minus;<i>&rho;g</i>cos<i>&theta;</i> จะได้",
+      opts: [
+        "d<i>p</i>/d<i>s</i> = &minus;<i>&rho;g</i> ซึ่งเป็นกรณีแนวดิ่ง",
+        "d<i>p</i>/d<i>s</i> = 0 ความดันจึงคงที่บนระนาบแนวนอนใด ๆ",
+        "d<i>p</i>/d<i>s</i> = +<i>&rho;g</i>",
+        "ผลลัพธ์ที่นิยามไม่ได้"
+      ],
+      why: "cos 90&deg; = 0 ดังนั้น <i>s</i> จึงอยู่ในทิศ <i>x</i> หรือ <i>y</i> และเกรเดียนต์ความดันตามแนวนั้นหายไป กรณีเฉพาะทั้งสองข้อก่อนหน้าหล่นออกมาจากสมการทั่วไปข้อเดียวนี้" },
+
+    /* ------------- 2.4 เฮด ความดันเกจและสัมบูรณ์ */
+    { ref: "2.4", href: "#s4", a: 3,
+      q: "ความดันเกจวัดจากระดับอ้างอิงใด",
+      opts: [
+        "ศูนย์สัมบูรณ์ คือสุญญากาศสมบูรณ์",
+        "ผิวอิสระของของเหลว",
+        "ระดับน้ำทะเลปานกลางที่หน้างาน",
+        "ความดันบรรยากาศ"
+      ],
+      why: "เนื่องจากทุกสิ่งรอบตัวเราแบกภาระจากบรรยากาศอยู่แล้ว จึงสะดวกที่จะใช้ค่านั้นเป็นศูนย์ ผลที่ตามมาคือความดันเกจติดลบได้ ในขณะที่ความดันสัมบูรณ์ติดลบไม่ได้เลย" },
+
+    { ref: "2.4", href: "#s4", a: 2,
+      q: "เกจบนท่อดูดของเครื่องสูบน้ำอ่านได้ &minus;30 kPa ณ ที่ซึ่งความดันบรรยากาศเป็น 101.3 kPa ความดันสัมบูรณ์คือ",
+      opts: [
+        "30 kPa",
+        "131.3 kPa",
+        "71.3 kPa",
+        "&minus;30 kPa"
+      ],
+      why: "<i>p</i><sub>สัมบูรณ์</sub> = <i>p</i><sub>เกจ</sub> + <i>p</i><sub>atm</sub> = &minus;30 + 101.3 บทที่ 1 &sect;1.11 อธิบายว่าทำไมต้องเฝ้าตัวเลขนี้ เพราะถ้าลดลงถึงความดันไอ เครื่องสูบจะเกิดโพรงอากาศ" },
+
+    { ref: "2.4", href: "#s4", a: 0,
+      q: "เหตุใดคำว่า &ldquo;ความดันเท่ากับเฮด 5 ม.&rdquo; จึงเป็นข้อความที่ไม่สมบูรณ์",
+      opts: [
+        "เพราะต้องระบุความหนาแน่นของของไหลด้วย",
+        "เพราะเฮดต้องระบุเป็นมิลลิเมตรเสมอ",
+        "เพราะเฮดเกิน 10.33 ม. ไม่ได้",
+        "เพราะเฮดเป็นปริมาณเกจ แต่ยังไม่ได้ระบุความดันสัมบูรณ์"
+      ],
+      why: "<i>p</i> = <i>&rho;gh</i> ดังนั้น 5 ม. เท่ากันนี้คือ 49 kPa ในน้ำ แต่เป็น 667 kPa ในปรอท ต่างกัน 13.6 เท่า เฮดที่ไม่บอกว่าเป็นของไหลอะไรไม่ใช่คำตอบ" },
+
+    { ref: "2.4", href: "#s4", a: 1,
+      q: "หนึ่งบาร์เทียบเท่ากับเฮดประมาณเท่าใด",
+      opts: [
+        "1 เมตรน้ำ",
+        "10 เมตรน้ำ",
+        "100 เมตรน้ำ",
+        "0.1 เมตรน้ำ"
+      ],
+      why: "10<sup>5</sup> Pa &divide; 9810 N/m<sup>3</sup> = 10.2 ม. เมื่อรวมกับ 1 kgf/cm<sup>2</sup> &asymp; 10 ม. นี่คือการแปลงที่ควรพกติดหัวไปหน้างาน" },
+
+    { ref: "2.4", href: "#s4", a: 3,
+      q: "ความดันบรรยากาศมาตรฐานคือ",
+      opts: [
+        "1013 kPa",
+        "10.13 kPa",
+        "100 kPa พอดีตามนิยาม",
+        "101.3 kPa"
+      ],
+      why: "101.325 kPa ซึ่งเท่ากับ 1.013 bar, 10.33 เมตรน้ำ หรือ 760 มม.ปรอท ไม่ได้เท่ากับ 1 bar พอดี แม้ทั้งสองจะใกล้กันพอสำหรับการประมาณเบื้องต้น" },
+
+    { ref: "2.4", href: "#s4", a: 3,
+      q: "ท่อพีวีซีที่พิมพ์ว่า PN 10 มีพิกัด 10 bar เฮดสถิตสูงสุดที่ควรให้มันรับคือประมาณ",
+      opts: [
+        "10 ม.",
+        "20 ม.",
+        "50 ม.",
+        "100 ม."
+      ],
+      why: "10 bar &times; 10.2 ม./bar &asymp; 100 เมตรน้ำ พึงสังเกตว่านี่คือเฮด <i>สถิต</i> เท่านั้น ต้องหักส่วนเผื่อสำหรับเสิร์จออกจากค่านี้ ซึ่งเป็นเหตุผลที่โครงการที่มีเฮดสถิต 50 ม. ก็ยังนิยมสร้างด้วย PN 10" },
+
+    /* ----------------------------- 2.5 มาโนมิเตอร์ */
+    { ref: "2.5", href: "#s5", a: 0,
+      q: "หลอดปิโซมิเตอร์ที่เปิดปลายบนอ่านค่าอะไร",
+      opts: [
+        "ความดันเกจ",
+        "ความดันสัมบูรณ์",
+        "ผลต่างความดันระหว่างสองจุด",
+        "สุญญากาศเท่านั้น"
+      ],
+      why: "เนื่องจากปลายบนของหลอดเปิดสู่บรรยากาศ ความสูงของลำจึงวัดความดันที่ <i>เกิน</i> บรรยากาศ ซึ่งก็คือความดันเกจตามนิยาม" },
+
+    { ref: "2.5", href: "#s5", a: 2,
+      q: "หลอดปิโซมิเตอร์ใช้วัดความดันของสิ่งใดไม่ได้",
+      opts: [
+        "น้ำ",
+        "น้ำมัน",
+        "แก๊ส",
+        "ปรอท"
+      ],
+      why: "แก๊สจะรั่วหนีขึ้นไปตามหลอดที่เปิดอยู่เฉย ๆ ไม่มีลำให้วัด นี่คือข้อจำกัดข้อแรกในสองข้อที่หลอดตัวยูถูกคิดขึ้นมาเพื่อขจัด อีกข้อคือความสูงหลอดที่ไร้สาระเมื่อวัดความดันมาก ๆ" },
+
+    { ref: "2.5", href: "#s5", a: 1,
+      q: "ของไหลมาโนเมตริกในมาโนมิเตอร์รูปตัวยูต้องมีคุณสมบัติอย่างไร",
+      opts: [
+        "หนาแน่นน้อยกว่าของไหลที่วัด และผสมกันได้",
+        "หนาแน่นมากกว่าของไหลที่วัด และไม่ผสมกัน",
+        "เป็นของไหลชนิดเดียวกับที่กำลังวัด",
+        "ต้องเป็นน้ำในทุกกรณี"
+      ],
+      why: "ต้องหนาแน่นกว่าเพื่อให้ลำที่เกิดขึ้นสั้นพอที่จะอ่านได้ และไม่ผสมกันเพื่อให้เกิดรอยต่อที่ชัดเจนและอยู่กับที่ ปรอทกับน้ำเป็นคู่คลาสสิก" },
+
+    { ref: "2.5", href: "#s5", a: 3,
+      q: "การวิเคราะห์มาโนมิเตอร์ทุกตัวในบทนี้อาศัยผลลัพธ์ข้อใด",
+      opts: [
+        "กฎของปาสกาล",
+        "หลักของอาร์คิมิดีส",
+        "ปฏิทรรศน์ความดันสถิต",
+        "ความดันเท่ากันที่ระดับเดียวกันในของไหลที่ต่อเนื่อง"
+      ],
+      why: "การระบุระนาบแนวนอนที่อยู่ในของไหลผืนเดียวที่ต่อเนื่อง แล้วให้ความดันสองฝั่งเท่ากัน คือขั้นแรกของโจทย์มาโนมิเตอร์ทุกข้อ กฎของปาสกาลถูกใช้ด้วยเช่นกัน แต่ไม่ใช่สิ่งที่ทำให้เครื่องมืออ่านค่าได้" },
+
+    { ref: "2.5", href: "#s5", a: 2,
+      q: "เมื่อเดินไล่ในมาโนมิเตอร์จากปลายที่รู้ค่าไปยังปลายที่ไม่รู้ ควรทำอย่างไร",
+      opts: [
+        "บวก <i>&rho;gh</i> เมื่อเดินขึ้น และลบเมื่อเดินลง",
+        "บวก <i>&rho;gh</i> เสมอ ไม่ว่าจะเดินไปทางใด",
+        "บวก <i>&rho;gh</i> เมื่อเดินลง และลบเมื่อเดินขึ้น โดยใช้ความหนาแน่นของของไหลที่กำลังเดินผ่าน",
+        "ไม่ต้องสนใจการเดินในแนวดิ่ง นับเฉพาะแนวราบ"
+      ],
+      why: "ความดันเพิ่มขึ้นตามความลึก การเดินลงจึงบวกและเดินขึ้นจึงลบ ส่วนการเคลื่อนในแนวราบภายในของไหลผืนเดียวที่ต่อเนื่องไม่เปลี่ยนอะไรเลย วิธีนี้จะพาผ่านรูปแบบที่ไม่คุ้นเคยซึ่งไม่มีสูตรท่องจำใดครอบคลุม" },
+
+    { ref: "2.5", href: "#s5", a: 0,
+      q: "การทำให้ขาหนึ่งของมาโนมิเตอร์รูปตัวยูมีเส้นผ่านศูนย์กลางใหญ่กว่าอีกขาหนึ่งมาก จะทำให้",
+      opts: [
+        "หาผลต่างความดันได้จากการอ่านค่าเดียว เพราะข้างที่กว้างแทบไม่ขยับ",
+        "เครื่องมือไวต่อความดันน้อย ๆ มากขึ้น",
+        "ไม่ต้องใช้ของไหลมาโนเมตริกอีกต่อไป",
+        "เปลี่ยนให้มันอ่านค่าเป็นความดันสัมบูรณ์"
+      ],
+      why: "ระดับที่ลดลงทางข้างกว้างคือ <i>z</i><sub>2</sub>(<i>d</i>/<i>D</i>)<sup>2</sup> ซึ่งละเลยได้เมื่อ <i>D</i> &gg; <i>d</i> ส่วนความไวต่อความดันน้อย ๆ ปรับปรุงด้วยการ <i>เอียง</i> ขาแคบ ซึ่งเป็นการดัดแปลงคนละอย่าง" },
+
+    { ref: "2.5", href: "#s5", a: 1,
+      q: "มาโนมิเตอร์แบบเอียงที่หลอดทำมุม <i>&theta;</i> กับแนวราบ แสดงการเคลื่อนที่ <i>x</i> ไปตามหลอด ผลต่างความดันคือ",
+      opts: [
+        "<i>&rho;gx</i>",
+        "<i>&rho;gx</i> sin<i>&theta;</i>",
+        "<i>&rho;gx</i> cos<i>&theta;</i>",
+        "<i>&rho;gx</i> tan<i>&theta;</i>"
+      ],
+      why: "มีเพียงการยกตัวในแนว <i>ดิ่ง</i> <i>z</i><sub>2</sub> = <i>x</i> sin<i>&theta;</i> เท่านั้นที่สร้างความดัน เครื่องมือนี้ไวเพราะ <i>z</i><sub>2</sub> เล็ก ๆ ต้องใช้ <i>x</i> ที่ยาว ที่ 15&deg; สเกลถูกยืดเกือบสี่เท่า" },
+
+    /* ------------------------ 2.6 แรงบนผิวราบ */
+    { ref: "2.6", href: "#s6", a: 3,
+      q: "แรงลัพธ์บนผิวราบที่จมอยู่ในของเหลวคือ",
+      opts: [
+        "<i>&rho;gAD</i> โดยใช้ความลึกของจุดศูนย์กลางความดัน",
+        "<i>&rho;gA</i> คูณความลึกมากที่สุดบนผิวนั้น",
+        "&frac12;<i>&rho;gAH</i> ในทุกกรณี",
+        "<i>&rho;gAz&#772;</i> คือความดันที่เซนทรอยด์คูณด้วยพื้นที่"
+      ],
+      why: "โมเมนต์ที่หนึ่งของพื้นที่รอบเส้นผิวน้ำคือ <i>Az&#772;</i> ซึ่งเป็นจุดที่เซนทรอยด์เข้ามา ส่วนตัวเลือกที่สามเป็นกรณีเฉพาะของกำแพงแนวดิ่งที่ขอบบนอยู่ที่ผิวน้ำ ไม่ใช่ผลลัพธ์ทั่วไป" },
+
+    { ref: "2.6", href: "#s6", a: 2,
+      q: "สำหรับผิวราบ <i>แนวนอน</i> ที่จมอยู่ในของเหลว",
+      opts: [
+        "ความดันแปรผันไปทั่วผิว จึงต้องอินทิเกรต",
+        "แรงลัพธ์เป็นศูนย์",
+        "ความดันสม่ำเสมอ ดังนั้น <i>R</i> = <i>pA</i> กระทำที่เซนทรอยด์",
+        "แรงลัพธ์ขึ้นกับรูปร่างของผิว"
+      ],
+      why: "ทุกจุดอยู่ที่ความลึกเดียวกัน ทุกจุดจึงรับความดันเท่ากัน และแรงลัพธ์กระทำผ่านเซนทรอยด์ของพื้นที่ นี่เป็นกรณีเดียวที่จุดศูนย์กลางความดันกับเซนทรอยด์อยู่ตรงกัน" },
+
+    { ref: "2.6", href: "#s6", a: 1,
+      q: "ในการพิสูจน์หา <i>R</i> ผลรวม &Sigma;<i>z&thinsp;&delta;A</i> คืออะไร",
+      opts: [
+        "โมเมนต์ที่สองของพื้นที่รอบเส้นผิวอิสระ",
+        "โมเมนต์ที่หนึ่งของพื้นที่รอบเส้นผิวอิสระ ซึ่งเท่ากับ <i>Az&#772;</i>",
+        "พื้นที่ของผิวนั้น",
+        "ปริมาตรของของไหลที่อยู่เหนือผิวนั้น"
+      ],
+      why: "เป็นโมเมนต์ที่หนึ่ง และตามนิยามของเซนทรอยด์มันเท่ากับ <i>Az&#772;</i> ส่วนโมเมนต์ที่ <i>สอง</i> &Sigma;<i>s</i><sup>2</sup><i>&delta;A</i> จะปรากฏในขั้นถัดไป เมื่อเราหาตำแหน่งจุดศูนย์กลางความดัน" },
+
+    { ref: "2.6", href: "#s6", a: 0,
+      q: "ประตูน้ำสองบานที่มีรูปร่างต่างกันมาก แต่มีพื้นที่เท่ากันและความลึกของเซนทรอยด์เท่ากัน จะได้รับแรงลัพธ์",
+      opts: [
+        "เท่ากัน",
+        "ต่างกัน ตามอัตราส่วนของเส้นรอบรูป",
+        "ต่างกัน ตามอัตราส่วนของโมเมนต์ที่สองของพื้นที่",
+        "เทียบกันไม่ได้ถ้าไม่รู้รูปร่าง"
+      ],
+      why: "<i>R</i> = <i>&rho;gAz&#772;</i> มีเพียงพื้นที่กับความลึกของเซนทรอยด์ รูปร่างมีผลต่อ <i>ตำแหน่ง</i> ที่แรงกระทำ ผ่าน <i>I</i><sub>GG</sub> ใน &sect;2.7 แต่ไม่มีผลต่อขนาดของแรง" },
+
+    /* ------------------- 2.7 จุดศูนย์กลางความดัน */
+    { ref: "2.7", href: "#s7", a: 2,
+      q: "เมื่อเทียบกับเซนทรอยด์ จุดศูนย์กลางความดันบนผิวราบที่จมอยู่ในของเหลวจะอยู่",
+      opts: [
+        "ที่จุดเดียวกัน",
+        "เหนือกว่าเสมอ",
+        "ต่ำกว่าเสมอ",
+        "ที่จุดที่ลึกที่สุดของผิว"
+      ],
+      why: "<i>S</i><sub>c</sub> = <i>I</i><sub>GG</sub>/(<i>Ax&#772;</i>) + <i>x&#772;</i> และพจน์แรกเป็นบวกเสมอ ในเชิงกายภาพ ครึ่งล่างของผิวรับความดันมากกว่าครึ่งบน แรงลัพธ์จึงถูกดึงลงต่ำ" },
+
+    { ref: "2.7", href: "#s7", a: 3,
+      q: "ระยะจาก O ถึงจุดศูนย์กลางความดัน วัดไปตามระนาบ คือ",
+      opts: [
+        "<i>I</i><sub>GG</sub>/(<i>Ax&#772;</i>)",
+        "<i>Ax&#772;</i>/<i>I</i><sub>o</sub>",
+        "<i>I</i><sub>o</sub>/<i>A</i>",
+        "<i>I</i><sub>o</sub>/(<i>Ax&#772;</i>)"
+      ],
+      why: "คือโมเมนต์ที่สองของพื้นที่รอบ O หารด้วยโมเมนต์ที่หนึ่งรอบ O ซึ่งเป็นรูปที่ควรจำ เพราะทำให้เห็นชัดว่าแต่ละพจน์ทำหน้าที่อะไร การใช้ <i>I</i><sub>GG</sub> แทน <i>I</i><sub>o</sub> ต้องผ่านทฤษฎีบทแกนขนานก่อน" },
+
+    { ref: "2.7", href: "#s7", a: 1,
+      q: "ทฤษฎีบทแกนขนานระบุว่า",
+      opts: [
+        "<i>I</i><sub>o</sub> = <i>I</i><sub>GG</sub> &minus; <i>Ax&#772;</i><sup>2</sup>",
+        "<i>I</i><sub>o</sub> = <i>I</i><sub>GG</sub> + <i>Ax&#772;</i><sup>2</sup>",
+        "<i>I</i><sub>GG</sub> = <i>I</i><sub>o</sub> + <i>Ax&#772;</i><sup>2</sup>",
+        "<i>I</i><sub>o</sub> = <i>Ax&#772;</i><sup>2</sup>"
+      ],
+      why: "ตารางให้ <i>I</i><sub>GG</sub> ซึ่งเป็นค่ารอบแกนผ่านเซนทรอยด์ แต่สมการโมเมนต์ต้องการ <i>I</i> รอบแกนผ่าน O ทฤษฎีบทนี้เชื่อมทั้งสอง และ <i>I</i><sub>o</sub> จะมากกว่าเสมอ" },
+
+    { ref: "2.7", href: "#s7", a: 2,
+      q: "สำหรับสี่เหลี่ยมผืนผ้าฐาน <i>b</i> สูง <i>d</i> โมเมนต์ที่สองของพื้นที่รอบแกนเซนทรอยด์คือ",
+      opts: [
+        "<i>bd</i><sup>3</sup>/36",
+        "<i>bd</i><sup>3</sup>/3",
+        "<i>bd</i><sup>3</sup>/12",
+        "<i>bd</i><sup>2</sup>/12"
+      ],
+      why: "<i>bd</i><sup>3</sup>/36 คือสามเหลี่ยม ส่วน <i>bd</i><sup>3</sup>/3 คือสี่เหลี่ยมรอบ <i>ขอบ</i> ไม่ใช่รอบเซนทรอยด์ สังเกตกำลังสาม <i>I</i> มีมิติ <span class=\"dim\">L<sup>4</sup></span> ตัวเลือกสุดท้ายจึงผิดได้ด้วยเหตุผลเชิงมิติเพียงอย่างเดียว" },
+
+    { ref: "2.7", href: "#s7", a: 0,
+      q: "เมื่อประตูขนาดคงที่ถูกลดลงไปยังความลึกที่มากขึ้นเรื่อย ๆ ระยะระหว่าง G กับ C จะ",
+      opts: [
+        "ลดลง C จึงคืบเข้าหา G",
+        "เพิ่มขึ้นเรื่อย ๆ",
+        "คงเดิมทุกประการ",
+        "เปลี่ยนเครื่องหมาย C จึงขึ้นไปอยู่เหนือ G"
+      ],
+      why: "ระยะนั้นคือ <i>I</i><sub>GG</sub>/(<i>Ax&#772;</i>) ซึ่งหดลงเมื่อ <i>x&#772;</i> โตขึ้น ในเชิงกายภาพ ยิ่งประตูจมลึก ความดันบนตัวมันก็ยิ่งสม่ำเสมอ ตัวอย่างที่ 2.4 พบว่า C อยู่ต่ำกว่า G เพียง 12 มม." },
+
+    /* ------------------------ 2.8 แผนภาพความดัน */
+    { ref: "2.8", href: "#s8", a: 1,
+      q: "ในแผนภาพความดันที่เขียนไว้ข้างกำแพงแนวดิ่ง <i>พื้นที่</i> ของแผนภาพแทนอะไร",
+      opts: [
+        "ความดันที่ฐานของกำแพง",
+        "แรงลัพธ์ต่อหนึ่งหน่วยความกว้างของกำแพง",
+        "โมเมนต์พลิกคว่ำรอบฐาน",
+        "ความลึกของจุดศูนย์กลางความดัน"
+      ],
+      why: "เป็นความดัน (N/m<sup>2</sup>) อินทิเกรตตลอดความลึก (m) ได้ N/m ซึ่งเป็นแรงต่อหนึ่งหน่วยความกว้าง ส่วน <i>เซนทรอยด์</i> ของแผนภาพเป็นคนละเรื่อง คือบอกว่าแรงนั้นกระทำที่ใด" },
+
+    { ref: "2.8", href: "#s8", a: 3,
+      q: "สำหรับกำแพงแนวดิ่งที่กั้นน้ำลึก <i>H</i> แรงลัพธ์ต่อหนึ่งหน่วยความกว้างคือ",
+      opts: [
+        "<i>&rho;gH</i><sup>2</sup>",
+        "&#8531;<i>&rho;gH</i><sup>2</sup>",
+        "2<i>&rho;gH</i><sup>2</sup>",
+        "&frac12;<i>&rho;gH</i><sup>2</sup>"
+      ],
+      why: "แผนภาพเป็นสามเหลี่ยมฐาน <i>&rho;gH</i> สูง <i>H</i> พื้นที่จึงเป็น &frac12;<i>&rho;gH</i><sup>2</sup> สังเกตกำลังสอง ถ้าความลึกเพิ่มเป็นสองเท่า แรงจะเพิ่มเป็นสี่เท่า ซึ่งเป็นเหตุผลที่ระยะพ้นน้ำของคันคลองสำคัญมาก" },
+
+    { ref: "2.8", href: "#s8", a: 2,
+      q: "แรงลัพธ์นั้นกระทำที่ความสูงเหนือฐานเท่าใด",
+      opts: [
+        "<i>H</i>/2",
+        "2<i>H</i>/3",
+        "<i>H</i>/3",
+        "ศูนย์ คือกระทำที่ฐานพอดี"
+      ],
+      why: "เซนทรอยด์ของสามเหลี่ยมอยู่ที่หนึ่งในสามจากฐานขึ้นมา แรงจึงกระทำที่ <i>H</i>/3 เหนือฐาน ซึ่งเท่ากับความลึก 2<i>H</i>/3 ใต้ผิวน้ำ การสับสนระหว่างสองค่านี้เป็นข้อผิดพลาดที่พบบ่อยที่สุดของหัวข้อนี้" },
+
+    /* --------------------------- 2.9 ผิวโค้ง */
+    { ref: "2.9", href: "#s9", a: 0,
+      q: "องค์ประกอบแนวราบของแรงบนผิวโค้งเท่ากับอะไร",
+      opts: [
+        "แรงลัพธ์บนภาพฉายของผิวโค้งลงบนระนาบแนวดิ่ง",
+        "น้ำหนักของของไหลที่อยู่เหนือผิวนั้นโดยตรง",
+        "ศูนย์ เพราะองค์ประกอบแนวราบหักล้างกันหมด",
+        "<i>&rho;gV</i> โดย <i>V</i> คือปริมาตรที่ล้อมอยู่"
+      ],
+      why: "เมื่อแยกลิ่มของไหลออกมา ไม่มีแรงแนวราบใดกระทำบนหน้าแนวนอนของมันได้ แรงบนหน้าโค้งจึงต้องสมดุลกับแรงบนหน้าแนวดิ่ง และหน้าแนวดิ่งนั้นก็คือภาพฉายพอดี ข้อนี้ใช้ได้ไม่ว่าของไหลจะอยู่เหนือหรือใต้ผิว" },
+
+    { ref: "2.9", href: "#s9", a: 3,
+      q: "เมื่อของไหลวางอยู่ <i>เหนือ</i> ผิวโค้ง องค์ประกอบแนวดิ่งของแรงคือ",
+      opts: [
+        "น้ำหนักของปริมาตรสมมติของของไหล กระทำขึ้น",
+        "ศูนย์ เพราะไม่มีแรงเฉือนบนหน้าแนวดิ่ง",
+        "เท่ากับองค์ประกอบแนวราบเสมอ",
+        "น้ำหนักของของไหลจริงที่อยู่เหนือผิวโดยตรง กระทำลง"
+      ],
+      why: "ลิ่มของไหลไม่มีแรงเฉือนบนขอบแนวดิ่ง แรงในแนวดิ่งที่มีให้ใช้จึงมีเพียงน้ำหนักของของไหลที่มันบรรจุอยู่ กระทำลงผ่านจุดศูนย์ถ่วงของปริมาตรนั้น" },
+
+    { ref: "2.9", href: "#s9", a: 2,
+      q: "สำหรับประตูระบายน้ำโค้งที่มีของไหลอยู่ <i>ใต้</i> ผิว องค์ประกอบแนวดิ่งคือ",
+      opts: [
+        "น้ำหนักของของไหลจริงที่อยู่เหนือประตู กระทำลง",
+        "ศูนย์",
+        "น้ำหนักของปริมาตร <i>สมมติ</i> ของของไหลที่อยู่เหนือผิวในแนวดิ่ง กระทำขึ้น",
+        "เท่ากับ <i>R</i><sub>H</sub> เสมอ"
+      ],
+      why: "ถ้าแทนที่ประตูด้วยของไหล ทั้งระบบจะอยู่ในสมดุล แรงที่ประตูต้องจ่ายจึงเท่ากับน้ำหนักของของไหลที่น่าจะอยู่ตรงนั้น ทิศทางเป็นสิ่งที่ทำให้คนพลาด เพราะน้ำกำลังพยายาม <i>ยก</i> ประตูขึ้น" },
+
+    { ref: "2.9", href: "#s9", a: 1,
+      q: "ถ้าผิวโค้งเป็นส่วนหนึ่งของวงกลม แรงดันลัพธ์จะ",
+      opts: [
+        "อยู่ในแนวดิ่งเสมอ",
+        "ผ่านจุดศูนย์กลางความโค้งเสมอ",
+        "อยู่ในแนวราบเสมอ",
+        "หาตำแหน่งไม่ได้ถ้าไม่อินทิเกรต"
+      ],
+      why: "แรงย่อยทุกแรงตั้งฉากกับผิวจึงพุ่งตามรัศมี และผ่านจุดศูนย์กลางทั้งหมด ชุดแรงที่ผ่านจุดเดียวกันย่อมมีแรงลัพธ์ที่ผ่านจุดนั้น นี่คือเหตุผลที่ประตูน้ำแบบเรเดียลมีบานพับที่จุดศูนย์กลางความโค้ง แรงดันจึงไม่สร้างโมเมนต์รอบบานพับ" },
+
+    /* ----------------------------- 2.10 เนื้อหาเสริม */
+    { ref: "2.10", href: "#s10", a: 1,
+      q: "<b>เนื้อหาเสริม</b> หลักของอาร์คิมิดีสระบุว่าแรงพยุงที่กระทำต่อวัตถุที่จมน้ำเท่ากับ",
+      opts: [
+        "น้ำหนักของตัววัตถุเอง",
+        "น้ำหนักของของไหลที่วัตถุนั้นแทนที่",
+        "<i>&rho;g</i> คูณด้วยมวลของวัตถุ",
+        "ความดันที่เซนทรอยด์คูณด้วยพื้นที่ผิว"
+      ],
+      why: "<i>F</i><sub>B</sub> = <i>&rho;gV</i> กระทำขึ้นผ่านเซนทรอยด์ของปริมาตรที่ถูกแทนที่ ไม่ใช่หลักการใหม่ แต่คือ &sect;2.9 ที่ใช้กับวัตถุซึ่งมีของไหลอยู่รอบทุกด้าน" },
+
+    { ref: "2.10", href: "#s10", a: 3,
+      q: "<b>เนื้อหาเสริม</b> ทุ่นลอยถูกย้ายจากน้ำจืดไปยังน้ำทะเล มันจะ",
+      opts: [
+        "กินน้ำลึกกว่าเดิม เพราะน้ำทะเลหนักกว่า",
+        "จมลง หากเดิมมีเสถียรภาพแบบเฉียดฉิว",
+        "ลอยที่ระยะกินน้ำลึกเท่าเดิมทุกประการ",
+        "ลอยสูงขึ้นเล็กน้อย เพราะต้องแทนที่ปริมาตรน้อยลง"
+      ],
+      why: "มันต้องแทนที่ของไหลที่มีน้ำหนักเท่ากับตัวมันเอง น้ำทะเลหนาแน่นกว่า ปริมาตรที่เล็กลงจึงหนักเท่ากัน และระยะกินน้ำลึกลดลง ตัวอย่างที่ 2.6 ให้ค่าการเปลี่ยนแปลงราว 9 มม. สำหรับทุ่นหนัก 3 ตัน" },
+
+    { ref: "2.10", href: "#s10", a: 2,
+      q: "<b>เนื้อหาเสริม</b> ภาชนะสามใบรูปทรงต่างกันมีพื้นที่ฐานเท่ากันและบรรจุน้ำลึกเท่ากัน แรงบนฐานของแต่ละใบจะ",
+      opts: [
+        "มากที่สุดในใบที่บานออก เพราะบรรจุน้ำมากที่สุด",
+        "แปรผันตามน้ำหนักน้ำที่แต่ละใบบรรจุ",
+        "เท่ากันทั้งสามใบ",
+        "มากที่สุดในใบที่คอคอดที่สุด"
+      ],
+      why: "<i>F</i> = <i>&rho;ghA</i> มีเพียงความลึกกับพื้นที่ฐาน ผนังเอียงของอีกสองใบรับส่วนต่างไว้ในรูปองค์ประกอบแรงแนวดิ่ง นี่คือปฏิทรรศน์ความดันสถิต และเป็นเหตุผลที่พิกัดความดันของท่อถูกกำหนดด้วยเฮดที่อยู่เหนือมัน ไม่ใช่ปริมาตรที่อยู่ข้างหลัง" }
+
+  ]
+};
+</script>
+<script src="lang.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>
