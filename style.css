@@ -411,6 +411,7 @@ td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
   border-left: 3px solid var(--cyan);
   font-family: var(--mathfont);
   font-size: 1.15rem;
+  line-height: 1.8;
   overflow-x: auto;
 }
 .eq .body { flex: 1 1 auto; }
@@ -426,14 +427,27 @@ var, .v {
   font-style: italic;
 }
 
+/* Stacked fraction. Numerator and denominator are block-level so the rule
+   between them stretches to whichever is wider. */
 .frac {
   display: inline-block;
   vertical-align: middle;
   text-align: center;
-  margin: 0 4px;
+  margin: 0 .22em;
+  white-space: nowrap;
 }
-.frac > span { display: block; padding: 0 6px; line-height: 1.3; }
-.frac .den { border-top: 1.4px solid currentColor; }
+.frac > span { display: block; padding: 0 .3em; line-height: 1.28; }
+.frac .den { border-top: 1.4px solid currentColor; padding-top: .06em; }
+.frac .num { padding-bottom: .06em; }
+
+/* A fraction set inside a radical, an exponent or another fraction, where a
+   full-size one would blow the line apart. */
+.frac.sm { font-size: .86em; margin: 0 .16em; }
+.frac .frac { font-size: .86em; }
+
+/* Exponents and indices that are themselves fractions read as H^3/2 unless
+   the fraction slash is used, so .pow carries one: H raised to 3&frasl;2. */
+.pow { font-style: normal; }
 
 .units { font-family: var(--sans); font-size: .86rem; color: var(--ink-3); }
 
@@ -798,16 +812,126 @@ html[lang="th"] .eq .tag { font-family: var(--thai); }
    the tag is floated to the right of the first line instead. */
 .eq.stack { display: block; }
 .eq.stack .body { display: block; margin: 0; }
-.eq.stack .body + .body { margin-top: 10px; }
+.eq.stack .body + .body { margin-top: 12px; }
 .eq.stack .tag { float: right; padding-top: 4px; }
 
-/* Centred display equation with no tag */
-.eq.plain { justify-content: center; }
+/* A line of a derivation that is prose rather than symbols ("divide
+   throughout by m"), set smaller and upright so it does not read as maths. */
+.eq .say {
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: .82em;
+  line-height: 1.5;
+  color: var(--ink-3);
+  padding-right: .4em;
+}
 
-/* Radicals. The overbar is a border on the radicand, so it stretches to fit
-   whatever sits underneath it. */
-.sqrt { white-space: nowrap; }
-.sqrt > .rad { border-top: 1.2px solid currentColor; padding: 0 3px 0 2px; margin-left: -1px; }
+/* Centred display equation with no tag. The body must not grow, or there is
+   nothing left for justify-content to centre. */
+.eq.plain { justify-content: center; }
+.eq.plain .body { flex: 0 1 auto; text-align: center; }
+
+/* --------------------------------------------------------------- maths set
+   Radicals, stretchy brackets, integrals and operator spacing. Everything is
+   plain CSS on ordinary spans, so it prints, works offline, and needs no
+   maths library. The rule throughout is that a container grows to fit its
+   contents, and the delimiter is sized by a modifier class:
+
+     (no class)  one line of ordinary symbols
+     .t2         the content is one line tall plus a stacked fraction
+     .t3         the content holds a fraction inside a fraction
+   ------------------------------------------------------------------------ */
+
+/* Radicals. The radical sign is a real glyph so it stays crisp at any size;
+   the overbar is a border on the radicand, so it stretches to fit whatever
+   sits underneath it. */
+/* Note on the boxes below: these containers are inline-block, never flex.
+   A flex container drops any run of white space between two child elements,
+   which would silently close up the spaces in a radicand such as
+   "2gh (rho_man - rho)/rho". Inline-block keeps normal inline layout inside,
+   so the spacing an author wrote is the spacing a student sees. */
+.sqrt {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.sqrt::before {
+  content: "\221A";                 /* the radical sign */
+  display: inline-block;
+  vertical-align: middle;
+  font-family: var(--mathfont);
+  font-style: normal;
+  line-height: .9;
+  margin-right: -.05em;
+  transform: scaleX(.92);
+}
+.sqrt > .rad {
+  display: inline-block;
+  vertical-align: middle;
+  border-top: 1.3px solid currentColor;
+  padding: .12em .34em 0 .2em;
+}
+.sqrt.t2::before { font-size: 2.45em; line-height: .55; }
+.sqrt.t3::before { font-size: 3.40em; line-height: .52; }
+
+/* Stretchy brackets. Wrap tall content so the parentheses grow with it
+   instead of sitting like two full stops beside a two-storey fraction. */
+.pren {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.pren::before,
+.pren::after {
+  display: inline-block;
+  vertical-align: middle;
+  font-family: var(--mathfont);
+  font-style: normal;
+  font-weight: 300;
+  line-height: 1;
+}
+.pren::before { content: "("; padding-right: .1em; }
+.pren::after  { content: ")"; padding-left: .1em; }
+.pren.sq::before { content: "["; }
+.pren.sq::after  { content: "]"; }
+.pren.t2::before, .pren.t2::after { font-size: 2.35em; line-height: .52; }
+.pren.t3::before, .pren.t3::after { font-size: 3.30em; line-height: .5; }
+
+/* Definite integrals: the sign is set large, the limits straddle it. */
+.intg {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0 .22em 0 .1em;
+  white-space: nowrap;
+}
+.intg::before {
+  content: "\222B";                 /* the integral sign */
+  display: inline-block;
+  vertical-align: middle;
+  font-family: var(--mathfont);
+  font-style: italic;
+  font-size: 2.1em;
+  line-height: .72;
+}
+/* the limits straddle the sign: upper above, lower below */
+.intg > .lim {
+  display: inline-block;
+  vertical-align: middle;
+  font-size: .6em;
+  line-height: 1.25;
+  text-align: left;
+  margin-left: .12em;
+}
+.intg > .lim > .hi,
+.intg > .lim > .lo { display: block; }
+
+/* Operator spacing. Binary operators want air on both sides; a leading
+   minus sign (a negative quantity) wants none after it. */
+.eq .op { padding: 0 .28em; font-style: normal; }
+.eq .rel { padding: 0 .38em; font-style: normal; }
+
+/* The differential in an integrand: upright d, thin space before it. */
+.dx { font-style: normal; padding-left: .18em; }
 
 /* Dimensional formulae: [M L^-1 T^-1]. Upright, spaced, never italic. */
 .dim {
@@ -963,9 +1087,18 @@ html[lang="th"] .eq .tag { font-family: var(--thai); }
 /* Thai pages: keep symbols and dimensions in the Latin/math stack */
 html[lang="th"] .nomen dt,
 html[lang="th"] .sqrt,
+html[lang="th"] .frac,
+html[lang="th"] .pren,
+html[lang="th"] .intg,
+html[lang="th"] .pow,
 html[lang="th"] .vec,
 html[lang="th"] .op,
+html[lang="th"] .rel,
 html[lang="th"] .ans { font-family: var(--mathfont); }
+
+/* but a prose aside inside a derivation is Thai text, so it keeps the Thai
+   stack and needs the looser Thai line-height */
+html[lang="th"] .eq .say { font-family: var(--thai); line-height: 1.75; }
 html[lang="th"] .dim { font-family: var(--mono); }
 html[lang="th"] .nomen { grid-template-columns: 7.5em 1fr; }
 

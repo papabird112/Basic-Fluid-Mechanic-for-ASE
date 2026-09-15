@@ -300,8 +300,8 @@
     <p>ถ้าจะวัดอัตราที่น้ำไหลออกจากก๊อก จะทำอย่างไร วิธีที่ชัดเจนที่สุดคือเอาถังไปรองไว้
       จับเวลาว่าใช้เวลานานเท่าใดจึงได้น้ำมวลที่ทราบค่า แล้วหารกัน</p>
 
-    <div class="eq plain">
-      อัตราการไหลเชิงมวล = <var>m&#775;</var> = มวลของไหลที่รองได้ &divide; เวลาที่ใช้
+    <div class="eq">
+      <span class="body">อัตราการไหลเชิงมวล = <var>m&#775;</var> = <span class="frac"><span class="num">มวลของไหลที่รองได้</span><span class="den">เวลาที่ใช้</span></span></span>
       <span class="tag">(3.1)</span>
     </div>
 
@@ -313,8 +313,8 @@
     <p>โดยทั่วไปเราต้องการ<b>อัตราการไหลเชิงปริมาตร</b> ซึ่งเรียกกันทั่วไปว่า <b>อัตราการไหล</b> (discharge)
       และใช้สัญลักษณ์ <var>Q</var></p>
 
-    <div class="eq plain">
-      <var>Q</var> = ปริมาตรของไหล &divide; เวลาที่ใช้ = <var>m&#775;</var> / <var>&rho;</var>
+    <div class="eq">
+      <span class="body"><var>Q</var> = <span class="frac"><span class="num">ปริมาตรของไหล</span><span class="den">เวลาที่ใช้</span></span> = <span class="frac"><span class="num"><var>m&#775;</var></span><span class="den"><var>&rho;</var></span></span></span>
       <span class="tag">(3.2)</span>
     </div>
 
@@ -330,8 +330,8 @@
       อนุภาคที่ทางเข้าจะเคลื่อนที่ได้ระยะ <var>ut</var> ปริมาตรที่ผ่านทางเข้าไปจึงเท่ากับ <var>Aut</var>
       และปริมาตรต่อหนึ่งหน่วยเวลาคือ</p>
 
-    <div class="eq plain">
-      <var>Q</var> = <var>A</var> <var>u&#772;</var>
+    <div class="eq">
+      <span class="body"><var>Q</var> = <var>A</var> <var>u&#772;</var></span>
       <span class="tag">(3.3)</span>
     </div>
 
@@ -429,13 +429,13 @@
       หรือ<b>ปริมาตรควบคุม</b> (control volume) มันจะกลายเป็นสมการบัญชี</p>
 
     <div class="eq plain">
-      มวลที่เข้าต่อหน่วยเวลา = มวลที่ออกต่อหน่วยเวลา + มวลที่เพิ่มขึ้นในปริมาตรควบคุมต่อหน่วยเวลา
+      <span class="body">มวลที่เข้าต่อหน่วยเวลา = มวลที่ออกต่อหน่วยเวลา + มวลที่เพิ่มขึ้นในปริมาตรควบคุมต่อหน่วยเวลา</span>
     </div>
 
     <p>สำหรับ<b>การไหลคงตัว</b> ไม่มีการสะสม: มวลในปริมาตรควบคุมคงที่ พจน์สุดท้ายจึงเป็นศูนย์ และได้</p>
 
-    <div class="eq plain">
-      มวลที่เข้าต่อหน่วยเวลา = มวลที่ออกต่อหน่วยเวลา
+    <div class="eq">
+      <span class="body">มวลที่เข้าต่อหน่วยเวลา = มวลที่ออกต่อหน่วยเวลา</span>
       <span class="tag">(3.4)</span>
     </div>
 
@@ -443,10 +443,10 @@
       และออกทางหน้าตัดที่&nbsp;2</p>
 
     <div class="eq stack">
-      <div><var>&rho;</var><sub>1</sub><var>A</var><sub>1</sub><var>u</var><sub>1</sub>
+      <span class="tag">(3.5)</span>
+      <span class="body"><var>&rho;</var><sub>1</sub><var>A</var><sub>1</sub><var>u</var><sub>1</sub>
            = <var>&rho;</var><sub>2</sub><var>A</var><sub>2</sub><var>u</var><sub>2</sub>
-           = ค่าคงที่ = <var>m&#775;</var>
-        <span class="tag">(3.5)</span></div>
+           = ค่าคงที่ = <var>m&#775;</var></span>
     </div>
 
     <p>สมการนี้ใช้ได้กับท่อกระแสใด ๆ ในการไหลคงตัว ไม่ว่าของไหลจะเป็นอะไร ทีนี้นำสมมติฐานข้อที่สองของ
@@ -454,9 +454,9 @@
       <var>&rho;</var><sub>2</sub> และความหนาแน่นตัดกัน</p>
 
     <div class="eq stack">
-      <div><var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
-           = <var>Q</var> = ค่าคงที่
-        <span class="tag">(3.6)</span></div>
+      <span class="tag">(3.6)</span>
+      <span class="body"><var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+           = <var>Q</var> = ค่าคงที่</span>
     </div>
 
     <div class="callout rule">
@@ -472,10 +472,10 @@
       <var>A</var> = <var>&pi;d</var><sup>2</sup>/4 พื้นที่จึงมีอัตราส่วนเท่ากับกำลังสองของเส้นผ่านศูนย์กลาง</p>
 
     <div class="eq stack">
-      <div><var>u</var><sub>2</sub> = <var>u</var><sub>1</sub>
-        (<var>A</var><sub>1</sub>/<var>A</var><sub>2</sub>)
-        = <var>u</var><sub>1</sub> (<var>d</var><sub>1</sub>/<var>d</var><sub>2</sub>)<sup>2</sup>
-        <span class="tag">(3.7)</span></div>
+      <span class="tag">(3.7)</span>
+      <span class="body"><var>u</var><sub>2</sub> = <var>u</var><sub>1</sub>
+        <span class="pren t2"><span class="frac sm"><span class="num"><var>A</var><sub>1</sub></span><span class="den"><var>A</var><sub>2</sub></span></span></span>
+        = <var>u</var><sub>1</sub> <span class="pren t2"><span class="frac sm"><span class="num"><var>d</var><sub>1</sub></span><span class="den"><var>d</var><sub>2</sub></span></span></span><sup>2</sup></span>
     </div>
 
     <p>ดังนั้นการลดเส้นผ่านศูนย์กลางลงครึ่งหนึ่งทำให้ความเร็ว<em>เพิ่มเป็นสี่เท่า</em>
@@ -527,13 +527,11 @@
     <p>ถ้าจุดแยกมีทางเข้าหนึ่งทางและทางออกสองทาง อัตราการไหลเชิงมวลรวมที่เข้าต้องเท่ากับที่ออก</p>
 
     <div class="eq stack">
-      <div><var>&rho;</var><sub>1</sub><var>Q</var><sub>1</sub> = <var>&rho;</var><sub>2</sub><var>Q</var><sub>2</sub>
-        + <var>&rho;</var><sub>3</sub><var>Q</var><sub>3</sub>
-        <span class="tag">(3.8)</span></div>
-      <div>และถ้าเป็นของไหลชนิดเดียวกันตลอด
-        <var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
-        + <var>A</var><sub>3</sub><var>u</var><sub>3</sub>
-        <span class="tag">(3.9)</span></div>
+      <span class="tag">(3.8)</span>
+      <span class="body"><var>&rho;</var><sub>1</sub><var>Q</var><sub>1</sub> = <var>&rho;</var><sub>2</sub><var>Q</var><sub>2</sub>
+        + <var>&rho;</var><sub>3</sub><var>Q</var><sub>3</sub></span>
+      <span class="body"><span class="say">และถ้าเป็นของไหลชนิดเดียวกันตลอด</span> <var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+        + <var>A</var><sub>3</sub><var>u</var><sub>3</sub></span>
     </div>
 
     <div class="example">
@@ -625,19 +623,18 @@
       เขียนที่จุด 1 และ 2</p>
 
     <div class="eq stack">
-      <div><var>p</var><sub>1</sub><var>m</var>/<var>&rho;</var> + &frac12;<var>mu</var><sub>1</sub><sup>2</sup>
+      <span class="tag">(3.10)</span>
+      <span class="body"><span class="frac"><span class="num"><var>p</var><sub>1</sub><var>m</var></span><span class="den"><var>&rho;</var></span></span> + &frac12;<var>mu</var><sub>1</sub><sup>2</sup>
         + <var>mgz</var><sub>1</sub>
-        = <var>p</var><sub>2</sub><var>m</var>/<var>&rho;</var> + &frac12;<var>mu</var><sub>2</sub><sup>2</sup>
-        + <var>mgz</var><sub>2</sub></div>
-      <div>หารตลอดด้วย <var>m</var>: &nbsp;
-        <var>p</var><sub>1</sub>/<var>&rho;</var> + <var>u</var><sub>1</sub><sup>2</sup>/2 + <var>gz</var><sub>1</sub>
-        = <var>p</var><sub>2</sub>/<var>&rho;</var> + <var>u</var><sub>2</sub><sup>2</sup>/2 + <var>gz</var><sub>2</sub>
-        <span class="tag">(3.10)</span></div>
-      <div>หารตลอดด้วย <var>g</var>: &nbsp;
-        <var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>1</sub>
-        = <var>p</var><sub>2</sub>/<var>&rho;g</var> + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>2</sub>
-        = <var>H</var> = ค่าคงที่
-        <span class="tag">(3.11)</span></div>
+        = <span class="frac"><span class="num"><var>p</var><sub>2</sub><var>m</var></span><span class="den"><var>&rho;</var></span></span> + &frac12;<var>mu</var><sub>2</sub><sup>2</sup>
+        + <var>mgz</var><sub>2</sub></span>
+      <span class="body"><span class="say">หารตลอดด้วย</span> <var>m</var>: &nbsp;
+        <span class="frac"><span class="num"><var>p</var><sub>1</sub></span><span class="den"><var>&rho;</var></span></span> + <span class="frac"><span class="num"><var>u</var><sub>1</sub><sup>2</sup></span><span class="den">2</span></span> + <var>gz</var><sub>1</sub>
+        = <span class="frac"><span class="num"><var>p</var><sub>2</sub></span><span class="den"><var>&rho;</var></span></span> + <span class="frac"><span class="num"><var>u</var><sub>2</sub><sup>2</sup></span><span class="den">2</span></span> + <var>gz</var><sub>2</sub></span>
+      <span class="body"><span class="say">หารตลอดด้วย</span> <var>g</var>: &nbsp;
+        <span class="frac"><span class="num"><var>p</var><sub>1</sub></span><span class="den"><var>&rho;g</var></span></span> + <span class="frac"><span class="num"><var>u</var><sub>1</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span> + <var>z</var><sub>1</sub>
+        = <span class="frac"><span class="num"><var>p</var><sub>2</sub></span><span class="den"><var>&rho;g</var></span></span> + <span class="frac"><span class="num"><var>u</var><sub>2</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span> + <var>z</var><sub>2</sub>
+        = <var>H</var> = ค่าคงที่</span>
     </div>
 
     <p>สมการ&nbsp;(3.10) คือสมการแบร์นูลลีในรูป<b>พลังงานต่อหนึ่งหน่วยมวล</b>
@@ -645,9 +642,9 @@
       ซึ่งคือพลังงานต่อหนึ่งหน่วยปริมาตร</p>
 
     <div class="eq stack">
-      <div><var>p</var><sub>1</sub> + &frac12;<var>&rho;u</var><sub>1</sub><sup>2</sup> + <var>&rho;gz</var><sub>1</sub>
-        = <var>p</var><sub>2</sub> + &frac12;<var>&rho;u</var><sub>2</sub><sup>2</sup> + <var>&rho;gz</var><sub>2</sub>
-        <span class="tag">(3.12)</span></div>
+      <span class="tag">(3.12)</span>
+      <span class="body"><var>p</var><sub>1</sub> + &frac12;<var>&rho;u</var><sub>1</sub><sup>2</sup> + <var>&rho;gz</var><sub>1</sub>
+        = <var>p</var><sub>2</sub> + &frac12;<var>&rho;u</var><sub>2</sub><sup>2</sup> + <var>&rho;gz</var><sub>2</sub></span>
     </div>
 
     <p>แต่รูปที่&nbsp;(3.11) คือรูปที่วิศวกรใช้จริง เพราะทุกพจน์มีมิติเป็น<b>ความยาว</b> &mdash;
@@ -656,8 +653,8 @@
 
     <div class="callout">
       <span class="label">ลองตรวจมิติด้วยตนเอง</span>
-      <p class="dim">[p/&rho;g] = (ML<sup>-1</sup>T<sup>-2</sup>) &divide; (ML<sup>-3</sup> &middot; LT<sup>-2</sup>) = L &nbsp;&nbsp;
-         [u<sup>2</sup>/2g] = (L<sup>2</sup>T<sup>-2</sup>) &divide; (LT<sup>-2</sup>) = L &nbsp;&nbsp;
+      <p class="dim">[p/&rho;g] = (ML<sup>&minus;1</sup>T<sup>&minus;2</sup>) &divide; (ML<sup>&minus;3</sup> &middot; LT<sup>&minus;2</sup>) = L &nbsp;&nbsp;
+         [u<sup>2</sup>/2g] = (L<sup>2</sup>T<sup>&minus;2</sup>) &divide; (LT<sup>&minus;2</sup>) = L &nbsp;&nbsp;
          [z] = L</p>
       <p>ทั้งสามพจน์เป็นความยาว สมการจึงเอกพันธ์เชิงมิติ ตามการตรวจสอบใน &sect;1.3
         ถ้าสมการแบร์นูลลีที่นักศึกษาเขียนไม่ผ่านการตรวจนี้เมื่อใด แปลว่าทำ <var>g</var> หรือ
@@ -754,9 +751,9 @@
     <p>สังเกตว่าสมการ&nbsp;(3.11) บอกอะไรกับท่อแนวราบ ซึ่ง <var>z</var><sub>1</sub> =
       <var>z</var><sub>2</sub> และพจน์ตำแหน่งหายไป</p>
 
-    <div class="eq plain">
-      <var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var>
-      = <var>p</var><sub>2</sub>/<var>&rho;g</var> + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var>
+    <div class="eq">
+      <span class="body"><span class="frac"><span class="num"><var>p</var><sub>1</sub></span><span class="den"><var>&rho;g</var></span></span> + <span class="frac"><span class="num"><var>u</var><sub>1</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span>
+      = <span class="frac"><span class="num"><var>p</var><sub>2</sub></span><span class="den"><var>&rho;g</var></span></span> + <span class="frac"><span class="num"><var>u</var><sub>2</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span></span>
       <span class="tag">(3.13)</span>
     </div>
 
@@ -842,18 +839,18 @@
       และ <var>u</var><sub>2</sub> = 0</p>
 
     <div class="eq stack">
-      <div><var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var>
-        = <var>p</var><sub>2</sub>/<var>&rho;g</var></div>
-      <div><var>p</var><sub>2</sub> = <var>p</var><sub>1</sub> + &frac12;<var>&rho;u</var><sub>1</sub><sup>2</sup>
-        <span class="tag">(3.14)</span></div>
+      <span class="tag">(3.14)</span>
+      <span class="body"><span class="frac"><span class="num"><var>p</var><sub>1</sub></span><span class="den"><var>&rho;g</var></span></span> + <span class="frac"><span class="num"><var>u</var><sub>1</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span>
+        = <span class="frac"><span class="num"><var>p</var><sub>2</sub></span><span class="den"><var>&rho;g</var></span></span></span>
+      <span class="body"><var>p</var><sub>2</sub> = <var>p</var><sub>1</sub> + &frac12;<var>&rho;u</var><sub>1</sub><sup>2</sup></span>
     </div>
 
     <p>ความดันหยุดนิ่งสูงกว่าความดันสแตติกเท่ากับ<b>ความดันพลวัต</b>
       &frac12;<var>&rho;u</var><sup>2</sup> พอดี ส่วนเกินนั้นดันลำน้ำในหลอดให้สูงขึ้นเท่ากับเฮดความเร็ว
       <var>h</var> = <var>u</var><sup>2</sup>/2<var>g</var> ดังนั้นถ้าอ่านค่า <var>h</var> ได้</p>
 
-    <div class="eq plain">
-      <var>u</var> = <span class="sqrt"><span class="rad">2<var>gh</var></span></span>
+    <div class="eq">
+      <span class="body"><var>u</var> = <span class="sqrt"><span class="rad">2<var>gh</var></span></span></span>
       <span class="tag">(3.15)</span>
     </div>
 
@@ -869,13 +866,12 @@
       <var>&rho;</var><sub>man</sub> และอ่านค่าได้ <var>h</var> จะได้</p>
 
     <div class="eq stack">
-      <div><var>p</var><sub>2</sub> &minus; <var>p</var><sub>1</sub>
-        = <var>gh</var>(<var>&rho;</var><sub>man</sub> &minus; <var>&rho;</var>)</div>
-      <div>และเนื่องจาก <var>p</var><sub>2</sub> &minus; <var>p</var><sub>1</sub> =
-        &frac12;<var>&rho;u</var><sup>2</sup></div>
-      <div><var>u</var> = <span class="sqrt"><span class="rad">2<var>gh</var>(<var>&rho;</var><sub>man</sub>
-        &minus; <var>&rho;</var>) / <var>&rho;</var></span></span>
-        <span class="tag">(3.16)</span></div>
+      <span class="tag">(3.16)</span>
+      <span class="body"><var>p</var><sub>2</sub> &minus; <var>p</var><sub>1</sub>
+        = <var>gh</var>(<var>&rho;</var><sub>man</sub> &minus; <var>&rho;</var>)</span>
+      <span class="body"><span class="say">และเนื่องจาก</span> <var>p</var><sub>2</sub> &minus; <var>p</var><sub>1</sub> =
+        &frac12;<var>&rho;u</var><sup>2</sup></span>
+      <span class="body"><var>u</var> = <span class="sqrt t2"><span class="rad">2<var>gh</var> <span class="frac"><span class="num"><var>&rho;</var><sub>man</sub> &minus; <var>&rho;</var></span><span class="den"><var>&rho;</var></span></span></span></span></span>
     </div>
 
     <p>ในทางปฏิบัติเครื่องมือไม่ได้อุดมคติเสียทีเดียว &mdash; ตัวรูเองรบกวนการไหลอยู่บ้าง &mdash;
@@ -951,17 +947,13 @@
       โดยสมมติว่าไม่มีการสูญเสีย</p>
 
     <div class="eq stack">
-      <div><var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>1</sub>
-        = <var>p</var><sub>2</sub>/<var>&rho;g</var> + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>2</sub></div>
-      <div>และความต่อเนื่องให้ <var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
-        / <var>A</var><sub>1</sub></div>
-      <div>แทนค่าแล้วแก้หา <var>u</var><sub>2</sub></div>
-      <div><var>u</var><sub>2</sub> = <span class="sqrt"><span class="rad">2<var>g</var>[(<var>p</var><sub>1</sub>
-        &minus; <var>p</var><sub>2</sub>)/<var>&rho;g</var> + <var>z</var><sub>1</sub> &minus; <var>z</var><sub>2</sub>]
-        &divide; [1 &minus; (<var>A</var><sub>2</sub>/<var>A</var><sub>1</sub>)<sup>2</sup>]</span></span>
-        <span class="tag">(3.17)</span></div>
-      <div>ดังนั้นอัตราการไหลอุดมคติคือ <var>Q</var><sub>ideal</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
-        <span class="tag">(3.18)</span></div>
+      <span class="tag">(3.17)</span>
+      <span class="body"><span class="frac"><span class="num"><var>p</var><sub>1</sub></span><span class="den"><var>&rho;g</var></span></span> + <span class="frac"><span class="num"><var>u</var><sub>1</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span> + <var>z</var><sub>1</sub>
+        = <span class="frac"><span class="num"><var>p</var><sub>2</sub></span><span class="den"><var>&rho;g</var></span></span> + <span class="frac"><span class="num"><var>u</var><sub>2</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span> + <var>z</var><sub>2</sub></span>
+      <span class="body"><span class="say">และความต่อเนื่องให้</span> <var>u</var><sub>1</sub> = <span class="frac"><span class="num"><var>A</var><sub>2</sub><var>u</var><sub>2</sub></span><span class="den"><var>A</var><sub>1</sub></span></span></span>
+      <span class="body"><span class="say">แทนค่าแล้วแก้หา</span> <var>u</var><sub>2</sub></span>
+      <span class="body"><var>u</var><sub>2</sub> = <span class="sqrt t2"><span class="rad"><span class="frac"><span class="num">2<var>g</var> <span class="pren sq">(<var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub>)&frasl;<var>&rho;g</var> + <var>z</var><sub>1</sub> &minus; <var>z</var><sub>2</sub></span></span><span class="den">1 &minus; (<var>A</var><sub>2</sub>&frasl;<var>A</var><sub>1</sub>)<sup>2</sup></span></span></span></span></span>
+      <span class="body"><span class="say">ดังนั้นอัตราการไหลอุดมคติคือ</span> <var>Q</var><sub>ideal</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub></span>
     </div>
 
     <h3>ทำไมมาโนมิเตอร์จึงทำให้ความชันไม่สำคัญ</h3>
@@ -969,22 +961,18 @@
       แต่เมื่อวิเคราะห์มาโนมิเตอร์ตามวิธีใน &sect;2.5 พจน์ความสูงจะตัดกันไปเอง</p>
 
     <div class="eq stack">
-      <div>(<var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub>)/<var>&rho;g</var>
+      <span class="tag">(3.19)</span>
+      <span class="body"><span class="frac"><span class="num"><var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub></span><span class="den"><var>&rho;g</var></span></span>
         + <var>z</var><sub>1</sub> &minus; <var>z</var><sub>2</sub>
-        = <var>h</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)
-        <span class="tag">(3.19)</span></div>
+        = <var>h</var><span class="pren t2"><span class="frac"><span class="num"><var>&rho;</var><sub>man</sub></span><span class="den"><var>&rho;</var></span></span> &minus; 1</span></span>
     </div>
 
     <p>แทน (3.19) ลงใน (3.17) และ (3.18) พร้อมใส่สัมประสิทธิ์การไหล <var>C</var><sub>d</sub>
       เพื่อชดเชยการสูญเสียจริงเล็กน้อยระหว่างจุดวัดทั้งสอง</p>
 
     <div class="eq stack">
-      <div><var>Q</var> = <var>C</var><sub>d</sub> <var>A</var><sub>1</sub><var>A</var><sub>2</sub>
-        &divide; <span class="sqrt"><span class="rad"><var>A</var><sub>1</sub><sup>2</sup> &minus;
-        <var>A</var><sub>2</sub><sup>2</sup></span></span>
-        &nbsp;&times;&nbsp;
-        <span class="sqrt"><span class="rad">2<var>gh</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)</span></span>
-        <span class="tag">(3.20)</span></div>
+      <span class="tag">(3.20)</span>
+      <span class="body"><var>Q</var> = <var>C</var><sub>d</sub> <span class="frac"><span class="num"><var>A</var><sub>1</sub><var>A</var><sub>2</sub></span><span class="den"><span class="sqrt"><span class="rad"><var>A</var><sub>1</sub><sup>2</sup> &minus; <var>A</var><sub>2</sub><sup>2</sup></span></span></span></span>&thinsp;<span class="sqrt t2"><span class="rad">2<var>gh</var><span class="pren t2"><span class="frac"><span class="num"><var>&rho;</var><sub>man</sub></span><span class="den"><var>&rho;</var></span></span> &minus; 1</span></span></span></span>
     </div>
 
     <div class="callout rule">
@@ -1073,11 +1061,11 @@
       สมการ&nbsp;(3.11) จึงให้</p>
 
     <div class="eq stack">
-      <div>0 + 0 + <var>z</var><sub>1</sub> = 0 + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>2</sub></div>
-      <div><var>u</var><sub>2</sub> = <span class="sqrt"><span class="rad">2<var>g</var>(<var>z</var><sub>1</sub>
+      <span class="tag">(3.21)</span>
+      <span class="body">0 + 0 + <var>z</var><sub>1</sub> = 0 + <span class="frac"><span class="num"><var>u</var><sub>2</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span> + <var>z</var><sub>2</sub></span>
+      <span class="body"><var>u</var><sub>2</sub> = <span class="sqrt"><span class="rad">2<var>g</var>(<var>z</var><sub>1</sub>
         &minus; <var>z</var><sub>2</sub>)</span></span>
-        = <span class="sqrt"><span class="rad">2<var>gh</var></span></span>
-        <span class="tag">(3.21)</span></div>
+        = <span class="sqrt"><span class="rad">2<var>gh</var></span></span></span>
     </div>
 
     <p>นี่คือ<b>ความเร็วการพุ่งออกเชิงทฤษฎี</b> ซึ่งทอร์ริเชลลีเป็นผู้กล่าวไว้เป็นคนแรกในปี ค.ศ.&nbsp;1643
@@ -1124,12 +1112,12 @@
     <p>อัตราการไหลจริงจึงเท่ากับ</p>
 
     <div class="eq stack">
-      <div><var>Q</var><sub>จริง</sub> = <var>A</var><sub>c</sub> <var>u</var><sub>จริง</sub>
+      <span class="tag">(3.22)</span>
+      <span class="body"><var>Q</var><sub>จริง</sub> = <var>A</var><sub>c</sub> <var>u</var><sub>จริง</sub>
         = <var>C</var><sub>c</sub><var>A</var> &middot; <var>C</var><sub>v</sub>
-        <span class="sqrt"><span class="rad">2<var>gh</var></span></span></div>
-      <div><var>Q</var> = <var>C</var><sub>d</sub> <var>A</var>
-        <span class="sqrt"><span class="rad">2<var>gh</var></span></span>
-        <span class="tag">(3.22)</span></div>
+        <span class="sqrt"><span class="rad">2<var>gh</var></span></span></span>
+      <span class="body"><var>Q</var> = <var>C</var><sub>d</sub> <var>A</var>
+        <span class="sqrt"><span class="rad">2<var>gh</var></span></span></span>
     </div>
 
     <div class="callout">
@@ -1149,16 +1137,11 @@
       และปริมาตรที่ไหลออกคือ <var>Q&delta;t</var> ถ้าถังมีพื้นที่หน้าตัดในผัง <var>A</var><sub>t</sub></p>
 
     <div class="eq stack">
-      <div><var>Q&delta;t</var> = &minus;<var>A</var><sub>t</sub><var>&delta;h</var></div>
-      <div><var>&delta;t</var> = &minus;<var>A</var><sub>t</sub><var>&delta;h</var> &divide;
-        (<var>C</var><sub>d</sub><var>A</var><span class="sqrt"><span class="rad">2<var>gh</var></span></span>)</div>
-      <div>อินทิเกรตจาก <var>h</var><sub>1</sub> ลงถึง <var>h</var><sub>2</sub></div>
-      <div><var>t</var> = 2<var>A</var><sub>t</sub>
-        (<span class="sqrt"><span class="rad"><var>h</var><sub>1</sub></span></span> &minus;
-         <span class="sqrt"><span class="rad"><var>h</var><sub>2</sub></span></span>)
-        &divide; (<var>C</var><sub>d</sub><var>A</var>
-        <span class="sqrt"><span class="rad">2<var>g</var></span></span>)
-        <span class="tag">(3.23)</span></div>
+      <span class="tag">(3.23)</span>
+      <span class="body"><var>Q&delta;t</var> = &minus;<var>A</var><sub>t</sub><var>&delta;h</var></span>
+      <span class="body"><var>&delta;t</var> = &minus; <span class="frac"><span class="num"><var>A</var><sub>t</sub><var>&delta;h</var></span><span class="den"><var>C</var><sub>d</sub><var>A</var> <span class="sqrt"><span class="rad">2<var>gh</var></span></span></span></span></span>
+      <span class="body"><span class="say">อินทิเกรตจาก</span> <var>h</var><sub>1</sub> ลงถึง <var>h</var><sub>2</sub></span>
+      <span class="body"><var>t</var> = <span class="frac"><span class="num">2<var>A</var><sub>t</sub><span class="pren"><span class="sqrt"><span class="rad"><var>h</var><sub>1</sub></span></span> &minus; <span class="sqrt"><span class="rad"><var>h</var><sub>2</sub></span></span></span></span><span class="den"><var>C</var><sub>d</sub><var>A</var> <span class="sqrt"><span class="rad">2<var>g</var></span></span></span></span></span>
     </div>
 
     <p>สังเกตว่าการระบายน้ำจนหมดถัง (<var>h</var><sub>2</sub> = 0) ใช้เวลาเป็น<em>สองเท่า</em>
@@ -1184,13 +1167,13 @@
       และมีความกว้าง <var>b</var> ซึ่งอาจขึ้นกับ <var>h</var> เอง เมื่อมองแถบนั้นเป็นออริฟิซเล็ก ๆ</p>
 
     <div class="eq stack">
-      <div>ความเร็วผ่านแถบ = <span class="sqrt"><span class="rad">2<var>gh</var></span></span></div>
-      <div>อัตราการไหลผ่านแถบ = <var>b&delta;h</var>
-        <span class="sqrt"><span class="rad">2<var>gh</var></span></span></div>
-      <div>อินทิเกรตจากสันฝาย (<var>h</var> = <var>H</var>) ขึ้นไปถึงผิวน้ำ (<var>h</var> = 0)</div>
-      <div><var>Q</var><sub>ideal</sub> = <span class="sqrt"><span class="rad">2<var>g</var></span></span>
-        &int;<sub>0</sub><sup><var>H</var></sup> <var>b h</var><sup>1/2</sup> d<var>h</var>
-        <span class="tag">(3.24)</span></div>
+      <span class="tag">(3.24)</span>
+      <span class="body">ความเร็วผ่านแถบ = <span class="sqrt"><span class="rad">2<var>gh</var></span></span></span>
+      <span class="body">อัตราการไหลผ่านแถบ = <var>b&delta;h</var>
+        <span class="sqrt"><span class="rad">2<var>gh</var></span></span></span>
+      <span class="body">อินทิเกรตจากสันฝาย (<var>h</var> = <var>H</var>) ขึ้นไปถึงผิวน้ำ (<var>h</var> = 0)</span>
+      <span class="body"><var>Q</var><sub>ideal</sub> = <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+        <span class="intg"><span class="lim"><span class="hi"><var>H</var></span><span class="lo">0</span></span></span> <var>b h</var><sup class="pow">1&frasl;2</sup> <span class="dx">d</span><var>h</var></span>
     </div>
 
     <p>ทุกอย่างจากนี้ขึ้นอยู่กับรูปร่างของช่องเปิด ผ่านทาง <var>b</var>(<var>h</var>)</p>
@@ -1250,15 +1233,15 @@
     <p>ในกรณีนี้ความกว้างคงที่ <var>b</var> = <var>B</var> จึงดึงออกนอกอินทิกรัลได้</p>
 
     <div class="eq stack">
-      <div><var>Q</var><sub>ideal</sub> = <var>B</var>
+      <span class="tag">(3.25)</span>
+      <span class="body"><var>Q</var><sub>ideal</sub> = <var>B</var>
         <span class="sqrt"><span class="rad">2<var>g</var></span></span>
-        &int;<sub>0</sub><sup><var>H</var></sup> <var>h</var><sup>1/2</sup> d<var>h</var>
-        = <sup>2</sup>&frasl;<sub>3</sub> <var>B</var>
-        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>3/2</sup></div>
-      <div>และเมื่อใส่สัมประสิทธิ์การไหล</div>
-      <div><var>Q</var> = <sup>2</sup>&frasl;<sub>3</sub> <var>C</var><sub>d</sub> <var>B</var>
-        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>3/2</sup>
-        <span class="tag">(3.25)</span></div>
+        <span class="intg"><span class="lim"><span class="hi"><var>H</var></span><span class="lo">0</span></span></span> <var>h</var><sup class="pow">1&frasl;2</sup> <span class="dx">d</span><var>h</var>
+        = <span class="frac sm"><span class="num">2</span><span class="den">3</span></span> <var>B</var>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup class="pow">3&frasl;2</sup></span>
+      <span class="body"><span class="say">และเมื่อใส่สัมประสิทธิ์การไหล</span></span>
+      <span class="body"><var>Q</var> = <span class="frac sm"><span class="num">2</span><span class="den">3</span></span> <var>C</var><sub>d</sub> <var>B</var>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup class="pow">3&frasl;2</sup></span>
     </div>
 
     <p>ค่า <var>C</var><sub>d</sub> โดยทั่วไปของฝายสี่เหลี่ยมสันคมคือ <b>0.62</b>
@@ -1271,26 +1254,25 @@
       tan(<var>&theta;</var>/2) แทนลงใน (3.24) แล้วอินทิเกรต</p>
 
     <div class="eq stack">
-      <div><var>Q</var><sub>ideal</sub> = 2 tan(<var>&theta;</var>/2)
+      <span class="tag">(3.26)</span>
+      <span class="body"><var>Q</var><sub>ideal</sub> = 2 tan<span class="pren t2"><span class="frac sm"><span class="num"><var>&theta;</var></span><span class="den">2</span></span></span>
         <span class="sqrt"><span class="rad">2<var>g</var></span></span>
-        &int;<sub>0</sub><sup><var>H</var></sup> (<var>H</var> &minus; <var>h</var>)<var>h</var><sup>1/2</sup> d<var>h</var></div>
-      <div>= 2 tan(<var>&theta;</var>/2)
+        <span class="intg"><span class="lim"><span class="hi"><var>H</var></span><span class="lo">0</span></span></span> (<var>H</var> &minus; <var>h</var>)<var>h</var><sup class="pow">1&frasl;2</sup> <span class="dx">d</span><var>h</var></span>
+      <span class="body">= 2 tan<span class="pren t2"><span class="frac sm"><span class="num"><var>&theta;</var></span><span class="den">2</span></span></span>
         <span class="sqrt"><span class="rad">2<var>g</var></span></span>
-        [<sup>2</sup>&frasl;<sub>3</sub><var>Hh</var><sup>3/2</sup> &minus;
-         <sup>2</sup>&frasl;<sub>5</sub><var>h</var><sup>5/2</sup>]<sub>0</sub><sup><var>H</var></sup>
-        = <sup>8</sup>&frasl;<sub>15</sub> tan(<var>&theta;</var>/2)
-        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>5/2</sup></div>
-      <div><var>Q</var> = <sup>8</sup>&frasl;<sub>15</sub> <var>C</var><sub>d</sub> tan(<var>&theta;</var>/2)
-        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>5/2</sup>
-        <span class="tag">(3.26)</span></div>
+        <span class="pren sq t2"><span class="frac sm"><span class="num">2</span><span class="den">3</span></span><var>Hh</var><sup class="pow">3&frasl;2</sup> &minus; <span class="frac sm"><span class="num">2</span><span class="den">5</span></span><var>h</var><sup class="pow">5&frasl;2</sup></span><sub>0</sub><sup><var>H</var></sup>
+        = <span class="frac sm"><span class="num">8</span><span class="den">15</span></span> tan<span class="pren t2"><span class="frac sm"><span class="num"><var>&theta;</var></span><span class="den">2</span></span></span>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup class="pow">5&frasl;2</sup></span>
+      <span class="body"><var>Q</var> = <span class="frac sm"><span class="num">8</span><span class="den">15</span></span> <var>C</var><sub>d</sub> tan<span class="pren t2"><span class="frac sm"><span class="num"><var>&theta;</var></span><span class="den">2</span></span></span>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup class="pow">5&frasl;2</sup></span>
     </div>
 
     <p>ค่า <var>C</var><sub>d</sub> โดยทั่วไปคือ <b>0.58</b> สำหรับช่องเปิดสามเหลี่ยม 90&deg; มาตรฐาน
       tan&nbsp;45&deg;&nbsp;=&nbsp;1 สมการ&nbsp;(3.26) จึงยุบลงเหลือสูตรภาคสนามที่ช่างชลประทานทุกคนรู้จัก</p>
 
-    <div class="eq plain">
-      <var>Q</var> &asymp; 1.37 <var>H</var><sup>5/2</sup> &nbsp; (<var>Q</var> หน่วย
-      ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup>, <var>H</var> หน่วยเมตร)
+    <div class="eq">
+      <span class="body"><var>Q</var> &asymp; 1.37 <var>H</var><sup class="pow">5&frasl;2</sup> &nbsp; (<var>Q</var> หน่วย
+      ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup>, <var>H</var> หน่วยเมตร)</span>
       <span class="tag">(3.27)</span>
     </div>
 
@@ -1317,9 +1299,9 @@
       ทำให้ความกว้างที่ใช้งานได้จริงหดลง <b>การแก้ค่าแบบฟรานซิส</b> (Francis) ลดความกว้างลง
       0.1<var>H</var> ต่อการหดตัวที่ปลายหนึ่งด้าน</p>
 
-    <div class="eq plain">
-      <var>B</var><sub>ใช้งาน</sub> = <var>B</var> &minus; 0.1<var>nH</var> &nbsp; โดย <var>n</var> = 0,
-      1 หรือ 2 คือจำนวนปลายที่หดตัว
+    <div class="eq">
+      <span class="body"><var>B</var><sub>ใช้งาน</sub> = <var>B</var> &minus; 0.1<var>nH</var> &nbsp; โดย <var>n</var> = 0,
+      1 หรือ 2 คือจำนวนปลายที่หดตัว</span>
       <span class="tag">(3.28)</span>
     </div>
 
@@ -1328,10 +1310,10 @@
       ซึ่งพาเฮดความเร็ว <var>h</var><sub>a</sub> = <var>u</var><sub>a</sub><sup>2</sup>/2<var>g</var>
       มาบวกเพิ่มกับเฮดที่ใช้งานจริง</p>
 
-    <div class="eq plain">
-      <var>Q</var> = <sup>2</sup>&frasl;<sub>3</sub> <var>C</var><sub>d</sub><var>B</var>
+    <div class="eq">
+      <span class="body"><var>Q</var> = <span class="frac sm"><span class="num">2</span><span class="den">3</span></span> <var>C</var><sub>d</sub><var>B</var>
       <span class="sqrt"><span class="rad">2<var>g</var></span></span>
-      [(<var>H</var> + <var>h</var><sub>a</sub>)<sup>3/2</sup> &minus; <var>h</var><sub>a</sub><sup>3/2</sup>]
+      [(<var>H</var> + <var>h</var><sub>a</sub>)<sup class="pow">3&frasl;2</sup> &minus; <var>h</var><sub>a</sub><sup class="pow">3&frasl;2</sup>]</span>
       <span class="tag">(3.29)</span>
     </div>
 
@@ -1371,13 +1353,9 @@
       จุดวัดความดันอยู่ห่างไปทางต้นน้ำหนึ่งเท่าของเส้นผ่านศูนย์กลางท่อ และทางท้ายน้ำครึ่งเท่า
       อัตราการไหลเป็นไปตามสูตรของเวนจูรี&nbsp;(3.20) ทุกประการ เพียงแต่ใช้สัมประสิทธิ์ต่างกัน</p>
 
-    <div class="eq plain">
-      <var>Q</var> = <var>C</var><sub>d</sub> <var>A</var><sub>1</sub><var>A</var><sub>2</sub>
-      &divide; <span class="sqrt"><span class="rad"><var>A</var><sub>1</sub><sup>2</sup> &minus;
-      <var>A</var><sub>2</sub><sup>2</sup></span></span>
-      &nbsp;&times;&nbsp;
-      <span class="sqrt"><span class="rad">2<var>gh</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)</span></span>
-      &nbsp; โดย <var>C</var><sub>d</sub> &asymp; 0.6
+    <div class="eq">
+      <span class="body"><var>Q</var> = <var>C</var><sub>d</sub> <span class="frac"><span class="num"><var>A</var><sub>1</sub><var>A</var><sub>2</sub></span><span class="den"><span class="sqrt"><span class="rad"><var>A</var><sub>1</sub><sup>2</sup> &minus; <var>A</var><sub>2</sub><sup>2</sup></span></span></span></span>&thinsp;<span class="sqrt t2"><span class="rad">2<var>gh</var><span class="pren t2"><span class="frac"><span class="num"><var>&rho;</var><sub>man</sub></span><span class="den"><var>&rho;</var></span></span> &minus; 1</span></span></span>
+      &nbsp; โดย <var>C</var><sub>d</sub> &asymp; 0.6</span>
       <span class="tag">(3.30)</span>
     </div>
 
