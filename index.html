@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ASE 221 | Fluid Mechanics</title>
-<meta name="description" content="A compact undergraduate course in fluid mechanics for agricultural and biosystems engineering: fluid properties, statics, the control-volume equations, pipe flow, pumps and flow measurement.">
+<title>ASE 221 | Introduction to Fluid Mechanics</title>
+<meta name="description" content="A first-year introduction to fluid mechanics for agricultural and biosystems engineering: units and fluid properties, forces in static fluids, continuity and Bernoulli, the momentum equation, and laminar and turbulent flow in pipes.">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -30,11 +30,11 @@
 
 <div class="masthead">
   <div class="masthead-inner">
-    <p class="eyebrow">ASE 221 <span>|</span> Semester 1, 2026 <span>|</span> Undergraduate</p>
-    <h1>Fluid Mechanics</h1>
-    <p class="tagline">How liquids and gases behave at rest and in motion &mdash; and how to turn that
-      behaviour into numbers: pressure on a gate, thrust on a bend, head loss down a pipeline, and the
-      power a pump must deliver.</p>
+    <p class="eyebrow">ASE 221 <span>|</span> Semester 1, 2026 <span>|</span> First Year</p>
+    <h1>Introduction to Fluid Mechanics</h1>
+    <p class="tagline">Five chapters that take you from what a fluid <em>is</em> to the head lost down a
+      real pipeline &mdash; the groundwork you will stand on when irrigation engineering begins in
+      year&nbsp;two.</p>
   </div>
 </div>
 
@@ -45,15 +45,11 @@
       <h2>Course Menu</h2>
       <ul>
         <li><a href="index.html" class="active">Course Home</a></li>
-        <li><a href="chapter1.html">Ch.&nbsp;1 &mdash; Properties of Fluids</a></li>
-        <li><span class="muted">Ch.&nbsp;2 &mdash; Fluid Statics<em>Not yet published</em></span></li>
-        <li><span class="muted">Ch.&nbsp;3 &mdash; Fluid Kinematics<em>Not yet published</em></span></li>
-        <li><span class="muted">Ch.&nbsp;4 &mdash; Energy and Bernoulli<em>Not yet published</em></span></li>
-        <li><span class="muted">Ch.&nbsp;5 &mdash; The Momentum Equation<em>Not yet published</em></span></li>
-        <li><span class="muted">Ch.&nbsp;6 &mdash; Dimensional Analysis<em>Not yet published</em></span></li>
-        <li><span class="muted">Ch.&nbsp;7 &mdash; Viscous Flow in Pipes<em>Not yet published</em></span></li>
-        <li><span class="muted">Ch.&nbsp;8 &mdash; Pipe Systems and Pumps<em>Not yet published</em></span></li>
-        <li><span class="muted">Ch.&nbsp;9 &mdash; Flow Measurement<em>Not yet published</em></span></li>
+        <li><a href="chapter1.html">Ch.&nbsp;1 &mdash; Fluid Properties</a></li>
+        <li><span class="muted">Ch.&nbsp;2 &mdash; Forces in Static Fluids<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;3 &mdash; Continuity and Bernoulli<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;4 &mdash; The Momentum Equation<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;5 &mdash; Real Fluids in Pipes<em>Not yet published</em></span></li>
       </ul>
     </nav>
 
@@ -70,10 +66,13 @@
         <dd>Semester 1, Academic Year 2026</dd>
 
         <dt>Level</dt>
-        <dd>Undergraduate, second year</dd>
+        <dd>Undergraduate, first year</dd>
 
         <dt>Credits</dt>
         <dd>3 (3&ndash;0&ndash;6)</dd>
+
+        <dt>Prepares You For</dt>
+        <dd>Irrigation Engineering (year&nbsp;2)</dd>
 
         <dt>Topics</dt>
         <dd class="crumbs">Engineering &gt; Mechanical Engineering &gt; Fluid Mechanics</dd>
@@ -160,10 +159,11 @@
         <line x1="800" y1="127" x2="800" y2="272" stroke="#726b64" stroke-width="1.4" marker-end="url(#ar)" marker-start="url(#ar)"/>
         <text x="810" y="205" font-family="Cambria, Georgia, serif" font-size="17" fill="#4b4540" font-style="italic">z</text>
       </svg>
-      <figcaption><b>Figure 0.1.</b> The whole course in one sketch. Chapter&nbsp;2 gives the pressure in the
-        reservoir, Chapters&nbsp;3&ndash;4 the energy grade line, Chapter&nbsp;5 the thrust on the bends,
-        Chapter&nbsp;7 the friction that makes the line droop, and Chapter&nbsp;8 the head
-        <var>h</var><sub>p</sub> the pump must supply.</figcaption>
+      <figcaption><b>Figure 0.1.</b> The whole course in one sketch. Chapter&nbsp;1 gives the properties of
+        the water itself, Chapter&nbsp;2 the pressure in the reservoir and the force on its walls,
+        Chapter&nbsp;3 the energy grade line and the jet at the end, Chapter&nbsp;4 the thrust on the bends
+        and on anything the jet strikes, and Chapter&nbsp;5 the friction that makes the line droop. The
+        <var>h</var><sub>p</sub> supplied by the pump is where your year-2 irrigation course picks up.</figcaption>
     </figure>
 
     <h2>Course Description</h2>
@@ -172,92 +172,138 @@
       shear, and a fluid in motion deforms continuously for as long as the stress is applied. Almost
       everything in this course follows from taking that definition seriously.</p>
 
-    <p>The course is deliberately compact. It covers the material a biosystems or agricultural engineer
-      actually uses &mdash; pressure and force on submerged surfaces, the three control-volume equations
-      (mass, energy, momentum), the friction that dominates any real pipeline, and the pumps and meters that
-      make an irrigation or processing system work &mdash; and stops there. Compressible flow,
-      boundary-layer theory and computational methods are left to later electives.</p>
+    <p>This is a <b>first-year foundation course</b>. Its job is to put the four tools you will use for the
+      rest of the degree into your hands and make you fluent with them: <b>the hydrostatic equation</b>,
+      <b>continuity</b>, <b>the Bernoulli equation</b> and <b>the momentum equation</b> &mdash; followed by
+      the Reynolds number and the friction that separates a real pipeline from an ideal one.</p>
 
-    <p>Emphasis throughout is on <em>getting a defensible number</em>. Every chapter ends with worked
-      examples carried through in SI units, with the assumptions stated and the answer checked for physical
-      sense.</p>
+    <p>It stops there, deliberately. Pumps and turbines, pipe networks, the Moody chart, open-channel flow,
+      dimensional analysis and boundary-layer theory all belong to the courses that come after this one,
+      and to <b>Irrigation Engineering in year&nbsp;two</b> in particular. Everything you meet here is
+      something that course will assume you already know.</p>
+
+    <div class="callout">
+      <span class="label">Scope of these notes</span>
+      <p>The syllabus follows Sleigh, <em>An Introduction to Fluid Mechanics</em> (CIVE&nbsp;1400, School of
+        Civil Engineering, University of Leeds), &sect;0.7 to &sect;4.3. The chapter table below gives the
+        mapping section by section, so you can read either set of notes alongside the other. Worked
+        examples and problems are written for agricultural and biosystems contexts rather than civil ones,
+        but the theory is the same theory.</p>
+    </div>
 
     <h2>Learning Outcomes</h2>
     <p>On successful completion of this course a student will be able to:</p>
     <ol>
-      <li>State the properties of a fluid &mdash; density, viscosity, bulk modulus, vapour pressure, surface
-        tension &mdash; and obtain them from tables and from the ideal gas law.</li>
-      <li>Determine the pressure at any point in a static fluid, read a manometer, and compute the resultant
-        force and centre of pressure on a plane or curved submerged surface.</li>
-      <li>Apply conservation of mass, energy and momentum to a chosen control volume, and defend the choice
-        of that control volume.</li>
-      <li>Use the Bernoulli equation within its limits, and recognise the situations where it fails.</li>
-      <li>Classify a flow as laminar or turbulent, and compute head loss in a pipe using the
-        Darcy&ndash;Weisbach equation and the Moody chart.</li>
-      <li>Size a pipeline and select a pump by matching a system curve to a pump characteristic, checking
-        NPSH against cavitation.</li>
-      <li>Use dimensional analysis to plan an experiment and to scale model results to a prototype.</li>
+      <li>Work consistently in SI units, and check any equation for dimensional homogeneity before
+        trusting the number it produces.</li>
+      <li>Distinguish a fluid from a solid by its response to shear, apply Newton&rsquo;s law of viscosity,
+        and obtain density, specific weight, relative density and viscosity from tables.</li>
+      <li>Determine the pressure at any point in a static fluid, express it as a head, and read a
+        piezometer, a U-tube manometer and an inclined manometer.</li>
+      <li>Compute the resultant force and the centre of pressure on a plane or curved submerged surface,
+        both by the moments method and by the pressure-diagram method.</li>
+      <li>Apply the continuity equation and the Bernoulli equation together to pipes, tanks, Venturi
+        meters, orifices, notches and weirs &mdash; and state the conditions under which Bernoulli
+        fails.</li>
+      <li>Apply the momentum equation to find the force on a pipe bend, a nozzle, a flat plate and a curved
+        vane, following a fixed six-step procedure.</li>
+      <li>Classify a flow as laminar, transitional or turbulent from its Reynolds number, and compute the
+        head loss for laminar flow in a pipe from the Hagen&ndash;Poiseuille equation.</li>
     </ol>
 
     <h2>Course Structure</h2>
     <div class="cards">
       <div class="card">
         <h3>Part I &mdash; Fluids at Rest</h3>
-        <p>Chapters 1&ndash;2. What a fluid is, the properties that describe it, hydrostatic pressure,
-          manometry, forces on submerged surfaces and buoyancy.</p>
+        <p>Chapters 1&ndash;2. Units and dimensions, what makes a fluid a fluid, the properties that
+          describe it, hydrostatic pressure, manometry and forces on submerged surfaces.</p>
       </div>
       <div class="card">
         <h3>Part II &mdash; Fluids in Motion</h3>
-        <p>Chapters 3&ndash;6. Describing a flow field, the control volume, and the mass, energy and
-          momentum equations; dimensional analysis and similitude.</p>
+        <p>Chapters 3&ndash;4. Describing a flow, the control volume, and the three equations that follow
+          from it: conservation of mass, of energy, and of momentum.</p>
       </div>
       <div class="card">
-        <h3>Part III &mdash; Real Systems</h3>
-        <p>Chapters 7&ndash;9. Viscous flow and head loss in pipes, pipe networks, pump selection and
-          cavitation, and the measurement of pressure and flow rate.</p>
+        <h3>Part III &mdash; Real Fluids</h3>
+        <p>Chapter 5. What changes once viscosity is admitted: laminar and turbulent flow, the Reynolds
+          number, and head loss along a pipe.</p>
       </div>
     </div>
 
     <h2>Lecture Notes</h2>
     <div class="table-wrap">
       <table>
-        <caption><b>Table 0.1.</b> Chapter list and publication status.</caption>
+        <caption><b>Table 0.1.</b> The five chapters, what each covers, and the corresponding sections of
+          the reference notes.</caption>
         <thead>
-          <tr><th class="num">Chapter</th><th>Topic</th><th>Status</th></tr>
+          <tr><th class="num">Chapter</th><th>Topic</th><th>Reference</th><th>Status</th></tr>
         </thead>
         <tbody>
-          <tr><td class="num">1</td><td><a href="chapter1.html">Properties of Fluids</a></td><td>Published</td></tr>
-          <tr><td class="num">2</td><td>Fluid Statics</td><td>In preparation</td></tr>
-          <tr><td class="num">3</td><td>Fluid Kinematics and the Control Volume</td><td>In preparation</td></tr>
-          <tr><td class="num">4</td><td>The Energy Equation and Bernoulli</td><td>In preparation</td></tr>
-          <tr><td class="num">5</td><td>The Momentum Equation</td><td>In preparation</td></tr>
-          <tr><td class="num">6</td><td>Dimensional Analysis and Similitude</td><td>In preparation</td></tr>
-          <tr><td class="num">7</td><td>Viscous Flow in Pipes</td><td>In preparation</td></tr>
-          <tr><td class="num">8</td><td>Pipe Systems and Pumps</td><td>In preparation</td></tr>
-          <tr><td class="num">9</td><td>Flow Measurement</td><td>In preparation</td></tr>
+          <tr>
+            <td class="num">1</td>
+            <td><a href="chapter1.html">Fluid Properties</a><br>
+              <span class="units">Units and dimensions &middot; fluids vs solids &middot; Newton&rsquo;s law of viscosity &middot; Newtonian and non-Newtonian fluids &middot; density, specific weight, relative density &middot; dynamic and kinematic viscosity</span></td>
+            <td>&sect;0.7&ndash;0.9, &sect;1</td>
+            <td>Published</td>
+          </tr>
+          <tr>
+            <td class="num">2</td>
+            <td>Forces in Static Fluids<br>
+              <span class="units">Pressure &middot; Pascal&rsquo;s law &middot; the hydrostatic equation &middot; pressure and head &middot; gauge and absolute pressure &middot; piezometers and manometers &middot; forces on plane and curved submerged surfaces &middot; centre of pressure &middot; pressure diagrams</span></td>
+            <td>&sect;2</td>
+            <td>In preparation</td>
+          </tr>
+          <tr>
+            <td class="num">3</td>
+            <td>Fluid Dynamics I: Continuity and Bernoulli<br>
+              <span class="units">Steady and uniform flow &middot; streamlines and streamtubes &middot; mass flow rate and discharge &middot; continuity &middot; the Bernoulli equation &middot; pressure, velocity and potential head &middot; Pitot tubes &middot; Venturi meters &middot; orifices &middot; notches and weirs</span></td>
+            <td>&sect;3.1&ndash;3.5</td>
+            <td>In preparation</td>
+          </tr>
+          <tr>
+            <td class="num">4</td>
+            <td>Fluid Dynamics II: The Momentum Equation<br>
+              <span class="units">Rate of change of momentum &middot; total, pressure and body forces &middot; force on a pipe bend &middot; force on a nozzle &middot; impact of a jet on a plane &middot; force on a curved vane &middot; the Pelton wheel blade</span></td>
+            <td>&sect;3.6&ndash;3.7</td>
+            <td>In preparation</td>
+          </tr>
+          <tr>
+            <td class="num">5</td>
+            <td>Real Fluids: Laminar and Turbulent Flow<br>
+              <span class="units">Reynolds&rsquo; experiment &middot; the Reynolds number &middot; laminar, transitional and turbulent flow &middot; pressure loss due to friction &middot; wall shear stress &middot; the velocity profile in laminar pipe flow &middot; the Hagen&ndash;Poiseuille equation</span></td>
+            <td>&sect;4.1&ndash;4.3</td>
+            <td>In preparation</td>
+          </tr>
         </tbody>
       </table>
     </div>
 
     <h2>Prerequisites</h2>
-    <p>Engineering Mechanics (statics), Calculus II and Physics I. You will need to be comfortable
-      resolving forces and taking moments, evaluating a definite integral, and working in consistent SI
-      units. Differential equations are not required; the few that appear are separable and are solved in
-      the text.</p>
+    <p>School-level physics and mathematics, and the first-semester engineering mathematics course.
+      You need to be comfortable resolving forces and taking moments, evaluating a definite integral, and
+      rearranging an algebraic equation. Differential equations are not required; the two that appear are
+      separable and are integrated in the text.</p>
+
+    <div class="callout warn">
+      <span class="label">Bring a calculator</span>
+      <p>Every chapter asks you to compute something, and the examples are worked through with real numbers
+        rather than left as symbols. A scientific calculator is part of the equipment for this course, in
+        class as well as in the examination.</p>
+    </div>
 
     <div class="callout">
       <span class="label">On units</span>
-      <p>The notes are written in SI throughout. Where industry practice still quotes a value in another
-        unit &mdash; pump head in metres but pipe diameter in inches, pressure in bar or in kgf/cm&sup2;
-        &mdash; the conversion is given at the point of use rather than banished to an appendix. Mixing
-        units is the most common source of error in this subject, and it is worth a moment of care every
-        time.</p>
+      <p>The notes are written in SI throughout, and Chapter&nbsp;1 spends its first three sections on units
+        and dimensions for a reason: <b>mixing units is the single most common source of error in this
+        subject</b>, and it accounts for more lost marks than any misunderstanding of the physics. Where
+        industry practice still quotes a value in another unit &mdash; head in metres but pipe diameter in
+        inches, pressure in bar or in kgf/cm&sup2; &mdash; the conversion is given at the point of use.</p>
     </div>
 
     <div class="callout rule">
       <span class="label">Start here</span>
-      <p>Begin with <a href="chapter1.html">Chapter 1: Properties of Fluids</a>. It is the shortest chapter
-        in the course and the one every later chapter leans on.</p>
+      <p>Begin with <a href="chapter1.html">Chapter 1: Fluid Properties</a>. It is the shortest chapter in
+        the course and the one every later chapter leans on.</p>
     </div>
 
   </main>
@@ -269,17 +315,18 @@
       <h3>Course</h3>
       <ul>
         <li><a href="index.html">Course Home</a></li>
-        <li><a href="chapter1.html">Chapter 1: Properties of Fluids</a></li>
+        <li><a href="chapter1.html">Chapter 1: Fluid Properties</a></li>
         <li><a href="index-th.html" lang="th">ภาษาไทย</a></li>
       </ul>
     </div>
     <div>
       <h3>Principal References</h3>
       <ul>
-        <li>White, F. M. &mdash; <em>Fluid Mechanics</em></li>
-        <li>Cengel &amp; Cimbala &mdash; <em>Fluid Mechanics: Fundamentals and Applications</em></li>
-        <li>Munson et al. &mdash; <em>Fundamentals of Fluid Mechanics</em></li>
-        <li>Finnemore &amp; Franzini &mdash; <em>Fluid Mechanics with Engineering Applications</em></li>
+        <li>Sleigh, A. &mdash; <em>An Introduction to Fluid Mechanics</em>, CIVE 1400, University of Leeds</li>
+        <li>Massey, B. S. &mdash; <em>Mechanics of Fluids</em></li>
+        <li>Douglas, Gasiorek &amp; Swaffield &mdash; <em>Fluid Mechanics</em></li>
+        <li>Featherstone &amp; Nalluri &mdash; <em>Civil Engineering Hydraulics</em></li>
+        <li>Chadwick &amp; Morfett &mdash; <em>Hydraulics in Civil and Environmental Engineering</em></li>
       </ul>
     </div>
     <div>
@@ -289,9 +336,9 @@
     </div>
   </div>
   <div class="footer-bottom">
-    &copy; 2026 Charatchai Yenphayab. All rights reserved. ASE 221 Fluid Mechanics &mdash; course notes,
-    Semester 1 / 2026. No part of this site may be reproduced, adapted or redistributed without prior
-    written permission.
+    &copy; 2026 Charatchai Yenphayab. All rights reserved. ASE 221 Introduction to Fluid Mechanics &mdash;
+    course notes, Semester 1 / 2026. No part of this site may be reproduced, adapted or redistributed
+    without prior written permission.
   </div>
 </footer>
 
