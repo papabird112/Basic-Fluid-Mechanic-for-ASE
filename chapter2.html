@@ -1,0 +1,2506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 2: Forces in Static Fluids | ASE 221 Introduction to Fluid Mechanics</title>
+<meta name="description" content="Pressure and Pascal's law, the hydrostatic equation, pressure and head, gauge and absolute pressure, piezometers and manometers, and the resultant force and centre of pressure on plane and curved submerged surfaces.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">FM</span>
+      <span class="logo-text">ASE-FM<small>Biosystem and Agricultural Engineering, KMITL</small></span>
+    </a>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="index.html">About</a>
+      <a href="chapter1.html">Lecture Notes</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="chapter2.html" class="active">EN</a>
+      <a href="chapter2-th.html" lang="th">ไทย</a>
+    </div>
+    <a class="btn-give" href="#s11">Worked Examples</a>
+  </div>
+</header>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ASE 221 <span>|</span> Chapter 2 <span>|</span> Lecture Notes</p>
+    <h1>Forces in Static Fluids</h1>
+    <p class="tagline">A fluid at rest cannot carry shear, so every force it exerts is perpendicular to the
+      surface it touches. From that one fact follows the pressure at any depth, the reading of every
+      manometer, and the thrust on every gate, wall and dam you will ever design.</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="course-menu">
+      <h2>Course Menu</h2>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter1.html">Ch.&nbsp;1 &mdash; Fluid Properties</a></li>
+        <li><a href="chapter2.html" class="active">Ch.&nbsp;2 &mdash; Forces in Static Fluids</a></li>
+        <li><span class="muted">Ch.&nbsp;3 &mdash; Continuity and Bernoulli<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;4 &mdash; The Momentum Equation<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;5 &mdash; Real Fluids in Pipes<em>Not yet published</em></span></li>
+      </ul>
+    </nav>
+
+    <section class="course-info">
+      <h2>Chapter Info</h2>
+      <dl>
+        <dt>Lectures</dt>
+        <dd>5 (7&frac12; hours)</dd>
+
+        <dt>Reference</dt>
+        <dd class="crumbs">Sleigh, CIVE 1400 &mdash; &sect;2</dd>
+
+        <dt>Key Equations</dt>
+        <dd>
+          <ul>
+            <li><var>p</var> = <var>F</var>/<var>A</var></li>
+            <li><var>p</var> = <var>&rho;gh</var></li>
+            <li><var>R</var> = <var>&rho;gA</var><var>z&#772;</var></li>
+            <li><var>D</var> = <var>I</var><sub>o</sub> sin<var>&theta;</var> /(<var>Ax&#772;</var>)</li>
+            <li><var>R</var> = &frac12;<var>&rho;gH</var><sup>2</sup></li>
+          </ul>
+        </dd>
+
+        <dt>Tables</dt>
+        <dd>
+          <ul>
+            <li><a href="#t1">2.1 Pressure units</a></li>
+            <li><a href="#t2">2.2 Second moments of area</a></li>
+          </ul>
+        </dd>
+
+        <dt>You Will Need</dt>
+        <dd class="crumbs">Ch. 1 &gt; density and specific weight</dd>
+        <dd class="crumbs">Statics &gt; resolving forces, moments</dd>
+        <dd class="crumbs">Maths &gt; definite integrals</dd>
+      </dl>
+    </section>
+  </aside>
+
+  <main class="content">
+
+    <p class="lead">Chapter&nbsp;1 said that a static fluid can carry pressure but not shear. This chapter
+      takes that sentence and squeezes a whole design method out of it &mdash; the pressure at a point, the
+      pressure at a depth, the instruments that measure it, and the force it puts on a submerged
+      surface.</p>
+
+    <nav class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#s1">The Rules of Fluid Statics</a></li>
+        <li><a href="#s2">Pressure, and Pascal&rsquo;s Law</a></li>
+        <li><a href="#s3">How Pressure Varies with Depth</a></li>
+        <li><a href="#s4">Pressure and Head; Gauge and Absolute</a></li>
+        <li><a href="#s5">Manometers</a></li>
+        <li><a href="#s6">Forces on Submerged Plane Surfaces</a></li>
+        <li><a href="#s7">The Centre of Pressure</a></li>
+        <li><a href="#s8">Pressure Diagrams</a></li>
+        <li><a href="#s9">Forces on Submerged Curved Surfaces</a></li>
+        <li><a href="#s10">Beyond the Core &mdash; Buoyancy and Modern Gauges</a></li>
+        <li><a href="#s11">Worked Examples</a></li>
+        <li><a href="#s12">Nomenclature</a></li>
+        <li><a href="#s13">Self-Check &mdash; 45 Questions</a></li>
+        <li><a href="#s14">Problems</a></li>
+        <li><a href="#s15">References</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================ 2.1 -->
+    <h2 id="s1">2.1 The Rules of Fluid Statics</h2>
+
+    <p>The general rules of statics you learned for solids apply unchanged to fluids at rest. What changes
+      is what a fluid can and cannot carry. From Chapter&nbsp;1 we know two things, and everything in this
+      chapter is built on them:</p>
+
+    <div class="callout rule">
+      <span class="label">The two starting rules</span>
+      <ul>
+        <li>A static fluid can have <b>no shearing force</b> acting on it.</li>
+        <li>Therefore any force between the fluid and a boundary must act <b>at right angles to that
+          boundary</b>.</li>
+      </ul>
+    </div>
+
+    <p>The second statement holds for curved surfaces too: at every point the force is normal to the
+      surface <em>at that point</em>, so its direction changes as you move along the surface. That is the
+      whole reason &sect;2.9 has to treat curved surfaces separately from flat ones.</p>
+
+    <p>It also holds for any <em>imaginary</em> plane drawn inside a static fluid. We use that constantly:
+      we cut an element of fluid out of the body with imaginary planes, draw the forces on its faces, and
+      apply equilibrium.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 260" role="img" aria-label="Left: pressure force acting normal to a plane boundary. Right: pressure forces acting normal to a curved boundary at each point, each in a different direction.">
+        <defs>
+          <marker id="ap" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <pattern id="dots" width="9" height="9" patternUnits="userSpaceOnUse">
+            <circle cx="2" cy="2" r="1.3" fill="#9fd8e2"/>
+          </pattern>
+        </defs>
+
+        <text x="40" y="30" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) Plane boundary &mdash; one direction</text>
+
+        <!-- fluid wedge left -->
+        <path d="M40,60 L40,240 L300,240 L150,60 z" fill="url(#dots)" stroke="none"/>
+        <path d="M150,60 L300,240" stroke="#1c1917" stroke-width="2.5" fill="none"/>
+        <text x="60" y="150" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">fluid</text>
+
+        <!-- normal force arrows -->
+        <line x1="205" y1="132" x2="262" y2="99" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ap)"/>
+        <line x1="240" y1="192" x2="297" y2="159" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ap)"/>
+        <line x1="170" y1="72" x2="227" y2="39" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ap)"/>
+        <text x="272" y="92" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#DF301C">R</text>
+        <text x="60" y="258" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">every arrow parallel &mdash; they add as scalars</text>
+
+        <!-- divider -->
+        <line x1="430" y1="20" x2="430" y2="250" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="470" y="30" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) Curved boundary &mdash; a different direction at every point</text>
+
+        <path d="M470,60 L470,240 L760,240 Q660,150 600,60 z" fill="url(#dots)" stroke="none"/>
+        <path d="M600,60 Q660,150 760,240" stroke="#1c1917" stroke-width="2.5" fill="none"/>
+        <text x="492" y="160" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">fluid</text>
+
+        <line x1="614" y1="82" x2="672" y2="62" stroke="#DF301C" stroke-width="2.2" marker-end="url(#ap)"/>
+        <line x1="640" y1="128" x2="694" y2="102" stroke="#DF301C" stroke-width="2.2" marker-end="url(#ap)"/>
+        <line x1="678" y1="170" x2="724" y2="132" stroke="#DF301C" stroke-width="2.2" marker-end="url(#ap)"/>
+        <line x1="724" y1="208" x2="762" y2="164" stroke="#DF301C" stroke-width="2.2" marker-end="url(#ap)"/>
+        <text x="678" y="52" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#DF301C">R<tspan font-size="11" dy="4">1</tspan></text>
+        <text x="768" y="158" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#DF301C">R<tspan font-size="11" dy="4">n</tspan></text>
+        <text x="492" y="258" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">arrows not parallel &mdash; they must be combined as vectors</text>
+      </svg>
+      <figcaption><b>Figure 2.1.</b> Pressure force is always normal to the boundary. On a plane surface
+        every elemental force points the same way, so they can be summed arithmetically into one resultant.
+        On a curved surface they do not, which is why &sect;2.9 resolves them into horizontal and vertical
+        components first.</figcaption>
+    </figure>
+
+    <p>Two consequences of equilibrium complete the toolkit:</p>
+    <ul>
+      <li>For an element of fluid at rest, the sum of the components of force in any direction is
+        <b>zero</b>.</li>
+      <li>The sum of the moments of those forces about any point is also <b>zero</b>.</li>
+    </ul>
+
+    <p>In practice we test equilibrium by resolving along three mutually perpendicular axes and taking
+      moments in three mutually perpendicular planes, setting each to zero. Everything that follows is that
+      procedure applied to a cleverly chosen element.</p>
+
+    <!-- ============================================================ 2.2 -->
+    <h2 id="s2">2.2 Pressure, and Pascal&rsquo;s Law</h2>
+
+    <p>A fluid exerts a normal force on every boundary it touches. Those boundaries may be large, and the
+      force may differ from place to place, so it is convenient to work not with force but with force per
+      unit area &mdash; <b>pressure</b>:</p>
+
+    <div class="eq">
+      <span class="body"><var>p</var> = <span class="frac"><span><var>F</var></span><span class="den"><var>A</var></span></span></span>
+      <span class="tag">(2.1)</span>
+    </div>
+
+    <p>If the force on each unit of area is the same, the pressure is said to be <b>uniform</b>. Units:
+      N/m<sup>2</sup>, which is the <b>pascal</b> (Pa); dimensions
+      <span class="dim">M L<sup>&minus;1</sup> T<sup>&minus;2</sup></span>, as Table&nbsp;1.2 of
+      Chapter&nbsp;1 says. The <b>bar</b> is a convenient multiple:
+      1&nbsp;bar = 10<sup>5</sup>&nbsp;N/m<sup>2</sup> = 100&nbsp;kPa.</p>
+
+    <div class="callout warn">
+      <span class="label">Pressure is a scalar; force is a vector</span>
+      <p>This distinction is worth fixing now, because &sect;2.6 depends on it. <b>Pressure</b> at a point
+        has a magnitude but no direction &mdash; it is the same in all directions, as we are about to
+        prove. <b>Force</b> has magnitude <em>and</em> direction, and its direction is set by the
+        orientation of the surface it acts on. Two forces of equal size on differently oriented surfaces do
+        not add to twice as much.</p>
+    </div>
+
+    <h3>Pascal&rsquo;s law: pressure at a point acts equally in all directions</h3>
+
+    <p>Take a small element of fluid in the form of a triangular prism containing a point&nbsp;P. Let
+      <var>p</var><sub>x</sub> act on the vertical face, <var>p</var><sub>y</sub> on the horizontal face,
+      and <var>p</var><sub>s</sub> on the sloping face, which makes an angle <var>&theta;</var> with the
+      horizontal. The prism has depth <var>&delta;z</var> into the page.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="A triangular prismatic element of fluid with pressures acting perpendicular to each of its three faces">
+        <defs>
+          <marker id="aq" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <marker id="ag" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4b4540"/>
+          </marker>
+        </defs>
+
+        <!-- prism: front face triangle E(200,230) D(470,230) A(200,90); back offset -->
+        <path d="M200,90 L200,230 L470,230 z" fill="#eaf7fa" stroke="#1c1917" stroke-width="2"/>
+        <path d="M200,90 L270,55 L540,195 L470,230" fill="#d9f0f5" fill-opacity=".7" stroke="#1c1917" stroke-width="1.6"/>
+        <path d="M200,230 L270,195 L540,195" fill="none" stroke="#1c1917" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <path d="M270,55 L270,195" stroke="#1c1917" stroke-width="1.4" stroke-dasharray="5 4"/>
+
+        <!-- labels of vertices -->
+        <text x="184" y="84" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+        <text x="186" y="248" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">E</text>
+        <text x="474" y="248" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">D</text>
+        <text x="266" y="48" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+        <text x="546" y="192" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">C</text>
+
+        <!-- px arrow on vertical face ABFE -->
+        <line x1="120" y1="160" x2="196" y2="160" stroke="#DF301C" stroke-width="2.6" marker-end="url(#aq)"/>
+        <text x="92" y="154" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#DF301C">p<tspan font-size="12" dy="5">x</tspan></text>
+
+        <!-- py arrow on bottom face -->
+        <line x1="330" y1="288" x2="330" y2="236" stroke="#DF301C" stroke-width="2.6" marker-end="url(#aq)"/>
+        <text x="338" y="280" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#DF301C">p<tspan font-size="12" dy="5">y</tspan></text>
+
+        <!-- ps arrow normal to sloping face ABCD (slope from A(200,90) to D(470,230)) -->
+        <line x1="420" y1="60" x2="368" y2="141" stroke="#DF301C" stroke-width="2.6" marker-end="url(#aq)"/>
+        <text x="424" y="54" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#DF301C">p<tspan font-size="12" dy="5">s</tspan></text>
+
+        <!-- dimensions -->
+        <line x1="168" y1="90" x2="168" y2="230" stroke="#726b64" stroke-width="1.3" marker-end="url(#ag)" marker-start="url(#ag)"/>
+        <text x="140" y="164" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&delta;y</text>
+        <line x1="200" y1="266" x2="470" y2="266" stroke="#726b64" stroke-width="1.3" marker-end="url(#ag)" marker-start="url(#ag)"/>
+        <text x="322" y="262" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&delta;x</text>
+        <line x1="486" y1="238" x2="552" y2="205" stroke="#726b64" stroke-width="1.3" marker-end="url(#ag)" marker-start="url(#ag)"/>
+        <text x="514" y="242" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&delta;z</text>
+        <text x="330" y="142" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&delta;s</text>
+
+        <!-- angle theta at D -->
+        <path d="M430,230 A40,40 0 0,0 444,214" fill="none" stroke="#4b4540" stroke-width="1.4"/>
+        <text x="424" y="216" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&theta;</text>
+      </svg>
+      <figcaption><b>Figure 2.2.</b> A triangular prismatic element of fluid. The fluid is at rest, so there
+        are no shear forces and every pressure acts perpendicular to the face it is on:
+        <var>p</var><sub>s</sub> on ABCD, <var>p</var><sub>x</sub> on ABFE and <var>p</var><sub>y</sub> on
+        FECD.</figcaption>
+    </figure>
+
+    <p><b>Summing forces in the <var>x</var> direction.</b> The vertical face has area
+      <var>&delta;y&thinsp;&delta;z</var>, and the sloping face has area
+      <var>&delta;s&thinsp;&delta;z</var>, of which the component acting in the <var>x</var> direction is
+      obtained by multiplying by sin<var>&theta;</var> = <var>&delta;y</var>/<var>&delta;s</var>. There is
+      no <var>x</var> component from <var>p</var><sub>y</sub>. For equilibrium:</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.2)</span>
+      <span class="body"><var>p</var><sub>x</sub> <var>&delta;y&thinsp;&delta;z</var> &minus; <var>p</var><sub>s</sub> <var>&delta;s&thinsp;&delta;z</var> <span class="frac"><span><var>&delta;y</var></span><span class="den"><var>&delta;s</var></span></span> = 0</span>
+      <span class="body"><var>p</var><sub>x</sub> <var>&delta;y&thinsp;&delta;z</var> = <var>p</var><sub>s</sub> <var>&delta;y&thinsp;&delta;z</var> &nbsp;&rArr;&nbsp; <var>p</var><sub>x</sub> = <var>p</var><sub>s</sub></span>
+    </div>
+
+    <p><b>Summing forces in the <var>y</var> direction.</b> The horizontal face has area
+      <var>&delta;x&thinsp;&delta;z</var>, the <var>y</var> component of the sloping face is obtained with
+      cos<var>&theta;</var> = <var>&delta;x</var>/<var>&delta;s</var>, and this time there is also the
+      weight of the element, <var>&rho;g</var> &times; &frac12;<var>&delta;x&thinsp;&delta;y&thinsp;&delta;z</var>,
+      acting downward:</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.3)</span>
+      <span class="body"><var>p</var><sub>y</sub> <var>&delta;x&thinsp;&delta;z</var> &minus; <var>p</var><sub>s</sub> <var>&delta;x&thinsp;&delta;z</var> &minus; <var>&rho;g</var> <span class="frac"><span>1</span><span class="den">2</span></span><var>&delta;x&thinsp;&delta;y&thinsp;&delta;z</var> = 0</span>
+      <span class="body"><var>p</var><sub>y</sub> = <var>p</var><sub>s</sub> + <span class="frac"><span>1</span><span class="den">2</span></span><var>&rho;g&thinsp;&delta;y</var></span>
+    </div>
+
+    <p>Now shrink the element. As <var>&delta;y</var> &rarr; 0 the weight term vanishes &mdash; it contains
+      a product of three small lengths while the pressure terms contain only two &mdash; so it is
+      negligible, and</p>
+
+    <div class="callout rule">
+      <span class="label">Pascal&rsquo;s law</span>
+      <div class="eq plain"><span class="body"><var>p</var><sub>x</sub> = <var>p</var><sub>y</sub> = <var>p</var><sub>s</sub></span></div>
+      <p>The element was so small that it can be regarded as a point, and <var>&theta;</var> could have been
+        any angle in any orientation. Therefore <b>the pressure at any point in a static fluid is the same
+        in all directions</b>. The proof extends to the <var>z</var> axis in exactly the same way.</p>
+    </div>
+
+    <p>This is why pressure is a scalar. It is also why a pressure gauge gives the same reading whichever
+      way round you screw it into the pipe, and why the pressure just inside a tank wall does not depend on
+      how the wall happens to be tilted.</p>
+
+    <!-- ============================================================ 2.3 -->
+    <h2 id="s3">2.3 How Pressure Varies with Depth</h2>
+
+    <h3>Vertically: pressure increases with depth</h3>
+    <p>Consider a vertical column of fluid of constant cross-sectional area <var>A</var>, surrounded by the
+      same fluid of density <var>&rho;</var>. Its bottom face is at level <var>z</var><sub>1</sub> where
+      the pressure is <var>p</var><sub>1</sub>, and its top face at <var>z</var><sub>2</sub> where the
+      pressure is <var>p</var><sub>2</sub>.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="Left: a vertical cylindrical element of fluid with pressure on its top and bottom faces and its weight. Right: a horizontal cylindrical element with equal pressures on its two ends.">
+        <defs>
+          <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <marker id="ag2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <text x="40" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) Vertical element</text>
+
+        <!-- vertical cylinder -->
+        <rect x="150" y="90" width="90" height="130" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.8"/>
+        <ellipse cx="195" cy="90" rx="45" ry="13" fill="#d9f0f5" stroke="#1c1917" stroke-width="1.8"/>
+        <ellipse cx="195" cy="220" rx="45" ry="13" fill="none" stroke="#1c1917" stroke-width="1.8" stroke-dasharray="5 4"/>
+
+        <line x1="195" y1="46" x2="195" y2="82" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ar2)"/>
+        <text x="204" y="56" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">p<tspan font-size="11" dy="4">2</tspan>A</text>
+
+        <line x1="195" y1="270" x2="195" y2="234" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ar2)"/>
+        <text x="204" y="270" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">p<tspan font-size="11" dy="4">1</tspan>A</text>
+
+        <line x1="130" y1="140" x2="130" y2="182" stroke="#4b4540" stroke-width="2" marker-end="url(#ag2)"/>
+        <text x="84" y="160" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">mg</text>
+
+        <line x1="290" y1="90" x2="290" y2="220" stroke="#726b64" stroke-width="1.3" marker-end="url(#ag2)" marker-start="url(#ag2)"/>
+        <text x="298" y="160" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">z<tspan font-size="11" dy="4">2</tspan>&minus;z<tspan font-size="11" dy="4">1</tspan></text>
+
+        <text x="52" y="248" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">p<tspan font-size="10" dy="3">1</tspan><tspan dy="-3">A = p</tspan><tspan font-size="10" dy="3">2</tspan><tspan dy="-3">A + mg</tspan></text>
+
+        <!-- divider -->
+        <line x1="400" y1="20" x2="400" y2="280" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="440" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) Horizontal element</text>
+
+        <rect x="510" y="115" width="230" height="80" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.8"/>
+        <ellipse cx="510" cy="155" rx="13" ry="40" fill="#d9f0f5" stroke="#1c1917" stroke-width="1.8"/>
+        <ellipse cx="740" cy="155" rx="13" ry="40" fill="none" stroke="#1c1917" stroke-width="1.8" stroke-dasharray="5 4"/>
+
+        <line x1="452" y1="155" x2="502" y2="155" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ar2)"/>
+        <text x="430" y="140" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">p<tspan font-size="11" dy="4">l</tspan>A</text>
+
+        <line x1="800" y1="155" x2="750" y2="155" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ar2)"/>
+        <text x="790" y="140" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">p<tspan font-size="11" dy="4">r</tspan>A</text>
+
+        <line x1="625" y1="200" x2="625" y2="242" stroke="#4b4540" stroke-width="2" marker-end="url(#ag2)"/>
+        <text x="634" y="230" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">mg</text>
+
+        <text x="446" y="272" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">weight has no horizontal component, so p<tspan font-size="10" dy="3">l</tspan><tspan dy="-3"> = p</tspan><tspan font-size="10" dy="3">r</tspan></text>
+      </svg>
+      <figcaption><b>Figure 2.3.</b> Two elements, two results. The vertical element carries its own weight,
+        so the pressure at its base exceeds that at its top. The horizontal element does not &mdash; gravity
+        acts at right angles to its axis &mdash; so the pressures at its two ends must be equal.</figcaption>
+    </figure>
+
+    <p>Taking upward as positive, the forces on the vertical element are
+      <var>p</var><sub>1</sub><var>A</var> up, <var>p</var><sub>2</sub><var>A</var> down, and the weight
+      <var>mg</var> = <var>&rho;gA</var>(<var>z</var><sub>2</sub> &minus; <var>z</var><sub>1</sub>) down.
+      In equilibrium:</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.4)</span>
+      <span class="body"><var>p</var><sub>1</sub><var>A</var> &minus; <var>p</var><sub>2</sub><var>A</var> &minus; <var>&rho;gA</var>(<var>z</var><sub>2</sub> &minus; <var>z</var><sub>1</sub>) = 0</span>
+      <span class="body"><var>p</var><sub>2</sub> &minus; <var>p</var><sub>1</sub> = &minus;<var>&rho;g</var>(<var>z</var><sub>2</sub> &minus; <var>z</var><sub>1</sub>)</span>
+    </div>
+
+    <p>The minus sign says what your intuition already knows: <b>in a fluid under gravity, pressure
+      decreases as height increases</b>. Go deeper and it rises.</p>
+
+    <h3>Horizontally: pressure is constant at the same level</h3>
+    <p>Now take a horizontal cylinder of the same fluid, cross-section <var>A</var>, with pressure
+      <var>p</var><sub>l</sub> on the left end and <var>p</var><sub>r</sub> on the right. Its weight acts
+      vertically and so has no component along the axis. Summing forces in the <var>x</var> direction:</p>
+
+    <div class="eq">
+      <span class="body"><var>p</var><sub>l</sub><var>A</var> = <var>p</var><sub>r</sub><var>A</var> &nbsp;&rArr;&nbsp; <var>p</var><sub>l</sub> = <var>p</var><sub>r</sub></span>
+      <span class="tag">(2.5)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">The rule you will use most in this course</span>
+      <p><b>Pressure in the horizontal direction is constant, throughout any one continuous fluid.</b>
+        &ldquo;Continuous&rdquo; is the word that does the work: the two points need not be connected by a
+        straight pipe, or even be in the same vessel &mdash; they only need to have unbroken fluid between
+        them. This is what makes every manometer in &sect;2.5 readable.</p>
+    </div>
+
+    <h3>The general case: any orientation</h3>
+    <p>The two results above are special cases of one equation. Take a cylindrical element of length
+      <var>&delta;s</var> and area <var>A</var>, inclined at an angle <var>&theta;</var> to the vertical.
+      Resolving along its own axis, with the weight <var>&rho;gA&thinsp;&delta;s</var> contributing
+      <var>&rho;gA&thinsp;&delta;s</var> cos<var>&theta;</var>:</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.6)</span>
+      <span class="body"><var>pA</var> &minus; (<var>p</var> + <var>&delta;p</var>)<var>A</var> &minus; <var>&rho;gA&thinsp;&delta;s</var> cos<var>&theta;</var> = 0</span>
+      <span class="body"><span class="frac"><span>d<var>p</var></span><span class="den">d<var>s</var></span></span> = &minus;<var>&rho;g</var> cos<var>&theta;</var></span>
+    </div>
+
+    <p>Put <var>&theta;</var> = 90&deg; and <var>s</var> lies horizontally, giving
+      d<var>p</var>/d<var>x</var> = d<var>p</var>/d<var>y</var> = 0 &mdash; pressure is constant on any
+      horizontal plane. Put <var>&theta;</var> = 0 and <var>s</var> is vertical, giving</p>
+
+    <div class="eq">
+      <span class="body"><span class="frac"><span>d<var>p</var></span><span class="den">d<var>z</var></span></span> = &minus;<var>&rho;g</var></span>
+      <span class="tag">(2.7)</span>
+    </div>
+
+    <p>which is equation&nbsp;(2.4) again. Both earlier results drop out of one general statement, and that
+      statement &mdash; equation&nbsp;(2.7) &mdash; is what the rest of the chapter integrates.</p>
+
+    <!-- ============================================================ 2.4 -->
+    <h2 id="s4">2.4 Pressure and Head; Gauge and Absolute</h2>
+
+    <p>In a static fluid of constant density, d<var>p</var>/d<var>z</var> = &minus;<var>&rho;g</var>
+      integrates immediately to</p>
+
+    <div class="eq plain">
+      <span class="body"><var>p</var> = &minus;<var>&rho;gz</var> + constant</span>
+    </div>
+
+    <p>In a liquid with a free surface it is more natural to measure downward. Writing <var>h</var> for the
+      depth below the free surface, so that <var>z</var> = &minus;<var>h</var>:</p>
+
+    <div class="eq">
+      <span class="body"><var>p</var> = <var>&rho;gh</var> + <var>p</var><sub>surface</sub></span>
+      <span class="tag">(2.8)</span>
+    </div>
+
+    <p>At the surface of the fluids we deal with, that surface pressure is atmospheric. Since we live under
+      the atmosphere and everything around us is already loaded by it, it is convenient to take atmospheric
+      pressure as the <b>datum</b> and quote pressures above or below it.</p>
+
+    <div class="callout rule">
+      <span class="label">Gauge and absolute</span>
+      <div class="eq plain"><span class="body"><var>p</var><sub>gauge</sub> = <var>&rho;gh</var></span></div>
+      <p>The lower limit of any pressure is zero &mdash; the pressure in a perfect vacuum. Measured from
+        that datum instead, a pressure is called <b>absolute</b>:</p>
+      <div class="eq plain"><span class="body"><var>p</var><sub>abs</sub> = <var>&rho;gh</var> + <var>p</var><sub>atm</sub> = <var>p</var><sub>gauge</sub> + <var>p</var><sub>atm</sub></span></div>
+      <p>Standard atmospheric pressure is <b>101.325&nbsp;kPa</b>, which is 1.013&nbsp;bar, or
+        10.33&nbsp;m of water, or 760&nbsp;mm of mercury.</p>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="A vertical scale showing absolute zero at the bottom, atmospheric pressure part way up, and a point above and a point below it, with gauge and absolute pressures marked as brackets">
+        <defs>
+          <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4b4540"/>
+          </marker>
+          <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#A85E00"/>
+          </marker>
+        </defs>
+
+        <!-- scale axis -->
+        <line x1="300" y1="270" x2="300" y2="30" stroke="#4b4540" stroke-width="2" marker-end="url(#ah)"/>
+
+        <!-- absolute zero -->
+        <line x1="180" y1="270" x2="560" y2="270" stroke="#1c1917" stroke-width="2.4"/>
+        <text x="180" y="290" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">absolute zero &mdash; perfect vacuum</text>
+
+        <!-- atmospheric line -->
+        <line x1="180" y1="170" x2="700" y2="170" stroke="#00788A" stroke-width="2.4" stroke-dasharray="9 5"/>
+        <text x="576" y="164" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#00788A">atmospheric datum</text>
+        <text x="576" y="186" font-family="Segoe UI, Arial" font-size="12" fill="#00788A">101.3 kPa = 10.33 m water</text>
+
+        <!-- point A above atmospheric -->
+        <line x1="180" y1="80" x2="560" y2="80" stroke="#DF301C" stroke-width="2"/>
+        <circle cx="380" cy="80" r="5" fill="#DF301C"/>
+        <text x="392" y="74" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#DF301C">A &mdash; inside a pressurised main</text>
+
+        <!-- point B below atmospheric -->
+        <line x1="180" y1="222" x2="560" y2="222" stroke="#A85E00" stroke-width="2"/>
+        <circle cx="380" cy="222" r="5" fill="#A85E00"/>
+        <text x="392" y="240" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#A85E00">B &mdash; inside a pump suction line</text>
+
+        <!-- brackets -->
+        <line x1="238" y1="80" x2="238" y2="170" stroke="#DF301C" stroke-width="1.6" marker-end="url(#ah)" marker-start="url(#ah)"/>
+        <text x="130" y="122" font-family="Segoe UI, Arial" font-size="12" fill="#DF301C">+ve gauge</text>
+
+        <line x1="238" y1="170" x2="238" y2="222" stroke="#A85E00" stroke-width="1.6" marker-end="url(#ah2)" marker-start="url(#ah2)"/>
+        <text x="122" y="202" font-family="Segoe UI, Arial" font-size="12" fill="#A85E00">&minus;ve gauge (vacuum)</text>
+
+        <line x1="672" y1="80" x2="672" y2="270" stroke="#4b4540" stroke-width="1.6" marker-end="url(#ah)" marker-start="url(#ah)"/>
+        <text x="682" y="180" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">absolute pressure at A</text>
+
+        <line x1="724" y1="170" x2="724" y2="270" stroke="#00788A" stroke-width="1.6" marker-end="url(#ah)" marker-start="url(#ah)"/>
+        <text x="734" y="228" font-family="Segoe UI, Arial" font-size="12" fill="#00788A">p<tspan font-size="10" dy="3">atm</tspan></text>
+      </svg>
+      <figcaption><b>Figure 2.4.</b> The two datums. A gauge pressure is measured from the atmospheric line
+        and can be negative; an absolute pressure is measured from perfect vacuum and never can be. A
+        reading of &ldquo;&minus;30&nbsp;kPa&rdquo; on a pump suction gauge means 71.3&nbsp;kPa
+        absolute &mdash; and Chapter&nbsp;1 &sect;1.11 explains why it must not fall much further.</figcaption>
+    </figure>
+
+    <h3>Pressure expressed as a head</h3>
+    <p>Since <var>g</var> is essentially constant, any gauge pressure can be stated as the vertical height
+      of a column of fluid of density <var>&rho;</var> that would produce it. That height is called the
+      <b>head</b> of fluid:</p>
+
+    <div class="eq">
+      <span class="body"><var>h</var> = <span class="frac"><span><var>p</var></span><span class="den"><var>&rho;g</var></span></span> = <span class="frac"><span><var>p</var></span><span class="den"><var>&gamma;</var></span></span></span>
+      <span class="tag">(2.9)</span>
+    </div>
+
+    <div class="callout warn">
+      <span class="label">A head is meaningless without its fluid</span>
+      <p>If a pressure is quoted as a head, <b>the density of the fluid must be given too</b>. Five metres
+        of water and five metres of mercury are not remotely the same pressure &mdash; they differ by a
+        factor of 13.6. &ldquo;5&nbsp;m head&rdquo; on its own is not an answer.</p>
+    </div>
+
+    <p>Head is the natural currency of irrigation and water supply, because it is what you actually measure
+      on site: the height of the reservoir above the field, the rise of water in a standpipe, the level in
+      a piezometer. Chapters&nbsp;3 to&nbsp;5 will work almost entirely in metres of water for this
+      reason.</p>
+
+    <h3>The units you will meet in practice</h3>
+
+    <div class="callout">
+      <span class="label">Beyond the reference notes</span>
+      <p>The table below is an addition to the syllabus, not part of the reference text. It is here because
+        catalogue data for pumps, pipes and gauges sold in Thailand mixes at least four of these units, and
+        converting between them correctly is the difference between specifying the right pipe class and
+        bursting a main.</p>
+    </div>
+
+    <div class="table-wrap">
+      <table id="t1">
+        <caption><b>Table 2.1.</b> Pressure units you will meet on real equipment, and what each is worth in
+          SI. Read across from any row to convert.</caption>
+        <thead>
+          <tr><th>Unit</th><th class="num">In pascals</th><th class="num">In kPa</th><th class="num">In m of water</th><th>Where you see it</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>1 Pa (N/m<sup>2</sup>)</td><td class="num">1</td><td class="num">0.001</td><td class="num">1.02 &times; 10<sup>&minus;4</sup></td><td>SI base; too small for practical use</td></tr>
+          <tr><td>1 kPa</td><td class="num">1 000</td><td class="num">1</td><td class="num">0.102</td><td>the working unit of this course</td></tr>
+          <tr><td>1 bar</td><td class="num">100 000</td><td class="num">100</td><td class="num">10.2</td><td>pump curves, PN pipe ratings</td></tr>
+          <tr><td>1 kgf/cm<sup>2</sup> (&ldquo;ksc&rdquo;)</td><td class="num">98 067</td><td class="num">98.07</td><td class="num">10.0</td><td>older Thai gauges and tanks</td></tr>
+          <tr><td>1 m of water</td><td class="num">9 810</td><td class="num">9.81</td><td class="num">1</td><td>irrigation head, pump duty</td></tr>
+          <tr><td>1 mm of mercury (torr)</td><td class="num">133.3</td><td class="num">0.1333</td><td class="num">0.0136</td><td>barometers, vacuum work</td></tr>
+          <tr><td>1 psi (lbf/in<sup>2</sup>)</td><td class="num">6 895</td><td class="num">6.895</td><td class="num">0.703</td><td>imported fittings, sprinkler data</td></tr>
+          <tr><td>1 standard atmosphere</td><td class="num">101 325</td><td class="num">101.3</td><td class="num">10.33</td><td>the datum for absolute pressure</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Two conversions are worth committing to memory, because they turn up in almost every irrigation
+      calculation: <b>1&nbsp;bar &asymp; 10&nbsp;m of water</b>, and <b>1&nbsp;kgf/cm<sup>2</sup> &asymp;
+      10&nbsp;m of water</b>. A PN&nbsp;10 pipe is rated for 10&nbsp;bar, so it will take about 100&nbsp;m
+      of static head &mdash; and that, not the flow, is usually what decides its class.</p>
+
+    <!-- ============================================================ 2.5 -->
+    <h2 id="s5">2.5 Manometers</h2>
+
+    <p>The relationship between pressure and head is not just a way of quoting numbers; it is a way of
+      <em>measuring</em> them. An instrument that measures pressure by the height of a liquid column is a
+      <b>manometer</b>, or liquid gauge.</p>
+
+    <h3>The piezometer tube</h3>
+    <p>The simplest manometer is a vertical tube, open at the top, attached to the vessel whose pressure is
+      to be measured. Because the tube is open to the atmosphere, what it reads is a <b>gauge
+      pressure</b>.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="Left: a piezometer tube rising from a pipe, with the height of the water column marked. Right: a U-tube manometer containing mercury connected to a pipe carrying water.">
+        <defs>
+          <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <text x="30" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) Piezometer tube</text>
+
+        <!-- pipe -->
+        <rect x="30" y="238" width="300" height="52" fill="#9fe0ea" stroke="#1c1917" stroke-width="2"/>
+        <text x="44" y="270" font-family="Segoe UI, Arial" font-size="13" fill="#1c1917">liquid, &rho;</text>
+
+        <!-- tube 1 -->
+        <rect x="132" y="96" width="22" height="142" fill="#57c2d3" stroke="#1c1917" stroke-width="1.8"/>
+        <line x1="132" y1="96" x2="154" y2="96" stroke="#00788A" stroke-width="2"/>
+        <circle cx="143" cy="264" r="4" fill="#1c1917"/>
+        <text x="122" y="284" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+
+        <!-- tube 2 -->
+        <rect x="248" y="140" width="22" height="98" fill="#57c2d3" stroke="#1c1917" stroke-width="1.8"/>
+        <line x1="248" y1="140" x2="270" y2="140" stroke="#00788A" stroke-width="2"/>
+        <circle cx="259" cy="264" r="4" fill="#1c1917"/>
+        <text x="252" y="284" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+
+        <line x1="104" y1="96" x2="104" y2="264" stroke="#726b64" stroke-width="1.3" marker-end="url(#am)" marker-start="url(#am)"/>
+        <text x="80" y="184" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">1</tspan></text>
+
+        <line x1="300" y1="140" x2="300" y2="264" stroke="#726b64" stroke-width="1.3" marker-end="url(#am)" marker-start="url(#am)"/>
+        <text x="308" y="208" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">2</tspan></text>
+
+        <text x="30" y="60" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">open to atmosphere &mdash; so it reads gauge pressure</text>
+
+        <!-- divider -->
+        <line x1="380" y1="20" x2="380" y2="300" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="420" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) U-tube manometer</text>
+
+        <!-- pipe with measured fluid -->
+        <circle cx="486" cy="140" r="42" fill="#9fe0ea" stroke="#1c1917" stroke-width="2"/>
+        <text x="466" y="145" font-family="Segoe UI, Arial" font-size="13" fill="#1c1917">&rho;</text>
+        <circle cx="486" cy="140" r="4" fill="#1c1917"/>
+        <text x="468" y="118" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+
+        <!-- connecting tube down to B -->
+        <rect x="518" y="152" width="90" height="18" fill="#9fe0ea" stroke="#1c1917" stroke-width="1.6"/>
+        <rect x="590" y="152" width="18" height="70" fill="#9fe0ea" stroke="#1c1917" stroke-width="1.6"/>
+
+        <!-- U tube with mercury -->
+        <path d="M590,222 L590,270 Q590,288 608,288 L668,288 Q686,288 686,270 L686,96" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <path d="M608,222 L608,270 L668,270 L668,96" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <path d="M591,222 L591,269 Q592,287 609,287 L667,287 L667,96 L685,96 L685,270 Q685,287 668,287 L608,287 Q592,287 592,270 z" fill="#c8c6c4"/>
+        <line x1="590" y1="222" x2="608" y2="222" stroke="#6f6d6b" stroke-width="2"/>
+        <line x1="668" y1="96" x2="686" y2="96" stroke="#6f6d6b" stroke-width="2"/>
+
+        <circle cx="599" cy="222" r="4" fill="#1c1917"/>
+        <text x="562" y="228" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+        <circle cx="677" cy="222" r="4" fill="#1c1917"/>
+        <text x="690" y="228" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">C</text>
+        <text x="690" y="92" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">D</text>
+        <line x1="590" y1="222" x2="686" y2="222" stroke="#00788A" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+        <line x1="556" y1="152" x2="556" y2="222" stroke="#726b64" stroke-width="1.3" marker-end="url(#am)" marker-start="url(#am)"/>
+        <text x="530" y="192" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">1</tspan></text>
+
+        <line x1="726" y1="96" x2="726" y2="222" stroke="#726b64" stroke-width="1.3" marker-end="url(#am)" marker-start="url(#am)"/>
+        <text x="734" y="164" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">2</tspan></text>
+
+        <text x="420" y="312" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">manometric fluid &rho;<tspan font-size="10" dy="3">man</tspan><tspan dy="-3"> (mercury) &mdash; denser, and immiscible</tspan></text>
+      </svg>
+      <figcaption><b>Figure 2.5.</b> The two basic manometers. The piezometer can only be used for a liquid,
+        and only when the column height is convenient to measure. The U-tube removes both restrictions by
+        introducing a second, denser liquid.</figcaption>
+    </figure>
+
+    <p>For the piezometer, the pressure at any tapping is simply the weight of the column standing above
+      it:</p>
+
+    <div class="eq plain">
+      <span class="body"><var>p</var><sub>A</sub> = <var>&rho;gh</var><sub>1</sub> &nbsp;&nbsp;&nbsp;&nbsp; <var>p</var><sub>B</sub> = <var>&rho;gh</var><sub>2</sub></span>
+    </div>
+
+    <p>Its limitations are severe, and they are worth stating because they motivate everything that
+      follows. It works <b>only for liquids</b>, never for a gas, which would simply escape. And the height
+      must be convenient: too small and the change cannot be detected, too large and the tube becomes
+      absurd. A pressure of 2&nbsp;bar would need a piezometer more than 20&nbsp;m tall. Recall also from
+      Chapter&nbsp;1 &sect;1.11 that a tube narrower than about 10&nbsp;mm adds a capillary error of several
+      millimetres.</p>
+
+    <h3>The U-tube manometer</h3>
+    <p>Bending the tube into a U and filling the bend with a second liquid &mdash; the <b>manometric
+      fluid</b> &mdash; solves both problems at once, and allows gases to be measured as well as liquids.
+      The manometric fluid must be <b>denser</b> than the fluid being measured, and the two must be
+      <b>immiscible</b>, so that a clean interface forms.</p>
+
+    <p>The analysis uses equation&nbsp;(2.5) &mdash; pressure is the same at the same level in a continuous
+      fluid. Points B and C lie on the same horizontal level in the continuous mercury, so</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.10)</span>
+      <span class="body"><var>p</var><sub>B</sub> = <var>p</var><sub>C</sub></span>
+      <span class="body">left arm: &nbsp; <var>p</var><sub>B</sub> = <var>p</var><sub>A</sub> + <var>&rho;gh</var><sub>1</sub></span>
+      <span class="body">right arm: &nbsp; <var>p</var><sub>C</sub> = <var>p</var><sub>atm</sub> + <var>&rho;</var><sub>man</sub><var>gh</var><sub>2</sub></span>
+      <span class="body">&there4; &nbsp; <var>p</var><sub>A</sub> = <var>&rho;</var><sub>man</sub><var>gh</var><sub>2</sub> &minus; <var>&rho;gh</var><sub>1</sub> &nbsp;&nbsp;(gauge)</span>
+    </div>
+
+    <p>If the fluid being measured is a <b>gas</b>, its density is negligible beside that of the manometric
+      fluid, <var>&rho;</var><sub>man</sub> &gg; <var>&rho;</var>, and the second term can be dropped:</p>
+
+    <div class="eq">
+      <span class="body"><var>p</var><sub>A</sub> = <var>&rho;</var><sub>man</sub><var>gh</var><sub>2</sub></span>
+      <span class="tag">(2.11)</span>
+    </div>
+
+    <div class="callout">
+      <span class="label">How to read any manometer, without memorising a formula</span>
+      <p>Start at one end where the pressure is known. Walk along the fluid to the other end, and at each
+        step: <b>add <var>&rho;gh</var> when you go down</b>, <b>subtract <var>&rho;gh</var> when you go
+        up</b>, using the density of whichever fluid you are walking through. Change nothing when you move
+        horizontally within one continuous fluid. When you arrive, set the total equal to the pressure at
+        that end. Every manometer equation in this section can be written that way, and it will not let you
+        down on an unfamiliar arrangement.</p>
+    </div>
+
+    <h3>Measuring a pressure difference</h3>
+    <p>Connect the two ends of a U-tube to two points on a pressurised system instead of leaving one open,
+      and the instrument measures the <em>difference</em> between them &mdash; which is what you actually
+      want when sizing a pipe or reading a flow meter in Chapter&nbsp;3.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="A U-tube manometer connected between two points A and B on an inclined pipe, measuring the pressure difference between them">
+        <defs>
+          <marker id="am2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <!-- inclined pipe -->
+        <path d="M60,250 L640,60 L640,110 L60,300 z" fill="#9fe0ea" stroke="#1c1917" stroke-width="2"/>
+        <text x="120" y="250" font-family="Segoe UI, Arial" font-size="13" fill="#1c1917">fluid &rho;</text>
+
+        <circle cx="180" cy="242" r="5" fill="#1c1917"/>
+        <text x="164" y="232" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+        <circle cx="520" cy="130" r="5" fill="#1c1917"/>
+        <text x="510" y="118" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+
+        <!-- connecting legs down to the U -->
+        <path d="M176,250 L176,268 L264,268 L264,236" fill="none" stroke="#1c1917" stroke-width="1.8"/>
+        <path d="M516,138 L516,236" fill="none" stroke="#1c1917" stroke-width="1.8"/>
+        <rect x="256" y="236" width="16" height="18" fill="#9fe0ea"/>
+        <rect x="508" y="138" width="16" height="98" fill="#9fe0ea" stroke="#1c1917" stroke-width="1.6"/>
+
+        <!-- U tube -->
+        <path d="M256,236 L256,286 Q256,302 272,302 L508,302 Q524,302 524,286 L524,236" fill="#c8c6c4" stroke="#1c1917" stroke-width="2"/>
+        <line x1="256" y1="236" x2="272" y2="236" stroke="#6f6d6b" stroke-width="2"/>
+        <line x1="508" y1="236" x2="524" y2="236" stroke="#6f6d6b" stroke-width="2"/>
+
+        <circle cx="264" cy="236" r="4" fill="#1c1917"/>
+        <text x="232" y="232" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">C</text>
+        <circle cx="516" cy="236" r="4" fill="#1c1917"/>
+        <text x="530" y="232" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">D</text>
+        <line x1="256" y1="236" x2="524" y2="236" stroke="#00788A" stroke-width="1.5" stroke-dasharray="6 4"/>
+
+        <!-- datum and heights -->
+        <line x1="60" y1="286" x2="800" y2="286" stroke="#c9c9c9" stroke-width="1.4" stroke-dasharray="7 5"/>
+        <text x="740" y="302" font-family="Segoe UI, Arial" font-size="12" fill="#726b64">datum</text>
+
+        <line x1="120" y1="242" x2="120" y2="286" stroke="#726b64" stroke-width="1.3" marker-end="url(#am2)" marker-start="url(#am2)"/>
+        <text x="94" y="268" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">a</tspan></text>
+
+        <line x1="700" y1="130" x2="700" y2="286" stroke="#726b64" stroke-width="1.3" marker-end="url(#am2)" marker-start="url(#am2)"/>
+        <text x="708" y="212" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">h<tspan font-size="11" dy="4">b</tspan></text>
+
+        <line x1="580" y1="236" x2="580" y2="286" stroke="#A85E00" stroke-width="1.5" marker-end="url(#am2)" marker-start="url(#am2)"/>
+        <text x="588" y="268" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#A85E00">h</text>
+
+        <text x="300" y="60" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">manometric fluid &rho;<tspan font-size="10" dy="3">man</tspan></text>
+      </svg>
+      <figcaption><b>Figure 2.6.</b> A differential manometer. Points C and D sit at the same level in the
+        continuous manometric fluid, so their pressures are equal &mdash; and everything else follows from
+        walking down one leg and up the other.</figcaption>
+    </figure>
+
+    <p>Equating the pressures at C and D and working down each leg gives</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.12)</span>
+      <span class="body"><var>p</var><sub>A</sub> + <var>&rho;gh</var><sub>a</sub> = <var>p</var><sub>B</sub> + <var>&rho;g</var>(<var>h</var><sub>b</sub> &minus; <var>h</var>) + <var>&rho;</var><sub>man</sub><var>gh</var></span>
+      <span class="body"><var>p</var><sub>A</sub> &minus; <var>p</var><sub>B</sub> = <var>&rho;g</var>(<var>h</var><sub>b</sub> &minus; <var>h</var><sub>a</sub>) + (<var>&rho;</var><sub>man</sub> &minus; <var>&rho;</var>)<var>gh</var></span>
+    </div>
+
+    <p>Again, if the fluid is a gas the <var>&rho;</var> terms drop out and the result collapses to the very
+      convenient <var>p</var><sub>A</sub> &minus; <var>p</var><sub>B</sub> =
+      <var>&rho;</var><sub>man</sub><var>gh</var>.</p>
+
+    <h3>Making the instrument better</h3>
+    <p>A plain U-tube has a nuisance: both levels move, so two readings must be taken at the same instant.
+      Make the cross-section of one limb much larger &mdash; diameter <var>D</var> against <var>d</var>
+      &mdash; and the large side barely moves while the small side moves a lot. The volume transferred is
+      the same on both sides, so the fall on the wide side is
+      <var>z</var><sub>1</sub> = <var>z</var><sub>2</sub>(<var>d</var>/<var>D</var>)<sup>2</sup>, and</p>
+
+    <div class="eq stack">
+      <span class="tag">(2.13)</span>
+      <span class="body"><var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub> = <var>&rho;gz</var><sub>2</sub> [ 1 + (<var>d</var>/<var>D</var>)<sup>2</sup> ]</span>
+      <span class="body">and if <var>D</var> &gg; <var>d</var> &nbsp;&rArr;&nbsp; <var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub> &asymp; <var>&rho;gz</var><sub>2</sub></span>
+    </div>
+
+    <p>so one reading suffices. If instead the pressure to be measured is very <em>small</em> &mdash; the
+      few hundred pascals across a ventilation duct or a grain-dryer bed, say &mdash; tilt the narrow limb.
+      The liquid then has to travel a long distance <var>x</var> along the tube to rise a short vertical
+      distance <var>z</var><sub>2</sub>, and the scale is stretched:</p>
+
+    <div class="eq">
+      <span class="body"><var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub> = <var>&rho;gz</var><sub>2</sub> = <var>&rho;gx</var> sin<var>&theta;</var></span>
+      <span class="tag">(2.14)</span>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="Left: a manometer with one limb of large diameter so only one level need be read. Right: the same instrument with the narrow limb inclined, stretching the scale.">
+        <defs>
+          <marker id="am3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <text x="30" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) One enlarged limb &mdash; one reading</text>
+
+        <!-- wide reservoir -->
+        <path d="M50,80 L50,250 L200,250 L200,80" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <rect x="52" y="168" width="146" height="82" fill="#c8c6c4"/>
+        <line x1="52" y1="168" x2="198" y2="168" stroke="#6f6d6b" stroke-width="2"/>
+        <text x="60" y="70" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">D</text>
+        <line x1="50" y1="60" x2="200" y2="60" stroke="#726b64" stroke-width="1.2" marker-end="url(#am3)" marker-start="url(#am3)"/>
+
+        <!-- narrow tube -->
+        <rect x="270" y="96" width="20" height="154" fill="#c8c6c4" stroke="#1c1917" stroke-width="1.8"/>
+        <rect x="52" y="240" width="238" height="10" fill="#c8c6c4" stroke="none"/>
+        <line x1="270" y1="96" x2="290" y2="96" stroke="#6f6d6b" stroke-width="2"/>
+        <text x="296" y="70" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">d</text>
+        <line x1="270" y1="60" x2="290" y2="60" stroke="#726b64" stroke-width="1.2" marker-end="url(#am3)" marker-start="url(#am3)"/>
+
+        <!-- datum -->
+        <line x1="40" y1="150" x2="330" y2="150" stroke="#00788A" stroke-width="1.5" stroke-dasharray="7 5"/>
+        <text x="40" y="144" font-family="Segoe UI, Arial" font-size="12" fill="#00788A">datum (zero &Delta;p)</text>
+
+        <line x1="234" y1="150" x2="234" y2="168" stroke="#726b64" stroke-width="1.3" marker-end="url(#am3)" marker-start="url(#am3)"/>
+        <text x="216" y="188" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">z<tspan font-size="11" dy="4">1</tspan></text>
+
+        <line x1="318" y1="96" x2="318" y2="150" stroke="#726b64" stroke-width="1.3" marker-end="url(#am3)" marker-start="url(#am3)"/>
+        <text x="326" y="128" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">z<tspan font-size="11" dy="4">2</tspan></text>
+
+        <text x="30" y="282" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">z<tspan font-size="10" dy="3">1</tspan><tspan dy="-3"> &asymp; 0 when D &gg; d</tspan></text>
+
+        <!-- divider -->
+        <line x1="400" y1="20" x2="400" y2="290" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="440" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) Inclined limb &mdash; a stretched scale</text>
+
+        <path d="M450,90 L450,250 L580,250 L580,90" fill="none" stroke="#1c1917" stroke-width="2"/>
+        <rect x="452" y="178" width="126" height="72" fill="#c8c6c4"/>
+        <line x1="452" y1="178" x2="578" y2="178" stroke="#6f6d6b" stroke-width="2"/>
+
+        <!-- inclined tube -->
+        <path d="M580,244 L806,128 L806,146 L580,262 z" fill="#c8c6c4" stroke="#1c1917" stroke-width="1.8"/>
+        <line x1="742" y1="166" x2="742" y2="184" stroke="#6f6d6b" stroke-width="2.5"/>
+
+        <line x1="592" y1="256" x2="734" y2="184" stroke="#A85E00" stroke-width="1.6" marker-end="url(#am3)" marker-start="url(#am3)"/>
+        <text x="648" y="240" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#A85E00">x</text>
+
+        <line x1="778" y1="176" x2="778" y2="248" stroke="#726b64" stroke-width="1.3" marker-end="url(#am3)" marker-start="url(#am3)"/>
+        <text x="786" y="218" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">z<tspan font-size="11" dy="4">2</tspan></text>
+        <line x1="592" y1="248" x2="800" y2="248" stroke="#c9c9c9" stroke-width="1.3" stroke-dasharray="6 4"/>
+
+        <path d="M624,248 A44,44 0 0,0 632,232" fill="none" stroke="#4b4540" stroke-width="1.4"/>
+        <text x="630" y="244" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">&theta;</text>
+
+        <text x="440" y="290" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">a 15&deg; slope turns 1 mm of head into nearly 4 mm of scale</text>
+      </svg>
+      <figcaption><b>Figure 2.7.</b> Two refinements. Enlarging one limb removes the need to take two
+        readings; inclining the other multiplies the movement by 1/sin<var>&theta;</var>. Sensitivity can be
+        pushed further by using a lighter manometric fluid.</figcaption>
+    </figure>
+
+    <h3>Choosing a manometer</h3>
+    <p>When connecting a manometer to a vessel, make sure there is no burr around the tapping: a burr
+      disturbs the flow past it and creates a local pressure change that corrupts the reading. Beyond that,
+      the instrument has a clear set of strengths and weaknesses.</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>In its favour</h3>
+        <p>Very simple, with nothing to go wrong. <b>No calibration is required</b> &mdash; the pressure
+          follows from first principles and a ruler. Cheap, and easy to improvise in the field.</p>
+      </div>
+      <div class="card">
+        <h3>Against it</h3>
+        <p>Slow to respond, so it is useless for a fluctuating pressure. The plain U-tube needs two
+          simultaneous readings. Small variations are hard to see. It cannot reach very high pressures
+          unless several are connected in series. And for accurate work the temperature, and the
+          temperature dependence of <var>&rho;</var>, must be known.</p>
+      </div>
+    </div>
+
+    <!-- ============================================================ 2.6 -->
+    <h2 id="s6">2.6 Forces on Submerged Plane Surfaces</h2>
+
+    <p>We now have everything we need to answer the question this chapter exists for: <em>what force does
+      the water put on that gate, and where does it act?</em> The four facts we carry forward are the
+      hydrostatic pressure distribution, equal pressure at equal depths, Pascal&rsquo;s law, and forces
+      normal to the boundary.</p>
+
+    <p>Pressure acting on a small area <var>&delta;A</var> exerts a force
+      <var>F</var> = <var>p&thinsp;&delta;A</var>, at right angles to the surface. For a <b>plane</b>
+      surface all these elemental forces are parallel, so they sum arithmetically to a single
+      <b>resultant force</b> <var>R</var>, acting normal to the plane through a point called the
+      <b>centre of pressure</b>.</p>
+
+    <div class="callout">
+      <span class="label">The easy case first</span>
+      <p>For a <b>horizontal</b> plane submerged in a liquid, every point is at the same depth, so the
+        pressure is uniform over the whole surface and the resultant is simply</p>
+      <div class="eq plain"><span class="body"><var>R</var> = <var>pA</var> = <var>&rho;ghA</var></span></div>
+      <p>acting at the centroid. The floor of a tank, the base of a farm pond, the horizontal cover of a
+        sump &mdash; all of these are done in one line.</p>
+    </div>
+
+    <h3>A plane surface at any angle</h3>
+    <p>Now take a plane surface totally submerged in a liquid of density <var>&rho;</var> and inclined at an
+      angle <var>&theta;</var> to the horizontal. Measure <var>z</var> downward from the free surface, and
+      measure <var>s</var> along the plane from the point&nbsp;O where the plane, produced, would cut the
+      free surface. The two are related by <var>z</var> = <var>s</var> sin<var>&theta;</var>.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 340" role="img" aria-label="A plane surface submerged at an angle theta to the horizontal, showing the free surface, the point O where the plane meets it, the centroid G at depth z-bar, and the centre of pressure C at depth D">
+        <defs>
+          <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+          <marker id="an2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+        </defs>
+
+        <!-- water body -->
+        <rect x="40" y="52" width="560" height="270" fill="#eaf7fa"/>
+        <line x1="40" y1="52" x2="600" y2="52" stroke="#00788A" stroke-width="2.4"/>
+        <text x="46" y="44" font-family="Segoe UI, Arial" font-size="13" fill="#00788A">free surface</text>
+
+        <!-- point O on free surface -->
+        <circle cx="130" cy="52" r="5" fill="#1c1917"/>
+        <text x="116" y="40" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">O</text>
+
+        <!-- the inclined plane, drawn as a band from O downward -->
+        <line x1="130" y1="52" x2="290" y2="140" stroke="#8a8378" stroke-width="1.6" stroke-dasharray="6 4"/>
+        <path d="M290,140 L470,239 L492,286 L312,187 z" fill="#FFF1D1" stroke="#1c1917" stroke-width="2.2"/>
+        <text x="300" y="150" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">P</text>
+        <text x="474" y="256" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">Q</text>
+
+        <!-- centroid G and centre of pressure C -->
+        <circle cx="366" cy="203" r="5" fill="#00788A"/>
+        <text x="344" y="198" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#00788A">G</text>
+        <circle cx="400" cy="222" r="5" fill="#DF301C"/>
+        <text x="406" y="216" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#DF301C">C</text>
+
+        <!-- resultant force arrow, normal to plane -->
+        <line x1="400" y1="222" x2="466" y2="186" stroke="#DF301C" stroke-width="2.6" marker-end="url(#an2)"/>
+        <text x="472" y="180" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#DF301C">R</text>
+
+        <!-- elemental area -->
+        <rect x="330" y="176" width="16" height="12" fill="#00B7CD" stroke="#00788A" stroke-width="1.2" transform="rotate(29 338 182)"/>
+        <text x="296" y="172" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#00788A">&delta;A</text>
+
+        <!-- depth to G -->
+        <line x1="640" y1="52" x2="640" y2="203" stroke="#726b64" stroke-width="1.3" marker-end="url(#an)" marker-start="url(#an)"/>
+        <line x1="366" y1="203" x2="644" y2="203" stroke="#c9c9c9" stroke-width="1.2" stroke-dasharray="5 4"/>
+        <text x="650" y="132" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#4b4540">z&#772;</text>
+
+        <!-- depth to C -->
+        <line x1="712" y1="52" x2="712" y2="222" stroke="#DF301C" stroke-width="1.3" marker-end="url(#an)" marker-start="url(#an)"/>
+        <line x1="400" y1="222" x2="716" y2="222" stroke="#f0c8c2" stroke-width="1.2" stroke-dasharray="5 4"/>
+        <text x="722" y="144" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">D</text>
+
+        <!-- s measured along plane -->
+        <line x1="146" y1="76" x2="374" y2="200" stroke="#A85E00" stroke-width="1.4" marker-end="url(#an)"/>
+        <text x="228" y="118" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#A85E00">x&#772;</text>
+
+        <!-- angle theta -->
+        <line x1="130" y1="52" x2="240" y2="52" stroke="#4b4540" stroke-width="1.4"/>
+        <path d="M186,52 A56,56 0 0,1 174,79" fill="none" stroke="#4b4540" stroke-width="1.4"/>
+        <text x="182" y="80" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&theta;</text>
+      </svg>
+      <figcaption><b>Figure 2.8.</b> The geometry for a submerged plane. <var>z&#772;</var> is the depth to
+        the centroid&nbsp;G, <var>x&#772;</var> the distance to G measured <em>along the plane</em> from O,
+        and the two are related by <var>z&#772;</var> = <var>x&#772;</var>&thinsp;sin<var>&theta;</var>. The
+        resultant acts through C, the centre of pressure, at depth <var>D</var> &mdash; always
+        <em>below</em> G.</figcaption>
+    </figure>
+
+    <p>Taking the pressure as zero at the free surface, the pressure on an element at depth <var>z</var> is
+      <var>p</var> = <var>&rho;gz</var>, so the force on that element is
+      <var>&rho;gz&thinsp;&delta;A</var>. Summing over the whole area, with <var>&rho;</var> and
+      <var>g</var> constant:</p>
+
+    <div class="eq plain">
+      <span class="body"><var>R</var> = <var>&rho;g</var> &Sigma; <var>z&thinsp;&delta;A</var></span>
+    </div>
+
+    <p>The term &Sigma;<var>z&thinsp;&delta;A</var> is the <b>first moment of area</b> of the plane about
+      the line where the plane meets the free surface, and by the definition of a centroid it equals
+      <var>Az&#772;</var>. Therefore</p>
+
+    <div class="callout rule">
+      <span class="label">The resultant force on a plane surface</span>
+      <div class="eq stack">
+        <span class="tag">(2.15)</span>
+        <span class="body"><var>R</var> = <var>&rho;gAz&#772;</var> = <var>&gamma;Az&#772;</var> = <var>&rho;gAx&#772;</var> sin<var>&theta;</var></span>
+      </div>
+      <p>In words: <b>the resultant force equals the pressure at the centroid multiplied by the area</b>. It
+        acts at right angles to the plane. Note that the answer does not care what shape the surface is,
+        only its area and the depth of its centroid.</p>
+    </div>
+
+    <div class="callout warn">
+      <span class="label">The most common mistake in this chapter</span>
+      <p>The resultant force is found from the depth of the <b>centroid</b>, but it does <b>not act
+        there</b>. It acts at the centre of pressure, which is always deeper, because the pressure on the
+        lower half of the surface is greater than on the upper half. Getting <var>R</var> right and then
+        applying it at G will give you the correct force and the wrong moment &mdash; and it is the moment
+        that overturns a wall or jams a gate.</p>
+    </div>
+
+    <!-- ============================================================ 2.7 -->
+    <h2 id="s7">2.7 The Centre of Pressure</h2>
+
+    <p>To locate C we use the principle that the moment of the resultant about any point equals the sum of
+      the moments of all the elemental forces about that same point. It is convenient to take moments about
+      O, the point where the plane produced meets the free surface, and to work in distances <var>s</var>
+      measured along the plane.</p>
+
+    <p>The force on an element is
+      <var>&rho;gz&thinsp;&delta;A</var> = <var>&rho;gs</var> sin<var>&theta;</var> <var>&delta;A</var>,
+      and its moment arm about O is <var>s</var>. So the sum of the moments is</p>
+
+    <div class="eq plain">
+      <span class="body"><var>&rho;g</var> sin<var>&theta;</var> &Sigma; <var>s</var><sup>2</sup><var>&delta;A</var></span>
+    </div>
+
+    <p>The resultant <var>R</var> = <var>&rho;gAx&#772;</var> sin<var>&theta;</var> acts at a distance
+      <var>S</var><sub>c</sub> from O along the plane, so its moment is
+      <var>&rho;gAx&#772;</var> sin<var>&theta;</var> <var>S</var><sub>c</sub>. Equating and cancelling
+      <var>&rho;g</var> sin<var>&theta;</var>:</p>
+
+    <div class="eq">
+      <span class="body"><var>S</var><sub>c</sub> = <span class="frac"><span>&Sigma; <var>s</var><sup>2</sup><var>&delta;A</var></span><span class="den"><var>Ax&#772;</var></span></span> = <span class="frac"><span><var>I</var><sub>o</sub></span><span class="den"><var>Ax&#772;</var></span></span></span>
+      <span class="tag">(2.16)</span>
+    </div>
+
+    <p>because the summation &Sigma;<var>s</var><sup>2</sup><var>&delta;A</var> is precisely the
+      <b>second moment of area</b> <var>I</var><sub>o</sub> of the plane about the axis through O. The
+      depth of the centre of pressure below the free surface is then</p>
+
+    <div class="eq">
+      <span class="body"><var>D</var> = <var>S</var><sub>c</sub> sin<var>&theta;</var></span>
+      <span class="tag">(2.17)</span>
+    </div>
+
+    <p>In words, and worth remembering in this form:</p>
+
+    <div class="eq plain">
+      <span class="body"><var>S</var><sub>c</sub> = <span class="frac"><span>2nd moment of area about a line through O</span><span class="den">1st moment of area about a line through O</span></span></span>
+    </div>
+
+    <h3>Getting <var>I</var><sub>o</sub>: the parallel axis theorem</h3>
+    <p>Tables give the second moment of area about an axis through the <em>centroid</em>, not through O. The
+      <b>parallel axis theorem</b> bridges the gap:</p>
+
+    <div class="eq">
+      <span class="body"><var>I</var><sub>o</sub> = <var>I</var><sub>GG</sub> + <var>Ax&#772;</var><sup>2</sup></span>
+      <span class="tag">(2.18)</span>
+    </div>
+
+    <p>Substituting into (2.16) and (2.17) gives the two formulae you will actually use:</p>
+
+    <div class="callout rule">
+      <span class="label">The centre of pressure</span>
+      <div class="eq stack">
+        <span class="tag">(2.19)</span>
+        <span class="body"><var>S</var><sub>c</sub> = <span class="frac"><span><var>I</var><sub>GG</sub></span><span class="den"><var>Ax&#772;</var></span></span> + <var>x&#772;</var></span>
+        <span class="body"><var>D</var> = sin<var>&theta;</var> &nbsp;( <span class="frac"><span><var>I</var><sub>GG</sub></span><span class="den"><var>Ax&#772;</var></span></span> + <var>x&#772;</var> )</span>
+      </div>
+      <p>The first term is always positive, so <var>S</var><sub>c</sub> &gt; <var>x&#772;</var> always: the
+        centre of pressure is always below the centroid. And it always will be, because
+        <var>I</var><sub>GG</sub>/<var>Ax&#772;</var> shrinks as <var>x&#772;</var> grows &mdash; which is
+        why a deeply submerged gate has its centre of pressure almost exactly at its centroid, while a gate
+        breaking the surface has it a third of the way up from the bottom.</p>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 200" role="img" aria-label="Four shapes — rectangle, triangle, circle and semicircle — with the centroidal axis G-G marked on each">
+        <g stroke="#1c1917" stroke-width="2" fill="#FFF1D1">
+          <rect x="60" y="56" width="110" height="96"/>
+          <path d="M270,152 L410,152 L340,56 z"/>
+          <circle cx="560" cy="104" r="48"/>
+          <path d="M700,140 A52,52 0 0,1 804,140 z"/>
+        </g>
+        <g stroke="#DF301C" stroke-width="1.6" stroke-dasharray="8 5">
+          <line x1="40" y1="104" x2="190" y2="104"/>
+          <line x1="250" y1="120" x2="430" y2="120"/>
+          <line x1="496" y1="104" x2="624" y2="104"/>
+          <line x1="684" y1="118" x2="820" y2="118"/>
+        </g>
+        <g font-family="Segoe UI, Arial" font-size="12" font-weight="700" fill="#DF301C">
+          <text x="24" y="109">G</text><text x="194" y="109">G</text>
+          <text x="234" y="125">G</text><text x="434" y="125">G</text>
+          <text x="480" y="109">G</text><text x="628" y="109">G</text>
+          <text x="668" y="123">G</text><text x="824" y="123">G</text>
+        </g>
+        <g font-family="Segoe UI, Arial" font-size="13" fill="#4b4540" text-anchor="middle">
+          <text x="115" y="184">rectangle</text>
+          <text x="340" y="184">triangle</text>
+          <text x="560" y="184">circle</text>
+          <text x="752" y="184">semicircle</text>
+        </g>
+        <g font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#4b4540">
+          <text x="110" y="42">b &times; d</text>
+          <text x="330" y="42">b &times; d</text>
+          <text x="556" y="42">R</text>
+          <text x="748" y="42">R</text>
+        </g>
+      </svg>
+      <figcaption><b>Figure 2.9.</b> The four shapes whose second moments you will need. In each case
+        G&ndash;G is the centroidal axis, and the axis about which the tabulated
+        <var>I</var><sub>GG</sub> is quoted.</figcaption>
+    </figure>
+
+    <div class="table-wrap">
+      <table id="t2">
+        <caption><b>Table 2.2.</b> Area, centroid position and second moment of area about the centroidal
+          axis, for the shapes that cover almost every gate and cover you will meet. In an examination the
+          parallel axis theorem and these values are normally given.</caption>
+        <thead>
+          <tr><th>Shape</th><th class="num">Area <var>A</var></th><th>Centroid</th><th class="num"><var>I</var><sub>GG</sub></th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Rectangle, base <var>b</var>, height <var>d</var></td><td class="num"><var>bd</var></td><td><var>d</var>/2 from either edge</td><td class="num"><var>bd</var><sup>3</sup>/12</td></tr>
+          <tr><td>Triangle, base <var>b</var>, height <var>d</var></td><td class="num"><var>bd</var>/2</td><td><var>d</var>/3 from the base</td><td class="num"><var>bd</var><sup>3</sup>/36</td></tr>
+          <tr><td>Circle, radius <var>R</var></td><td class="num"><var>&pi;R</var><sup>2</sup></td><td>at the centre</td><td class="num"><var>&pi;R</var><sup>4</sup>/4</td></tr>
+          <tr><td>Semicircle, radius <var>R</var></td><td class="num"><var>&pi;R</var><sup>2</sup>/2</td><td>4<var>R</var>/3<var>&pi;</var> from the diameter</td><td class="num">0.1102 <var>R</var><sup>4</sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>The sideways position of C</h3>
+    <p>If the surface is symmetrical about a vertical line, the centre of pressure lies on that line of
+      symmetry and there is nothing more to do &mdash; which covers rectangular gates, circular covers and
+      most of what you will design. If it is not symmetrical, the lateral position is found by taking
+      moments about the line OG in exactly the same way, giving</p>
+
+    <div class="eq">
+      <span class="body"><var>d</var> = <span class="frac"><span>&Sigma; <var>&delta;A&thinsp;zx</var></span><span class="den"><var>Az&#772;</var></span></span></span>
+      <span class="tag">(2.20)</span>
+    </div>
+
+    <!-- ============================================================ 2.8 -->
+    <h2 id="s8">2.8 Pressure Diagrams</h2>
+
+    <p>For a <b>vertical wall of constant width</b> &mdash; a canal side, a tank wall, the upstream face of
+      a small dam &mdash; there is a faster route that also gives a much better feel for what is happening.
+      Plot the gauge pressure against depth. Since <var>p</var> = <var>&rho;gz</var>, the plot is a
+      straight line running from zero at the surface to <var>&rho;gH</var> at the base: a triangle.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="A tank of depth H with the triangular pressure distribution drawn against its vertical wall, and the resultant force acting one third of the depth above the base">
+        <defs>
+          <marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <marker id="ao2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <!-- tank -->
+        <rect x="90" y="56" width="230" height="200" fill="#9fe0ea" stroke="none"/>
+        <path d="M90,40 L90,256 L320,256" fill="none" stroke="#1c1917" stroke-width="3"/>
+        <line x1="90" y1="56" x2="320" y2="56" stroke="#00788A" stroke-width="2.2"/>
+        <text x="104" y="48" font-family="Segoe UI, Arial" font-size="13" fill="#00788A">free surface</text>
+
+        <line x1="62" y1="56" x2="62" y2="256" stroke="#726b64" stroke-width="1.3" marker-end="url(#ao2)" marker-start="url(#ao2)"/>
+        <text x="38" y="162" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#4b4540">H</text>
+
+        <!-- pressure diagram -->
+        <path d="M400,56 L400,256 L600,256 z" fill="#fdf1ef" stroke="#DF301C" stroke-width="2.4"/>
+        <line x1="400" y1="40" x2="400" y2="276" stroke="#4b4540" stroke-width="1.6"/>
+        <text x="420" y="104" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#DF301C">p = &rho;gz</text>
+        <line x1="400" y1="272" x2="600" y2="272" stroke="#726b64" stroke-width="1.3" marker-end="url(#ao2)" marker-start="url(#ao2)"/>
+        <text x="482" y="292" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">&rho;gH</text>
+
+        <!-- resultant -->
+        <circle cx="466" cy="190" r="5" fill="#DF301C"/>
+        <line x1="466" y1="190" x2="580" y2="190" stroke="#DF301C" stroke-width="2.8" marker-end="url(#ao)"/>
+        <text x="590" y="184" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#DF301C">R</text>
+
+        <line x1="668" y1="190" x2="668" y2="256" stroke="#726b64" stroke-width="1.3" marker-end="url(#ao2)" marker-start="url(#ao2)"/>
+        <line x1="466" y1="256" x2="672" y2="256" stroke="#c9c9c9" stroke-width="1.2" stroke-dasharray="5 4"/>
+        <text x="678" y="230" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">H/3</text>
+
+        <line x1="726" y1="56" x2="726" y2="190" stroke="#DF301C" stroke-width="1.3" marker-end="url(#ao2)" marker-start="url(#ao2)"/>
+        <text x="736" y="128" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#DF301C">D = 2H/3</text>
+      </svg>
+      <figcaption><b>Figure 2.10.</b> The pressure diagram for a vertical wall. Its <em>area</em> is the
+        resultant force per unit width, and its <em>centroid</em> is where that force acts. For a triangle
+        the centroid is one third of the way up from the base.</figcaption>
+    </figure>
+
+    <p>The area of the triangle is the resultant force per unit width of wall, in N/m:</p>
+
+    <div class="eq">
+      <span class="body"><var>R</var> = <span class="frac"><span>1</span><span class="den">2</span></span> &times; <var>H</var> &times; <var>&rho;gH</var> = <span class="frac"><span>1</span><span class="den">2</span></span><var>&rho;gH</var><sup>2</sup></span>
+      <span class="tag">(2.21)</span>
+    </div>
+
+    <p>and it acts horizontally through the centroid of the diagram, which for a triangle is at
+      <var>H</var>/3 above the base, that is at a depth</p>
+
+    <div class="eq">
+      <span class="body"><var>D</var> = <span class="frac"><span>2</span><span class="den">3</span></span><var>H</var></span>
+      <span class="tag">(2.22)</span>
+    </div>
+
+    <h3>Checking it against the moments method</h3>
+    <p>The two methods must agree, and it is worth seeing that they do. Using (2.15) with a wall of unit
+      width, <var>A</var> = <var>H</var> &times; 1 and <var>z&#772;</var> = <var>H</var>/2:</p>
+
+    <div class="eq plain">
+      <span class="body"><var>R</var> = <var>&rho;g</var>(<var>H</var> &times; 1)(<var>H</var>/2) = &frac12;<var>&rho;gH</var><sup>2</sup> &nbsp;&#10003;</span>
+    </div>
+
+    <p>and using (2.19) with <var>&theta;</var> = 90&deg;, <var>I</var><sub>GG</sub> =
+      1 &times; <var>H</var><sup>3</sup>/12 and <var>x&#772;</var> = <var>H</var>/2:</p>
+
+    <div class="eq plain">
+      <span class="body"><var>D</var> = <span class="frac"><span><var>H</var><sup>3</sup>/12</span><span class="den"><var>H</var> &times; <var>H</var>/2</span></span> + <span class="frac"><span><var>H</var></span><span class="den">2</span></span> = <span class="frac"><span><var>H</var></span><span class="den">6</span></span> + <span class="frac"><span><var>H</var></span><span class="den">2</span></span> = <span class="frac"><span>2<var>H</var></span><span class="den">3</span></span> &nbsp;&#10003;</span>
+    </div>
+
+    <div class="callout">
+      <span class="label">When the diagram earns its keep</span>
+      <p>The pressure-diagram method comes into its own when a tank holds <b>two liquids</b> &mdash; oil
+        floating on water is the standard case, and so is a layer of settled slurry under clear liquid. The
+        diagram is then a triangle on top of a trapezium: the upper liquid produces a triangle down to the
+        interface, and below it the lower liquid adds its own triangle on top of the constant pressure
+        already inherited from above. Find the area and the centroid of each part separately, then combine
+        the two forces by taking moments. Trying to do the same job with equation&nbsp;(2.19) is possible
+        but far more error-prone.</p>
+      <p>For non-rectangular or non-vertical planes, go back to the moments method &mdash; drawing the
+        diagram is then more trouble than it saves.</p>
+    </div>
+
+    <!-- ============================================================ 2.9 -->
+    <h2 id="s9">2.9 Forces on Submerged Curved Surfaces</h2>
+
+    <p>On a curved surface the elemental forces are still normal to the surface, but the surface normal
+      changes direction from point to point, so they are not parallel and cannot simply be added. The
+      practical route is to compute the <b>horizontal and vertical components separately</b> and then
+      combine them as vectors.</p>
+
+    <h3>Case 1: fluid resting above the curved surface</h3>
+    <p>Isolate the wedge of fluid ABC bounded by the curved surface AB, a vertical plane AC and a horizontal
+      plane CB. The fluid in it is at rest, so it is in equilibrium.</p>
+
+    <p><b>Horizontally</b>, no force can act on CB, because CB is horizontal and a static fluid exerts no
+      shear. So the only horizontal forces are those on AC and on the curved face. They must balance:</p>
+
+    <div class="callout rule">
+      <span class="label">Horizontal component</span>
+      <p><var>R</var><sub>H</sub> = the resultant force on the <b>projection of the curved surface onto a
+        vertical plane</b>, computed exactly as in &sect;2.6&ndash;2.8, and acting horizontally through the
+        centre of pressure of that projection.</p>
+    </div>
+
+    <p><b>Vertically</b>, there are no shear forces on the vertical edges, so the only vertical force
+      available is the weight of the fluid in the wedge:</p>
+
+    <div class="callout rule">
+      <span class="label">Vertical component</span>
+      <p><var>R</var><sub>V</sub> = the <b>weight of the fluid directly above the curved surface</b>, acting
+        vertically downward through the centre of gravity of that volume.</p>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="Left: water resting on a curved base, with the horizontal component acting on the vertical projection and the vertical component equal to the weight of water above. Right: a curved sluice gate with water below the surface, where the vertical component is the weight of the imaginary volume above and acts upward.">
+        <defs>
+          <marker id="ax" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <pattern id="ghost" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <line x1="0" y1="0" x2="0" y2="8" stroke="#c9dfe4" stroke-width="2"/>
+          </pattern>
+        </defs>
+
+        <text x="30" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) Fluid above the surface</text>
+
+        <!-- water body and curved base -->
+        <path d="M60,56 L60,240 Q170,240 230,150 L230,56 z" fill="#9fe0ea" stroke="none"/>
+        <line x1="60" y1="56" x2="300" y2="56" stroke="#00788A" stroke-width="2.2"/>
+        <path d="M60,240 Q170,240 230,150" fill="none" stroke="#1c1917" stroke-width="3"/>
+        <line x1="60" y1="40" x2="60" y2="252" stroke="#1c1917" stroke-width="3"/>
+
+        <text x="66" y="48" font-family="Segoe UI, Arial" font-size="12" fill="#00788A">free surface</text>
+        <text x="204" y="252" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+        <text x="236" y="146" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+
+        <!-- vertical projection of AB -->
+        <line x1="230" y1="150" x2="230" y2="240" stroke="#A85E00" stroke-width="2.4" stroke-dasharray="7 4"/>
+        <text x="240" y="200" font-family="Segoe UI, Arial" font-size="12" fill="#A85E00">vertical projection</text>
+
+        <!-- components -->
+        <line x1="150" y1="196" x2="228" y2="196" stroke="#DF301C" stroke-width="2.6" marker-end="url(#ax)"/>
+        <text x="152" y="188" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">R<tspan font-size="12" dy="5">H</tspan></text>
+        <line x1="150" y1="196" x2="150" y2="266" stroke="#DF301C" stroke-width="2.6" marker-end="url(#ax)"/>
+        <text x="106" y="252" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">R<tspan font-size="12" dy="5">V</tspan></text>
+        <line x1="150" y1="196" x2="238" y2="272" stroke="#DF301C" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#ax)"/>
+        <text x="244" y="284" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#DF301C">R</text>
+
+        <text x="30" y="300" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">R<tspan font-size="10" dy="3">V</tspan><tspan dy="-3"> = weight of the real water above AB, acting down</tspan></text>
+
+        <!-- divider -->
+        <line x1="420" y1="20" x2="420" y2="310" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="450" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) Fluid below the surface</text>
+
+        <!-- imaginary volume above the gate -->
+        <path d="M600,56 L600,150 Q660,240 770,240 L770,56 z" fill="url(#ghost)" stroke="#9fd8e2" stroke-width="1.4" stroke-dasharray="5 4"/>
+        <!-- real water to the left -->
+        <path d="M460,56 L460,240 L660,240 Q612,196 600,150 L600,56 z" fill="#9fe0ea" stroke="none"/>
+        <line x1="460" y1="56" x2="800" y2="56" stroke="#00788A" stroke-width="2.2"/>
+        <path d="M600,150 Q660,240 770,240" fill="none" stroke="#1c1917" stroke-width="3"/>
+        <line x1="460" y1="40" x2="460" y2="252" stroke="#1c1917" stroke-width="3"/>
+
+        <text x="596" y="146" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">B</text>
+        <text x="772" y="254" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">A</text>
+        <text x="678" y="104" font-family="Segoe UI, Arial" font-size="12" fill="#5fa6b5">imaginary volume</text>
+
+        <line x1="600" y1="150" x2="600" y2="240" stroke="#A85E00" stroke-width="2.4" stroke-dasharray="7 4"/>
+
+        <line x1="546" y1="196" x2="598" y2="196" stroke="#DF301C" stroke-width="2.6" marker-end="url(#ax)"/>
+        <text x="512" y="190" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">R<tspan font-size="12" dy="5">H</tspan></text>
+        <line x1="678" y1="252" x2="678" y2="184" stroke="#DF301C" stroke-width="2.6" marker-end="url(#ax)"/>
+        <text x="686" y="220" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#DF301C">R<tspan font-size="12" dy="5">V</tspan></text>
+
+        <text x="450" y="300" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">R<tspan font-size="10" dy="3">V</tspan><tspan dy="-3"> = weight of the imaginary water above AB, acting UP</tspan></text>
+      </svg>
+      <figcaption><b>Figure 2.11.</b> The two cases. The horizontal component is found the same way in both:
+        the force on the vertical projection. Only the vertical component changes &mdash; real weight acting
+        down when the fluid is above, imaginary weight acting up when the fluid is below.</figcaption>
+    </figure>
+
+    <h3>Case 2: fluid below the curved surface</h3>
+    <p>This is the case of a curved sluice gate, a radial (Tainter) gate, or the underside of a submerged
+      pipe &mdash; and it is the one that catches people out. The horizontal component is found in exactly
+      the same way as before. For the vertical component, imagine removing the curved surface and filling
+      the space it occupied with fluid: the whole system would then be in equilibrium. So the force the
+      surface must supply to maintain equilibrium is equal to the weight of the fluid that <em>would</em>
+      have been there.</p>
+
+    <div class="callout warn">
+      <span class="label">Fluid below: the vertical component acts upward</span>
+      <p><var>R</var><sub>V</sub> = the weight of the <b>imaginary</b> volume of fluid vertically above the
+        curved surface, up to the level of the free surface &mdash; and it acts <b>upward</b>. Forgetting
+        the word &ldquo;imaginary&rdquo;, or getting the direction wrong, is the classic error here. If in
+        doubt, ask yourself which way the water is trying to push the gate: it is trying to lift a radial
+        gate, not press it down.</p>
+    </div>
+
+    <h3>Combining the components</h3>
+    <div class="eq stack">
+      <span class="tag">(2.23)</span>
+      <span class="body"><var>R</var> = <span class="sqrt">&radic;<span class="rad"><var>R</var><sub>H</sub><sup>2</sup> + <var>R</var><sub>V</sub><sup>2</sup></span></span></span>
+      <span class="body"><var>&theta;</var> = tan<sup>&minus;1</sup> ( <var>R</var><sub>V</sub> / <var>R</var><sub>H</sub> )</span>
+    </div>
+
+    <p>The resultant acts through the point O where the horizontal line of action of
+      <var>R</var><sub>H</sub> crosses the vertical line of action of <var>R</var><sub>V</sub>, at the angle
+      <var>&theta;</var> to the horizontal.</p>
+
+    <div class="callout">
+      <span class="label">A shortcut for circular surfaces &mdash; beyond the reference notes</span>
+      <p>If the curved surface is part of a <b>circle</b>, every elemental pressure force is normal to the
+        surface and therefore points along a radius &mdash; straight at the centre of curvature. A set of
+        forces that all pass through one point has a resultant that passes through that point too.</p>
+      <p>So for any circular gate, <b>the resultant force passes through the centre of curvature</b>, and
+        you get its line of action free, without computing where <var>R</var><sub>H</sub> and
+        <var>R</var><sub>V</sub> act. This is exactly why a radial gate is built as an arc with its hinge at
+        the centre: the whole water thrust passes through the hinge pin, so it exerts no moment about the
+        hinge, and the gate can be lifted against its own weight alone. It is a lovely piece of engineering,
+        and it falls straight out of &ldquo;pressure acts normal to the surface&rdquo;.</p>
+    </div>
+
+    <!-- ============================================================ 2.10 -->
+    <h2 id="s10">2.10 Beyond the Core &mdash; Buoyancy and Modern Gauges</h2>
+
+    <div class="callout warn">
+      <span class="label">Extension material</span>
+      <p>The four topics in this section are <b>not in the reference notes</b> for this chapter and are
+        <b>outside the examinable core</b> of ASE&nbsp;221. They are here because each follows directly from
+        what you have just proved, and because you will meet all four in practice: buoyancy every time
+        something floats or a hydrometer is dipped, the paradox every time someone argues about tank shape,
+        and the modern gauges on every pump station built in the last forty years.</p>
+    </div>
+
+    <h3>Buoyancy and Archimedes&rsquo; principle</h3>
+    <p>Section&nbsp;2.9 gives this away almost for free. Take a body fully submerged in a liquid. The
+      vertical force on its <em>lower</em> surface is the weight of the imaginary fluid column above that
+      surface, acting <b>upward</b>. The vertical force on its <em>upper</em> surface is the weight of the
+      real fluid above it, acting <b>downward</b>. The difference between the two columns is exactly the
+      volume of the body. So the net vertical force is</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var><sub>B</sub> = <var>&rho;gV</var></span>
+      <span class="tag">(2.24)</span>
+    </div>
+
+    <p>where <var>V</var> is the volume of fluid displaced. The horizontal forces cancel, because the
+      vertical projection of the left half of the body is identical to that of the right half. This is
+      <b>Archimedes&rsquo; principle</b>: <em>the upthrust on a body equals the weight of the fluid it
+      displaces</em>, and it acts upward through the centroid of the displaced volume, a point called the
+      <b>centre of buoyancy</b>.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 280" role="img" aria-label="Left: a fully submerged block showing the downward pressure force on its top face, the larger upward force on its bottom face, and the net upthrust. Right: a floating pontoon with its weight balanced by the upthrust of the displaced water, with the draught marked.">
+        <defs>
+          <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#DF301C"/>
+          </marker>
+          <marker id="ab2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#726b64"/>
+          </marker>
+        </defs>
+
+        <text x="30" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) Fully submerged &mdash; where the upthrust comes from</text>
+
+        <rect x="40" y="52" width="330" height="210" fill="#9fe0ea"/>
+        <line x1="40" y1="52" x2="370" y2="52" stroke="#00788A" stroke-width="2.2"/>
+        <rect x="152" y="130" width="110" height="70" fill="#FFF1D1" stroke="#1c1917" stroke-width="2"/>
+
+        <!-- down force on top -->
+        <line x1="207" y1="92" x2="207" y2="126" stroke="#DF301C" stroke-width="2.4" marker-end="url(#ab)"/>
+        <text x="214" y="104" font-family="Segoe UI, Arial" font-size="12" fill="#DF301C">&rho;gz&#8321;A (down)</text>
+        <!-- up force on bottom -->
+        <line x1="207" y1="248" x2="207" y2="204" stroke="#DF301C" stroke-width="3.4" marker-end="url(#ab)"/>
+        <text x="214" y="246" font-family="Segoe UI, Arial" font-size="12" fill="#DF301C">&rho;gz&#8322;A (up, larger)</text>
+
+        <line x1="112" y1="52" x2="112" y2="130" stroke="#726b64" stroke-width="1.2" marker-end="url(#ab2)" marker-start="url(#ab2)"/>
+        <text x="92" y="98" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">z&#8321;</text>
+        <line x1="80" y1="52" x2="80" y2="200" stroke="#726b64" stroke-width="1.2" marker-end="url(#ab2)" marker-start="url(#ab2)"/>
+        <text x="58" y="132" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#4b4540">z&#8322;</text>
+
+        <text x="30" y="278" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">net up = &rho;g(z&#8322;&minus;z&#8321;)A = &rho;gV &mdash; the weight of the displaced water</text>
+
+        <!-- divider -->
+        <line x1="420" y1="20" x2="420" y2="270" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="450" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) Floating &mdash; upthrust equals weight</text>
+
+        <rect x="450" y="140" width="380" height="122" fill="#9fe0ea"/>
+        <line x1="450" y1="140" x2="830" y2="140" stroke="#00788A" stroke-width="2.2"/>
+        <rect x="560" y="92" width="180" height="96" fill="#FFF1D1" stroke="#1c1917" stroke-width="2"/>
+        <rect x="562" y="140" width="176" height="46" fill="#57c2d3" stroke="none"/>
+        <line x1="560" y1="140" x2="740" y2="140" stroke="#00788A" stroke-width="1.6"/>
+
+        <line x1="650" y1="80" x2="650" y2="122" stroke="#4b4540" stroke-width="2.4" marker-end="url(#ab2)"/>
+        <text x="600" y="76" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">W = mg</text>
+        <line x1="650" y1="212" x2="650" y2="166" stroke="#DF301C" stroke-width="2.6" marker-end="url(#ab)"/>
+        <text x="600" y="232" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#DF301C">F<tspan font-size="11" dy="4">B</tspan><tspan dy="-4"> = &rho;gV</tspan></text>
+
+        <line x1="778" y1="140" x2="778" y2="188" stroke="#726b64" stroke-width="1.2" marker-end="url(#ab2)" marker-start="url(#ab2)"/>
+        <text x="786" y="170" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">draught</text>
+        <line x1="778" y1="92" x2="778" y2="140" stroke="#726b64" stroke-width="1.2" marker-end="url(#ab2)" marker-start="url(#ab2)"/>
+        <text x="786" y="120" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">freeboard</text>
+      </svg>
+      <figcaption><b>Figure 2.12.</b> Buoyancy is not a new principle; it is &sect;2.9 applied to a body with
+        fluid on every side. A floating body sinks until the volume it has pushed aside weighs exactly what
+        the body weighs.</figcaption>
+    </figure>
+
+    <p>For a <b>floating</b> body, equilibrium requires upthrust = weight, so
+      <var>&rho;gV</var><sub>displaced</sub> = <var>mg</var>, and the depth to which it sinks &mdash; the
+      <b>draught</b> &mdash; follows immediately. Two consequences worth carrying away:</p>
+
+    <ul>
+      <li><b>A hydrometer works because of this.</b> The instrument of Chapter&nbsp;1 &sect;1.9 is a weighted
+        float of fixed weight. In a denser liquid it needs to displace less volume, so it floats higher;
+        the scale on its stem is simply a relative-density scale read backwards. Dipping a hydrometer into
+        milk, latex or molasses is a direct measurement of <var>&rho;</var>.</li>
+      <li><b>Draught depends on the water, not just the load.</b> A pontoon or a pump barge floats deeper in
+        fresh water than in seawater, because fresh water is less dense and so more of it must be pushed
+        aside. Example&nbsp;2.6 puts a number on it.</li>
+    </ul>
+
+    <h3>The hydrostatic paradox</h3>
+    <p>Equation&nbsp;(2.8) says the pressure at a depth depends on the depth and nothing else &mdash; not on
+      the shape of the vessel, and not on how much liquid it holds. Take three vessels with the same base
+      area of 0.5&nbsp;m<sup>2</sup> and the same water depth of 1.2&nbsp;m: one a straight cylinder, one
+      flaring outward, one narrowing to a thin neck. The force on each base is identical:</p>
+
+    <div class="eq plain">
+      <span class="body"><var>F</var> = <var>&rho;ghA</var> = 1000 &times; 9.81 &times; 1.2 &times; 0.5 = 5886 N = 5.89 kN</span>
+    </div>
+
+    <p>even though the flared vessel might hold five times the weight of water of the narrow-necked one.
+      This is the <b>hydrostatic paradox</b>, and it is not a paradox at all once you remember that the
+      sloping walls also carry a vertical component of force &mdash; downward on a vessel that narrows
+      upward, upward on one that flares. The vertical forces on the walls make up the difference exactly,
+      which is &sect;2.9 doing its job.</p>
+
+    <p>The practical point for you: <b>the pressure rating of a tank, a pipe or a valve is set by the head
+      above it, never by the volume behind it.</b> A 200&nbsp;mm delivery pipe from a header tank
+      80&nbsp;m up the hill must be rated for 8&nbsp;bar even if the tank holds only a few cubic metres.</p>
+
+    <h3>The barometer</h3>
+    <p>Invert a tube full of mercury into a dish of mercury and the column falls until its weight balances
+      the atmosphere pushing on the dish, leaving a near-vacuum above it. The column height is then a direct
+      reading of <b>absolute</b> atmospheric pressure:</p>
+
+    <div class="eq plain">
+      <span class="body"><var>p</var><sub>atm</sub> = <var>&rho;</var><sub>Hg</sub><var>gh</var> = 13 600 &times; 9.81 &times; 0.760 = 101.4 kPa</span>
+    </div>
+
+    <p>Mercury is used rather than water for an obvious reason: a water barometer would need to be more than
+      10&nbsp;m tall. Atmospheric pressure falls by roughly 1.2&nbsp;kPa per 100&nbsp;m of elevation, which
+      matters for pump suction on a hillside scheme &mdash; as Problem&nbsp;11 of Chapter&nbsp;1 showed.</p>
+
+    <h3>What is actually used on site</h3>
+    <p>Manometers survive in the laboratory and in calibration work, but almost no field installation uses
+      one. Two instruments have replaced them.</p>
+
+    <div class="cards">
+      <div class="card">
+        <h3>The Bourdon gauge</h3>
+        <p>A flattened tube coiled into an arc straightens very slightly as the pressure inside it rises;
+          a linkage multiplies that movement onto a dial. Rugged, cheap, reads instantly, and needs no
+          liquid &mdash; but it is a mechanical instrument and it <b>does</b> need calibration, and it
+          drifts. Always check whether the dial is marked in bar, kgf/cm<sup>2</sup> or psi before you
+          believe it, and note that it reads <em>gauge</em> pressure.</p>
+      </div>
+      <div class="card">
+        <h3>The pressure transducer</h3>
+        <p>A diaphragm deflects under pressure and a strain gauge or piezoresistive element turns that
+          deflection into a voltage or a 4&ndash;20&nbsp;mA current. Fast enough to follow a transient,
+          loggable, and capable of the accuracy a manometer gives without the fragility. This is what
+          measures the pressure at a modern pump station, and what your year-2 laboratory work will
+          use.</p>
+      </div>
+    </div>
+
+    <p>What none of this changes is the physics. Both instruments are calibrated, directly or indirectly,
+      against a column of liquid of known density &mdash; which is to say, against equation&nbsp;(2.8).</p>
+
+    <!-- ============================================================ 2.11 -->
+    <h2 id="s11">2.11 Worked Examples</h2>
+
+    <div class="example">
+      <h3>Example 2.1 &mdash; Pressure, head, and the units you will be handed</h3>
+      <p>A pressure gauge on an irrigation main reads 500&nbsp;kPa. Express this (a) as a head of water,
+        (b) as a head of mercury, (c) in bar, kgf/cm<sup>2</sup> and psi, and (d) as an absolute pressure.
+        Take <var>&rho;</var><sub>water</sub> = 1000&nbsp;kg/m<sup>3</sup>,
+        <var>&rho;</var><sub>Hg</sub> = 13&thinsp;600&nbsp;kg/m<sup>3</sup>.</p>
+
+      <div class="step">
+        <h4>Step 1 &mdash; Head of water</h4>
+        <div class="eq plain"><span class="body"><var>h</var> = <span class="frac"><span><var>p</var></span><span class="den"><var>&rho;g</var></span></span> = <span class="frac"><span>500 &times; 10<sup>3</sup></span><span class="den">1000 &times; 9.81</span></span> = 50.97 m of water</span></div>
+        <p class="result"><var>h</var> = 51.0 m of water</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 2 &mdash; Head of mercury</h4>
+        <div class="eq plain"><span class="body"><var>h</var> = <span class="frac"><span>500 &times; 10<sup>3</sup></span><span class="den">13 600 &times; 9.81</span></span> = 3.75 m of mercury</span></div>
+        <p>The same pressure, 13.6 times shorter a column. This is exactly why a manometer measuring a large
+          pressure uses mercury and not water.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 3 &mdash; The practical units</h4>
+        <p>From Table&nbsp;2.1:</p>
+        <p>500 kPa &divide; 100 = <b>5.00 bar</b> &nbsp;&middot;&nbsp;
+           500 &divide; 98.07 = <b>5.10 kgf/cm<sup>2</sup></b> &nbsp;&middot;&nbsp;
+           500 &divide; 6.895 = <b>72.5 psi</b></p>
+        <p>Note how close 5.00&nbsp;bar and 5.10&nbsp;kgf/cm<sup>2</sup> are. The 2&nbsp;% difference rarely
+          matters for a first estimate, but it is a real difference and it is worth knowing which one the
+          gauge in front of you is showing.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 4 &mdash; Absolute pressure</h4>
+        <div class="eq plain"><span class="body"><var>p</var><sub>abs</sub> = 500 + 101.3 = 601.3 kPa absolute</span></div>
+        <p class="result">601 kPa absolute, or 6.01 bar (a)</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 5 &mdash; What it means for the pipe</h4>
+        <p>A static head of 51&nbsp;m is what a PN&nbsp;6 pipe (6&nbsp;bar) would only just survive, with no
+          allowance for surge. Chapter&nbsp;1 &sect;1.11 warned that closing a valve quickly on a long main
+          can add several times the static pressure as a water-hammer wave, which is why PN&nbsp;10 would
+          be specified here in practice.</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>Example 2.2 &mdash; Reading a U-tube manometer</h3>
+      <p>A mercury U-tube manometer is connected to a pipe carrying water. The mercury surface in the leg
+        nearer the pipe stands 0.15&nbsp;m below the pipe centreline, and the mercury in the open leg stands
+        0.40&nbsp;m above that level. Find the gauge pressure of the water in the pipe, and express it as a
+        head of water.</p>
+
+      <div class="step">
+        <h4>Step 1 &mdash; Identify the equal-pressure level</h4>
+        <p>Let B be the mercury surface in the near leg, and C the point at the same level in the open leg.
+          B and C lie on one horizontal plane in continuous mercury, so <var>p</var><sub>B</sub> =
+          <var>p</var><sub>C</sub>. Everything follows from this one statement.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 2 &mdash; Walk down the left leg</h4>
+        <p>Start at A in the water and go down 0.15&nbsp;m to B, through water:</p>
+        <div class="eq plain"><span class="body"><var>p</var><sub>B</sub> = <var>p</var><sub>A</sub> + <var>&rho;gh</var><sub>1</sub> = <var>p</var><sub>A</sub> + (1000)(9.81)(0.15) = <var>p</var><sub>A</sub> + 1471.5</span></div>
+      </div>
+
+      <div class="step">
+        <h4>Step 3 &mdash; Walk down the right leg</h4>
+        <p>Start at the open surface, where the gauge pressure is zero, and go down 0.40&nbsp;m to C,
+          through mercury:</p>
+        <div class="eq plain"><span class="body"><var>p</var><sub>C</sub> = 0 + <var>&rho;</var><sub>man</sub><var>gh</var><sub>2</sub> = (13 600)(9.81)(0.40) = 53 366 Pa</span></div>
+      </div>
+
+      <div class="step">
+        <h4>Step 4 &mdash; Equate and solve</h4>
+        <div class="eq plain"><span class="body"><var>p</var><sub>A</sub> + 1471.5 = 53 366 &nbsp;&rArr;&nbsp; <var>p</var><sub>A</sub> = 51 895 Pa</span></div>
+        <p class="result"><var>p</var><sub>A</sub> = 51.9 kPa gauge</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 5 &mdash; As a head of water</h4>
+        <div class="eq plain"><span class="body"><var>h</var> = <span class="frac"><span>51 895</span><span class="den">1000 &times; 9.81</span></span> = 5.29 m of water</span></div>
+        <p class="result">5.29 m of water</p>
+        <p>Check the sense of the answer: the mercury has been pushed 0.40&nbsp;m up the open leg, which is
+          13.6 &times; 0.40 = 5.44&nbsp;m of water; subtracting the 0.15&nbsp;m of water in the other leg
+          leaves 5.29&nbsp;m. The arithmetic agrees, and the second route is a useful sanity check to run
+          in your head.</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>Example 2.3 &mdash; Force and centre of pressure on a vertical canal gate</h3>
+      <p>A rectangular sluice gate 1.5&nbsp;m wide and 2.0&nbsp;m high closes an opening in the vertical
+        wall of an irrigation canal. Its top edge is 1.0&nbsp;m below the water surface. Find the resultant
+        force on the gate, the depth of the centre of pressure, and the moment about the hinge at the sill.
+        Take <var>&rho;</var> = 1000&nbsp;kg/m<sup>3</sup>.</p>
+
+      <div class="step">
+        <h4>Step 1 &mdash; Geometry</h4>
+        <p><var>A</var> = 1.5 &times; 2.0 = 3.0&nbsp;m<sup>2</sup>. The gate runs from 1.0&nbsp;m to
+          3.0&nbsp;m depth, so the centroid is at
+          <var>z&#772;</var> = 1.0 + 1.0 = 2.0&nbsp;m. The gate is vertical, so
+          <var>&theta;</var> = 90&deg; and <var>x&#772;</var> = <var>z&#772;</var> = 2.0&nbsp;m.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 2 &mdash; Resultant force</h4>
+        <div class="eq plain"><span class="body"><var>R</var> = <var>&rho;gAz&#772;</var> = (1000)(9.81)(3.0)(2.0) = 58 860 N</span></div>
+        <p class="result"><var>R</var> = 58.9 kN, horizontal</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 3 &mdash; Second moment of area</h4>
+        <p>Rectangle, base <var>b</var> = 1.5&nbsp;m, height <var>d</var> = 2.0&nbsp;m:</p>
+        <div class="eq plain"><span class="body"><var>I</var><sub>GG</sub> = <span class="frac"><span><var>bd</var><sup>3</sup></span><span class="den">12</span></span> = <span class="frac"><span>(1.5)(2.0)<sup>3</sup></span><span class="den">12</span></span> = 1.00 m<sup>4</sup></span></div>
+      </div>
+
+      <div class="step">
+        <h4>Step 4 &mdash; Depth of the centre of pressure</h4>
+        <div class="eq plain"><span class="body"><var>D</var> = <span class="frac"><span><var>I</var><sub>GG</sub></span><span class="den"><var>Ax&#772;</var></span></span> + <var>x&#772;</var> = <span class="frac"><span>1.00</span><span class="den">(3.0)(2.0)</span></span> + 2.0 = 0.167 + 2.0 = 2.167 m</span></div>
+        <p class="result"><var>D</var> = 2.17 m below the free surface</p>
+        <p>That is 1.17&nbsp;m below the top edge of the gate, i.e. 0.83&nbsp;m above the sill &mdash; below
+          the mid-height, as it must be.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 5 &mdash; Moment about the sill hinge</h4>
+        <div class="eq plain"><span class="body"><var>M</var> = <var>R</var> &times; 0.833 = (58 860)(0.833) = 49 030 N&middot;m</span></div>
+        <p class="result"><var>M</var> = 49.0 kN&middot;m</p>
+        <p>Had you carelessly applied <var>R</var> at the centroid instead, the lever arm would have been
+          1.0&nbsp;m and the moment 58.9&nbsp;kN&middot;m &mdash; 20&nbsp;% too high. The force would have
+          been right and the hinge design wrong.</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>Example 2.4 &mdash; An inclined circular gate</h3>
+      <p>A circular gate 0.8&nbsp;m in diameter is set in a wall inclined at 60&deg; to the horizontal. The
+        centre of the gate is 2.5&nbsp;m below the free surface. Find the resultant force and the depth of
+        the centre of pressure.</p>
+
+      <div class="step">
+        <h4>Step 1 &mdash; Geometry</h4>
+        <p><var>A</var> = <var>&pi;R</var><sup>2</sup> = <var>&pi;</var>(0.4)<sup>2</sup> =
+          0.5027&nbsp;m<sup>2</sup>, <var>z&#772;</var> = 2.5&nbsp;m, and the distance along the plane
+          from O is</p>
+        <div class="eq plain"><span class="body"><var>x&#772;</var> = <span class="frac"><span><var>z&#772;</var></span><span class="den">sin<var>&theta;</var></span></span> = <span class="frac"><span>2.5</span><span class="den">sin 60&deg;</span></span> = <span class="frac"><span>2.5</span><span class="den">0.8660</span></span> = 2.887 m</span></div>
+      </div>
+
+      <div class="step">
+        <h4>Step 2 &mdash; Resultant force</h4>
+        <div class="eq plain"><span class="body"><var>R</var> = <var>&rho;gAz&#772;</var> = (1000)(9.81)(0.5027)(2.5) = 12 328 N</span></div>
+        <p class="result"><var>R</var> = 12.3 kN, normal to the gate</p>
+        <p>Note that the angle does not enter the force calculation at all &mdash; only the depth of the
+          centroid does.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 3 &mdash; Centre of pressure</h4>
+        <p>For a circle, <var>I</var><sub>GG</sub> = <var>&pi;R</var><sup>4</sup>/4 =
+          <var>&pi;</var>(0.4)<sup>4</sup>/4 = 0.02011&nbsp;m<sup>4</sup>. Then</p>
+        <div class="eq plain"><span class="body"><var>S</var><sub>c</sub> = <span class="frac"><span>0.02011</span><span class="den">(0.5027)(2.887)</span></span> + 2.887 = 0.0139 + 2.887 = 2.901 m</span></div>
+        <div class="eq plain"><span class="body"><var>D</var> = <var>S</var><sub>c</sub> sin<var>&theta;</var> = (2.901)(0.8660) = 2.512 m</span></div>
+        <p class="result"><var>D</var> = 2.51 m below the free surface</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 4 &mdash; Comment</h4>
+        <p>The centre of pressure is only <b>12&nbsp;mm</b> below the centroid. That is the general pattern:
+          the deeper and the smaller a gate, the more nearly uniform the pressure over it, and the closer C
+          creeps to G. For a gate this size at this depth you could treat the load as uniform and be wrong
+          by half a per cent &mdash; but you should know that you are approximating, and say so.</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>Example 2.5 &mdash; A curved surface: the fillet at the base of a tank</h3>
+      <p>A water tank 2.4&nbsp;m deep has its vertical wall joined to its floor by a quarter-circle fillet of
+        radius 1.0&nbsp;m. Find the horizontal and vertical components of the resultant force on the
+        fillet, per metre width, and the magnitude and direction of the resultant.</p>
+
+      <div class="step">
+        <h4>Step 1 &mdash; Geometry</h4>
+        <p>The fillet runs from B on the wall, at depth 2.4 &minus; 1.0 = 1.4&nbsp;m, to A on the floor at
+          depth 2.4&nbsp;m, a horizontal distance 1.0&nbsp;m from the wall. The water lies above the
+          curve, so this is Case&nbsp;1 of &sect;2.9.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 2 &mdash; Horizontal component</h4>
+        <p>The vertical projection of AB is a rectangle 1.0&nbsp;m tall and 1&nbsp;m wide, running from
+          depth 1.4 to 2.4&nbsp;m, so <var>A</var> = 1.0&nbsp;m<sup>2</sup> and
+          <var>z&#772;</var> = 1.9&nbsp;m:</p>
+        <div class="eq plain"><span class="body"><var>R</var><sub>H</sub> = <var>&rho;gAz&#772;</var> = (1000)(9.81)(1.0)(1.9) = 18 639 N</span></div>
+        <p class="result"><var>R</var><sub>H</sub> = 18.6 kN per metre width</p>
+        <p>acting at a depth <var>D</var> = (1&times;1<sup>3</sup>/12)/(1.0&times;1.9) + 1.9 =
+          1.944&nbsp;m.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 3 &mdash; Vertical component</h4>
+        <p>This is the weight of the real water sitting directly above the curve. Over the 1.0&nbsp;m
+          horizontal span, that area is a 1.0 &times; 1.4&nbsp;m rectangle plus the quarter circle:</p>
+        <div class="eq plain"><span class="body"><var>A</var><sub>above</sub> = (1.0)(1.4) + <span class="frac"><span><var>&pi;</var>(1.0)<sup>2</sup></span><span class="den">4</span></span> = 1.400 + 0.785 = 2.185 m<sup>2</sup></span></div>
+        <div class="eq plain"><span class="body"><var>R</var><sub>V</sub> = <var>&rho;g</var> &times; <var>A</var><sub>above</sub> &times; 1 = (1000)(9.81)(2.185) = 21 439 N</span></div>
+        <p class="result"><var>R</var><sub>V</sub> = 21.4 kN per metre width, downward</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 4 &mdash; Resultant</h4>
+        <div class="eq plain"><span class="body"><var>R</var> = <span class="sqrt">&radic;<span class="rad">18.64<sup>2</sup> + 21.44<sup>2</sup></span></span> = <span class="sqrt">&radic;<span class="rad">807.0</span></span> = 28.4 kN</span></div>
+        <div class="eq plain"><span class="body"><var>&theta;</var> = tan<sup>&minus;1</sup> <span class="frac"><span>21.44</span><span class="den">18.64</span></span> = 49.0&deg; below the horizontal</span></div>
+        <p class="result"><var>R</var> = 28.4 kN/m at 49.0&deg; below the horizontal</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 5 &mdash; Free check</h4>
+        <p>The fillet is a circular arc, so by the shortcut in &sect;2.9 the resultant must pass through the
+          centre of curvature &mdash; the point 1.0&nbsp;m out from the wall at depth 1.4&nbsp;m. Drawing a
+          line at 49.0&deg; through that point locates the thrust on the structure without any further
+          calculation, and gives you an independent check that the two components were combined the right
+          way round.</p>
+      </div>
+    </div>
+
+    <div class="example">
+      <h3>Example 2.6 &mdash; A floating pump pontoon <span class="pill">&sect;2.10</span></h3>
+      <p>A rectangular steel pontoon 4.0&nbsp;m long, 2.0&nbsp;m wide and 1.0&nbsp;m deep carries a pump
+        set; the whole assembly has a mass of 3000&nbsp;kg. Find the draught in fresh water
+        (<var>&rho;</var> = 1000&nbsp;kg/m<sup>3</sup>), and the change when it is moved to brackish water
+        of <var>&rho;</var> = 1025&nbsp;kg/m<sup>3</sup>.</p>
+
+      <div class="step">
+        <h4>Step 1 &mdash; Equilibrium condition</h4>
+        <p>A floating body displaces its own weight of fluid:</p>
+        <div class="eq plain"><span class="body"><var>mg</var> = <var>&rho;gV</var><sub>disp</sub> &nbsp;&rArr;&nbsp; <var>m</var> = <var>&rho;</var> (<var>L</var> &times; <var>B</var> &times; <var>d</var>)</span></div>
+        <p>Note that <var>g</var> cancels &mdash; the draught does not depend on gravity.</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 2 &mdash; Draught in fresh water</h4>
+        <div class="eq plain"><span class="body"><var>d</var> = <span class="frac"><span><var>m</var></span><span class="den"><var>&rho;LB</var></span></span> = <span class="frac"><span>3000</span><span class="den">(1000)(4.0)(2.0)</span></span> = 0.375 m</span></div>
+        <p class="result"><var>d</var> = 0.375 m, freeboard 0.625 m</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 3 &mdash; Draught in brackish water</h4>
+        <div class="eq plain"><span class="body"><var>d</var> = <span class="frac"><span>3000</span><span class="den">(1025)(4.0)(2.0)</span></span> = 0.366 m</span></div>
+        <p class="result"><var>d</var> = 0.366 m &mdash; the pontoon rises 9 mm</p>
+      </div>
+
+      <div class="step">
+        <h4>Step 4 &mdash; Comment</h4>
+        <p>Nine millimetres sounds trivial, and for a pontoon it is. It is not trivial for a hydrometer,
+          which is built with a long thin stem precisely so that a small change in density produces a large
+          change in draught. That is the same equation used as an instrument rather than as a check, and it
+          is how the relative densities in Table&nbsp;1.4 of Chapter&nbsp;1 were measured in the first
+          place.</p>
+      </div>
+    </div>
+
+    <!-- ============================================================ 2.12 -->
+    <h2 id="s12">2.12 Nomenclature</h2>
+
+    <dl class="nomen">
+      <dt>A</dt><dd>Area of a surface <span class="u">(m&sup2;)</span></dd>
+      <dt>b, d</dt><dd>Base and height of a plane shape <span class="u">(m)</span></dd>
+      <dt>D</dt><dd>Depth of the centre of pressure below the free surface <span class="u">(m)</span></dd>
+      <dt>F</dt><dd>Force <span class="u">(N)</span></dd>
+      <dt>F<sub>B</sub></dt><dd>Buoyancy force, upthrust <span class="u">(N)</span></dd>
+      <dt>g</dt><dd>Gravitational acceleration, 9.81 <span class="u">(m/s&sup2;)</span></dd>
+      <dt>h</dt><dd>Depth below a free surface, or a head of fluid <span class="u">(m)</span></dd>
+      <dt>H</dt><dd>Total depth of liquid against a wall <span class="u">(m)</span></dd>
+      <dt>I<sub>GG</sub></dt><dd>Second moment of area about the centroidal axis <span class="u">(m&#8308;)</span></dd>
+      <dt>I<sub>o</sub></dt><dd>Second moment of area about the axis through O <span class="u">(m&#8308;)</span></dd>
+      <dt>p</dt><dd>Pressure <span class="u">(Pa)</span></dd>
+      <dt>p<sub>atm</sub></dt><dd>Atmospheric pressure, 101.3 <span class="u">(kPa)</span></dd>
+      <dt>R</dt><dd>Resultant force on a surface <span class="u">(N)</span></dd>
+      <dt>R<sub>H</sub>, R<sub>V</sub></dt><dd>Horizontal and vertical components of <var>R</var> <span class="u">(N)</span></dd>
+      <dt>s</dt><dd>Distance measured along an inclined plane from O <span class="u">(m)</span></dd>
+      <dt>S<sub>c</sub></dt><dd>Distance from O to the centre of pressure, along the plane <span class="u">(m)</span></dd>
+      <dt>V</dt><dd>Volume, or volume of fluid displaced <span class="u">(m&sup3;)</span></dd>
+      <dt>x&#772;</dt><dd>Distance from O to the centroid, measured along the plane <span class="u">(m)</span></dd>
+      <dt>z</dt><dd>Depth below the free surface, or elevation <span class="u">(m)</span></dd>
+      <dt>z&#772;</dt><dd>Depth of the centroid below the free surface <span class="u">(m)</span></dd>
+      <dt>&gamma;</dt><dd>Specific weight, <var>&rho;g</var> <span class="u">(N/m&sup3;)</span></dd>
+      <dt>&theta;</dt><dd>Angle of a plane to the horizontal, or of a resultant <span class="u">(&deg;)</span></dd>
+      <dt>&rho;</dt><dd>Mass density of the fluid <span class="u">(kg/m&sup3;)</span></dd>
+      <dt>&rho;<sub>man</sub></dt><dd>Density of the manometric fluid <span class="u">(kg/m&sup3;)</span></dd>
+      <dt>&delta;A</dt><dd>An element of area <span class="u">(m&sup2;)</span></dd>
+    </dl>
+
+    <!-- ============================================================ 2.13 -->
+    <h2 id="s13">2.13 Self-Check</h2>
+
+    <p>Forty-five questions on this chapter, marked in your own browser as you answer them. Nothing is
+      stored and nothing is sent anywhere. Each question carries the section it came from, and the summary
+      at the end lists the sections to revise.</p>
+
+    <p>Work through these <em>before</em> the problems in &sect;2.14. Three of the questions come from the
+      extension material in &sect;2.10 and are marked as such.</p>
+
+    <noscript>
+      <div class="quiz-noscript">
+        <b>This section needs JavaScript.</b> The questions are marked in your own browser, so nothing
+        appears with scripting turned off. The same ground is covered by the written problems in
+        <a href="#s14">&sect;2.14</a>.
+      </div>
+    </noscript>
+
+    <div id="quiz"></div>
+
+    <!-- ============================================================ 2.14 -->
+    <h2 id="s14">2.14 Problems</h2>
+
+    <p>Take <var>g</var> = 9.81&nbsp;m/s<sup>2</sup>, <var>&rho;</var><sub>water</sub> =
+      1000&nbsp;kg/m<sup>3</sup> and <var>&rho;</var><sub>Hg</sub> = 13&thinsp;600&nbsp;kg/m<sup>3</sup>
+      unless told otherwise. Answers are given so that you can check yourself; the marks are in the working.
+      Problems marked <span class="pill">&sect;2.10</span> draw on the extension material and are not
+      examinable.</p>
+
+    <ol class="problems">
+      <li>A tank holds water to a depth of 3.5&nbsp;m. Find the gauge pressure on the base in kPa, and
+        express it as a head of mercury.
+        <span class="ans">34.3 kPa; 0.258 m of mercury</span></li>
+
+      <li>A gauge on a sealed vessel reads 350&nbsp;kPa absolute at a site where atmospheric pressure is
+        101.3&nbsp;kPa. Express the pressure as a gauge pressure in kPa and in bar, and as a head of water.
+        <span class="ans">248.7 kPa gauge = 2.49 bar gauge; 25.35 m of water</span></li>
+
+      <li>A mercury U-tube manometer is connected to a water pipe. The mercury surface in the near leg is
+        0.20&nbsp;m below the pipe centreline, and the mercury in the open leg stands 0.35&nbsp;m above
+        that level. Find the gauge pressure in the pipe.
+        <span class="ans">44.7 kPa</span></li>
+
+      <li>An inclined manometer whose tube makes 15&deg; with the horizontal contains oil of relative
+        density 0.82. The oil moves 250&nbsp;mm along the tube. Find the pressure difference, and state the
+        reading the same pressure would give on a vertical manometer using the same oil.
+        <span class="ans">521 Pa; only 64.7 mm vertically &mdash; a gain of 3.9&times;</span></li>
+
+      <li>A vertical rectangular gate 2.0&nbsp;m wide and 1.5&nbsp;m high has its top edge at the water
+        surface. Find the resultant force and the depth of the centre of pressure.
+        <span class="ans">22.1 kN; D = 1.00 m</span></li>
+
+      <li>The same gate is lowered so that its top edge is 2.0&nbsp;m below the surface. Find the new
+        resultant force and centre of pressure, and comment on how far C has moved relative to G.
+        <span class="ans">80.9 kN; D = 2.82 m &mdash; C is now only 68 mm below G, against 250 mm before</span></li>
+
+      <li>A canal wall 2.5&nbsp;m high retains water to its top. Using the pressure-diagram method, find the
+        resultant force per metre run and the height above the base at which it acts.
+        <span class="ans">30.7 kN/m; 0.833 m above the base</span></li>
+
+      <li>A circular inspection cover 1.0&nbsp;m in diameter is set vertically in the wall of a tank with
+        its centre 3.0&nbsp;m below the water surface. Find the resultant force and the depth of the centre
+        of pressure.
+        <span class="ans">23.1 kN; D = 3.02 m</span></li>
+
+      <li>A tank 3.0&nbsp;m deep has a quarter-circle fillet of radius 1.5&nbsp;m joining its vertical wall
+        to its floor. Find <var>R</var><sub>H</sub>, <var>R</var><sub>V</sub>, and the magnitude and
+        direction of the resultant, per metre width.
+        <span class="ans">33.1 kN; 39.4 kN; R = 51.5 kN at 50.0&deg; below the horizontal</span></li>
+
+      <li>Three vessels of different shape &mdash; one straight-sided, one flaring outward, one narrowing
+        to a neck &mdash; all have a base area of 0.5&nbsp;m<sup>2</sup> and hold water to a depth of
+        1.2&nbsp;m. Find the force on each base, and explain in one sentence why they are equal even
+        though the vessels hold very different weights of water.
+        <span class="ans">5.89 kN on each &mdash; the sloping walls carry the difference as a vertical component</span></li>
+
+      <li><span class="pill">&sect;2.10</span> A rectangular pontoon 5.0&nbsp;m &times; 2.5&nbsp;m &times;
+        1.2&nbsp;m deep, of total mass 4500&nbsp;kg, floats in fresh water. Find its draught and
+        freeboard.
+        <span class="ans">draught 0.360 m; freeboard 0.840 m</span></li>
+
+      <li><span class="pill">&sect;2.10</span> A cube of timber 0.3&nbsp;m on a side, of relative density
+        0.65, floats in water. Find the depth to which it sinks, and the vertical force needed to hold it
+        completely submerged.
+        <span class="ans">0.195 m; 92.7 N</span></li>
+    </ol>
+
+    <!-- ============================================================ 2.15 -->
+    <h2 id="s15">2.15 References</h2>
+
+    <ol class="refs">
+      <li>Sleigh, A. <em>An Introduction to Fluid Mechanics</em>, CIVE 1400, School of Civil Engineering,
+        University of Leeds. &sect;2 &mdash; the section this chapter follows, including the prism proof of
+        Pascal&rsquo;s law and the table of second moments in &sect;2.4.2.2.</li>
+      <li>Massey, B. S. <em>Mechanics of Fluids</em>, Van Nostrand Reinhold. Chapter 2 &mdash; the fullest
+        treatment of hydrostatics at this level, and the place to go for stability of floating bodies.</li>
+      <li>Douglas, J. F., Gasiorek, J. M. and Swaffield, J. A. <em>Fluid Mechanics</em>, Longman. Good
+        worked coverage of manometry and of buoyancy.</li>
+      <li>Featherstone, R. E. and Nalluri, C. <em>Civil Engineering Hydraulics</em>, Blackwell Science.
+        Written for water engineers; gates and retaining structures in the units used on site.</li>
+      <li>Chadwick, A. and Morfett, J. <em>Hydraulics in Civil and Environmental Engineering</em>, Spon.
+        Chapter 2 for hydrostatics, and later chapters for where it leads.</li>
+      <li>Novak, P., Moffat, A. I. B., Nalluri, C. and Narayanan, R. <em>Hydraulic Structures</em>, Taylor
+        &amp; Francis. <span class="units">(Beyond the syllabus.)</span> The design of the gates, weirs and
+        dams whose loads you have just learned to calculate &mdash; including radial gates and the reason
+        their hinge sits at the centre of curvature.</li>
+      <li>US Bureau of Reclamation, <em>Design of Small Dams</em> and <em>Water Measurement Manual</em>.
+        <span class="units">(Beyond the syllabus, freely available online.)</span> Practical design data
+        for farm ponds, canal gates and measuring structures.</li>
+      <li>ISO 7268 / BS EN 1452 &mdash; pipe pressure nomenclature (PN ratings). The standard behind the
+        &ldquo;PN 6 / PN 10 / PN 16&rdquo; marked on every PVC irrigation pipe.</li>
+    </ol>
+
+    <div class="chapter-nav">
+      <span><a href="chapter1.html">&larr; Chapter 1: Fluid Properties</a></span>
+      <span class="muted-nav">Chapter 3: Continuity and Bernoulli &mdash; in preparation</span>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h3>Course</h3>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter1.html">Chapter 1: Fluid Properties</a></li>
+        <li><a href="chapter2.html">Chapter 2: Forces in Static Fluids</a></li>
+        <li><a href="chapter2-th.html" lang="th">บทที่ 2 (ภาษาไทย)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>In This Chapter</h3>
+      <ul>
+        <li><a href="#t1">Table 2.1 &mdash; Pressure units</a></li>
+        <li><a href="#t2">Table 2.2 &mdash; Second moments of area</a></li>
+        <li><a href="#s11">Worked Examples</a></li>
+        <li><a href="#s13">Self-Check Questions</a></li>
+        <li><a href="#s14">Problems</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <p>Lecture notes for ASE 221. All rights reserved. Layout follows the departmental courseware
+        template; content and code are original to this course.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Charatchai Yenphayab. All rights reserved. ASE 221 Introduction to Fluid Mechanics &mdash;
+    course notes, Semester 1 / 2026. No part of this site may be reproduced, adapted or redistributed
+    without prior written permission.
+  </div>
+</footer>
+
+<script>
+/* Self-check for Chapter 2. Marked entirely in the reader's own browser by
+   quiz.js; no result is stored or transmitted. */
+window.QUIZ = {
+  text: {
+    answered:     "Answered",
+    correctCount: "Correct",
+    section:      "&sect;",
+    markCorrect:  "correct",
+    markYours:    "your answer",
+    whyLabel:     "Why",
+    readMore:     "Re-read &sect;{ref}",
+    revealAll:    "Reveal remaining answers",
+    reset:        "Start again",
+    resultTitle:  "Self-check complete",
+    band90: "Solid. Go on to the written problems in &sect;2.14.",
+    band70: "A good pass. Re-read the sections listed below, then attempt &sect;2.14.",
+    band50: "Half the ground is secure. Work through the sections below again before the problems.",
+    band0:  "Read the chapter through once more before going on; start with the sections listed below.",
+    revise: "Sections to revise:"
+  },
+  questions: [
+
+    /* --------------------------------- 2.1 The rules of statics */
+    { ref: "2.1", href: "#s1", a: 2,
+      q: "Which of these can a fluid at rest <b>not</b> sustain?",
+      opts: [
+        "A normal stress.",
+        "Its own weight.",
+        "A shearing stress.",
+        "A pressure."
+      ],
+      why: "If a shear stress acted on it, by the definition of Chapter 1 it would deform continuously &mdash; that is, it would be moving, and would not be at rest. Everything in this chapter follows from that." },
+
+    { ref: "2.1", href: "#s1", a: 0,
+      q: "At any point on a <i>curved</i> boundary, the force between a static fluid and the boundary acts:",
+      opts: [
+        "normal to the surface at that point, so its direction changes along the surface.",
+        "tangentially to the surface.",
+        "vertically downward everywhere.",
+        "horizontally everywhere."
+      ],
+      why: "The no-shear rule applies point by point. Because the normal swings round as you move along a curved surface, the elemental forces are not parallel &mdash; which is exactly why &sect;2.9 has to resolve them into components before adding them." },
+
+    { ref: "2.1", href: "#s1", a: 3,
+      q: "For an element of fluid at rest, equilibrium requires that:",
+      opts: [
+        "the sum of forces is zero, but the moments need not be.",
+        "the sum of moments is zero, but the forces need not be.",
+        "neither need be zero, provided the fluid is incompressible.",
+        "both the sum of force components in any direction and the sum of moments about any point are zero."
+      ],
+      why: "These are the ordinary conditions of statics, unchanged from solid mechanics. We test them by resolving along three perpendicular axes and taking moments in three perpendicular planes." },
+
+    /* ------------------------------ 2.2 Pressure and Pascal */
+    { ref: "2.2", href: "#s2", a: 1,
+      q: "Pressure is defined as:",
+      opts: [
+        "force multiplied by area.",
+        "force per unit area.",
+        "force per unit volume.",
+        "weight per unit volume."
+      ],
+      why: "<i>p</i> = <i>F</i>/<i>A</i>, giving N/m<sup>2</sup> or pascals. The last option is specific weight, which has different dimensions entirely &mdash; see Table 1.2 of Chapter 1." },
+
+    { ref: "2.2", href: "#s2", a: 2,
+      q: "One bar is equal to:",
+      opts: [
+        "10<sup>3</sup> N/m<sup>2</sup>",
+        "10<sup>4</sup> N/m<sup>2</sup>",
+        "10<sup>5</sup> N/m<sup>2</sup>",
+        "10<sup>6</sup> N/m<sup>2</sup>"
+      ],
+      why: "1 bar = 100 kPa, which is close enough to one atmosphere (101.3 kPa) to be useful as a mental check, and equal to almost exactly 10 m of water." },
+
+    { ref: "2.2", href: "#s2", a: 3,
+      q: "Pascal&rsquo;s law states that:",
+      opts: [
+        "pressure increases linearly with depth.",
+        "pressure acts only perpendicular to a horizontal surface.",
+        "the pressure on a submerged body equals the weight of fluid displaced.",
+        "the pressure at any point in a static fluid is the same in all directions."
+      ],
+      why: "The triangular-prism proof shows <i>p</i><sub>x</sub> = <i>p</i><sub>y</sub> = <i>p</i><sub>s</sub> whatever the angle of the sloping face, and the element can be shrunk to a point. The first option is true but is a different result; the third is Archimedes." },
+
+    { ref: "2.2", href: "#s2", a: 2,
+      q: "In the proof of Pascal&rsquo;s law, the weight of the prism is dropped. Why is that legitimate?",
+      opts: [
+        "Because a fluid at rest is weightless.",
+        "Because the weight acts vertically and the proof only considers horizontal forces.",
+        "Because it contains a product of three small lengths while the pressure terms contain only two, so it vanishes faster as the element shrinks to a point.",
+        "Because it is exactly cancelled by the upthrust on the prism."
+      ],
+      why: "The weight term is &frac12;<i>&rho;g&thinsp;&delta;x&thinsp;&delta;y&thinsp;&delta;z</i>. Dividing through by <i>&delta;x&thinsp;&delta;z</i> leaves &frac12;<i>&rho;g&thinsp;&delta;y</i>, which goes to zero with <i>&delta;y</i>. Note that the weight appears only in the <i>y</i> equation, so option B would not save the argument on its own." },
+
+    { ref: "2.2", href: "#s2", a: 1,
+      q: "Complete the sentence: pressure is a ______ and force is a ______.",
+      opts: [
+        "vector; scalar",
+        "scalar; vector",
+        "scalar; scalar",
+        "vector; vector"
+      ],
+      why: "Pascal&rsquo;s law is precisely the statement that pressure has no direction. Force does, and its direction is set by the orientation of the surface it acts on &mdash; which is why forces on differently oriented faces cannot simply be added." },
+
+    /* ------------------------- 2.3 Variation of pressure */
+    { ref: "2.3", href: "#s3", a: 0,
+      q: "In a fluid under gravity, as the elevation <i>z</i> increases, the pressure:",
+      opts: [
+        "decreases.",
+        "increases.",
+        "stays constant.",
+        "depends on the shape of the container."
+      ],
+      why: "d<i>p</i>/d<i>z</i> = &minus;<i>&rho;g</i>. Go up and the weight of fluid above you falls, so the pressure falls with it; go down and it rises. Container shape has nothing to do with it &mdash; see the hydrostatic paradox in &sect;2.10." },
+
+    { ref: "2.3", href: "#s3", a: 3,
+      q: "The hydrostatic equation for a fluid of constant density is:",
+      opts: [
+        "d<i>p</i>/d<i>z</i> = <i>&rho;g</i>",
+        "d<i>p</i>/d<i>z</i> = &minus;<i>&rho;</i>/<i>g</i>",
+        "d<i>p</i>/d<i>z</i> = &minus;<i>g</i>/<i>&rho;</i>",
+        "d<i>p</i>/d<i>z</i> = &minus;<i>&rho;g</i>"
+      ],
+      why: "It is the general equation d<i>p</i>/d<i>s</i> = &minus;<i>&rho;g</i>cos<i>&theta;</i> with <i>&theta;</i> = 0, that is with <i>s</i> vertical. Integrating it is what gives <i>p</i> = <i>&rho;gh</i>." },
+
+    { ref: "2.3", href: "#s3", a: 0,
+      q: "Two points at the same level in one continuous body of static fluid have:",
+      opts: [
+        "equal pressures.",
+        "pressures differing by <i>&rho;gh</i>.",
+        "equal forces on them.",
+        "equal densities but different pressures."
+      ],
+      why: "This is the single most-used result of the chapter. Note the word <i>continuous</i>: the two points need unbroken fluid between them, but they need not be in the same vessel or joined by a straight line." },
+
+    { ref: "2.3", href: "#s3", a: 2,
+      q: "The horizontal cylindrical element proves that pressure is constant at one level because:",
+      opts: [
+        "the element has no weight.",
+        "the two end areas are equal.",
+        "the weight acts at right angles to the axis, so it has no component along it.",
+        "the fluid is assumed incompressible."
+      ],
+      why: "Gravity is vertical and the axis is horizontal, so the weight contributes nothing when forces are resolved along the axis &mdash; leaving <i>p</i><sub>l</sub><i>A</i> = <i>p</i><sub>r</sub><i>A</i>. Equal areas alone would not be enough if a weight component existed." },
+
+    { ref: "2.3", href: "#s3", a: 1,
+      q: "Setting <i>&theta;</i> = 90&deg; in d<i>p</i>/d<i>s</i> = &minus;<i>&rho;g</i>cos<i>&theta;</i> gives:",
+      opts: [
+        "d<i>p</i>/d<i>s</i> = &minus;<i>&rho;g</i>, the vertical case.",
+        "d<i>p</i>/d<i>s</i> = 0, so the pressure is constant on any horizontal plane.",
+        "d<i>p</i>/d<i>s</i> = +<i>&rho;g</i>.",
+        "an undefined result."
+      ],
+      why: "cos 90&deg; = 0, so <i>s</i> lies in the <i>x</i> or <i>y</i> direction and the pressure gradient along it vanishes. Both earlier special cases fall out of this one general equation." },
+
+    /* ---------------------- 2.4 Head, gauge and absolute */
+    { ref: "2.4", href: "#s4", a: 3,
+      q: "A gauge pressure is measured from which datum?",
+      opts: [
+        "Absolute zero, a perfect vacuum.",
+        "The free surface of the liquid.",
+        "Mean sea level at the site.",
+        "Atmospheric pressure."
+      ],
+      why: "Because everything around us already carries the atmospheric load, it is convenient to take that as zero. The consequence is that a gauge pressure can be negative, whereas an absolute pressure never can." },
+
+    { ref: "2.4", href: "#s4", a: 2,
+      q: "A gauge on a pump suction line reads &minus;30 kPa where atmospheric pressure is 101.3 kPa. The absolute pressure is:",
+      opts: [
+        "30 kPa",
+        "131.3 kPa",
+        "71.3 kPa",
+        "&minus;30 kPa"
+      ],
+      why: "<i>p</i><sub>abs</sub> = <i>p</i><sub>gauge</sub> + <i>p</i><sub>atm</sub> = &minus;30 + 101.3. Chapter 1 &sect;1.11 explains why this number must be watched: if it falls to the vapour pressure, the pump cavitates." },
+
+    { ref: "2.4", href: "#s4", a: 0,
+      q: "Why is &ldquo;a pressure of 5 m head&rdquo; an incomplete statement?",
+      opts: [
+        "Because the density of the fluid must be given as well.",
+        "Because head must always be quoted in millimetres.",
+        "Because a head cannot exceed 10.33 m.",
+        "Because head is a gauge quantity and absolute pressure was not stated."
+      ],
+      why: "<i>p</i> = <i>&rho;gh</i>, so the same 5 m is 49 kPa in water and 667 kPa in mercury &mdash; a factor of 13.6. A head without its fluid is not an answer." },
+
+    { ref: "2.4", href: "#s4", a: 1,
+      q: "One bar is approximately equivalent to a head of:",
+      opts: [
+        "1 m of water",
+        "10 m of water",
+        "100 m of water",
+        "0.1 m of water"
+      ],
+      why: "10<sup>5</sup> Pa &divide; 9810 N/m<sup>3</sup> = 10.2 m. Together with 1 kgf/cm<sup>2</sup> &asymp; 10 m, this is the conversion to carry in your head on site." },
+
+    { ref: "2.4", href: "#s4", a: 3,
+      q: "Standard atmospheric pressure is:",
+      opts: [
+        "1013 kPa",
+        "10.13 kPa",
+        "100 kPa exactly, by definition",
+        "101.3 kPa"
+      ],
+      why: "101.325 kPa, which is 1.013 bar, 10.33 m of water or 760 mm of mercury. It is not exactly 1 bar, though the two are close enough for a first estimate." },
+
+    { ref: "2.4", href: "#s4", a: 3,
+      q: "A PVC pipe marked PN 10 is rated for 10 bar. The greatest static head it should be asked to carry is about:",
+      opts: [
+        "10 m",
+        "20 m",
+        "50 m",
+        "100 m"
+      ],
+      why: "10 bar &times; 10.2 m/bar &asymp; 100 m of water. Note that this is the <i>static</i> head only &mdash; a surge allowance must come out of it, which is why a scheme with 50 m of static head is often still built in PN 10." },
+
+    /* ------------------------------------- 2.5 Manometers */
+    { ref: "2.5", href: "#s5", a: 0,
+      q: "A piezometer tube, open at the top, reads:",
+      opts: [
+        "gauge pressure.",
+        "absolute pressure.",
+        "a pressure difference between two points.",
+        "vacuum only."
+      ],
+      why: "Because the top of the tube is open to the atmosphere, the column height measures the pressure <i>above</i> atmospheric &mdash; a gauge pressure by definition." },
+
+    { ref: "2.5", href: "#s5", a: 2,
+      q: "A piezometer cannot be used to measure the pressure of:",
+      opts: [
+        "water",
+        "oil",
+        "a gas",
+        "mercury"
+      ],
+      why: "A gas would simply escape up the open tube; there is no column to measure. This is the first of the two limitations that the U-tube was invented to remove &mdash; the other being the absurd tube height needed for a large pressure." },
+
+    { ref: "2.5", href: "#s5", a: 1,
+      q: "The manometric fluid in a U-tube manometer must be:",
+      opts: [
+        "less dense than the fluid being measured, and miscible with it.",
+        "denser than the fluid being measured, and immiscible with it.",
+        "the same fluid as the one being measured.",
+        "water, in every case."
+      ],
+      why: "It must be denser so the column it forms is short enough to read, and immiscible so a clean interface forms and stays put. Mercury against water is the classic pairing." },
+
+    { ref: "2.5", href: "#s5", a: 3,
+      q: "The analysis of every manometer in this chapter rests on which result?",
+      opts: [
+        "Pascal&rsquo;s law.",
+        "Archimedes&rsquo; principle.",
+        "The hydrostatic paradox.",
+        "Pressure is the same at the same level in a continuous fluid."
+      ],
+      why: "Identifying a horizontal plane that lies in one continuous fluid, and equating the pressure on either side of it, is the first step of every manometer problem. Pascal&rsquo;s law is used too, but it is not what makes the instrument readable." },
+
+    { ref: "2.5", href: "#s5", a: 2,
+      q: "Walking through a manometer from a known end to an unknown one, you should:",
+      opts: [
+        "add <i>&rho;gh</i> when going up and subtract it when going down.",
+        "always add <i>&rho;gh</i>, whichever way you move.",
+        "add <i>&rho;gh</i> when going down and subtract it when going up, using the density of the fluid you are passing through.",
+        "ignore vertical moves and count only the horizontal ones."
+      ],
+      why: "Pressure rises with depth, so going down adds and going up subtracts; moving horizontally within one continuous fluid changes nothing. This procedure will get you through an unfamiliar arrangement that no memorised formula covers." },
+
+    { ref: "2.5", href: "#s5", a: 0,
+      q: "Making one limb of a U-tube manometer much larger in diameter than the other:",
+      opts: [
+        "allows the pressure difference to be obtained from a single reading, because the wide side barely moves.",
+        "increases the sensitivity of the instrument to small pressures.",
+        "removes the need for a manometric fluid.",
+        "converts it to read absolute pressure."
+      ],
+      why: "The fall on the wide side is <i>z</i><sub>2</sub>(<i>d</i>/<i>D</i>)<sup>2</sup>, which is negligible when <i>D</i> &gg; <i>d</i>. Sensitivity to small pressures is improved by <i>inclining</i> the narrow limb, which is a different modification." },
+
+    { ref: "2.5", href: "#s5", a: 1,
+      q: "An inclined manometer whose tube makes an angle <i>&theta;</i> with the horizontal shows a movement <i>x</i> along the tube. The pressure difference is:",
+      opts: [
+        "<i>&rho;gx</i>",
+        "<i>&rho;gx</i> sin<i>&theta;</i>",
+        "<i>&rho;gx</i> cos<i>&theta;</i>",
+        "<i>&rho;gx</i> tan<i>&theta;</i>"
+      ],
+      why: "Only the <i>vertical</i> rise <i>z</i><sub>2</sub> = <i>x</i> sin<i>&theta;</i> produces pressure. The instrument is sensitive because a small <i>z</i><sub>2</sub> needs a large <i>x</i> &mdash; at 15&deg; the scale is stretched by a factor of nearly four." },
+
+    /* ------------------------- 2.6 Forces on plane surfaces */
+    { ref: "2.6", href: "#s6", a: 3,
+      q: "The resultant force on a submerged plane surface is:",
+      opts: [
+        "<i>&rho;gAD</i>, using the depth of the centre of pressure.",
+        "<i>&rho;gA</i> &times; the greatest depth on the surface.",
+        "&frac12;<i>&rho;gAH</i> in every case.",
+        "<i>&rho;gAz&#772;</i> &mdash; the pressure at the centroid multiplied by the area."
+      ],
+      why: "The first moment of area about the surface line is <i>Az&#772;</i>, which is where the centroid enters. The third option is the special case of a vertical wall with its top at the surface, not a general result." },
+
+    { ref: "2.6", href: "#s6", a: 2,
+      q: "For a <i>horizontal</i> submerged plane:",
+      opts: [
+        "the pressure varies across the surface, so integration is needed.",
+        "the resultant force is zero.",
+        "the pressure is uniform, so <i>R</i> = <i>pA</i> acting at the centroid.",
+        "the resultant depends on the shape of the surface."
+      ],
+      why: "Every point is at the same depth, so every point carries the same pressure, and the resultant acts through the centroid of the area. This is the one case where the centre of pressure and the centroid coincide." },
+
+    { ref: "2.6", href: "#s6", a: 1,
+      q: "In the derivation of <i>R</i>, the summation &Sigma;<i>z&thinsp;&delta;A</i> is:",
+      opts: [
+        "the second moment of area about the free-surface line.",
+        "the first moment of area about the free-surface line, equal to <i>Az&#772;</i>.",
+        "the area of the surface.",
+        "the volume of fluid above the surface."
+      ],
+      why: "It is the first moment, and by the definition of a centroid it equals <i>Az&#772;</i>. The <i>second</i> moment &Sigma;<i>s</i><sup>2</sup><i>&delta;A</i> appears one step later, when we locate the centre of pressure." },
+
+    { ref: "2.6", href: "#s6", a: 0,
+      q: "Two gates of quite different shape have the same area and the same centroid depth. The resultant forces on them are:",
+      opts: [
+        "the same.",
+        "different, in the ratio of their perimeters.",
+        "different, in the ratio of their second moments of area.",
+        "not comparable without knowing the shapes."
+      ],
+      why: "<i>R</i> = <i>&rho;gAz&#772;</i> contains only area and centroid depth. The shape does affect where the force acts &mdash; through <i>I</i><sub>GG</sub> in &sect;2.7 &mdash; but not how large it is." },
+
+    /* ---------------------------- 2.7 Centre of pressure */
+    { ref: "2.7", href: "#s7", a: 2,
+      q: "Relative to the centroid, the centre of pressure on a submerged plane surface is always:",
+      opts: [
+        "at the same point.",
+        "above it.",
+        "below it.",
+        "at the deepest point of the surface."
+      ],
+      why: "<i>S</i><sub>c</sub> = <i>I</i><sub>GG</sub>/(<i>Ax&#772;</i>) + <i>x&#772;</i>, and the first term is always positive. Physically, the lower half of the surface carries more pressure than the upper half, so the resultant is dragged downward." },
+
+    { ref: "2.7", href: "#s7", a: 3,
+      q: "The distance from O to the centre of pressure, measured along the plane, is:",
+      opts: [
+        "<i>I</i><sub>GG</sub>/(<i>Ax&#772;</i>)",
+        "<i>Ax&#772;</i>/<i>I</i><sub>o</sub>",
+        "<i>I</i><sub>o</sub>/<i>A</i>",
+        "<i>I</i><sub>o</sub>/(<i>Ax&#772;</i>)"
+      ],
+      why: "It is the second moment of area about O divided by the first moment about O &mdash; a useful form to remember, because it makes clear what each term is doing. Using <i>I</i><sub>GG</sub> instead of <i>I</i><sub>o</sub> needs the parallel axis theorem first." },
+
+    { ref: "2.7", href: "#s7", a: 1,
+      q: "The parallel axis theorem states that:",
+      opts: [
+        "<i>I</i><sub>o</sub> = <i>I</i><sub>GG</sub> &minus; <i>Ax&#772;</i><sup>2</sup>",
+        "<i>I</i><sub>o</sub> = <i>I</i><sub>GG</sub> + <i>Ax&#772;</i><sup>2</sup>",
+        "<i>I</i><sub>GG</sub> = <i>I</i><sub>o</sub> + <i>Ax&#772;</i><sup>2</sup>",
+        "<i>I</i><sub>o</sub> = <i>Ax&#772;</i><sup>2</sup>"
+      ],
+      why: "Tables give <i>I</i><sub>GG</sub>, about an axis through the centroid, but the moment equation needs <i>I</i> about the axis through O. The theorem bridges the two, and <i>I</i><sub>o</sub> is always the larger of the two." },
+
+    { ref: "2.7", href: "#s7", a: 2,
+      q: "For a rectangle of base <i>b</i> and height <i>d</i>, the second moment of area about the centroidal axis is:",
+      opts: [
+        "<i>bd</i><sup>3</sup>/36",
+        "<i>bd</i><sup>3</sup>/3",
+        "<i>bd</i><sup>3</sup>/12",
+        "<i>bd</i><sup>2</sup>/12"
+      ],
+      why: "<i>bd</i><sup>3</sup>/36 is the triangle; <i>bd</i><sup>3</sup>/3 is the rectangle about its <i>edge</i>, not its centroid. Note the cube: <i>I</i> has dimension <span class=\"dim\">L<sup>4</sup></span>, so the last option cannot be right on dimensional grounds alone." },
+
+    { ref: "2.7", href: "#s7", a: 0,
+      q: "As a gate of fixed size is lowered to greater and greater depth, the distance between G and C:",
+      opts: [
+        "decreases, so C creeps towards G.",
+        "increases steadily.",
+        "stays exactly the same.",
+        "changes sign, so C rises above G."
+      ],
+      why: "That distance is <i>I</i><sub>GG</sub>/(<i>Ax&#772;</i>), which shrinks as <i>x&#772;</i> grows. Physically, the deeper the gate the more nearly uniform the pressure over it &mdash; Example 2.4 finds C only 12 mm below G." },
+
+    /* ------------------------------- 2.8 Pressure diagrams */
+    { ref: "2.8", href: "#s8", a: 1,
+      q: "On a pressure diagram drawn against a vertical wall, the <i>area</i> of the diagram represents:",
+      opts: [
+        "the pressure at the base of the wall.",
+        "the resultant force per unit width of wall.",
+        "the overturning moment about the base.",
+        "the depth of the centre of pressure."
+      ],
+      why: "It is pressure (N/m<sup>2</sup>) integrated over depth (m), giving N/m &mdash; a force per unit width. The <i>centroid</i> of the diagram, separately, gives where that force acts." },
+
+    { ref: "2.8", href: "#s8", a: 3,
+      q: "For a vertical wall retaining water to a depth <i>H</i>, the resultant force per unit width is:",
+      opts: [
+        "<i>&rho;gH</i><sup>2</sup>",
+        "&#8531;<i>&rho;gH</i><sup>2</sup>",
+        "2<i>&rho;gH</i><sup>2</sup>",
+        "&frac12;<i>&rho;gH</i><sup>2</sup>"
+      ],
+      why: "The diagram is a triangle of base <i>&rho;gH</i> and height <i>H</i>, so its area is &frac12;<i>&rho;gH</i><sup>2</sup>. Note the square: double the depth and the force goes up fourfold, which is why freeboard matters so much on a canal bank." },
+
+    { ref: "2.8", href: "#s8", a: 2,
+      q: "That resultant acts at a height above the base of:",
+      opts: [
+        "<i>H</i>/2",
+        "2<i>H</i>/3",
+        "<i>H</i>/3",
+        "zero &mdash; it acts at the base."
+      ],
+      why: "The centroid of a triangle is one third of the way up from its base, so the force acts at <i>H</i>/3 above the base, which is a depth of 2<i>H</i>/3 below the surface. Confusing the two is the commonest slip in this section." },
+
+    /* ----------------------- 2.9 Curved surfaces */
+    { ref: "2.9", href: "#s9", a: 0,
+      q: "The horizontal component of the force on a curved surface is equal to:",
+      opts: [
+        "the resultant force on the projection of the curved surface onto a vertical plane.",
+        "the weight of the fluid directly above the surface.",
+        "zero, because the horizontal components cancel.",
+        "<i>&rho;gV</i>, where <i>V</i> is the volume enclosed."
+      ],
+      why: "Isolating the wedge of fluid, no horizontal force can act on its horizontal face, so the force on the curved face must balance that on the vertical face &mdash; and that vertical face is precisely the projection. This holds whether the fluid is above or below the surface." },
+
+    { ref: "2.9", href: "#s9", a: 3,
+      q: "When fluid rests <i>above</i> a curved surface, the vertical component of the force is:",
+      opts: [
+        "the weight of an imaginary volume of fluid, acting upward.",
+        "zero, because there is no shear on the vertical faces.",
+        "always equal in magnitude to the horizontal component.",
+        "the weight of the real fluid directly above the surface, acting downward."
+      ],
+      why: "The wedge has no shear on its vertical edges, so the only vertical force available is the weight of the fluid it contains. It acts downward through the centre of gravity of that volume." },
+
+    { ref: "2.9", href: "#s9", a: 2,
+      q: "For a curved sluice gate with the fluid <i>below</i> the surface, the vertical component is:",
+      opts: [
+        "the weight of the real fluid above the gate, acting downward.",
+        "zero.",
+        "the weight of the <i>imaginary</i> volume of fluid vertically above the surface, acting upward.",
+        "always equal to <i>R</i><sub>H</sub>."
+      ],
+      why: "Replace the gate by fluid and the whole system would be in equilibrium; so the force the gate must supply equals the weight of the fluid that would have been there. The direction catches people out &mdash; the water is trying to <i>lift</i> the gate." },
+
+    { ref: "2.9", href: "#s9", a: 1,
+      q: "If a curved surface is part of a circle, the resultant pressure force:",
+      opts: [
+        "is always vertical.",
+        "always passes through the centre of curvature.",
+        "is always horizontal.",
+        "cannot be located without integrating."
+      ],
+      why: "Every elemental force is normal to the surface and therefore radial, so all of them pass through the centre. A set of concurrent forces has a concurrent resultant. This is why a radial gate is hinged at its centre of curvature &mdash; the thrust then exerts no moment about the hinge." },
+
+    /* ----------------------------- 2.10 Extension */
+    { ref: "2.10", href: "#s10", a: 1,
+      q: "<b>Extension.</b> Archimedes&rsquo; principle states that the upthrust on a submerged body equals:",
+      opts: [
+        "the weight of the body itself.",
+        "the weight of the fluid the body displaces.",
+        "<i>&rho;g</i> multiplied by the mass of the body.",
+        "the pressure at the centroid multiplied by the surface area."
+      ],
+      why: "<i>F</i><sub>B</sub> = <i>&rho;gV</i>, acting upward through the centroid of the displaced volume. It is not a new principle but &sect;2.9 applied to a body with fluid all round it." },
+
+    { ref: "2.10", href: "#s10", a: 3,
+      q: "<b>Extension.</b> A pontoon is moved from fresh water into seawater. It will:",
+      opts: [
+        "float deeper, because seawater is heavier.",
+        "sink, if it was only marginally stable.",
+        "float at exactly the same draught.",
+        "float slightly higher, because less volume must be displaced."
+      ],
+      why: "It must displace its own weight of fluid. Seawater is denser, so a smaller volume weighs the same, and the draught falls. Example 2.6 puts the change at about 9 mm for a 3-tonne pontoon." },
+
+    { ref: "2.10", href: "#s10", a: 2,
+      q: "<b>Extension.</b> Three vessels of different shape have the same base area and hold water to the same depth. The force on each base is:",
+      opts: [
+        "greatest for the vessel that flares outward, because it holds most water.",
+        "proportional to the weight of water each vessel holds.",
+        "the same in all three.",
+        "greatest for the vessel with the narrowest neck."
+      ],
+      why: "<i>F</i> = <i>&rho;ghA</i> contains only depth and base area. The sloping walls of the other two carry the difference as a vertical force component &mdash; this is the hydrostatic paradox, and it is why a pipe&rsquo;s pressure class is set by the head above it, never by the volume behind it." }
+
+  ]
+};
+</script>
+<script src="lang.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>
