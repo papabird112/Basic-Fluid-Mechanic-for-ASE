@@ -112,8 +112,9 @@
         <li><a href="#s11">Surface Tension and Capillarity</a></li>
         <li><a href="#s12">Worked Examples</a></li>
         <li><a href="#s13">Nomenclature</a></li>
-        <li><a href="#s14">Problems</a></li>
-        <li><a href="#s15">References</a></li>
+        <li><a href="#s14">Self-Check &mdash; 42 Questions</a></li>
+        <li><a href="#s15">Problems</a></li>
+        <li><a href="#s16">References</a></li>
       </ol>
     </nav>
 
@@ -1008,7 +1009,29 @@
     </dl>
 
     <!-- ============================================================ 1.14 -->
-    <h2 id="s14">1.14 Problems</h2>
+    <h2 id="s14">1.14 Self-Check</h2>
+
+    <p>Forty-two questions on the ideas of this chapter. Each is marked the moment you answer it, in your
+      browser; nothing is stored and nothing is sent anywhere. Every question carries the section it came
+      from, so a wrong answer tells you exactly what to re-read, and the summary at the end lists the
+      sections to go back to.</p>
+
+    <p>Work through these <em>before</em> the written problems in &sect;1.15. The point of this section is
+      to check that you hold the concepts; the point of the next one is to check that you can carry a
+      calculation through. Failing the second because of the first wastes an afternoon.</p>
+
+    <noscript>
+      <div class="quiz-noscript">
+        <b>This section needs JavaScript.</b> The questions are marked in your own browser, so nothing
+        appears with scripting turned off. The same ground is covered by the written problems in
+        <a href="#s15">&sect;1.15</a>.
+      </div>
+    </noscript>
+
+    <div id="quiz"></div>
+
+    <!-- ============================================================ 1.15 -->
+    <h2 id="s15">1.15 Problems</h2>
 
     <p>Take <var>g</var> = 9.81&nbsp;m/s<sup>2</sup> and use Tables&nbsp;1.1 and&nbsp;1.2 throughout. Answers
       are given so that you can check yourself; the marks are in the working.</p>
@@ -1060,8 +1083,8 @@
         <span class="ans">2.43 kPa; 7.28 kPa</span></li>
     </ol>
 
-    <!-- ============================================================ 1.15 -->
-    <h2 id="s15">1.15 References</h2>
+    <!-- ============================================================ 1.16 -->
+    <h2 id="s16">1.16 References</h2>
 
     <ol class="refs">
       <li>White, F. M. <em>Fluid Mechanics</em>, 8th ed. McGraw-Hill. Chapter 1, &ldquo;Introduction&rdquo;
@@ -1105,7 +1128,8 @@
         <li><a href="#t1">Table 1.1 &mdash; Common fluids at 20 &deg;C</a></li>
         <li><a href="#t2">Table 1.2 &mdash; Water, 0&ndash;100 &deg;C</a></li>
         <li><a href="#s12">Worked Examples</a></li>
-        <li><a href="#s14">Problems</a></li>
+        <li><a href="#s14">Self-Check Questions</a></li>
+        <li><a href="#s15">Problems</a></li>
       </ul>
     </div>
     <div>
@@ -1121,6 +1145,466 @@
   </div>
 </footer>
 
+<script>
+/* Self-check for Chapter 1. Answered and marked entirely in the reader's own
+   browser by quiz.js; no result is stored or transmitted. Questions run in the
+   order of the chapter, and `ref` is the section a wrong answer should send the
+   reader back to. */
+window.QUIZ = {
+  text: {
+    answered:     "Answered",
+    correctCount: "Correct",
+    section:      "&sect;",
+    markCorrect:  "correct",
+    markYours:    "your answer",
+    whyLabel:     "Why",
+    readMore:     "Re-read &sect;{ref}",
+    revealAll:    "Reveal remaining answers",
+    reset:        "Start again",
+    resultTitle:  "Self-check complete",
+    band90: "Solid. You have the concepts &mdash; go on to the written problems in &sect;1.15.",
+    band70: "A good pass. Re-read the sections listed below, then attempt &sect;1.15.",
+    band50: "Half the ground is secure. Work through the sections below again before the written problems.",
+    band0:  "Read the chapter through once more before going on; start with the sections listed below.",
+    revise: "Sections to revise:"
+  },
+  questions: [
+
+    /* ---------------------------------------------- 1.1 What is a fluid */
+    { ref: "1.1", href: "#s1", a: 3,
+      q: "Which statement is the mechanical definition that separates a fluid from a solid?",
+      opts: [
+        "It has a lower density than a solid.",
+        "It cannot support a normal stress.",
+        "It always takes up a spherical shape.",
+        "It deforms continuously under an applied shear stress, however small that stress is."
+      ],
+      why: "A solid reaches a finite strain under shear and then stops; a fluid never finds that balance and keeps deforming. Density and shape are consequences of being a fluid, not the definition of one." },
+
+    { ref: "1.1", href: "#s1", a: 0,
+      q: "For a solid held under a constant shear stress, what does the stress fix?",
+      opts: [
+        "The strain <i>&theta;</i>.",
+        "The rate of strain d<i>&theta;</i>/d<i>t</i>.",
+        "The density.",
+        "The viscosity."
+      ],
+      why: "This is the whole content of Figure 1.1. For a solid, stress determines strain; for a fluid, stress determines the <i>rate</i> of strain. Section 1.5 turns the second half of that into Newton&rsquo;s law of viscosity." },
+
+    { ref: "1.1", href: "#s1", a: 1,
+      q: "A fluid at rest cannot sustain a shear stress. The force it exerts on any surface in contact with it must therefore be:",
+      opts: [
+        "tangential to the surface.",
+        "normal (perpendicular) to the surface.",
+        "zero.",
+        "directed vertically downward."
+      ],
+      why: "If a shear component existed the fluid would, by definition, be moving. This single fact is what makes the hydrostatics of Chapter 2 tractable." },
+
+    { ref: "1.1", href: "#s1", a: 2,
+      q: "The no-slip condition states that at a solid boundary:",
+      opts: [
+        "the fluid velocity is a maximum.",
+        "the shear stress is zero.",
+        "the fluid has the same velocity as the boundary, so the relative velocity is zero.",
+        "the pressure equals atmospheric pressure."
+      ],
+      why: "Zero relative velocity at the wall is an experimental fact, not a derivation. It is why a pipe wall drags on the water passing it, and the whole of Chapter 7 rests on it." },
+
+    /* ------------------------------------------------- 1.2 Continuum */
+    { ref: "1.2", href: "#s2", a: 3,
+      q: "What does the continuum assumption allow us to do?",
+      opts: [
+        "Neglect viscosity.",
+        "Assume the flow is incompressible.",
+        "Ignore gravity.",
+        "Treat density, pressure and velocity as smooth functions of position and time."
+      ],
+      why: "Treating the fluid as continuously distributed rather than as discrete molecules is what makes properties differentiable, and so makes calculus applicable at all." },
+
+    { ref: "1.2", href: "#s2", a: 0,
+      q: "The continuum assumption is valid when the Knudsen number Kn = <i>&lambda;</i>/<i>L</i> is:",
+      opts: [
+        "much less than 1 &mdash; below about 0.01.",
+        "much greater than 1.",
+        "exactly equal to 1.",
+        "negative."
+      ],
+      why: "Kn compares the molecular mean free path with the smallest length scale of the problem. Small Kn means many molecules across the smallest feature, so averaging is meaningful." },
+
+    { ref: "1.2", href: "#s2", a: 3,
+      q: "Which of these flows is most likely to violate the continuum assumption?",
+      opts: [
+        "Water in a 50 mm irrigation pipe.",
+        "Air in a ventilation duct.",
+        "Oil in a 1 mm journal-bearing film.",
+        "A rarefied gas inside a high-vacuum system."
+      ],
+      why: "In a rarefied gas the mean free path grows until it is comparable with the apparatus, so Kn is no longer small. Every other option has an enormous number of molecules across its smallest dimension." },
+
+    /* --------------------------------- 1.3 Density, specific weight, SG */
+    { ref: "1.3", href: "#s3", a: 2,
+      q: "The SI units of specific weight <i>&gamma;</i> are:",
+      opts: [
+        "kg/m<sup>3</sup>",
+        "m<sup>3</sup>/kg",
+        "N/m<sup>3</sup>",
+        "dimensionless"
+      ],
+      why: "Specific weight is weight per unit volume, <i>&gamma;</i> = <i>&rho;g</i>. Weight is a force, so the units are newtons per cubic metre." },
+
+    { ref: "1.3", href: "#s3", a: 0,
+      q: "Specific gravity (relative density) is best described as:",
+      opts: [
+        "the ratio of the fluid density to that of a reference substance, and is dimensionless.",
+        "the weight of the fluid per unit volume.",
+        "the mass of the fluid per unit volume.",
+        "the reciprocal of the density."
+      ],
+      why: "Because it is a ratio of two densities it has no units, which is exactly why it is the figure printed on drums, hydrometers and data sheets: it reads the same in every unit system." },
+
+    { ref: "1.3", href: "#s3", a: 3,
+      q: "A liquid has a specific gravity of 0.85. Its density is:",
+      opts: [
+        "0.85 kg/m<sup>3</sup>",
+        "85 kg/m<sup>3</sup>",
+        "8500 kg/m<sup>3</sup>",
+        "850 kg/m<sup>3</sup>"
+      ],
+      why: "Multiply SG by the reference density of water, 1000 kg/m<sup>3</sup>. This one conversion recovers an SI density from any data sheet." },
+
+    { ref: "1.3", href: "#s3", a: 1,
+      q: "The specific weight of water at 20 &deg;C is closest to:",
+      opts: [
+        "1000 N/m<sup>3</sup>",
+        "9.79 kN/m<sup>3</sup>",
+        "998 kN/m<sup>3</sup>",
+        "9.81 N/m<sup>3</sup>"
+      ],
+      why: "<i>&gamma;</i> = <i>&rho;g</i> = 998.2 &times; 9.81 = 9793 N/m<sup>3</sup>. This is the constant that converts a head in metres to a pressure in pascals, so you will use it constantly in Chapter 2." },
+
+    { ref: "1.3", href: "#s3", a: 2,
+      q: "Specific volume <i>v</i> is defined as:",
+      opts: [
+        "<i>&rho;g</i>",
+        "<i>&rho;</i>/<i>&rho;</i><sub>water</sub>",
+        "1/<i>&rho;</i>",
+        "<i>&mu;</i>/<i>&rho;</i>"
+      ],
+      why: "Specific volume is volume per unit mass, in m<sup>3</sup>/kg &mdash; the fourth member of the density family, common in thermodynamics and rare in this course." },
+
+    /* ------------------------------------------------ 1.4 Ideal gas law */
+    { ref: "1.4", href: "#s4", a: 0,
+      q: "In the ideal gas law <i>p</i> = <i>&rho;RT</i>, the temperature must be expressed in:",
+      opts: [
+        "kelvin, because it must be an absolute temperature.",
+        "degrees Celsius.",
+        "degrees Fahrenheit.",
+        "any unit, since the units cancel."
+      ],
+      why: "Both <i>p</i> and <i>T</i> must be absolute. At 27 &deg;C, using 27 in place of 300.15 K overstates the density about elevenfold. Write <i>T</i> = <i>t</i> + 273.15 as its own line every time." },
+
+    { ref: "1.4", href: "#s4", a: 3,
+      q: "The specific gas constant <i>R</i> for dry air is:",
+      opts: [
+        "8314 J/(kg&middot;K)",
+        "1.204 J/(kg&middot;K)",
+        "101 325 J/(kg&middot;K)",
+        "287 J/(kg&middot;K)"
+      ],
+      why: "The specific constant is the universal constant 8314 J/(kmol&middot;K) divided by the molar mass. 8314 is the universal value, not the one for air; 1.204 kg/m<sup>3</sup> is the density of air at 20 &deg;C." },
+
+    { ref: "1.4", href: "#s4", a: 2,
+      q: "Air is heated at constant pressure. Its density:",
+      opts: [
+        "increases in proportion to <i>T</i>.",
+        "is unchanged.",
+        "falls in proportion to 1/<i>T</i>.",
+        "falls in proportion to 1/<i>T</i><sup>2</sup>."
+      ],
+      why: "From <i>&rho;</i> = <i>p</i>/<i>RT</i>, with <i>p</i> held constant <i>&rho;</i> is inversely proportional to the absolute temperature. The proviso that pressure is constant is essential." },
+
+    { ref: "1.4", href: "#s4", a: 0,
+      q: "A fan runs at constant speed and so delivers a fixed volume flow. If the air passing through it is heated, the mass flow delivered:",
+      opts: [
+        "falls in the same proportion as the density.",
+        "increases.",
+        "is unchanged, because the fan speed is unchanged.",
+        "falls as the square of the density ratio."
+      ],
+      why: "A fan is a volume machine: it moves the same m<sup>3</sup>/s whatever the density, so mass flow tracks density directly. Example 1.2 works this through for a grain dryer &mdash; heating from 35 to 60 &deg;C costs 7.5 % of the mass flow." },
+
+    /* ------------------------------------------------- 1.5 Viscosity */
+    { ref: "1.5", href: "#s5", a: 3,
+      q: "Newton&rsquo;s law of viscosity states that the shear stress in a fluid is proportional to:",
+      opts: [
+        "the velocity <i>U</i> itself.",
+        "the density.",
+        "the pressure.",
+        "the velocity gradient d<i>u</i>/d<i>y</i>."
+      ],
+      why: "<i>&tau;</i> = <i>&mu;</i> d<i>u</i>/d<i>y</i>. It is the <i>gradient</i>, not the velocity, that sets the stress &mdash; which is why a thin film resists far more strongly than a thick one at the same speed." },
+
+    { ref: "1.5", href: "#s5", a: 1,
+      q: "The SI unit of dynamic viscosity <i>&mu;</i> is:",
+      opts: [
+        "m<sup>2</sup>/s",
+        "Pa&middot;s",
+        "N/m<sup>3</sup>",
+        "kg/m<sup>3</sup>"
+      ],
+      why: "Rearranging Newton&rsquo;s law, <i>&mu;</i> = <i>&tau;</i> &divide; (d<i>u</i>/d<i>y</i>), giving Pa &divide; s<sup>&minus;1</sup> = Pa&middot;s. The first option, m<sup>2</sup>/s, is kinematic viscosity." },
+
+    { ref: "1.5", href: "#s5", a: 2,
+      q: "The dynamic viscosity of water at 20 &deg;C is very nearly:",
+      opts: [
+        "1 P (poise)",
+        "100 cP",
+        "1 cP (centipoise)",
+        "1 Pa&middot;s"
+      ],
+      why: "Water at 20 &deg;C is 1.002 &times; 10<sup>&minus;3</sup> Pa&middot;s, and 1 Pa&middot;s = 1000 cP, so water is almost exactly 1 cP. That coincidence makes the centipoise a useful mental yardstick." },
+
+    { ref: "1.5", href: "#s5", a: 0,
+      q: "In the sliding-plate experiment of Figure 1.2, with a small gap <i>h</i> and an upper plate moving at <i>U</i>, the velocity gradient in the film is:",
+      opts: [
+        "<i>U</i>/<i>h</i>",
+        "<i>h</i>/<i>U</i>",
+        "<i>Uh</i>",
+        "zero"
+      ],
+      why: "No slip pins the fluid to 0 at the bottom and to <i>U</i> at the top, and for a small gap the profile between them is linear &mdash; so the gradient is the same everywhere and equals <i>U</i>/<i>h</i>." },
+
+    { ref: "1.5", href: "#s5", a: 3,
+      q: "The oil film under a sliding plate is halved in thickness while the sliding speed is unchanged. The viscous force on the plate:",
+      opts: [
+        "halves.",
+        "is unchanged.",
+        "quadruples.",
+        "doubles."
+      ],
+      why: "<i>F</i> = <i>&mu;AU</i>/<i>h</i>, so force is inversely proportional to gap. Halving <i>h</i> doubles both the force and the power dissipated, as the check step of Example 1.1 notes." },
+
+    { ref: "1.5", href: "#s5", a: 1,
+      q: "What happens to viscosity when a liquid and a gas are each heated?",
+      opts: [
+        "Both viscosities increase.",
+        "The liquid&rsquo;s viscosity falls and the gas&rsquo;s rises.",
+        "Both viscosities fall.",
+        "The liquid&rsquo;s viscosity rises and the gas&rsquo;s falls."
+      ],
+      why: "In a liquid, resistance comes from cohesion between molecules, which heating weakens. In a gas it comes from momentum carried across the flow by random molecular motion, which heating intensifies. The two run in opposite directions." },
+
+    /* --------------------------------------- 1.6 Non-Newtonian fluids */
+    { ref: "1.6", href: "#s6", a: 2,
+      q: "On a rheogram of shear stress against rate of shear strain, a Newtonian fluid plots as:",
+      opts: [
+        "a straight line with a positive intercept on the stress axis.",
+        "a curve that is concave downward.",
+        "a straight line through the origin.",
+        "a horizontal line."
+      ],
+      why: "A straight line through the origin whose slope <i>is</i> the viscosity. The first option describes a Bingham plastic, the second a shear-thinning fluid, the fourth an ideal inviscid fluid." },
+
+    { ref: "1.6", href: "#s6", a: 0,
+      q: "Fruit pur&eacute;e and tomato paste become noticeably thinner as the shear rate rises. They are:",
+      opts: [
+        "shear-thinning (pseudoplastic).",
+        "shear-thickening (dilatant).",
+        "Bingham plastics.",
+        "Newtonian."
+      ],
+      why: "Apparent viscosity falls as shear rate rises. A pump handling pur&eacute;e therefore meets a much thicker fluid at start-up than at running speed, which is why start-up torque sizes the motor." },
+
+    { ref: "1.6", href: "#s6", a: 3,
+      q: "A material that behaves as a solid until the shear stress exceeds a yield stress <i>&tau;</i><sub>0</sub>, and flows like a Newtonian fluid thereafter, is called:",
+      opts: [
+        "pseudoplastic.",
+        "dilatant.",
+        "thixotropic.",
+        "a Bingham plastic."
+      ],
+      why: "Sewage sludge, drilling mud, chocolate and toothpaste behave this way. A slurry line that cannot develop a pressure gradient exceeding <i>&tau;</i><sub>0</sub> will simply not restart &mdash; a real failure mode in manure and sludge pipelines." },
+
+    { ref: "1.6", href: "#s6", a: 1,
+      q: "For a non-Newtonian fluid, a quoted value of apparent viscosity is meaningless unless it is accompanied by:",
+      opts: [
+        "the density.",
+        "the shear rate at which it was measured.",
+        "the pipe diameter.",
+        "the yield stress."
+      ],
+      why: "By definition the apparent viscosity of a non-Newtonian fluid changes with shear rate, so a single number without its shear rate identifies nothing on the rheogram." },
+
+    /* ------------------------------------------ 1.7 Kinematic viscosity */
+    { ref: "1.7", href: "#s7", a: 2,
+      q: "Kinematic viscosity <i>&nu;</i> is defined as:",
+      opts: [
+        "<i>&mu;&rho;</i>",
+        "<i>&rho;</i>/<i>&mu;</i>",
+        "<i>&mu;</i>/<i>&rho;</i>",
+        "<i>&mu;g</i>"
+      ],
+      why: "It is dynamic viscosity divided by density, with units m<sup>2</sup>/s. Mass cancels out of the dimensions entirely, which is where the name kinematic comes from." },
+
+    { ref: "1.7", href: "#s7", a: 3,
+      q: "Compared with water at 20 &deg;C, air at the same temperature has:",
+      opts: [
+        "a larger <i>&mu;</i> and a larger <i>&nu;</i>.",
+        "a smaller <i>&mu;</i> and a smaller <i>&nu;</i>.",
+        "a larger <i>&mu;</i> but a smaller <i>&nu;</i>.",
+        "a smaller <i>&mu;</i> but a larger <i>&nu;</i>."
+      ],
+      why: "Air is about 55 times less viscous than water but some 830 times less dense, so its kinematic viscosity comes out roughly 15 times larger. Since the Reynolds number of Chapter 7 contains <i>&nu;</i>, air in the same duct at the same speed is more likely to be laminar." },
+
+    { ref: "1.7", href: "#s7", a: 0,
+      q: "A lubricant data sheet lists the grade as 46 cSt at 40 &deg;C. That figure is the oil&rsquo;s:",
+      opts: [
+        "kinematic viscosity.",
+        "dynamic viscosity.",
+        "specific gravity.",
+        "bulk modulus."
+      ],
+      why: "The stokes and centistokes are CGS units of kinematic viscosity: 1 m<sup>2</sup>/s = 10<sup>6</sup> cSt. Lubricant grades are quoted this way almost universally; water at 20 &deg;C is about 1 cSt." },
+
+    /* ----------------------------------- 1.8 Viscosity and temperature */
+    { ref: "1.8", href: "#s8", a: 1,
+      q: "Compared with water at 20 &deg;C, the dynamic viscosity of water at 60 &deg;C is:",
+      opts: [
+        "about twice as large.",
+        "less than half as large.",
+        "about the same.",
+        "about ten times larger."
+      ],
+      why: "Table 1.2 gives 1.002 &times; 10<sup>&minus;3</sup> Pa&middot;s at 20 &deg;C against 0.467 &times; 10<sup>&minus;3</sup> at 60 &deg;C. A hot line therefore has less than half the laminar head loss of a cold one." },
+
+    { ref: "1.8", href: "#s8", a: 3,
+      q: "Why do engineering tables list viscosity against temperature and say nothing about pressure?",
+      opts: [
+        "Pressure has no effect on viscosity whatsoever.",
+        "The pressure is always atmospheric in practice.",
+        "Viscosity is a dimensionless quantity.",
+        "Viscosity depends strongly on temperature but only weakly on pressure."
+      ],
+      why: "The pressure dependence is real but small enough to ignore over the range of this course, while the temperature dependence is large enough that ignoring it would ruin a calculation." },
+
+    { ref: "1.8", href: "#s8", a: 2,
+      q: "In Table 1.2 the vapour pressure of water at 100 &deg;C is 101.33 kPa, exactly one standard atmosphere. This tells you that:",
+      opts: [
+        "water cannot exist as a liquid above 100 &deg;C at any pressure.",
+        "the density of water becomes zero at 100 &deg;C.",
+        "boiling occurs when the vapour pressure reaches the surrounding pressure.",
+        "surface tension vanishes at the boiling point."
+      ],
+      why: "Boiling is not a special event at a magic temperature; it is the point at which vapour pressure catches up with the pressure around the liquid. Raise the surrounding pressure and the boiling point rises with it." },
+
+    /* ------------------------------- 1.9 Compressibility, bulk modulus */
+    { ref: "1.9", href: "#s9", a: 0,
+      q: "The bulk modulus of elasticity <i>K</i> has the units of:",
+      opts: [
+        "pressure, i.e. pascals.",
+        "no units; it is dimensionless.",
+        "m<sup>2</sup>/s",
+        "kg/m<sup>3</sup>"
+      ],
+      why: "<i>K</i> = &minus;d<i>p</i> &divide; (d<i>V</i>/<i>V</i>). The denominator is a ratio of volumes and so is dimensionless, leaving <i>K</i> with the units of the numerator." },
+
+    { ref: "1.9", href: "#s9", a: 3,
+      q: "Taking <i>K</i> = 2.18 GPa for water, the pressure rise needed to compress it by 1 % is about:",
+      opts: [
+        "21.8 kPa",
+        "218 kPa",
+        "2.18 GPa",
+        "21.8 MPa"
+      ],
+      why: "&Delta;<i>p</i> = <i>K</i> &times; 0.01 = 21.8 MPa, roughly 218 atmospheres for a one per cent change. That is the justification for treating liquids as incompressible everywhere else in the course." },
+
+    { ref: "1.9", href: "#s9", a: 1,
+      q: "Water hammer is possible because:",
+      opts: [
+        "water is perfectly incompressible.",
+        "a pressure disturbance travels at a finite speed, <i>c</i> = &radic;(<i>K</i>/<i>&rho;</i>).",
+        "the viscosity of water is very low.",
+        "the vapour pressure of water is low."
+      ],
+      why: "For water <i>c</i> is about 1480 m/s. Because it is finite, closing a valve quickly on a long line launches a pressure wave that can far exceed the pipe rating. The stiffness we spend the course ignoring is exactly what makes the transient dangerous." },
+
+    /* -------------------------------- 1.10 Vapour pressure, cavitation */
+    { ref: "1.10", href: "#s10", a: 2,
+      q: "The vapour pressure of a given liquid depends on:",
+      opts: [
+        "the diameter of the pipe carrying it.",
+        "the velocity of the flow.",
+        "the temperature alone.",
+        "the surface tension."
+      ],
+      why: "Vapour pressure is a property of the substance and its temperature, nothing else. That is why Table 1.2 can list it in a single column against <i>t</i>." },
+
+    { ref: "1.10", href: "#s10", a: 0,
+      q: "Cavitation occurs in a pump when the local absolute pressure:",
+      opts: [
+        "falls to the vapour pressure of the liquid.",
+        "rises above atmospheric pressure.",
+        "equals the bulk modulus.",
+        "equals the specific weight."
+      ],
+      why: "Vapour bubbles form where the pressure drops to <i>p</i><sub>v</sub>, are carried downstream into higher pressure, and collapse violently enough to pit steel. The symptoms are a rattling noise, lost head and eventual destruction of the impeller." },
+
+    { ref: "1.10", href: "#s10", a: 3,
+      q: "Compared with cold water, hot water can be drawn up a pump suction pipe:",
+      opts: [
+        "to a greater height, because it is less viscous.",
+        "to the same height, since atmospheric pressure is unchanged.",
+        "to a greater height, because its density is lower.",
+        "to a smaller height, because its higher vapour pressure has already used up part of the available head."
+      ],
+      why: "The usable pressure difference is <i>p</i><sub>atm</sub> &minus; <i>p</i><sub>v</sub>. Example 1.4 gives 10.1 m at 20 &deg;C but only 7.3 m at 70 &deg;C &mdash; which is why a pump on a hot line is placed below its source." },
+
+    /* -------------------------- 1.11 Surface tension and capillarity */
+    { ref: "1.11", href: "#s11", a: 1,
+      q: "The SI units of surface tension <i>&sigma;</i> are:",
+      opts: [
+        "N/m<sup>2</sup>",
+        "N/m",
+        "N&middot;m",
+        "dimensionless"
+      ],
+      why: "Surface tension is a tension per unit length of surface, so newtons per metre. For water against air at 20 &deg;C it is 0.0728 N/m." },
+
+    { ref: "1.11", href: "#s11", a: 0,
+      q: "Capillary rise in a vertical tube varies with the tube diameter <i>d</i> how?",
+      opts: [
+        "Inversely proportional to <i>d</i>.",
+        "Proportional to <i>d</i>.",
+        "Proportional to <i>d</i><sup>2</sup>.",
+        "Independent of <i>d</i>."
+      ],
+      why: "<i>h</i> = 4<i>&sigma;</i>cos<i>&theta;</i>/<i>&gamma;d</i>. The <i>d</i> in the denominator is why a narrow tube reads badly: Example 1.3 finds 19.8 mm of error in a 1.5 mm bore, and only 3 mm in a 10 mm bore." },
+
+    { ref: "1.11", href: "#s11", a: 2,
+      q: "The pressure difference across the surface of a spherical droplet is &Delta;<i>p</i> = 2<i>&sigma;</i>/<i>r</i>. It follows that producing a finer spray:",
+      opts: [
+        "needs a lower supply pressure.",
+        "is independent of the supply pressure.",
+        "needs a higher supply pressure, and so costs more energy.",
+        "reduces the surface tension of the liquid."
+      ],
+      why: "Smaller droplets sit at higher internal pressure, and the same tension resists their formation. This is the physics behind the pressure&ndash;droplet size relationship of a pesticide spray nozzle." },
+
+    { ref: "1.11", href: "#s11", a: 1,
+      q: "Mercury in a glass tube forms a convex meniscus and is depressed below the outside level, rather than rising. Why?",
+      opts: [
+        "Because mercury is much denser than water.",
+        "Because its contact angle exceeds 90&deg;, so cos<i>&theta;</i> is negative.",
+        "Because mercury has zero surface tension.",
+        "Because glass is not wetted by any liquid."
+      ],
+      why: "Mercury does not wet glass; <i>&theta;</i> is about 130&deg;, and a negative cos<i>&theta;</i> in <i>h</i> = 4<i>&sigma;</i>cos<i>&theta;</i>/<i>&gamma;d</i> turns the rise into a depression. Density affects how far it is pushed down, but not the direction." }
+
+  ]
+};
+</script>
 <script src="lang.js"></script>
+<script src="quiz.js"></script>
 </body>
 </html>
