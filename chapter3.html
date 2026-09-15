@@ -1,0 +1,2395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 3: Continuity and the Bernoulli Equation | ASE 221 Introduction to Fluid Mechanics</title>
+<meta name="description" content="Classifying a flow, streamlines and streamtubes, mass flow rate and discharge, the continuity equation, the Bernoulli equation and the four heads, and its applications: Pitot tubes, Venturi meters, orifices, notches and weirs.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">FM</span>
+      <span class="logo-text">ASE-FM<small>Biosystem and Agricultural Engineering, KMITL</small></span>
+    </a>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="index.html">About</a>
+      <a href="chapter1.html">Lecture Notes</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="chapter3.html" class="active">EN</a>
+      <a href="chapter3-th.html" lang="th">ไทย</a>
+    </div>
+    <a class="btn-give" href="#s12">Worked Examples</a>
+  </div>
+</header>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ASE 221 <span>|</span> Chapter 3 <span>|</span> Lecture Notes</p>
+    <h1>Continuity and the Bernoulli Equation</h1>
+    <p class="tagline">Two conservation laws &mdash; of mass and of energy &mdash; applied to a boundary you
+      draw yourself. Together they size a pipe, read a meter, and tell you how fast water leaves a hole in
+      a tank; and they are the two equations you will use most in the rest of your degree.</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="course-menu">
+      <h2>Course Menu</h2>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter1.html">Ch.&nbsp;1 &mdash; Fluid Properties</a></li>
+        <li><a href="chapter2.html">Ch.&nbsp;2 &mdash; Forces in Static Fluids</a></li>
+        <li><a href="chapter3.html" class="active">Ch.&nbsp;3 &mdash; Continuity and Bernoulli</a></li>
+        <li><span class="muted">Ch.&nbsp;4 &mdash; The Momentum Equation<em>Not yet published</em></span></li>
+        <li><span class="muted">Ch.&nbsp;5 &mdash; Real Fluids in Pipes<em>Not yet published</em></span></li>
+      </ul>
+    </nav>
+
+    <section class="course-info">
+      <h2>Chapter Info</h2>
+      <dl>
+        <dt>Lectures</dt>
+        <dd>6 (9 hours)</dd>
+
+        <dt>Reference</dt>
+        <dd class="crumbs">Sleigh, CIVE 1400 &mdash; &sect;3.1&ndash;3.5</dd>
+
+        <dt>Key Equations</dt>
+        <dd>
+          <ul>
+            <li><var>Q</var> = <var>Au</var></li>
+            <li><var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub></li>
+            <li><var>p</var>/<var>&rho;g</var> + <var>u</var><sup>2</sup>/2<var>g</var> + <var>z</var> = <var>H</var></li>
+            <li><var>u</var> = &radic;(2<var>gh</var>)</li>
+            <li><var>Q</var> = <var>C</var><sub>d</sub><var>A</var>&radic;(2<var>gh</var>)</li>
+          </ul>
+        </dd>
+
+        <dt>Tables</dt>
+        <dd>
+          <ul>
+            <li><a href="#t1">3.1 Classes of flow</a></li>
+            <li><a href="#t2">3.2 Typical <var>C</var><sub>d</sub> values</a></li>
+          </ul>
+        </dd>
+
+        <dt>You Will Need</dt>
+        <dd class="crumbs">Ch. 1 &gt; density, ideal fluid</dd>
+        <dd class="crumbs">Ch. 2 &gt; pressure, head, manometers</dd>
+        <dd class="crumbs">Physics &gt; work and energy</dd>
+      </dl>
+    </section>
+  </aside>
+
+  <main class="content">
+
+    <p class="lead">Chapter&nbsp;2 held the fluid still. From here on it moves &mdash; and the way we handle
+      that is not to follow individual particles, but to draw a boundary in the flow and account for what
+      crosses it. Everything in this chapter and the next comes out of that one idea.</p>
+
+    <nav class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#s1">Classifying a Flow</a></li>
+        <li><a href="#s2">Streamlines and Streamtubes</a></li>
+        <li><a href="#s3">Flow Rate: Mass Flow and Discharge</a></li>
+        <li><a href="#s4">The Continuity Equation</a></li>
+        <li><a href="#s5">Work, Energy and the Bernoulli Equation</a></li>
+        <li><a href="#s6">The Four Heads, and the Grade Lines</a></li>
+        <li><a href="#s7">The Pitot and Pitot-Static Tubes</a></li>
+        <li><a href="#s8">The Venturi Meter</a></li>
+        <li><a href="#s9">Flow Through an Orifice</a></li>
+        <li><a href="#s10">Notches and Weirs</a></li>
+        <li><a href="#s11">Beyond the Core &mdash; Measuring Flow in the Field</a></li>
+        <li><a href="#s12">Worked Examples</a></li>
+        <li><a href="#s13">Nomenclature</a></li>
+        <li><a href="#s14">Self-Check &mdash; 48 Questions</a></li>
+        <li><a href="#s15">Problems</a></li>
+        <li><a href="#s16">References</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================ 3.1 -->
+    <h2 id="s1">3.1 Classifying a Flow</h2>
+
+    <p>It is easy to picture a hopelessly complicated flow: the spray behind a tractor, waves breaking on a
+      bund, the wind round a grain store. All of these can be analysed, with varying degrees of success and
+      in some cases hardly at all. But a great many situations of practical importance are far simpler than
+      that, and the first step in any analysis is to decide which kind of flow you are looking at.</p>
+
+    <h3>Uniform or non-uniform, steady or unsteady</h3>
+    <p>Two independent questions are being asked here. The first is about <em>space</em>, the second about
+      <em>time</em>.</p>
+
+    <ul>
+      <li><b>Uniform flow.</b> The velocity has the same magnitude and direction at every point in the
+        fluid.</li>
+      <li><b>Non-uniform flow.</b> At a given instant the velocity is <em>not</em> the same at every point.
+        Strictly, by that definition every fluid flowing near a solid boundary is non-uniform &mdash; the
+        fluid at the wall must take the speed of the wall, which is usually zero. In practice, if the size
+        and shape of the cross-section of the stream is constant, we call the flow uniform anyway.</li>
+      <li><b>Steady flow.</b> The conditions &mdash; velocity, pressure, cross-section &mdash; may differ
+        from point to point, but they <b>do not change with time</b>.</li>
+      <li><b>Unsteady flow.</b> At some point in the fluid, conditions change with time. In practice there
+        are always slight fluctuations in velocity and pressure; if the average values are constant we
+        still call the flow steady.</li>
+    </ul>
+
+    <div class="table-wrap">
+      <table id="t1">
+        <caption><b>Table 3.1.</b> The four classes of flow, with an example of each. This course is
+          restricted almost entirely to the first row.</caption>
+        <thead>
+          <tr><th>Class</th><th>Conditions</th><th>Example</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Steady uniform</b></td>
+            <td>Change with neither position nor time.</td>
+            <td>Water flowing at constant velocity through a pipe of constant diameter.</td>
+          </tr>
+          <tr>
+            <td><b>Steady non-uniform</b></td>
+            <td>Change from point to point but not with time.</td>
+            <td>Flow in a tapering pipe fed at a constant rate &mdash; the velocity changes along its length.</td>
+          </tr>
+          <tr>
+            <td><b>Unsteady uniform</b></td>
+            <td>Same at every point at a given instant, but changing with time.</td>
+            <td>A pipe of constant diameter fed by a pump that is then switched off.</td>
+          </tr>
+          <tr>
+            <td><b>Unsteady non-uniform</b></td>
+            <td>Change from point to point <em>and</em> with time.</td>
+            <td>Waves travelling along an irrigation canal.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">Scope of this course</span>
+      <p>Steady uniform flow is by far the simplest of the four, and it is the only class we will treat. We
+        shall meet no genuinely non-uniform or unsteady effects, apart from one or two
+        <em>quasi</em>-time-dependent problems &mdash; the emptying tank of &sect;3.9 is the main one
+        &mdash; which can be handled as a succession of steady states.</p>
+    </div>
+
+    <h3>Compressible or incompressible</h3>
+    <p>All fluids are compressible, as Chapter&nbsp;1 &sect;1.11 showed; even water changes density as
+      pressure changes. But under steady conditions, and provided the pressure changes are small, the
+      analysis simplifies enormously if we assume constant density.</p>
+
+    <p>Liquids are difficult to compress, so under most steady conditions they are treated as
+      incompressible. Gases are easily compressed and in most cases must be treated as compressible &mdash;
+      though not, as &sect;1.7 noted, when they move slowly. <b>Everything in this chapter assumes
+      incompressible flow</b>, and that assumption is what allows density to cancel out of the continuity
+      equation in &sect;3.4.</p>
+
+    <h3>One, two or three dimensions</h3>
+    <p>All real flows are three-dimensional: pressure, velocity and everything else vary in all directions.
+      But in many cases the biggest changes happen in only one or two directions, and ignoring the others
+      makes the analysis enormously simpler.</p>
+
+    <p>A flow is <b>one-dimensional</b> if the flow parameters at a given instant vary only in the direction
+      of flow, and not across the cross-section. Flow in a pipe is the standard example. But notice the
+      catch: the velocity must be zero at the pipe wall and non-zero in the centre, so there <em>is</em> a
+      variation across the section. Should we treat pipe flow as two-dimensional then?</p>
+
+    <div class="callout">
+      <span class="label">The bargain we strike</span>
+      <p>Only if very high accuracy is needed. For ordinary design we treat the flow as one-dimensional,
+        using a <b>mean velocity</b> over the cross-section, and apply a correction factor where the
+        difference matters. This is the single most useful simplification in the subject: it turns a
+        problem in three variables into a problem in one, and it costs a few per cent.</p>
+    </div>
+
+    <p>A flow is <b>two-dimensional</b> if the parameters vary along the flow and in one direction at right
+      angles to it, with the same pattern repeated on every parallel plane. Flow over a long weir is the
+      example: along most of the weir&rsquo;s length the picture is identical, and only near the two ends
+      does it change &mdash; where, again, a correction factor is applied.</p>
+
+    <p><b>In this course we consider only steady, incompressible, one- and two-dimensional flow.</b></p>
+
+    <!-- ============================================================ 3.2 -->
+    <h2 id="s2">3.2 Streamlines and Streamtubes</h2>
+
+    <p>It helps enormously to be able to picture a flow pattern, and the tool for that is the
+      <b>streamline</b>: a line drawn so that at every point on it the direction of the line is the
+      direction of the fluid velocity at that point.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="Left: streamlines around an aerofoil-shaped body, running parallel to the surface close to it. Right: a streamtube formed by a bundle of streamlines, with flow entering one end and leaving the other.">
+        <defs>
+          <marker id="sa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+        </defs>
+
+        <text x="30" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) Streamlines round a body</text>
+
+        <!-- body -->
+        <path d="M110,160 Q210,118 330,146 Q230,178 110,160 z" fill="#FFF1D1" stroke="#1c1917" stroke-width="2"/>
+
+        <!-- streamlines -->
+        <path d="M30,96 Q160,66 250,86 Q320,102 380,120" fill="none" stroke="#00788A" stroke-width="1.8" marker-end="url(#sa)"/>
+        <path d="M30,124 Q150,92 240,114 Q310,130 380,142" fill="none" stroke="#00788A" stroke-width="1.8" marker-end="url(#sa)"/>
+        <path d="M30,152 Q90,150 112,159 Q210,120 330,147 Q356,152 380,158" fill="none" stroke="#00788A" stroke-width="2.2" marker-end="url(#sa)"/>
+        <path d="M30,180 Q90,172 112,161 Q228,180 330,148 Q356,158 380,172" fill="none" stroke="#00788A" stroke-width="2.2" marker-end="url(#sa)"/>
+        <path d="M30,212 Q150,224 240,200 Q310,184 380,190" fill="none" stroke="#00788A" stroke-width="1.8" marker-end="url(#sa)"/>
+        <path d="M30,242 Q160,258 250,232 Q320,214 380,210" fill="none" stroke="#00788A" stroke-width="1.8" marker-end="url(#sa)"/>
+
+        <text x="30" y="282" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">close to the wall the streamline is parallel to the wall</text>
+
+        <!-- divider -->
+        <line x1="420" y1="20" x2="420" y2="290" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="450" y="26" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) A streamtube</text>
+
+        <!-- streamtube: curved band -->
+        <path d="M470,190 Q590,120 760,96 L760,150 Q600,176 490,232 z" fill="#eaf7fa" stroke="none"/>
+        <path d="M470,190 Q590,120 760,96" fill="none" stroke="#00788A" stroke-width="2.4"/>
+        <path d="M490,232 Q600,176 760,150" fill="none" stroke="#00788A" stroke-width="2.4"/>
+        <path d="M478,208 Q595,148 760,122" fill="none" stroke="#9fd8e2" stroke-width="1.4" stroke-dasharray="6 4"/>
+
+        <!-- end faces -->
+        <line x1="470" y1="190" x2="490" y2="232" stroke="#1c1917" stroke-width="2.4"/>
+        <line x1="760" y1="96" x2="760" y2="150" stroke="#1c1917" stroke-width="2.4"/>
+        <text x="440" y="212" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">1</tspan></text>
+        <text x="770" y="128" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">2</tspan></text>
+
+        <line x1="512" y1="196" x2="560" y2="178" stroke="#4b4540" stroke-width="2" marker-end="url(#sa)"/>
+        <text x="510" y="184" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">u<tspan font-size="11" dy="4">1</tspan></text>
+        <line x1="700" y1="126" x2="748" y2="118" stroke="#4b4540" stroke-width="2" marker-end="url(#sa)"/>
+        <text x="694" y="112" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">u<tspan font-size="11" dy="4">2</tspan></text>
+
+        <text x="450" y="282" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">no fluid crosses the walls &mdash; they are made of streamlines</text>
+      </svg>
+      <figcaption><b>Figure 3.1.</b> Streamlines cannot cross, because that would mean two velocities at one
+        point. Close to a solid boundary they run parallel to it, because fluid cannot pass into the
+        surface. A bundle of them forms a streamtube, which behaves like a pipe with invisible walls.</figcaption>
+    </figure>
+
+    <div class="callout rule">
+      <span class="label">Four things to know about streamlines</span>
+      <ul>
+        <li>Fluid moves <em>along</em> a streamline, so <b>fluid cannot cross a streamline</b>.</li>
+        <li><b>Streamlines cannot cross each other.</b> If they did, there would be two different
+          velocities at the same point, which is not physically possible.</li>
+        <li>It follows that a particle starting on one streamline <b>stays on that streamline</b>.</li>
+        <li><b>Close to a solid boundary, streamlines are parallel to that boundary</b>, because fluid
+          neither enters nor leaves the surface.</li>
+      </ul>
+      <p>In <b>steady</b> flow the position of the streamlines does not change with time. In unsteady flow
+        it does &mdash; another reason we restrict ourselves to steady flow.</p>
+    </div>
+
+    <h3>The streamtube</h3>
+    <p>A very useful technique is to consider only a part of the flow, isolated from the rest. Imagine a
+      tubular surface made up of streamlines, running along the direction of flow. That surface is a
+      <b>streamtube</b>.</p>
+
+    <p>Because fluid cannot cross a streamline, it cannot cross the wall of a streamtube either. A
+      streamtube can therefore be treated like a solid-walled pipe &mdash; fluid enters at one end and
+      leaves at the other, and nothing escapes in between. That is exactly the property we need in
+      &sect;3.4.</p>
+
+    <p>Two cautions. A streamtube is <b>not</b> a pipe: in unsteady flow its walls move with time, and even
+      in steady flow its &ldquo;wall&rdquo; is moving with the fluid rather than standing still. But for a
+      steady flow, for the purposes of accounting for what goes in and what comes out, the analogy is
+      exact.</p>
+
+    <!-- ============================================================ 3.3 -->
+    <h2 id="s3">3.3 Flow Rate: Mass Flow and Discharge</h2>
+
+    <h3>Mass flow rate</h3>
+    <p>How would you measure the rate at which water flows from a tap? The obvious way is to put a bucket
+      under it, time how long it takes to collect a known mass of water, and divide:</p>
+
+    <div class="eq plain">
+      mass flow rate = <var>m&#775;</var> = mass of fluid collected &divide; time taken
+      <span class="tag">(3.1)</span>
+    </div>
+
+    <p>If 8.0&nbsp;kg is collected in 12&nbsp;s, then <var>m&#775;</var> = 8.0/12 = 0.67&nbsp;kg&nbsp;s<sup>&minus;1</sup>.
+      The dot over the <var>m</var> is a standard notation meaning &ldquo;per unit time&rdquo;.</p>
+
+    <h3>Volume flow rate &mdash; discharge</h3>
+    <p>More commonly we want the <b>volume flow rate</b>, universally called the <b>discharge</b> and given
+      the symbol <var>Q</var>:</p>
+
+    <div class="eq plain">
+      <var>Q</var> = volume of fluid &divide; time taken
+      = <var>m&#775;</var> / <var>&rho;</var>
+      <span class="tag">(3.2)</span>
+    </div>
+
+    <p>Its SI unit is m<sup>3</sup>&nbsp;s<sup>&minus;1</sup>. Two other units are in everyday use and you
+      must be fluent in both: the litre per second (1&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup> =
+      1000&nbsp;l&nbsp;s<sup>&minus;1</sup>), and in irrigation practice the cubic metre per hour
+      (1&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup> = 3600&nbsp;m<sup>3</sup>&nbsp;h<sup>&minus;1</sup>).</p>
+
+    <h3>Discharge and mean velocity</h3>
+    <p>Now connect the discharge to the velocity. Consider a pipe of cross-sectional area <var>A</var>
+      through which fluid moves at a uniform velocity <var>u</var>. In a time <var>t</var> a particle at the
+      inlet travels a distance <var>ut</var>, so the volume that has passed the inlet is <var>Aut</var>, and
+      the volume per unit time is:</p>
+
+    <div class="eq plain">
+      <var>Q</var> = <var>A</var> <var>u&#772;</var>
+      <span class="tag">(3.3)</span>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 260" role="img" aria-label="Left: a cylinder of fluid of length u times t passing a cross-section of area A. Right: the real velocity profile in a pipe, zero at the wall and maximum at the centre, with the mean velocity drawn as a dashed vertical line.">
+        <defs>
+          <marker id="fa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="fb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <text x="26" y="24" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) Volume swept in time t</text>
+
+        <!-- pipe -->
+        <rect x="30" y="76" width="360" height="110" fill="#eaf7fa" stroke="none"/>
+        <line x1="30" y1="76" x2="390" y2="76" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="30" y1="186" x2="390" y2="186" stroke="#1c1917" stroke-width="2.5"/>
+
+        <!-- section A -->
+        <line x1="120" y1="76" x2="120" y2="186" stroke="#00788A" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <text x="96" y="70" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">A</text>
+
+        <!-- swept slug -->
+        <rect x="120" y="76" width="150" height="110" fill="#FFF1D1" stroke="#c8a14a" stroke-width="1.6"/>
+        <line x1="270" y1="76" x2="270" y2="186" stroke="#c8a14a" stroke-width="2"/>
+
+        <line x1="124" y1="131" x2="266" y2="131" stroke="#1c1917" stroke-width="1.6" marker-end="url(#fb)"/>
+        <text x="168" y="122" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">u&#772; t</text>
+
+        <line x1="290" y1="106" x2="370" y2="106" stroke="#00788A" stroke-width="2.2" marker-end="url(#fa)"/>
+        <line x1="290" y1="156" x2="370" y2="156" stroke="#00788A" stroke-width="2.2" marker-end="url(#fa)"/>
+
+        <text x="30" y="220" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">volume = A &times; u&#772;t &nbsp;&rarr;&nbsp; volume per unit time Q = A u&#772;</text>
+
+        <line x1="430" y1="16" x2="430" y2="244" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="460" y="24" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) The real profile and its mean</text>
+
+        <rect x="470" y="76" width="330" height="110" fill="#f7fbfc" stroke="none"/>
+        <line x1="470" y1="76" x2="800" y2="76" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="470" y1="186" x2="800" y2="186" stroke="#1c1917" stroke-width="2.5"/>
+
+        <!-- parabolic profile -->
+        <path d="M560,76 Q660,131 560,186" fill="#d9eef3" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="560" y1="76" x2="560" y2="186" stroke="#00788A" stroke-width="1.4"/>
+        <line x1="560" y1="90" x2="596" y2="90" stroke="#00788A" stroke-width="1.6" marker-end="url(#fa)"/>
+        <line x1="560" y1="131" x2="638" y2="131" stroke="#00788A" stroke-width="1.6" marker-end="url(#fa)"/>
+        <line x1="560" y1="172" x2="596" y2="172" stroke="#00788A" stroke-width="1.6" marker-end="url(#fa)"/>
+        <text x="648" y="126" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">max</tspan></text>
+
+        <!-- mean -->
+        <line x1="712" y1="76" x2="712" y2="186" stroke="#b03a2e" stroke-width="2.4" stroke-dasharray="7 4"/>
+        <line x1="712" y1="96" x2="762" y2="96" stroke="#b03a2e" stroke-width="1.6" marker-end="url(#fb)"/>
+        <line x1="712" y1="131" x2="762" y2="131" stroke="#b03a2e" stroke-width="1.6" marker-end="url(#fb)"/>
+        <line x1="712" y1="166" x2="762" y2="166" stroke="#b03a2e" stroke-width="1.6" marker-end="url(#fb)"/>
+        <text x="716" y="66" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#b03a2e">u&#772;</text>
+
+        <text x="460" y="220" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">u&#772; is the uniform velocity that would carry the same Q</text>
+      </svg>
+      <figcaption><b>Figure 3.2.</b> (a) In a time <var>t</var> the fluid sweeps out a cylinder of length
+        <var>u&#772;t</var>. (b) The real velocity is zero at the wall and maximum at the axis; we replace
+        it by the mean velocity <var>u&#772;</var>, defined as the uniform velocity that would transport the
+        same discharge through the same area.</figcaption>
+    </figure>
+
+    <div class="callout">
+      <span class="label">What &ldquo;mean velocity&rdquo; really means</span>
+      <p>This is the one-dimensional bargain of &sect;3.1, written as an equation. Because the velocity
+        across a real section is not uniform, we <em>define</em> <var>u&#772;</var> = <var>Q</var>/<var>A</var>
+        and work with that. For fully developed laminar pipe flow <var>u&#772;</var> = 0.5&nbsp;<var>u</var><sub>max</sub>;
+        for turbulent pipe flow, which is what you meet in practice, the profile is much flatter and
+        <var>u&#772;</var> &asymp; 0.80&ndash;0.85&nbsp;<var>u</var><sub>max</sub>. Chapter&nbsp;5 explains
+        why the two differ so much. <b>From here on the bar is dropped</b> and <var>u</var> means the mean
+        velocity unless stated otherwise.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 3.1 &mdash; From bucket to velocity</h4>
+      <p>An empty bucket weighs 2.0&nbsp;kg. After 7&nbsp;s of collecting water from a 25&nbsp;mm-diameter
+        pipe the bucket weighs 8.0&nbsp;kg. Find the mass flow rate, the discharge and the mean velocity in
+        the pipe. Take <var>&rho;</var> = 1000&nbsp;kg&nbsp;m<sup>&minus;3</sup>.</p>
+      <p class="step">Mass of water collected = 8.0 &minus; 2.0 = 6.0&nbsp;kg, so
+        <var>m&#775;</var> = 6.0/7 = 0.857&nbsp;kg&nbsp;s<sup>&minus;1</sup>.</p>
+      <p class="step"><var>Q</var> = <var>m&#775;</var>/<var>&rho;</var> = 0.857/1000 =
+        8.57&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup>
+        = 0.857&nbsp;l&nbsp;s<sup>&minus;1</sup>.</p>
+      <p class="step"><var>A</var> = <var>&pi;d</var><sup>2</sup>/4 = <var>&pi;</var>(0.025)<sup>2</sup>/4
+        = 4.909&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;m<sup>2</sup>.</p>
+      <p class="result"><var>u</var> = <var>Q</var>/<var>A</var> =
+        8.57&nbsp;&times;&nbsp;10<sup>&minus;4</sup> / 4.909&nbsp;&times;&nbsp;10<sup>&minus;4</sup>
+        = <b>1.75&nbsp;m&nbsp;s<sup>&minus;1</sup></b></p>
+    </div>
+
+    <!-- ============================================================ 3.4 -->
+    <h2 id="s4">3.4 The Continuity Equation</h2>
+
+    <p>Matter cannot be created or destroyed. Applied to a fixed region of a flow &mdash; a
+      <b>control volume</b> &mdash; that statement becomes an accounting identity:</p>
+
+    <div class="eq plain">
+      mass entering per unit time = mass leaving per unit time + increase of mass in the control volume per unit time
+    </div>
+
+    <p>For <b>steady flow</b> nothing accumulates: the mass in the control volume is constant, so the last
+      term is zero and</p>
+
+    <div class="eq plain">
+      mass entering per unit time = mass leaving per unit time
+      <span class="tag">(3.4)</span>
+    </div>
+
+    <p>Apply this to the streamtube of Figure&nbsp;3.1(b). Nothing crosses the walls, so all the mass enters
+      through face 1 and leaves through face 2:</p>
+
+    <div class="eq stack">
+      <div><var>&rho;</var><sub>1</sub><var>A</var><sub>1</sub><var>u</var><sub>1</sub>
+           = <var>&rho;</var><sub>2</sub><var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+           = constant = <var>m&#775;</var>
+        <span class="tag">(3.5)</span></div>
+    </div>
+
+    <p>This holds for any streamtube in steady flow, whatever the fluid. Now bring in the second assumption
+      of &sect;3.1: the flow is <b>incompressible</b>, so <var>&rho;</var><sub>1</sub> =
+      <var>&rho;</var><sub>2</sub> and density cancels:</p>
+
+    <div class="eq stack">
+      <div><var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+           = <var>Q</var> = constant
+        <span class="tag">(3.6)</span></div>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">The most useful equation in the subject</span>
+      <p>Equation&nbsp;(3.6) says: <b>in steady incompressible flow the discharge is the same at every
+        section</b>. Squeeze the area and the velocity must rise in exact proportion. It needs no
+        information about pressure, friction, or what the fluid is &mdash; only that mass is conserved and
+        the density is constant. It is the first equation to write down in almost every problem in this
+        course.</p>
+    </div>
+
+    <h3>A tapering pipe</h3>
+    <p>If a pipe of diameter <var>d</var><sub>1</sub> reduces to <var>d</var><sub>2</sub>, then because
+      <var>A</var> = <var>&pi;d</var><sup>2</sup>/4 the areas are in the ratio of the squares of the
+      diameters:</p>
+
+    <div class="eq stack">
+      <div><var>u</var><sub>2</sub> = <var>u</var><sub>1</sub>
+        (<var>A</var><sub>1</sub>/<var>A</var><sub>2</sub>)
+        = <var>u</var><sub>1</sub> (<var>d</var><sub>1</sub>/<var>d</var><sub>2</sub>)<sup>2</sup>
+        <span class="tag">(3.7)</span></div>
+    </div>
+
+    <p>So halving the diameter <em>quadruples</em> the velocity. This squared dependence is worth
+      remembering; it is behind most of the surprises in pipework design, and behind the large pressure
+      drops you will compute in Chapter&nbsp;5.</p>
+
+    <h3>Junctions: more than two faces</h3>
+    <figure>
+      <svg viewBox="0 0 860 240" role="img" aria-label="A pipe junction with one inlet branch 1 and two outlet branches 2 and 3, showing that the inflow discharge equals the sum of the two outflow discharges.">
+        <defs>
+          <marker id="ja" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+        </defs>
+
+        <!-- inlet -->
+        <path d="M60,96 L330,96 L430,60 L430,96 z" fill="#eaf7fa" stroke="none"/>
+        <rect x="60" y="96" width="270" height="70" fill="#eaf7fa" stroke="none"/>
+        <line x1="60" y1="96" x2="330" y2="96" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="60" y1="166" x2="330" y2="166" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="60" y1="96" x2="60" y2="166" stroke="#00788A" stroke-width="2.5" stroke-dasharray="6 4"/>
+
+        <line x1="100" y1="131" x2="220" y2="131" stroke="#00788A" stroke-width="2.4" marker-end="url(#ja)"/>
+        <text x="132" y="122" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">Q<tspan font-size="11" dy="4">1</tspan></text>
+        <text x="30" y="136" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">1</tspan></text>
+
+        <!-- upper branch -->
+        <path d="M330,96 L560,34 L560,72 L340,124 z" fill="#eaf7fa" stroke="none"/>
+        <line x1="330" y1="96" x2="560" y2="34" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="340" y1="124" x2="560" y2="72" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="560" y1="34" x2="560" y2="72" stroke="#00788A" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <line x1="420" y1="90" x2="520" y2="64" stroke="#00788A" stroke-width="2.4" marker-end="url(#ja)"/>
+        <text x="446" y="80" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">Q<tspan font-size="11" dy="4">2</tspan></text>
+        <text x="576" y="58" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">2</tspan></text>
+
+        <!-- lower branch -->
+        <path d="M340,138 L560,178 L560,214 L336,166 z" fill="#eaf7fa" stroke="none"/>
+        <line x1="340" y1="138" x2="560" y2="178" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="336" y1="166" x2="560" y2="214" stroke="#1c1917" stroke-width="2.5"/>
+        <line x1="560" y1="178" x2="560" y2="214" stroke="#00788A" stroke-width="2.5" stroke-dasharray="6 4"/>
+        <line x1="420" y1="168" x2="520" y2="190" stroke="#00788A" stroke-width="2.4" marker-end="url(#ja)"/>
+        <text x="444" y="196" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">Q<tspan font-size="11" dy="4">3</tspan></text>
+        <text x="576" y="202" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">3</tspan></text>
+
+        <text x="620" y="110" font-family="Cambria, Georgia, serif" font-size="20" font-style="italic" fill="#1c1917">Q<tspan font-size="13" dy="5">1</tspan><tspan font-size="20" dy="-5"> = Q</tspan><tspan font-size="13" dy="5">2</tspan><tspan font-size="20" dy="-5"> + Q</tspan><tspan font-size="13" dy="5">3</tspan></text>
+        <text x="620" y="140" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">whatever the angles of the branches</text>
+      </svg>
+      <figcaption><b>Figure 3.3.</b> At a junction the accounting is unchanged: total inflow equals total
+        outflow. The geometry of the branches is irrelevant to continuity &mdash; it matters only for the
+        momentum equation of Chapter&nbsp;4.</figcaption>
+    </figure>
+
+    <p>If a junction has one inlet and two outlets, the total mass flow in must equal the total mass flow
+      out:</p>
+
+    <div class="eq stack">
+      <div><var>&rho;</var><sub>1</sub><var>Q</var><sub>1</sub> = <var>&rho;</var><sub>2</sub><var>Q</var><sub>2</sub>
+        + <var>&rho;</var><sub>3</sub><var>Q</var><sub>3</sub>
+        <span class="tag">(3.8)</span></div>
+      <div>and if the fluid is the same throughout,
+        <var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+        + <var>A</var><sub>3</sub><var>u</var><sub>3</sub>
+        <span class="tag">(3.9)</span></div>
+    </div>
+
+    <div class="example">
+      <h4>Example 3.2 &mdash; A tapering section and a branch</h4>
+      <p>Water flows at 30&nbsp;l&nbsp;s<sup>&minus;1</sup> in a 150&nbsp;mm pipe which contracts to
+        100&nbsp;mm and then divides into two 75&nbsp;mm branches. If one branch carries twice the discharge
+        of the other, find the mean velocity in the 150&nbsp;mm, the 100&nbsp;mm and each 75&nbsp;mm pipe.</p>
+      <p class="step"><var>Q</var> = 30&nbsp;l&nbsp;s<sup>&minus;1</sup> =
+        0.030&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup>.</p>
+      <p class="step"><var>A</var><sub>1</sub> = <var>&pi;</var>(0.150)<sup>2</sup>/4 =
+        0.01767&nbsp;m<sup>2</sup>, so <var>u</var><sub>1</sub> = 0.030/0.01767 =
+        <b>1.70&nbsp;m&nbsp;s<sup>&minus;1</sup></b>.</p>
+      <p class="step"><var>A</var><sub>2</sub> = <var>&pi;</var>(0.100)<sup>2</sup>/4 =
+        7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>2</sup>, so <var>u</var><sub>2</sub> =
+        0.030/7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        <b>3.82&nbsp;m&nbsp;s<sup>&minus;1</sup></b>.
+        Check with (3.7): 1.70&nbsp;&times;&nbsp;(150/100)<sup>2</sup> = 3.82&nbsp;&#10003;</p>
+      <p class="step">At the junction <var>Q</var><sub>a</sub> + <var>Q</var><sub>b</sub> = 0.030 with
+        <var>Q</var><sub>b</sub> = 2<var>Q</var><sub>a</sub>, so 3<var>Q</var><sub>a</sub> = 0.030,
+        giving <var>Q</var><sub>a</sub> = 0.010 and <var>Q</var><sub>b</sub> =
+        0.020&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup>.</p>
+      <p class="step"><var>A</var><sub>75</sub> = <var>&pi;</var>(0.075)<sup>2</sup>/4 =
+        4.418&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>2</sup>.</p>
+      <p class="result"><var>u</var><sub>a</sub> = 0.010/4.418&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        <b>2.26&nbsp;m&nbsp;s<sup>&minus;1</sup></b>;
+        <var>u</var><sub>b</sub> = 0.020/4.418&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        <b>4.53&nbsp;m&nbsp;s<sup>&minus;1</sup></b></p>
+    </div>
+
+    <!-- ============================================================ 3.5 -->
+    <h2 id="s5">3.5 Work, Energy and the Bernoulli Equation</h2>
+
+    <p>Continuity told us how fast the fluid moves. It says nothing about pressure. For that we need a
+      second conservation law &mdash; of energy &mdash; and the result is the most famous equation in fluid
+      mechanics.</p>
+
+    <h3>The three forms of energy</h3>
+    <p>Take an element of fluid of mass <var>m</var> moving along a streamline. It carries energy in three
+      forms:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>Form</th><th>Energy of the element</th><th>Where it comes from</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Kinetic energy</b></td>
+            <td>&frac12;<var>mu</var><sup>2</sup></td>
+            <td>Its motion.</td>
+          </tr>
+          <tr>
+            <td><b>Potential energy</b></td>
+            <td><var>mgz</var></td>
+            <td>Its height <var>z</var> above an arbitrary datum.</td>
+          </tr>
+          <tr>
+            <td><b>Pressure energy</b></td>
+            <td><var>pm</var>/<var>&rho;</var></td>
+            <td>Work done on the element by the fluid behind it as it is pushed forward &mdash; often
+              called <em>flow work</em>.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The third one is the unfamiliar one, so derive it. To push the element a distance <var>&delta;s</var>
+      through a section of area <var>A</var>, the fluid behind it exerts a force <var>pA</var> and therefore
+      does work <var>pA&delta;s</var>. But <var>A&delta;s</var> is the volume of the element, which is
+      <var>m</var>/<var>&rho;</var>. So the work done on it is <var>pm</var>/<var>&rho;</var>.</p>
+
+    <h3>The assumptions</h3>
+    <div class="callout rule">
+      <span class="label">The Bernoulli equation is valid only if</span>
+      <ol>
+        <li>the flow is <b>steady</b>;</li>
+        <li>the density is <b>constant</b> &mdash; the fluid is incompressible;</li>
+        <li>friction losses are <b>negligible</b> &mdash; the fluid is ideal, as defined in &sect;1.4;</li>
+        <li>the equation relates two points <b>on the same streamline</b>;</li>
+        <li>no energy is added or removed between the two points &mdash; no pump, no turbine.</li>
+      </ol>
+      <p>Assumption&nbsp;3 is the one that fails first in real pipework. Chapter&nbsp;5 puts the friction
+        back in. Assumption&nbsp;4 is relaxed in practice for the flow in a single streamtube, where every
+        streamline carries the same total energy.</p>
+    </div>
+
+    <h3>The derivation</h3>
+    <p>With no losses and no work added, the total energy of the element is the same at any two points on
+      the streamline. Writing points 1 and 2:</p>
+
+    <div class="eq stack">
+      <div><var>p</var><sub>1</sub><var>m</var>/<var>&rho;</var> + &frac12;<var>mu</var><sub>1</sub><sup>2</sup>
+        + <var>mgz</var><sub>1</sub>
+        = <var>p</var><sub>2</sub><var>m</var>/<var>&rho;</var> + &frac12;<var>mu</var><sub>2</sub><sup>2</sup>
+        + <var>mgz</var><sub>2</sub></div>
+      <div>divide throughout by <var>m</var>: &nbsp;
+        <var>p</var><sub>1</sub>/<var>&rho;</var> + <var>u</var><sub>1</sub><sup>2</sup>/2 + <var>gz</var><sub>1</sub>
+        = <var>p</var><sub>2</sub>/<var>&rho;</var> + <var>u</var><sub>2</sub><sup>2</sup>/2 + <var>gz</var><sub>2</sub>
+        <span class="tag">(3.10)</span></div>
+      <div>divide throughout by <var>g</var>: &nbsp;
+        <var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>1</sub>
+        = <var>p</var><sub>2</sub>/<var>&rho;g</var> + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>2</sub>
+        = <var>H</var> = constant
+        <span class="tag">(3.11)</span></div>
+    </div>
+
+    <p>Equation&nbsp;(3.10) is the Bernoulli equation in <b>energy per unit mass</b>
+      (J&nbsp;kg<sup>&minus;1</sup>). Multiply it by <var>&rho;</var> instead and you get the
+      <b>pressure form</b>, energy per unit volume:</p>
+
+    <div class="eq stack">
+      <div><var>p</var><sub>1</sub> + &frac12;<var>&rho;u</var><sub>1</sub><sup>2</sup> + <var>&rho;gz</var><sub>1</sub>
+        = <var>p</var><sub>2</sub> + &frac12;<var>&rho;u</var><sub>2</sub><sup>2</sup> + <var>&rho;gz</var><sub>2</sub>
+        <span class="tag">(3.12)</span></div>
+    </div>
+
+    <p>But form&nbsp;(3.11) is the one engineers use, because every term has the dimension of
+      <b>length</b> &mdash; it is measured in metres of the fluid, exactly as in &sect;2.4. That is what
+      makes it drawable, and the next section draws it.</p>
+
+    <div class="callout">
+      <span class="label">Check the dimensions yourself</span>
+      <p class="dim">[p/&rho;g] = (ML<sup>-1</sup>T<sup>-2</sup>) &divide; (ML<sup>-3</sup> &middot; LT<sup>-2</sup>) = L &nbsp;&nbsp;
+         [u<sup>2</sup>/2g] = (L<sup>2</sup>T<sup>-2</sup>) &divide; (LT<sup>-2</sup>) = L &nbsp;&nbsp;
+         [z] = L</p>
+      <p>All three terms are lengths, so the equation is dimensionally homogeneous &mdash; the test of
+        &sect;1.3. If your version of the Bernoulli equation ever fails this check, you have dropped a
+        <var>g</var> or a <var>&rho;</var>.</p>
+    </div>
+
+    <!-- ============================================================ 3.6 -->
+    <h2 id="s6">3.6 The Four Heads, and the Grade Lines</h2>
+
+    <p>Each term of equation&nbsp;(3.11) has a name, and each can be measured with a tube. Learn the names:
+      the rest of the chapter is written in them.</p>
+
+    <div class="nomen">
+      <div><b><var>z</var></b> &mdash; potential (or elevation) head <span class="u">m</span></div>
+      <div>Height above the chosen datum. It costs nothing to move the datum; only differences matter.</div>
+      <div><b><var>p</var>/<var>&rho;g</var></b> &mdash; pressure head <span class="u">m</span></div>
+      <div>The height the fluid would rise in a piezometer, as in &sect;2.5.</div>
+      <div><b><var>u</var><sup>2</sup>/2<var>g</var></b> &mdash; velocity (or dynamic) head <span class="u">m</span></div>
+      <div>The extra height the fluid rises if it is also brought to rest.</div>
+      <div><b><var>H</var></b> &mdash; total head <span class="u">m</span></div>
+      <div>The sum of the three. Constant along a streamline, for an ideal fluid.</div>
+    </div>
+
+    <p>Two further combinations have their own names, because they are the two lines you draw on every pipe
+      profile:</p>
+
+    <ul>
+      <li>The <b>piezometric head</b>, <var>p</var>/<var>&rho;g</var> + <var>z</var>, plotted along the
+        pipe, gives the <b>hydraulic grade line</b> (HGL). It is the level water would stand at in a row of
+        piezometers tapped into the pipe wall.</li>
+      <li>The <b>total head</b>, <var>H</var>, plotted along the pipe, gives the <b>energy grade line</b>
+        (EGL, also called the total energy line). It sits above the HGL by the velocity head
+        <var>u</var><sup>2</sup>/2<var>g</var> at every section.</li>
+    </ul>
+
+    <figure>
+      <svg viewBox="0 0 860 330" role="img" aria-label="A pipe that narrows in the middle, with a datum along the bottom. The energy grade line is horizontal for an ideal fluid; the hydraulic grade line dips at the throat, where the velocity head grows. Piezometer tubes show the pressure head at each section.">
+        <defs>
+          <marker id="ha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="hb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- EGL -->
+        <line x1="40" y1="40" x2="820" y2="40" stroke="#b03a2e" stroke-width="2.6"/>
+        <text x="596" y="32" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#b03a2e">energy grade line (EGL) &mdash; horizontal</text>
+
+        <!-- HGL -->
+        <path d="M40,80 L250,80 Q300,82 340,132 L470,132 Q510,84 560,80 L820,80" fill="none" stroke="#00788A" stroke-width="2.6" stroke-dasharray="9 5"/>
+        <text x="608" y="72" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#00788A">hydraulic grade line (HGL)</text>
+
+        <!-- piezometers -->
+        <rect x="150" y="80" width="13" height="152" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="399" y="132" width="13" height="80" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="690" y="80" width="13" height="152" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+
+        <!-- pipe -->
+        <path d="M40,212 L280,212 L370,192 L500,192 L590,212 L820,212 L820,262 L590,262 L500,232 L370,232 L280,262 L40,262 z" fill="#eaf7fa" stroke="none"/>
+        <path d="M40,212 L280,212 L370,192 L500,192 L590,212 L820,212" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <path d="M40,262 L280,262 L370,232 L500,232 L590,262 L820,262" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+
+        <!-- datum -->
+        <line x1="40" y1="306" x2="820" y2="306" stroke="#4b4540" stroke-width="1.8" stroke-dasharray="4 4"/>
+        <text x="40" y="324" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540">datum &nbsp; z = 0</text>
+
+        <!-- section 1 labels -->
+        <line x1="112" y1="40" x2="112" y2="80" stroke="#1c1917" stroke-width="1.4" marker-start="url(#hb)" marker-end="url(#ha)"/>
+        <text x="50" y="66" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">u&#178;/2g</text>
+        <line x1="112" y1="80" x2="112" y2="237" stroke="#1c1917" stroke-width="1.4" marker-start="url(#hb)" marker-end="url(#ha)"/>
+        <text x="60" y="162" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">p/&#961;g</text>
+        <line x1="112" y1="237" x2="112" y2="306" stroke="#1c1917" stroke-width="1.4" marker-start="url(#hb)" marker-end="url(#ha)"/>
+        <text x="92" y="278" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">z</text>
+
+        <!-- throat labels -->
+        <line x1="446" y1="40" x2="446" y2="132" stroke="#b03a2e" stroke-width="1.4" marker-start="url(#hb)" marker-end="url(#ha)"/>
+        <text x="452" y="92" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">bigger velocity head</text>
+        <text x="452" y="110" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">at the throat</text>
+        <text x="318" y="176" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">&hellip; so the pressure head falls</text>
+      </svg>
+      <figcaption><b>Figure 3.4.</b> For an ideal fluid the EGL is horizontal: the total head never changes.
+        Where the pipe narrows the velocity head grows, so the pressure head must shrink by the same amount
+        and the HGL dips. The vertical gap between the two lines is always
+        <var>u</var><sup>2</sup>/2<var>g</var>. In a real pipe (Chapter&nbsp;5) friction tilts the EGL
+        downwards in the direction of flow &mdash; it can never rise unless a pump adds energy.</figcaption>
+    </figure>
+
+    <div class="callout rule">
+      <span class="label">How to read the two lines</span>
+      <ul>
+        <li>The EGL is <b>always above</b> the HGL, by the velocity head.</li>
+        <li>They coincide only where the velocity is zero &mdash; at the still surface of a reservoir.</li>
+        <li>Where the HGL falls <b>below the pipe</b>, the pressure there is <b>below atmospheric</b>. That
+          is the warning sign for cavitation (&sect;1.11) and for air being drawn in through joints.</li>
+        <li>A pump makes both lines step <em>up</em>; a turbine makes them step <em>down</em>.</li>
+      </ul>
+    </div>
+
+    <h3>Where does the pressure go?</h3>
+    <p>Notice what equation&nbsp;(3.11) implies for a horizontal pipe, where <var>z</var><sub>1</sub> =
+      <var>z</var><sub>2</sub> and the elevation term drops out:</p>
+
+    <div class="eq plain">
+      <var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var>
+      = <var>p</var><sub>2</sub>/<var>&rho;g</var> + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var>
+      <span class="tag">(3.13)</span>
+    </div>
+
+    <p>Fast flow means low pressure. Combine this with continuity &mdash; narrow means fast &mdash; and you
+      have the working principle of every device in &sect;3.7 to &sect;3.10: <b>constrict the flow, measure
+      the pressure drop, and deduce the discharge.</b></p>
+
+    <!-- ============================================================ 3.7 -->
+    <h2 id="s7">3.7 The Pitot and Pitot-Static Tubes</h2>
+
+    <p>Consider a bent tube pushed into a flowing stream with its open mouth facing upstream. Fluid runs up
+      the tube until the pressure at the bottom balances the column above, and then it stops. With the fluid
+      in the tube at rest, the fluid arriving at the mouth is also brought to rest. That point is a
+      <b>stagnation point</b>, and the pressure there is the <b>stagnation pressure</b>.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="Left: a simple Pitot tube facing upstream in a flow, with the stagnation point at its mouth and the column rising above the free stream level by the velocity head. Right: a Pitot-static tube with a central stagnation tap and side static holes, connected to a manometer.">
+        <defs>
+          <marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="pb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="pc" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <text x="26" y="24" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(a) Simple Pitot tube</text>
+
+        <!-- static level and stagnation level -->
+        <line x1="30" y1="112" x2="330" y2="112" stroke="#9fd8e2" stroke-width="1.8" stroke-dasharray="6 4"/>
+        <text x="30" y="106" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">static level (piezometric)</text>
+        <line x1="30" y1="68" x2="330" y2="68" stroke="#b03a2e" stroke-width="1.8" stroke-dasharray="6 4"/>
+        <text x="30" y="62" font-family="Segoe UI, Arial" font-size="12" fill="#b03a2e">stagnation level</text>
+
+        <line x1="292" y1="68" x2="292" y2="112" stroke="#1c1917" stroke-width="1.4" marker-start="url(#pc)" marker-end="url(#pb)"/>
+        <text x="300" y="96" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">h = u&#178;/2g</text>
+
+        <!-- tube -->
+        <path d="M200,68 L200,208 Q200,236 172,236 L152,236" fill="none" stroke="#4b4540" stroke-width="3"/>
+        <path d="M214,68 L214,208 Q214,250 172,250 L152,250" fill="none" stroke="#4b4540" stroke-width="3"/>
+        <rect x="200" y="68" width="14" height="140" fill="#eaf7fa" stroke="none"/>
+
+        <!-- flow -->
+        <line x1="40" y1="243" x2="140" y2="243" stroke="#00788A" stroke-width="2.6" marker-end="url(#pa)"/>
+        <line x1="40" y1="200" x2="150" y2="200" stroke="#00788A" stroke-width="2.2" marker-end="url(#pa)"/>
+        <line x1="40" y1="160" x2="150" y2="160" stroke="#00788A" stroke-width="2.2" marker-end="url(#pa)"/>
+        <text x="60" y="192" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">1</tspan></text>
+        <circle cx="150" cy="243" r="5" fill="#b03a2e"/>
+        <text x="106" y="278" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">stagnation point, u = 0</text>
+
+        <line x1="370" y1="16" x2="370" y2="284" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="404" y="24" font-family="Segoe UI, Arial" font-size="14" font-weight="700" fill="#1c1917">(b) Pitot-static tube</text>
+
+        <!-- body -->
+        <path d="M430,150 Q446,128 470,128 L790,128 L790,172 L470,172 Q446,172 430,150 z" fill="#f4efe4" stroke="#1c1917" stroke-width="2.2"/>
+        <!-- inner stagnation tube -->
+        <line x1="436" y1="150" x2="790" y2="150" stroke="#b03a2e" stroke-width="2.4" stroke-dasharray="7 4"/>
+        <circle cx="433" cy="150" r="5" fill="#b03a2e"/>
+        <text x="404" y="200" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">stagnation tap</text>
+
+        <!-- static holes -->
+        <circle cx="560" cy="128" r="4" fill="#00788A"/>
+        <circle cx="560" cy="172" r="4" fill="#00788A"/>
+        <text x="518" y="112" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">static holes</text>
+
+        <!-- flow arrows -->
+        <line x1="390" y1="112" x2="424" y2="128" stroke="#00788A" stroke-width="2.2" marker-end="url(#pa)"/>
+        <line x1="386" y1="150" x2="420" y2="150" stroke="#00788A" stroke-width="2.6" marker-end="url(#pa)"/>
+        <line x1="390" y1="188" x2="424" y2="172" stroke="#00788A" stroke-width="2.2" marker-end="url(#pa)"/>
+
+        <!-- manometer -->
+        <path d="M620,172 L620,246 L700,246 L700,196" fill="none" stroke="#4b4540" stroke-width="2.4"/>
+        <path d="M660,150 L660,232 L740,232 L740,196" fill="none" stroke="#4b4540" stroke-width="2.4"/>
+        <rect x="620" y="232" width="122" height="16" fill="#c8a14a" stroke="none"/>
+        <text x="756" y="220" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">h</text>
+        <line x1="752" y1="196" x2="752" y2="232" stroke="#1c1917" stroke-width="1.4" marker-start="url(#pc)" marker-end="url(#pb)"/>
+        <text x="600" y="280" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">manometer reads the difference directly &mdash; no free surface needed</text>
+      </svg>
+      <figcaption><b>Figure 3.5.</b> (a) The simple Pitot tube must be read against a separate measurement of
+        the static pressure. (b) The Pitot-static tube carries both taps in one body, so a single manometer
+        reading gives the velocity head. It must be aligned with the flow: a misalignment of more than about
+        5&deg; spoils the static reading.</figcaption>
+    </figure>
+
+    <h3>The simple Pitot tube</h3>
+    <p>Apply the Bernoulli equation along the central streamline from a point&nbsp;1 in the undisturbed flow
+      to the stagnation point&nbsp;2, taking both at the same level so <var>z</var><sub>1</sub> =
+      <var>z</var><sub>2</sub>, and with <var>u</var><sub>2</sub> = 0:</p>
+
+    <div class="eq stack">
+      <div><var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var>
+        = <var>p</var><sub>2</sub>/<var>&rho;g</var></div>
+      <div><var>p</var><sub>2</sub> = <var>p</var><sub>1</sub> + &frac12;<var>&rho;u</var><sub>1</sub><sup>2</sup>
+        <span class="tag">(3.14)</span></div>
+    </div>
+
+    <p>The stagnation pressure exceeds the static pressure by exactly the <b>dynamic pressure</b>
+      &frac12;<var>&rho;u</var><sup>2</sup>. That excess raises the column in the tube by the velocity head
+      <var>h</var> = <var>u</var><sup>2</sup>/2<var>g</var>, so if you can read <var>h</var>:</p>
+
+    <div class="eq plain">
+      <var>u</var> = <span class="sqrt"><span class="rad">2<var>gh</var></span></span>
+      <span class="tag">(3.15)</span>
+    </div>
+
+    <h3>The Pitot-static tube</h3>
+    <p>A simple Pitot tube gives the stagnation pressure only. To get the velocity you also need the static
+      pressure at the same point, and reading the two with separate instruments is awkward and inaccurate.
+      The <b>Pitot-static tube</b> solves this by combining them in one body: a central tube facing upstream
+      senses <var>p</var><sub>2</sub>, and a ring of small holes in the side, parallel to the flow, senses
+      the static pressure <var>p</var><sub>1</sub>. Connect the two to opposite limbs of a manometer and the
+      reading is the difference.</p>
+
+    <p>Working through the manometer analysis of &sect;2.5, with a gauge fluid of density
+      <var>&rho;</var><sub>man</sub> and a reading <var>h</var>:</p>
+
+    <div class="eq stack">
+      <div><var>p</var><sub>2</sub> &minus; <var>p</var><sub>1</sub>
+        = <var>gh</var>(<var>&rho;</var><sub>man</sub> &minus; <var>&rho;</var>)</div>
+      <div>and since <var>p</var><sub>2</sub> &minus; <var>p</var><sub>1</sub> =
+        &frac12;<var>&rho;u</var><sup>2</sup>,</div>
+      <div><var>u</var> = <span class="sqrt"><span class="rad">2<var>gh</var>(<var>&rho;</var><sub>man</sub>
+        &minus; <var>&rho;</var>) / <var>&rho;</var></span></span>
+        <span class="tag">(3.16)</span></div>
+    </div>
+
+    <p>In practice the instrument is not quite ideal &mdash; the holes disturb the flow slightly &mdash; so
+      a coefficient <var>C</var><sub>v</sub> close to 1 (typically 0.98&ndash;1.00 for a well-made
+      instrument) multiplies the answer. The Pitot-static tube is the standard instrument for measuring
+      point velocity in a pipe or a channel, and it is how the airspeed of an aircraft is measured.</p>
+
+    <div class="callout">
+      <span class="label">One point, not the whole pipe</span>
+      <p>A Pitot tube measures the velocity <b>at the point of its mouth</b>, not the mean velocity. To get
+        the discharge you either traverse the section and integrate, or place the tube where the local
+        velocity is known to equal the mean &mdash; in turbulent pipe flow, about 0.76&nbsp;<var>R</var>
+        from the axis. In an open channel the standard practice is to read at 0.6 of the depth below the
+        surface, or to average readings at 0.2 and 0.8 of the depth.</p>
+    </div>
+
+    <!-- ============================================================ 3.8 -->
+    <h2 id="s8">3.8 The Venturi Meter</h2>
+
+    <p>The Venturi meter is a device for measuring discharge in a pipe, and it is the most direct possible
+      application of &sect;3.6: it deliberately constricts the flow, and reads the resulting pressure drop.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="A Venturi meter: a short converging cone into a narrow throat, then a long gradual diverging cone, with a U-tube manometer connected between the upstream section and the throat.">
+        <defs>
+          <marker id="va" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="vb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="vc" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- meter body -->
+        <path d="M40,66 L200,66 L300,104 L380,104 L640,62 L820,62 L820,150 L640,150 L380,132 L300,132 L200,170 L40,170 z"
+              fill="#eaf7fa" stroke="#1c1917" stroke-width="2.4"/>
+
+        <!-- centreline -->
+        <line x1="40" y1="118" x2="820" y2="118" stroke="#9c9287" stroke-width="1.2" stroke-dasharray="10 5 3 5"/>
+
+        <line x1="70" y1="118" x2="160" y2="118" stroke="#00788A" stroke-width="2.6" marker-end="url(#va)"/>
+
+        <!-- section labels -->
+        <line x1="130" y1="66" x2="130" y2="170" stroke="#b03a2e" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="106" y="58" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#b03a2e">1</text>
+        <text x="86" y="192" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">area A&#8321;, z&#8321;</text>
+
+        <line x1="340" y1="104" x2="340" y2="132" stroke="#b03a2e" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="334" y="96" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#b03a2e">2</text>
+        <text x="296" y="192" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">throat A&#8322;, z&#8322;</text>
+
+        <text x="196" y="50" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">convergent cone, steep (~21&deg;)</text>
+        <text x="488" y="44" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">divergent cone, gradual (5&deg;&ndash;7&deg;) &mdash; so the flow does not separate</text>
+
+        <!-- manometer -->
+        <path d="M130,170 L130,230 L200,230" fill="none" stroke="#4b4540" stroke-width="2.4"/>
+        <path d="M340,132 L340,214 L262,214" fill="none" stroke="#4b4540" stroke-width="2.4"/>
+        <path d="M200,230 L200,286 L262,286 L262,214" fill="none" stroke="#4b4540" stroke-width="2.4"/>
+        <rect x="200" y="252" width="62" height="34" fill="#c8a14a" stroke="none"/>
+        <line x1="200" y1="252" x2="262" y2="252" stroke="#4b4540" stroke-width="1.6"/>
+        <line x1="286" y1="252" x2="286" y2="286" stroke="#1c1917" stroke-width="1.4" marker-start="url(#vc)" marker-end="url(#vb)"/>
+        <text x="294" y="276" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">h</text>
+        <text x="330" y="300" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">gauge fluid, density &#961;<tspan font-size="10" dy="3">man</tspan></text>
+      </svg>
+      <figcaption><b>Figure 3.6.</b> The convergent cone is short and steep because a converging flow will
+        not separate; the divergent cone must be long and gradual, or the flow separates from the wall and
+        the permanent energy loss rises sharply. This asymmetry is the single most important feature of the
+        design.</figcaption>
+    </figure>
+
+    <h3>Deriving the meter equation</h3>
+    <p>Apply the Bernoulli equation between section&nbsp;1 upstream and section&nbsp;2 at the throat,
+      assuming no loss:</p>
+
+    <div class="eq stack">
+      <div><var>p</var><sub>1</sub>/<var>&rho;g</var> + <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>1</sub>
+        = <var>p</var><sub>2</sub>/<var>&rho;g</var> + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>2</sub></div>
+      <div>and continuity gives <var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+        / <var>A</var><sub>1</sub></div>
+      <div>substituting and solving for <var>u</var><sub>2</sub>:</div>
+      <div><var>u</var><sub>2</sub> = <span class="sqrt"><span class="rad">2<var>g</var>[(<var>p</var><sub>1</sub>
+        &minus; <var>p</var><sub>2</sub>)/<var>&rho;g</var> + <var>z</var><sub>1</sub> &minus; <var>z</var><sub>2</sub>]
+        &divide; [1 &minus; (<var>A</var><sub>2</sub>/<var>A</var><sub>1</sub>)<sup>2</sup>]</span></span>
+        <span class="tag">(3.17)</span></div>
+      <div>so the ideal discharge is <var>Q</var><sub>ideal</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>
+        <span class="tag">(3.18)</span></div>
+    </div>
+
+    <h3>Why the manometer makes the slope irrelevant</h3>
+    <p>Equation&nbsp;(3.17) still contains the elevations, which is inconvenient if the meter is installed on
+      a slope. But work the manometer through, exactly as in &sect;2.5, and the elevation terms cancel:</p>
+
+    <div class="eq stack">
+      <div>(<var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub>)/<var>&rho;g</var>
+        + <var>z</var><sub>1</sub> &minus; <var>z</var><sub>2</sub>
+        = <var>h</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)
+        <span class="tag">(3.19)</span></div>
+    </div>
+
+    <p>Putting (3.19) into (3.17) and (3.18), and inserting a coefficient of discharge
+      <var>C</var><sub>d</sub> to account for the small real loss between the two tappings:</p>
+
+    <div class="eq stack">
+      <div><var>Q</var> = <var>C</var><sub>d</sub> <var>A</var><sub>1</sub><var>A</var><sub>2</sub>
+        &divide; <span class="sqrt"><span class="rad"><var>A</var><sub>1</sub><sup>2</sup> &minus;
+        <var>A</var><sub>2</sub><sup>2</sup></span></span>
+        &nbsp;&times;&nbsp;
+        <span class="sqrt"><span class="rad">2<var>gh</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)</span></span>
+        <span class="tag">(3.20)</span></div>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">Three things equation (3.20) is telling you</span>
+      <ul>
+        <li>The <b>slope of the meter does not matter.</b> Whether the Venturi is horizontal, vertical or
+          inclined, the same manometer reading means the same discharge. This is a real practical
+          advantage over a meter whose tappings are read separately.</li>
+        <li><b>Q depends on &radic;h</b>, not on <var>h</var>. Halving the discharge cuts the reading to a
+          quarter, so a single meter has a limited useful range &mdash; typically about 4:1.</li>
+        <li><b><var>C</var><sub>d</sub> is high</b>, about 0.97&ndash;0.99, because the losses between
+          inlet and throat are genuinely small. The Venturi is one of the most accurate simple flow meters
+          there is.</li>
+      </ul>
+    </div>
+
+    <h3>The permanent head loss</h3>
+    <p>The pressure recovers in the divergent cone, but not completely. The <b>permanent</b> head loss of a
+      well-designed Venturi is only about 10&ndash;20&nbsp;% of the throat differential &mdash; far less than
+      an orifice plate (&sect;3.11), which is why a Venturi is preferred wherever pumping energy is
+      expensive, despite costing far more to install.</p>
+
+    <!-- ============================================================ 3.9 -->
+    <h2 id="s9">3.9 Flow Through an Orifice</h2>
+
+    <p>A tank with a small sharp-edged hole in its side is the simplest flow device of all, and the analysis
+      is the cleanest illustration of the Bernoulli equation in the whole course.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="A tank with a small sharp-edged orifice in its side, depth h below the free surface. The streamlines converge through the hole and the jet contracts to a minimum area, the vena contracta, a short distance downstream.">
+        <defs>
+          <marker id="oa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="ob" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="oc" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- tank -->
+        <path d="M60,52 L60,272 L400,272 L400,206" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="400" y1="52" x2="400" y2="176" stroke="#1c1917" stroke-width="2.6"/>
+        <rect x="60" y="72" width="340" height="200" fill="#eaf7fa" stroke="none"/>
+        <line x1="60" y1="72" x2="400" y2="72" stroke="#00788A" stroke-width="2.4"/>
+        <text x="72" y="64" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">free surface, point 1: u &asymp; 0, p = atmospheric</text>
+
+        <!-- depth -->
+        <line x1="150" y1="72" x2="150" y2="191" stroke="#1c1917" stroke-width="1.4" marker-start="url(#oc)" marker-end="url(#ob)"/>
+        <text x="158" y="138" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#1c1917">h</text>
+
+        <!-- converging streamlines -->
+        <path d="M250,96 Q350,120 396,178" fill="none" stroke="#00788A" stroke-width="1.6"/>
+        <path d="M250,142 Q350,156 396,184" fill="none" stroke="#00788A" stroke-width="1.6"/>
+        <path d="M250,191 L396,191" fill="none" stroke="#00788A" stroke-width="1.6"/>
+        <path d="M250,240 Q350,226 396,198" fill="none" stroke="#00788A" stroke-width="1.6"/>
+        <path d="M250,286 Q350,262 396,204" fill="none" stroke="#00788A" stroke-width="1.6" stroke-dasharray="0"/>
+
+        <!-- jet -->
+        <path d="M400,176 Q436,182 470,186 L560,186" fill="none" stroke="#00788A" stroke-width="2.4"/>
+        <path d="M400,206 Q436,200 470,196 L560,196" fill="none" stroke="#00788A" stroke-width="2.4"/>
+        <path d="M400,176 Q436,182 470,186 L560,186 L560,196 L470,196 Q436,200 400,206 z" fill="#d9eef3" stroke="none"/>
+        <line x1="486" y1="191" x2="548" y2="191" stroke="#00788A" stroke-width="2.4" marker-end="url(#oa)"/>
+
+        <!-- vena contracta -->
+        <line x1="470" y1="160" x2="470" y2="222" stroke="#b03a2e" stroke-width="2" stroke-dasharray="6 4"/>
+        <text x="482" y="152" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#b03a2e">vena contracta, point 2</text>
+        <text x="482" y="236" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">streamlines parallel here &mdash; p = atmospheric</text>
+
+        <!-- orifice area -->
+        <line x1="424" y1="176" x2="424" y2="206" stroke="#1c1917" stroke-width="1.4" marker-start="url(#oc)" marker-end="url(#ob)"/>
+        <text x="404" y="252" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">A</text>
+        <text x="414" y="256" font-family="Segoe UI, Arial" font-size="11" fill="#1c1917">orifice</text>
+        <line x1="470" y1="186" x2="470" y2="196" stroke="#b03a2e" stroke-width="4"/>
+        <text x="576" y="192" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">A<tspan font-size="11" dy="4">c</tspan><tspan font-size="15" dy="-4"> = C</tspan><tspan font-size="11" dy="4">c</tspan><tspan font-size="15" dy="-4">A</tspan></text>
+
+        <text x="620" y="126" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">The fluid approaching the hole</text>
+        <text x="620" y="146" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">already has sideways momentum, so</text>
+        <text x="620" y="166" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">the jet keeps narrowing after it leaves.</text>
+      </svg>
+      <figcaption><b>Figure 3.7.</b> The jet reaches its minimum area about half a diameter downstream of a
+        sharp-edged orifice. This section, the <em>vena contracta</em>, is the only place where the
+        streamlines are parallel and the pressure is therefore atmospheric right across the jet &mdash; so it
+        is the only correct place to apply the Bernoulli equation.</figcaption>
+    </figure>
+
+    <h3>Torricelli&rsquo;s result</h3>
+    <p>Take point&nbsp;1 at the free surface and point&nbsp;2 at the vena contracta. At both points the
+      pressure is atmospheric, so the pressure terms cancel. If the tank is large, the surface falls so
+      slowly that <var>u</var><sub>1</sub> &asymp; 0. Then equation&nbsp;(3.11) gives:</p>
+
+    <div class="eq stack">
+      <div>0 + 0 + <var>z</var><sub>1</sub> = 0 + <var>u</var><sub>2</sub><sup>2</sup>/2<var>g</var> + <var>z</var><sub>2</sub></div>
+      <div><var>u</var><sub>2</sub> = <span class="sqrt"><span class="rad">2<var>g</var>(<var>z</var><sub>1</sub>
+        &minus; <var>z</var><sub>2</sub>)</span></span>
+        = <span class="sqrt"><span class="rad">2<var>gh</var></span></span>
+        <span class="tag">(3.21)</span></div>
+    </div>
+
+    <p>This is the <b>theoretical velocity of efflux</b>, first stated by Torricelli in 1643. It is exactly
+      the speed a stone would reach if dropped from the free surface through the height <var>h</var> &mdash;
+      which is precisely what conservation of energy demands.</p>
+
+    <h3>The three coefficients</h3>
+    <p>Real jets fall short of the ideal in two separate ways, and each has its own coefficient.</p>
+
+    <div class="table-wrap">
+      <table id="t2">
+        <caption><b>Table 3.2.</b> The three orifice coefficients, with typical values for a sharp-edged
+          circular orifice discharging to atmosphere.</caption>
+        <thead>
+          <tr><th>Coefficient</th><th>Definition</th><th>Typical value</th><th>What it accounts for</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Coefficient of contraction</b> <var>C</var><sub>c</sub></td>
+            <td><var>A</var><sub>c</sub> / <var>A</var> &mdash; area of vena contracta &divide; area of orifice</td>
+            <td>0.61&ndash;0.66</td>
+            <td>The sideways momentum the fluid already has when it reaches the hole.</td>
+          </tr>
+          <tr>
+            <td><b>Coefficient of velocity</b> <var>C</var><sub>v</sub></td>
+            <td><var>u</var><sub>actual</sub> / <var>u</var><sub>ideal</sub></td>
+            <td>0.97&ndash;0.99</td>
+            <td>Friction at the edge of the hole.</td>
+          </tr>
+          <tr>
+            <td><b>Coefficient of discharge</b> <var>C</var><sub>d</sub></td>
+            <td><var>C</var><sub>c</sub> &times; <var>C</var><sub>v</sub></td>
+            <td>0.60&ndash;0.65</td>
+            <td>Both together &mdash; the only one you usually need.</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="crumbs">Bell-mouthed (rounded) orifice: the contraction is almost
+              eliminated, <var>C</var><sub>c</sub> &asymp; 1 and <var>C</var><sub>d</sub> &asymp; 0.97.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>The actual discharge is therefore:</p>
+
+    <div class="eq stack">
+      <div><var>Q</var><sub>actual</sub> = <var>A</var><sub>c</sub> <var>u</var><sub>actual</sub>
+        = <var>C</var><sub>c</sub><var>A</var> &middot; <var>C</var><sub>v</sub>
+        <span class="sqrt"><span class="rad">2<var>gh</var></span></span></div>
+      <div><var>Q</var> = <var>C</var><sub>d</sub> <var>A</var>
+        <span class="sqrt"><span class="rad">2<var>gh</var></span></span>
+        <span class="tag">(3.22)</span></div>
+    </div>
+
+    <div class="callout">
+      <span class="label">Why the vena contracta and not the hole?</span>
+      <p>Students often apply the Bernoulli equation at the plane of the hole itself. That is wrong, and
+        understanding why is worth the effort: at the hole the streamlines are still strongly curved, so
+        there is a pressure gradient across the jet and the pressure is <em>not</em> atmospheric. Only at
+        the vena contracta, where the streamlines have become parallel, is the pressure atmospheric across
+        the whole section. <b>Apply the Bernoulli equation where the streamlines are parallel.</b></p>
+    </div>
+
+    <h3>Time for a tank to empty</h3>
+    <p>Here is the one quasi-unsteady problem promised in &sect;3.1. As a tank drains, <var>h</var> falls, so
+      <var>Q</var> falls, so the tank drains ever more slowly. Treat each instant as a steady state.</p>
+
+    <p>In a small time <var>&delta;t</var>, the level falls by <var>&minus;&delta;h</var> and the volume
+      leaving is <var>Q&delta;t</var>. If the tank has plan area <var>A</var><sub>t</sub>:</p>
+
+    <div class="eq stack">
+      <div><var>Q&delta;t</var> = &minus;<var>A</var><sub>t</sub><var>&delta;h</var></div>
+      <div><var>&delta;t</var> = &minus;<var>A</var><sub>t</sub><var>&delta;h</var> &divide;
+        (<var>C</var><sub>d</sub><var>A</var><span class="sqrt"><span class="rad">2<var>gh</var></span></span>)</div>
+      <div>integrating from <var>h</var><sub>1</sub> down to <var>h</var><sub>2</sub>:</div>
+      <div><var>t</var> = 2<var>A</var><sub>t</sub>
+        (<span class="sqrt"><span class="rad"><var>h</var><sub>1</sub></span></span> &minus;
+         <span class="sqrt"><span class="rad"><var>h</var><sub>2</sub></span></span>)
+        &divide; (<var>C</var><sub>d</sub><var>A</var>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span>)
+        <span class="tag">(3.23)</span></div>
+    </div>
+
+    <p>Note that emptying the tank completely (<var>h</var><sub>2</sub> = 0) takes <em>twice</em> as long as
+      emptying the top half of the head &mdash; not four times, as the &radic;<var>h</var> law might
+      suggest at first glance. Equation&nbsp;(3.23) applies only to a tank of constant plan area; if
+      <var>A</var><sub>t</sub> varies with <var>h</var> it must stay inside the integral.</p>
+
+    <!-- ============================================================ 3.10 -->
+    <h2 id="s10">3.10 Notches and Weirs</h2>
+
+    <p>A <b>notch</b> is an opening in the side of a tank or reservoir which extends above the free surface.
+      It is, in effect, a large orifice with no top edge. A <b>weir</b> is the same thing on the scale of a
+      river or a canal &mdash; usually a wall across the channel with water flowing over it. For an
+      irrigation engineer this is the most important section of the chapter: a weir is how discharge in an
+      open channel is actually measured in the field.</p>
+
+    <p>Because the opening extends to the surface, the velocity varies from top to bottom of the opening.
+      There is no single <var>h</var>, so we cannot simply write <var>Q</var> =
+      <var>C</var><sub>d</sub><var>A</var>&radic;(2<var>gh</var>). Instead we integrate.</p>
+
+    <h3>The general notch equation</h3>
+    <p>Consider a horizontal strip of the opening, of thickness <var>&delta;h</var> at a depth <var>h</var>
+      below the free surface, and of width <var>b</var> which may itself depend on <var>h</var>. Treating
+      the strip as a small orifice:</p>
+
+    <div class="eq stack">
+      <div>velocity through the strip = <span class="sqrt"><span class="rad">2<var>gh</var></span></span></div>
+      <div>discharge through the strip = <var>b&delta;h</var>
+        <span class="sqrt"><span class="rad">2<var>gh</var></span></span></div>
+      <div>integrating from the crest (<var>h</var> = <var>H</var>) up to the surface (<var>h</var> = 0):</div>
+      <div><var>Q</var><sub>ideal</sub> = <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+        &int;<sub>0</sub><sup><var>H</var></sup> <var>b h</var><sup>1/2</sup> d<var>h</var>
+        <span class="tag">(3.24)</span></div>
+    </div>
+
+    <p>Everything now depends on the shape of the notch, through <var>b</var>(<var>h</var>).</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="Three notch shapes seen from upstream: a rectangular notch of width B, a V-notch of included angle theta, and a trapezoidal Cipoletti notch with sides sloping one horizontal to four vertical. Each shows the head H measured from the crest to the upstream water surface.">
+        <defs>
+          <marker id="na" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="nb" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- (a) rectangular -->
+        <text x="30" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(a) Rectangular</text>
+        <rect x="20" y="48" width="240" height="196" fill="#f4efe4" stroke="#1c1917" stroke-width="2.2"/>
+        <rect x="64" y="72" width="152" height="120" fill="#ffffff" stroke="#1c1917" stroke-width="2.2"/>
+        <rect x="64" y="72" width="152" height="120" fill="#eaf7fa" stroke="none"/>
+        <line x1="20" y1="72" x2="260" y2="72" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="64" y1="192" x2="216" y2="192" stroke="#1c1917" stroke-width="3"/>
+        <line x1="40" y1="72" x2="40" y2="192" stroke="#1c1917" stroke-width="1.4" marker-start="url(#nb)" marker-end="url(#na)"/>
+        <text x="26" y="138" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">H</text>
+        <line x1="64" y1="212" x2="216" y2="212" stroke="#1c1917" stroke-width="1.4" marker-start="url(#nb)" marker-end="url(#na)"/>
+        <text x="134" y="230" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">B</text>
+        <text x="30" y="266" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">b = B, constant</text>
+        <text x="30" y="286" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">Q &prop; H<tspan font-size="10" dy="-5">3/2</tspan></text>
+
+        <!-- (b) V-notch -->
+        <text x="310" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(b) V-notch (triangular)</text>
+        <rect x="300" y="48" width="240" height="196" fill="#f4efe4" stroke="#1c1917" stroke-width="2.2"/>
+        <path d="M344,72 L420,192 L496,72 z" fill="#eaf7fa" stroke="#1c1917" stroke-width="2.2"/>
+        <line x1="300" y1="72" x2="540" y2="72" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="320" y1="72" x2="320" y2="192" stroke="#1c1917" stroke-width="1.4" marker-start="url(#nb)" marker-end="url(#na)"/>
+        <text x="306" y="138" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">H</text>
+        <path d="M406,146 A28,28 0 0 1 434,146" fill="none" stroke="#b03a2e" stroke-width="1.8"/>
+        <text x="412" y="172" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#b03a2e">&#952;</text>
+        <text x="310" y="266" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">b = 2(H &minus; h) tan(&#952;/2)</text>
+        <text x="310" y="286" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">Q &prop; H<tspan font-size="10" dy="-5">5/2</tspan></text>
+
+        <!-- (c) Cipoletti -->
+        <text x="590" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(c) Cipoletti (trapezoidal)</text>
+        <rect x="580" y="48" width="240" height="196" fill="#f4efe4" stroke="#1c1917" stroke-width="2.2"/>
+        <path d="M624,72 L654,192 L746,192 L776,72 z" fill="#eaf7fa" stroke="#1c1917" stroke-width="2.2"/>
+        <line x1="580" y1="72" x2="820" y2="72" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="600" y1="72" x2="600" y2="192" stroke="#1c1917" stroke-width="1.4" marker-start="url(#nb)" marker-end="url(#na)"/>
+        <text x="586" y="138" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">H</text>
+        <line x1="654" y1="212" x2="746" y2="212" stroke="#1c1917" stroke-width="1.4" marker-start="url(#nb)" marker-end="url(#na)"/>
+        <text x="692" y="230" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">B</text>
+        <text x="590" y="266" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">sides 1 horizontal : 4 vertical</text>
+        <text x="590" y="286" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">Q &prop; H<tspan font-size="10" dy="-5">3/2</tspan>, no end correction</text>
+      </svg>
+      <figcaption><b>Figure 3.8.</b> Three standard notch shapes seen from upstream. In every case <var>H</var>
+        is the head measured from the crest to the <em>undisturbed</em> upstream surface &mdash; measured far
+        enough upstream (about 4<var>H</var>) that the drawdown near the crest does not affect the reading.</figcaption>
+    </figure>
+
+    <h3>The rectangular notch</h3>
+    <p>Here the width is constant, <var>b</var> = <var>B</var>, so it comes outside the integral:</p>
+
+    <div class="eq stack">
+      <div><var>Q</var><sub>ideal</sub> = <var>B</var>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+        &int;<sub>0</sub><sup><var>H</var></sup> <var>h</var><sup>1/2</sup> d<var>h</var>
+        = <sup>2</sup>&frasl;<sub>3</sub> <var>B</var>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>3/2</sup></div>
+      <div>and with a coefficient of discharge:</div>
+      <div><var>Q</var> = <sup>2</sup>&frasl;<sub>3</sub> <var>C</var><sub>d</sub> <var>B</var>
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>3/2</sup>
+        <span class="tag">(3.25)</span></div>
+    </div>
+
+    <p>Typical <var>C</var><sub>d</sub> for a sharp-crested rectangular weir is <b>0.62</b>. The head is
+      raised to the power <sup>3</sup>&frasl;<sub>2</sub>, which is a much gentler law than the
+      <var>H</var><sup>1/2</sup> of an orifice &mdash; that is precisely what makes a weir a good measuring
+      device over a wide range of flows.</p>
+
+    <h3>The V-notch</h3>
+    <p>For a triangular notch of included angle <var>&theta;</var>, geometry gives the width of the strip at
+      depth <var>h</var> below the surface as <var>b</var> = 2(<var>H</var> &minus; <var>h</var>)
+      tan(<var>&theta;</var>/2). Substituting into (3.24) and integrating:</p>
+
+    <div class="eq stack">
+      <div><var>Q</var><sub>ideal</sub> = 2 tan(<var>&theta;</var>/2)
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+        &int;<sub>0</sub><sup><var>H</var></sup> (<var>H</var> &minus; <var>h</var>)<var>h</var><sup>1/2</sup> d<var>h</var></div>
+      <div>= 2 tan(<var>&theta;</var>/2)
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+        [<sup>2</sup>&frasl;<sub>3</sub><var>Hh</var><sup>3/2</sup> &minus;
+         <sup>2</sup>&frasl;<sub>5</sub><var>h</var><sup>5/2</sup>]<sub>0</sub><sup><var>H</var></sup>
+        = <sup>8</sup>&frasl;<sub>15</sub> tan(<var>&theta;</var>/2)
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>5/2</sup></div>
+      <div><var>Q</var> = <sup>8</sup>&frasl;<sub>15</sub> <var>C</var><sub>d</sub> tan(<var>&theta;</var>/2)
+        <span class="sqrt"><span class="rad">2<var>g</var></span></span> <var>H</var><sup>5/2</sup>
+        <span class="tag">(3.26)</span></div>
+    </div>
+
+    <p>Typical <var>C</var><sub>d</sub> is <b>0.58</b>. For the standard 90&deg; V-notch,
+      tan&nbsp;45&deg;&nbsp;=&nbsp;1 and equation&nbsp;(3.26) collapses to the field formula every
+      irrigation technician knows:</p>
+
+    <div class="eq plain">
+      <var>Q</var> &asymp; 1.37 <var>H</var><sup>5/2</sup> &nbsp; (<var>Q</var> in
+      m<sup>3</sup>&nbsp;s<sup>&minus;1</sup>, <var>H</var> in m)
+      <span class="tag">(3.27)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">Which notch for which job?</span>
+      <ul>
+        <li>The V-notch is <b>far more sensitive at small discharges</b>: with <var>Q</var> &prop;
+          <var>H</var><sup>5/2</sup>, a small flow still produces a readable head. Use it for
+          <var>Q</var> below roughly 50&nbsp;l&nbsp;s<sup>&minus;1</sup> &mdash; farm laterals, drainage
+          outfalls, seepage measurements.</li>
+        <li>The rectangular notch <b>passes far more water for the same head</b>. Use it on main canals
+          where the flow is large and the freeboard is limited.</li>
+        <li>The <b>Cipoletti</b> notch is a trapezoidal compromise: its 1:4 side slopes are chosen so that
+          the extra area at the sides exactly compensates for the end contractions, so no end correction is
+          needed and it obeys the simple <var>H</var><sup>3/2</sup> law. That convenience is why it is
+          standard on irrigation canals throughout the world.</li>
+      </ul>
+    </div>
+
+    <h3>End contractions and the velocity of approach</h3>
+    <p>Two corrections are applied in practice, and the exam expects you to know they exist.</p>
+
+    <p><b>End contractions.</b> If the notch is narrower than the channel, the streamlines must turn in from
+      the sides, contracting the effective width. The <b>Francis correction</b> reduces the width by
+      0.1<var>H</var> for each end contraction:</p>
+
+    <div class="eq plain">
+      <var>B</var><sub>effective</sub> = <var>B</var> &minus; 0.1<var>nH</var> &nbsp; where <var>n</var> = 0,
+      1 or 2 end contractions
+      <span class="tag">(3.28)</span>
+    </div>
+
+    <p><b>Velocity of approach.</b> The derivation assumed the water upstream was at rest. If the approach
+      channel is small the water is already moving at <var>u</var><sub>a</sub>, carrying a velocity head
+      <var>h</var><sub>a</sub> = <var>u</var><sub>a</sub><sup>2</sup>/2<var>g</var> which adds to the
+      effective head:</p>
+
+    <div class="eq plain">
+      <var>Q</var> = <sup>2</sup>&frasl;<sub>3</sub> <var>C</var><sub>d</sub><var>B</var>
+      <span class="sqrt"><span class="rad">2<var>g</var></span></span>
+      [(<var>H</var> + <var>h</var><sub>a</sub>)<sup>3/2</sup> &minus; <var>h</var><sub>a</sub><sup>3/2</sup>]
+      <span class="tag">(3.29)</span>
+    </div>
+
+    <p>In a properly designed installation, with a still pond upstream, <var>h</var><sub>a</sub> is
+      negligible and (3.25) is used directly. That is why the standards insist on an approach pool.</p>
+
+    <div class="callout">
+      <span class="label">Installing a measuring weir &mdash; the rules that make the formula true</span>
+      <ul>
+        <li>The crest must be <b>sharp</b> (about 1&ndash;2&nbsp;mm thick, chamfered 45&deg; downstream), so
+          the nappe springs clear.</li>
+        <li>The nappe must be <b>ventilated</b> &mdash; air must reach the underside. A clinging nappe reads
+          high by 5&ndash;10&nbsp;%.</li>
+        <li>The weir must be <b>free-flowing</b>, not drowned: the downstream water level must stay below
+          the crest.</li>
+        <li><var>H</var> is measured <b>upstream of the drawdown</b>, at least 4<var>H</var> back from the
+          crest, in a stilling well.</li>
+        <li>The approach pool should be at least 3&nbsp;<var>H</var> deep and the flow in it slow and
+          smooth.</li>
+      </ul>
+      <p>Get any of these wrong and the coefficient in the table no longer applies &mdash; the commonest
+        reason field measurements disagree with the design.</p>
+    </div>
+
+    <!-- ============================================================ 3.11 -->
+    <h2 id="s11">3.11 Beyond the Core &mdash; Measuring Flow in the Field</h2>
+
+    <div class="callout rule">
+      <span class="label">Extension material &mdash; not examinable</span>
+      <p>This section goes beyond CIVE&nbsp;1400 &sect;3.1&ndash;3.5. It is here because the devices in
+        &sect;3.7&ndash;&sect;3.10 are the classical ones, and a graduate walking onto an irrigation scheme
+        today will meet several others. Nothing here is examined, but the ideas are worth ten minutes. Any
+        example or problem drawing on this section is marked <span class="pill">&sect;3.11</span>.</p>
+    </div>
+
+    <h3>The orifice plate</h3>
+    <p>An orifice plate is a flat disc with a central hole, clamped between two pipe flanges. Pressure
+      tappings sit one pipe diameter upstream and half a diameter downstream, and the discharge follows
+      exactly the Venturi formula&nbsp;(3.20) with a different coefficient:</p>
+
+    <div class="eq plain">
+      <var>Q</var> = <var>C</var><sub>d</sub> <var>A</var><sub>1</sub><var>A</var><sub>2</sub>
+      &divide; <span class="sqrt"><span class="rad"><var>A</var><sub>1</sub><sup>2</sup> &minus;
+      <var>A</var><sub>2</sub><sup>2</sup></span></span>
+      &nbsp;&times;&nbsp;
+      <span class="sqrt"><span class="rad">2<var>gh</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)</span></span>
+      &nbsp; with <var>C</var><sub>d</sub> &asymp; 0.6
+      <span class="tag">(3.30)</span>
+    </div>
+
+    <p>The comparison with the Venturi is instructive, and it is a real engineering trade-off:</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th></th><th>Venturi meter</th><th>Orifice plate</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b><var>C</var><sub>d</sub></b></td><td>0.97&ndash;0.99</td><td>&asymp; 0.6</td></tr>
+          <tr><td><b>Permanent head loss</b></td><td>10&ndash;20&nbsp;% of the differential</td><td>50&ndash;70&nbsp;%</td></tr>
+          <tr><td><b>Cost and length</b></td><td>High; needs a long straight run</td><td>Very low; fits between two flanges</td></tr>
+          <tr><td><b>Wear and blockage</b></td><td>Robust</td><td>Sharp edge wears; traps debris</td></tr>
+          <tr><td><b>Best used for</b></td><td>Continuous metering where pumping energy is costly</td><td>Occasional metering, clean fluid, tight budget</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3>Meters with no moving parts and no pressure loss</h3>
+    <ul>
+      <li><b>Electromagnetic flowmeter.</b> A coil sets up a magnetic field across the pipe; the moving
+        water is a conductor, so by Faraday&rsquo;s law it generates a voltage proportional to the mean
+        velocity. It has a clear full bore &mdash; no obstruction, no head loss, no blockage &mdash; but the
+        liquid must be electrically conductive, which water in irrigation always is. Accuracy is typically
+        &plusmn;0.5&nbsp;%.</li>
+      <li><b>Ultrasonic transit-time meter.</b> Two transducers send pulses diagonally across the flow, one
+        upstream and one downstream. The pulse travelling with the flow arrives sooner; the difference in
+        transit time gives the velocity. Clamp-on versions need no penetration of the pipe at all, which is
+        why they are the standard tool for auditing an existing pipeline.</li>
+      <li><b>Doppler meter.</b> Reads the frequency shift from particles or bubbles in the flow. Cheaper
+        than transit-time, and unlike it, <em>needs</em> the water to be dirty &mdash; a good match for
+        canal and drainage water.</li>
+    </ul>
+
+    <h3>Measuring an open channel without a weir</h3>
+    <ul>
+      <li><b>The Parshall flume.</b> A weir dams the channel and traps sediment behind it; a flume does not.
+        The Parshall flume narrows the channel to a throat and raises the floor, forcing the flow through
+        the critical condition, after which a single upstream depth reading gives the discharge. It costs
+        very little head &mdash; typically a quarter of what a weir costs &mdash; so it is the standard
+        structure on flat irrigation systems with little head to spare.</li>
+      <li><b>The velocity&ndash;area method.</b> Divide the cross-section into vertical panels, measure the
+        mean velocity in each with a current meter or propeller (at 0.6 depth, or averaging 0.2 and 0.8),
+        multiply by the panel area, and add. This is how river gauging stations are calibrated, and it is
+        the method you will use in the laboratory.</li>
+      <li><b>Dilution gauging.</b> Inject a tracer of known concentration at a steady rate and measure the
+        diluted concentration downstream; the ratio gives the discharge. It needs no geometry at all, which
+        makes it the only practical method on a steep, rocky, turbulent stream.</li>
+    </ul>
+
+    <h3>A practical warning about <var>C</var><sub>d</sub></h3>
+    <p>Every coefficient quoted in this chapter is a typical value for a well-made device in a clean,
+      steady, fully developed flow. In the field, <var>C</var><sub>d</sub> drifts: the edge of an orifice
+      rounds off with wear (and <var>C</var><sub>d</sub> <em>rises</em>), a weir crest collects algae, an
+      upstream bend leaves a swirl that persists for twenty diameters. Standards such as ISO&nbsp;5167 for
+      pipe meters and ISO&nbsp;1438 for thin-plate weirs exist precisely to pin down the installation
+      conditions under which the published coefficients can be trusted.</p>
+
+    <p><b>The engineering habit worth forming:</b> a flow measurement is only as good as its installation.
+      Quoting <var>Q</var> to four significant figures from a meter installed two diameters downstream of an
+      elbow is self-deception.</p>
+
+    <!-- ============================================================ 3.12 -->
+    <h2 id="s12">3.12 Worked Examples</h2>
+
+    <p>Examples 3.1 and 3.2 appear in &sect;3.3 and &sect;3.4, where they belong. The six here bring
+      continuity and the Bernoulli equation together, which is how almost every real problem arrives.
+      Throughout, <var>g</var> = 9.81&nbsp;m&nbsp;s<sup>&minus;2</sup> and <var>&rho;</var> for water is
+      1000&nbsp;kg&nbsp;m<sup>&minus;3</sup>.</p>
+
+    <div class="example">
+      <h4>Example 3.3 &mdash; A tapering pipe that also rises</h4>
+      <p>Water flows at 40&nbsp;l&nbsp;s<sup>&minus;1</sup> through a pipe that reduces from 200&nbsp;mm to
+        100&nbsp;mm diameter. The 100&nbsp;mm section is 3.0&nbsp;m above the 200&nbsp;mm section. The gauge
+        pressure at the larger section is 250&nbsp;kPa. Neglecting losses, find the pressure at the smaller
+        section.</p>
+      <p class="step"><b>Continuity first.</b>
+        <var>A</var><sub>1</sub> = <var>&pi;</var>(0.200)<sup>2</sup>/4 = 0.03142&nbsp;m<sup>2</sup>,
+        <var>u</var><sub>1</sub> = 0.040/0.03142 = 1.273&nbsp;m&nbsp;s<sup>&minus;1</sup>.<br>
+        <var>A</var><sub>2</sub> = <var>&pi;</var>(0.100)<sup>2</sup>/4 =
+        7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>2</sup>,
+        <var>u</var><sub>2</sub> = 0.040/7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        5.093&nbsp;m&nbsp;s<sup>&minus;1</sup>.</p>
+      <p class="step"><b>The heads at section 1</b>, taking the datum at section&nbsp;1:<br>
+        pressure head = 250&nbsp;000/(1000&nbsp;&times;&nbsp;9.81) = 25.484&nbsp;m<br>
+        velocity head = 1.273<sup>2</sup>/(2&nbsp;&times;&nbsp;9.81) = 0.083&nbsp;m<br>
+        potential head = 0<br>
+        <var>H</var> = 25.567&nbsp;m</p>
+      <p class="step"><b>At section 2</b> the total head is the same (no losses), but
+        velocity head = 5.093<sup>2</sup>/19.62 = 1.322&nbsp;m and potential head = 3.0&nbsp;m, so<br>
+        pressure head = 25.567 &minus; 1.322 &minus; 3.000 = 21.245&nbsp;m</p>
+      <p class="result"><var>p</var><sub>2</sub> = 21.245 &times; 1000 &times; 9.81 =
+        <b>208&nbsp;kPa gauge</b><br>
+        The pressure has dropped by 42&nbsp;kPa: 13&nbsp;kPa spent on accelerating the water and
+        29&nbsp;kPa on lifting it 3&nbsp;m.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 3.4 &mdash; A Pitot-static tube</h4>
+      <p>A Pitot-static tube on the axis of a water pipe is connected to a mercury U-tube manometer, which
+        reads 25&nbsp;mm. Take <var>C</var><sub>v</sub> = 0.98 and
+        <var>&rho;</var><sub>Hg</sub> = 13&nbsp;600&nbsp;kg&nbsp;m<sup>&minus;3</sup>. What is the local
+        velocity?</p>
+      <p class="step">From equation&nbsp;(3.16):<br>
+        <var>u</var><sub>ideal</sub> = &radic;[2 &times; 9.81 &times; 0.025 &times;
+        (13&nbsp;600 &minus; 1000)/1000]
+        = &radic;(0.4905 &times; 12.6) = &radic;6.180 = 2.486&nbsp;m&nbsp;s<sup>&minus;1</sup></p>
+      <p class="step">Applying the coefficient: <var>u</var> = 0.98 &times; 2.486.</p>
+      <p class="result"><var>u</var> = <b>2.44&nbsp;m&nbsp;s<sup>&minus;1</sup></b> on the axis.<br>
+        Note this is the <em>maximum</em> velocity, not the mean. If the flow is turbulent, the mean is
+        roughly 0.82 &times; 2.44 &asymp; 2.0&nbsp;m&nbsp;s<sup>&minus;1</sup>, and that is the figure to
+        use for the discharge.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 3.5 &mdash; A Venturi meter</h4>
+      <p>A Venturi meter with inlet diameter 150&nbsp;mm and throat diameter 75&nbsp;mm carries water. A
+        mercury U-tube manometer between the inlet and throat reads 180&nbsp;mm. Taking
+        <var>C</var><sub>d</sub> = 0.97, find the discharge and the throat velocity. Does the answer change
+        if the meter is mounted on a 30&deg; slope?</p>
+      <p class="step"><var>A</var><sub>1</sub> = 0.017671&nbsp;m<sup>2</sup>,
+        <var>A</var><sub>2</sub> = 4.4179&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>2</sup>.<br>
+        <var>A</var><sub>1</sub><var>A</var><sub>2</sub> &divide;
+        &radic;(<var>A</var><sub>1</sub><sup>2</sup> &minus; <var>A</var><sub>2</sub><sup>2</sup>)
+        = 7.807&nbsp;&times;&nbsp;10<sup>&minus;5</sup> / 0.017110
+        = 4.563&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>2</sup></p>
+      <p class="step">The head term: 2<var>gh</var>(<var>&rho;</var><sub>man</sub>/<var>&rho;</var> &minus; 1)
+        = 2 &times; 9.81 &times; 0.180 &times; (13.6 &minus; 1) = 44.50, so its root is
+        6.671&nbsp;m&nbsp;s<sup>&minus;1</sup>.</p>
+      <p class="step">From equation&nbsp;(3.20):
+        <var>Q</var> = 0.97 &times; 4.563&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; 6.671.</p>
+      <p class="result"><var>Q</var> = <b>0.0295&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup> =
+        29.5&nbsp;l&nbsp;s<sup>&minus;1</sup></b><br>
+        Throat velocity <var>u</var><sub>2</sub> = <var>Q</var>/<var>A</var><sub>2</sub> =
+        0.0295/4.4179&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        <b>6.68&nbsp;m&nbsp;s<sup>&minus;1</sup></b><br>
+        <b>No</b> &mdash; the slope makes no difference. The elevation terms cancelled in
+        equation&nbsp;(3.19) when the manometer was analysed, so the same reading means the same discharge
+        at any inclination.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 3.6 &mdash; A tank emptying through an orifice</h4>
+      <p>A rectangular tank 2.0&nbsp;m &times; 1.5&nbsp;m in plan has a sharp-edged orifice 50&nbsp;mm in
+        diameter in its base, with <var>C</var><sub>d</sub> = 0.62. The water is initially 2.5&nbsp;m deep.
+        Find (a) the initial discharge, (b) the time for the level to fall to 1.0&nbsp;m, and (c) the time
+        to empty the tank completely.</p>
+      <p class="step"><b>(a)</b> <var>A</var> = <var>&pi;</var>(0.050)<sup>2</sup>/4 =
+        1.9635&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>2</sup>.<br>
+        <var>Q</var> = <var>C</var><sub>d</sub><var>A</var>&radic;(2<var>gh</var>)
+        = 0.62 &times; 1.9635&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; &radic;(2 &times; 9.81 &times; 2.5)
+        = 0.62 &times; 1.9635&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; 7.004
+        = <b>8.53&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup>
+        = 8.53&nbsp;l&nbsp;s<sup>&minus;1</sup></b></p>
+      <p class="step">For (b) and (c) use equation&nbsp;(3.23) with
+        <var>A</var><sub>t</sub> = 2.0 &times; 1.5 = 3.0&nbsp;m<sup>2</sup>.<br>
+        The denominator <var>C</var><sub>d</sub><var>A</var>&radic;(2<var>g</var>)
+        = 0.62 &times; 1.9635&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; 4.429
+        = 5.392&nbsp;&times;&nbsp;10<sup>&minus;3</sup>.</p>
+      <p class="step"><b>(b)</b> <var>t</var> = 2 &times; 3.0 &times; (&radic;2.5 &minus; &radic;1.0)
+        &divide; 5.392&nbsp;&times;&nbsp;10<sup>&minus;3</sup>
+        = 6.0 &times; (1.5811 &minus; 1.0000) / 5.392&nbsp;&times;&nbsp;10<sup>&minus;3</sup>
+        = <b>647&nbsp;s = 10.8&nbsp;min</b></p>
+      <p class="result"><b>(c)</b> <var>t</var> = 6.0 &times; (1.5811 &minus; 0) &divide;
+        5.392&nbsp;&times;&nbsp;10<sup>&minus;3</sup> = <b>1760&nbsp;s = 29.3&nbsp;min</b><br>
+        The first 1.5&nbsp;m of depth takes 11&nbsp;minutes; the last 1.0&nbsp;m takes 18. The tank runs out
+        of head long before it runs out of water.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 3.7 &mdash; Choosing between a V-notch and a rectangular notch</h4>
+      <p>A farm lateral is to be gauged. Compare a 90&deg; V-notch (<var>C</var><sub>d</sub> = 0.58) with a
+        0.6&nbsp;m-wide rectangular notch (<var>C</var><sub>d</sub> = 0.62), both at a head of 0.25&nbsp;m.
+        Then find the head each would give at a discharge of 5&nbsp;l&nbsp;s<sup>&minus;1</sup>, and say
+        which you would install.</p>
+      <p class="step"><b>V-notch at <var>H</var> = 0.25&nbsp;m</b>, from equation&nbsp;(3.26) with
+        tan&nbsp;45&deg; = 1:<br>
+        <var>Q</var> = <sup>8</sup>&frasl;<sub>15</sub> &times; 0.58 &times; 1 &times; 4.429 &times;
+        0.25<sup>5/2</sup> = 1.370 &times; 0.03125 =
+        <b>0.0428&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup> = 42.8&nbsp;l&nbsp;s<sup>&minus;1</sup></b></p>
+      <p class="step"><b>Rectangular notch at <var>H</var> = 0.25&nbsp;m</b>, from equation&nbsp;(3.25):<br>
+        <var>Q</var> = <sup>2</sup>&frasl;<sub>3</sub> &times; 0.62 &times; 0.6 &times; 4.429 &times;
+        0.25<sup>3/2</sup> = 1.0985 &times; 0.125 =
+        <b>0.137&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup> = 137&nbsp;l&nbsp;s<sup>&minus;1</sup></b><br>
+        At the same head the rectangular notch passes more than three times the flow.</p>
+      <p class="step"><b>Now run it backwards at <var>Q</var> = 5&nbsp;l&nbsp;s<sup>&minus;1</sup>.</b><br>
+        V-notch: <var>H</var><sup>5/2</sup> = 0.005/1.370 =
+        3.649&nbsp;&times;&nbsp;10<sup>&minus;3</sup>, so <var>H</var> = <b>106&nbsp;mm</b>.<br>
+        Rectangular: <var>H</var><sup>3/2</sup> = 0.005/1.0985 =
+        4.552&nbsp;&times;&nbsp;10<sup>&minus;3</sup>, so <var>H</var> = <b>27&nbsp;mm</b>.</p>
+      <p class="result"><b>Install the V-notch.</b> A 1&nbsp;mm error in reading the hook gauge is about
+        1&nbsp;% of the V-notch head but nearly 4&nbsp;% of the rectangular head &mdash; and because
+        <var>Q</var> &prop; <var>H</var><sup>3/2</sup>, that becomes a 5&ndash;6&nbsp;% error in the
+        discharge. The V-notch spreads a small flow over a large, readable head, which is exactly what a
+        lateral needs. On the main canal, where the flow is ten times larger, the rectangular notch wins for
+        the opposite reason: the V-notch would need an impossibly deep cut.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 3.8 &mdash; A siphon, and how high it may go</h4>
+      <p>A 75&nbsp;mm siphon pipe carries water from a reservoir over a bund and discharges freely to
+        atmosphere 3.5&nbsp;m below the reservoir surface. The crest of the siphon is 1.8&nbsp;m above the
+        reservoir surface. Neglecting losses, find the discharge and the pressure at the crest. What is the
+        greatest height the crest could be raised to, if the water is at 20&nbsp;&deg;C
+        (<var>p</var><sub>v</sub> = 2.34&nbsp;kPa) and atmospheric pressure is 101.3&nbsp;kPa?</p>
+      <p class="step"><b>The discharge</b> comes from the surface and the outlet, both at atmospheric
+        pressure, with the surface at rest. Datum at the reservoir surface, outlet at
+        <var>z</var> = &minus;3.5&nbsp;m:<br>
+        <var>u</var> = &radic;(2 &times; 9.81 &times; 3.5) = 8.29&nbsp;m&nbsp;s<sup>&minus;1</sup></p>
+      <p class="step"><var>A</var> = <var>&pi;</var>(0.075)<sup>2</sup>/4 =
+        4.4179&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>2</sup>, so
+        <var>Q</var> = 8.29 &times; 4.4179&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        <b>0.0366&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup> = 36.6&nbsp;l&nbsp;s<sup>&minus;1</sup></b><br>
+        Notice that the crest height does not appear: the discharge is set by the <em>outlet</em> level
+        alone.</p>
+      <p class="step"><b>The pressure at the crest.</b> The pipe has one diameter throughout, so by
+        continuity the velocity there is also 8.29&nbsp;m&nbsp;s<sup>&minus;1</sup> and the velocity head is
+        8.29<sup>2</sup>/19.62 = 3.50&nbsp;m. Applying the Bernoulli equation from the surface to the
+        crest, at <var>z</var> = +1.8&nbsp;m:<br>
+        0 = <var>p</var><sub>c</sub>/<var>&rho;g</var> + 3.50 + 1.80, so
+        <var>p</var><sub>c</sub>/<var>&rho;g</var> = &minus;5.30&nbsp;m</p>
+      <p class="step"><var>p</var><sub>c</sub> = &minus;5.30 &times; 9810 = <b>&minus;52.0&nbsp;kPa
+        gauge</b>, that is 101.3 &minus; 52.0 = 49.3&nbsp;kPa absolute &mdash; comfortably above the vapour
+        pressure, so the siphon runs.</p>
+      <p class="result"><b>The limit.</b> Cavitation begins when the absolute pressure reaches
+        <var>p</var><sub>v</sub>. In head terms, atmospheric = 101&nbsp;300/9810 = 10.33&nbsp;m and the
+        vapour pressure = 2340/9810 = 0.24&nbsp;m, so the pressure head at the crest may fall no lower than
+        &minus;(10.33 &minus; 0.24) = &minus;10.09&nbsp;m. With 3.50&nbsp;m of that already spent on the
+        velocity head, the crest can be at most
+        <b><var>z</var><sub>max</sub> = 10.09 &minus; 3.50 = 6.6&nbsp;m</b> above the reservoir surface.<br>
+        In practice a siphon is never designed above about 5&nbsp;m, because friction losses
+        (Chapter&nbsp;5) eat into the margin and dissolved air comes out of solution long before the water
+        boils. <span class="pill">&sect;1.11</span></p>
+    </div>
+
+    <!-- ============================================================ 3.13 -->
+    <h2 id="s13">3.13 Nomenclature</h2>
+
+    <div class="nomen">
+      <div><var>A</var> &mdash; cross-sectional area <span class="u">m<sup>2</sup></span></div>
+      <div><var>A</var><sub>c</sub> &mdash; area of the vena contracta <span class="u">m<sup>2</sup></span></div>
+      <div><var>A</var><sub>t</sub> &mdash; plan area of a tank <span class="u">m<sup>2</sup></span></div>
+      <div><var>b</var> &mdash; width of an elemental strip of a notch <span class="u">m</span></div>
+      <div><var>B</var> &mdash; full width of a rectangular notch <span class="u">m</span></div>
+      <div><var>C</var><sub>c</sub> &mdash; coefficient of contraction <span class="u">&ndash;</span></div>
+      <div><var>C</var><sub>d</sub> &mdash; coefficient of discharge <span class="u">&ndash;</span></div>
+      <div><var>C</var><sub>v</sub> &mdash; coefficient of velocity <span class="u">&ndash;</span></div>
+      <div><var>d</var> &mdash; diameter <span class="u">m</span></div>
+      <div><var>g</var> &mdash; gravitational acceleration, 9.81 <span class="u">m&nbsp;s<sup>&minus;2</sup></span></div>
+      <div><var>h</var> &mdash; head, or depth below a free surface <span class="u">m</span></div>
+      <div><var>h</var><sub>a</sub> &mdash; velocity head of approach <span class="u">m</span></div>
+      <div><var>H</var> &mdash; total head; also head over a notch crest <span class="u">m</span></div>
+      <div><var>m</var> &mdash; mass <span class="u">kg</span></div>
+      <div><var>m&#775;</var> &mdash; mass flow rate <span class="u">kg&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>p</var> &mdash; pressure <span class="u">Pa = N&nbsp;m<sup>&minus;2</sup></span></div>
+      <div><var>p</var><sub>v</sub> &mdash; vapour pressure <span class="u">Pa</span></div>
+      <div><var>Q</var> &mdash; discharge, volume flow rate <span class="u">m<sup>3</sup>&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>t</var> &mdash; time <span class="u">s</span></div>
+      <div><var>u</var> &mdash; velocity; the bar denoting the mean is usually dropped <span class="u">m&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>z</var> &mdash; elevation above the datum <span class="u">m</span></div>
+      <div><var>&theta;</var> &mdash; included angle of a V-notch <span class="u">degrees</span></div>
+      <div><var>&rho;</var> &mdash; density of the flowing fluid <span class="u">kg&nbsp;m<sup>&minus;3</sup></span></div>
+      <div><var>&rho;</var><sub>man</sub> &mdash; density of the manometer gauge fluid <span class="u">kg&nbsp;m<sup>&minus;3</sup></span></div>
+      <div>EGL &mdash; energy grade line, the plot of <var>H</var> <span class="u">&ndash;</span></div>
+      <div>HGL &mdash; hydraulic grade line, the plot of <var>p</var>/<var>&rho;g</var> + <var>z</var> <span class="u">&ndash;</span></div>
+    </div>
+
+    <!-- ============================================================ 3.14 -->
+    <h2 id="s14">3.14 Self-Check</h2>
+
+    <p>Forty-eight questions on this chapter, marked in your own browser as you answer them. Nothing is
+      stored and nothing is sent anywhere. Each question carries the section it came from, and the summary
+      at the end lists the sections to revise.</p>
+
+    <p>Work through these <em>before</em> the problems in &sect;3.15. Four of the questions come from the
+      extension material in &sect;3.11 and are marked as such.</p>
+
+    <noscript>
+      <div class="quiz-noscript">
+        <b>This section needs JavaScript.</b> The questions are marked in your own browser, so nothing
+        appears with scripting turned off. The same ground is covered by the written problems in
+        <a href="#s15">&sect;3.15</a>.
+      </div>
+    </noscript>
+
+    <div id="quiz"></div>
+
+    <!-- ============================================================ 3.15 -->
+    <h2 id="s15">3.15 Problems</h2>
+
+    <p>Take <var>g</var> = 9.81&nbsp;m/s<sup>2</sup>, <var>&rho;</var><sub>water</sub> =
+      1000&nbsp;kg/m<sup>3</sup> and <var>&rho;</var><sub>Hg</sub> = 13&thinsp;600&nbsp;kg/m<sup>3</sup>
+      unless told otherwise. Treat every fluid as ideal &mdash; friction arrives in Chapter&nbsp;5. Answers
+      are given so that you can check yourself; the marks are in the working. Problems marked
+      <span class="pill">&sect;3.11</span> draw on the extension material and are not examinable.</p>
+
+    <ol class="problems">
+      <li>Water flows in a 100&nbsp;mm pipe at a mean velocity of 2.5&nbsp;m/s. Find the discharge in
+        l/s and in m<sup>3</sup>/h, and the mass flow rate.
+        <span class="ans">19.6 l/s = 70.7 m<sup>3</sup>/h; 19.6 kg/s</span></li>
+
+      <li>A 200&nbsp;mm pipe carrying 60&nbsp;l/s reduces to 125&nbsp;mm and then divides into two
+        80&nbsp;mm branches which share the flow equally. Find the mean velocity in each of the four pipes.
+        <span class="ans">1.91 m/s; 4.89 m/s; 5.97 m/s in each branch</span></li>
+
+      <li>A horizontal pipe reduces from 150&nbsp;mm to 75&nbsp;mm diameter and carries 25&nbsp;l/s. The
+        gauge pressure at the larger section is 180&nbsp;kPa. Find the pressure at the smaller section, and
+        sketch the EGL and HGL along the pipe, marking which one changes and which does not.
+        <span class="ans">165 kPa &mdash; a drop of 15 kPa. The EGL is horizontal; the HGL steps down by 1.53 m at the contraction</span></li>
+
+      <li>A Pitot-static tube on the axis of a 200&nbsp;mm water pipe is connected to a mercury manometer
+        reading 40&nbsp;mm. Take <var>C</var><sub>v</sub> = 0.98. Find the velocity on the axis, and hence
+        estimate the discharge if the flow is turbulent with a mean velocity 0.82 times the maximum.
+        <span class="ans">3.08 m/s on the axis; mean 2.53 m/s, so Q &asymp; 79 l/s</span></li>
+
+      <li>A Venturi meter of inlet diameter 200&nbsp;mm and throat diameter 100&nbsp;mm has
+        <var>C</var><sub>d</sub> = 0.98. A mercury manometer between inlet and throat reads 250&nbsp;mm.
+        Find the discharge and the throat velocity.
+        <span class="ans">62.5 l/s; 7.96 m/s at the throat</span></li>
+
+      <li>The meter in Problem 5 is replaced by an orifice plate of the same throat area, with
+        <var>C</var><sub>d</sub> = 0.60. What manometer reading would the same discharge now give? Comment
+        on what this means for the size of manometer needed.
+        <span class="ans">667 mm of mercury &mdash; nearly three times the reading, because Q &prop; C<sub>d</sub>&radic;h and C<sub>d</sub> has fallen by a factor of 1.63</span></li>
+
+      <li>A sharp-edged orifice 40&nbsp;mm in diameter discharges from a tank under a constant head of
+        1.8&nbsp;m. Measurement gives <var>C</var><sub>d</sub> = 0.61 and <var>C</var><sub>v</sub> = 0.97.
+        Find the discharge, the actual velocity at the vena contracta, the coefficient of contraction and
+        the area of the vena contracta.
+        <span class="ans">4.56 l/s; 5.76 m/s; C<sub>c</sub> = 0.629; A<sub>c</sub> = 7.90 &times; 10<sup>&minus;4</sup> m<sup>2</sup></span></li>
+
+      <li>A cylindrical tank 1.5&nbsp;m in diameter contains water 3.0&nbsp;m deep above a 40&nbsp;mm
+        sharp-edged orifice in its base, with <var>C</var><sub>d</sub> = 0.61. Find the time for the level
+        to fall to 1.0&nbsp;m, and the time to empty the tank completely.
+        <span class="ans">762 s = 12.7 min; 1803 s = 30.0 min</span></li>
+
+      <li>A sharp-crested rectangular notch 0.9&nbsp;m wide, with <var>C</var><sub>d</sub> = 0.62, is
+        working under a head of 0.30&nbsp;m. Find the discharge, first ignoring end contractions and then
+        applying the Francis correction for two contractions. By what percentage do the two answers differ?
+        <span class="ans">271 l/s ignoring them; 253 l/s with the correction &mdash; 6.7 % lower</span></li>
+
+      <li>A 90&deg; V-notch has <var>C</var><sub>d</sub> = 0.58. (a) Find the discharge at a head of
+        0.20&nbsp;m. (b) What head corresponds to a discharge of 30&nbsp;l/s? (c) If the head at
+        0.20&nbsp;m is read 3&nbsp;mm too high, what percentage error does that cause in the discharge?
+        <span class="ans">(a) 24.5 l/s (b) 0.217 m (c) 3.8 % too high &mdash; the 5/2 power multiplies a 1.5 % reading error by 2.5</span></li>
+
+      <li>A siphon of 50&nbsp;mm bore carries water from a reservoir over a bund and discharges freely
+        4.0&nbsp;m below the reservoir surface. The crest is 2.0&nbsp;m above the surface. Neglecting
+        losses, find the discharge and the gauge pressure at the crest. Would raising the crest change the
+        discharge?
+        <span class="ans">17.4 l/s; &minus;58.9 kPa gauge at the crest. No &mdash; the discharge depends only on the outlet level, though the crest pressure falls further and eventually the siphon breaks</span></li>
+
+      <li><span class="pill">&sect;3.11</span> An orifice plate with a 75&nbsp;mm bore is fitted in a
+        150&nbsp;mm pipe carrying water, with <var>C</var><sub>d</sub> = 0.60. A mercury manometer across
+        it reads 300&nbsp;mm. Find the discharge. Then, taking the permanent head loss as 60&nbsp;% of the
+        measured differential, find that loss in metres of water and the pumping power it wastes.
+        <span class="ans">23.6 l/s; differential 3.78 m of water, permanent loss 2.27 m = 22.3 kPa, wasting about 525 W continuously</span></li>
+    </ol>
+
+    <!-- ============================================================ 3.16 -->
+    <h2 id="s16">3.16 References</h2>
+
+    <ol class="refs">
+      <li>Sleigh, A. <em>An Introduction to Fluid Mechanics</em>, CIVE 1400, School of Civil Engineering,
+        University of Leeds. &sect;3.1&ndash;3.5 &mdash; the sections this chapter follows, including the
+        streamtube argument for continuity and the notch integration of &sect;3.5.</li>
+      <li>Massey, B. S. <em>Mechanics of Fluids</em>, Van Nostrand Reinhold. Chapter 3 for the energy
+        equation, and Chapter 3.7 for the careful statement of where the Bernoulli equation may and may not
+        be applied.</li>
+      <li>Douglas, J. F., Gasiorek, J. M. and Swaffield, J. A. <em>Fluid Mechanics</em>, Longman. Chapters
+        5 and 6; a large stock of worked Venturi and orifice problems.</li>
+      <li>Featherstone, R. E. and Nalluri, C. <em>Civil Engineering Hydraulics</em>, Blackwell Science.
+        Written for water engineers; the grade-line treatment is the clearest at this level.</li>
+      <li>Chadwick, A. and Morfett, J. <em>Hydraulics in Civil and Environmental Engineering</em>, Spon.
+        Chapter 3, and Chapter 13 for measuring structures in channels.</li>
+      <li>US Bureau of Reclamation, <em>Water Measurement Manual</em>, 3rd edn.
+        <span class="units">(Freely available online.)</span> The practical reference for weirs, flumes and
+        their installation tolerances &mdash; the source of the Cipoletti and V-notch rules quoted in
+        &sect;3.10.</li>
+      <li>Bos, M. G. (ed.) <em>Discharge Measurement Structures</em>, ILRI Publication 20.
+        <span class="units">(Freely available online.)</span> The standard international reference for
+        irrigation flow measurement, with dimensioned drawings of every structure in &sect;3.10 and
+        &sect;3.11.</li>
+      <li>ISO 5167 &mdash; measurement of fluid flow by pressure-differential devices (Venturi tubes,
+        orifice plates, nozzles); ISO 1438 &mdash; thin-plate weirs. <span class="units">(Beyond the
+        syllabus.)</span> The standards that fix the installation conditions under which the published
+        coefficients may be trusted.</li>
+    </ol>
+
+    <div class="chapter-nav">
+      <span><a href="chapter2.html">&larr; Chapter 2: Forces in Static Fluids</a></span>
+      <span class="muted-nav">Chapter 4: The Momentum Equation &mdash; in preparation</span>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h3>Course</h3>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter1.html">Chapter 1: Fluid Properties</a></li>
+        <li><a href="chapter2.html">Chapter 2: Forces in Static Fluids</a></li>
+        <li><a href="chapter3.html">Chapter 3: Continuity and Bernoulli</a></li>
+        <li><a href="chapter3-th.html" lang="th">บทที่ 3 (ภาษาไทย)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>In This Chapter</h3>
+      <ul>
+        <li><a href="#t1">Table 3.1 &mdash; Classes of flow</a></li>
+        <li><a href="#t2">Table 3.2 &mdash; Orifice coefficients</a></li>
+        <li><a href="#s12">Worked Examples</a></li>
+        <li><a href="#s14">Self-Check Questions</a></li>
+        <li><a href="#s15">Problems</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <p>Lecture notes for ASE 221. All rights reserved. Layout follows the departmental courseware
+        template; content and code are original to this course.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Charatchai Yenphayab. All rights reserved. ASE 221 Introduction to Fluid Mechanics &mdash;
+    course notes, Semester 1 / 2026. No part of this site may be reproduced, adapted or redistributed
+    without prior written permission.
+  </div>
+</footer>
+
+<script>
+/* Self-check for Chapter 3. Marked entirely in the reader's own browser by
+   quiz.js; no result is stored or transmitted. */
+window.QUIZ = {
+  text: {
+    answered:     "Answered",
+    correctCount: "Correct",
+    section:      "&sect;",
+    markCorrect:  "correct",
+    markYours:    "your answer",
+    whyLabel:     "Why",
+    readMore:     "Re-read &sect;{ref}",
+    reset:        "Start again",
+    revealAll:    "Reveal remaining answers",
+    resultTitle:  "Self-check complete",
+    band90: "Solid. Go on to the written problems in &sect;3.15.",
+    band70: "A good pass. Re-read the sections listed below, then attempt &sect;3.15.",
+    band50: "Half the ground is secure. Work through the sections below again before the problems.",
+    band0:  "Read the chapter through once more before going on; start with the sections listed below.",
+    revise: "Sections to revise:"
+  },
+  questions: [
+
+    /* ----------------------------- 3.1 Classifying a flow */
+    { ref: "3.1", href: "#s1", a: 2,
+      q: "Flow is described as <b>steady</b> when:",
+      opts: [
+        "the velocity is the same at every point in the fluid.",
+        "the fluid is incompressible.",
+        "conditions at any given point do not change with time.",
+        "the streamlines are straight and parallel."
+      ],
+      why: "Steady refers to <i>time</i> only. Conditions may differ from point to point &mdash; that is the uniform/non-uniform question, which is a separate one." },
+
+    { ref: "3.1", href: "#s1", a: 0,
+      q: "Water flows at a constant rate through a pipe that tapers gradually along its length. This flow is:",
+      opts: [
+        "steady and non-uniform.",
+        "steady and uniform.",
+        "unsteady and non-uniform.",
+        "unsteady and uniform."
+      ],
+      why: "Nothing changes with time, so it is steady. But the velocity changes from section to section as the area changes, so it is non-uniform. This is the second row of Table 3.1." },
+
+    { ref: "3.1", href: "#s1", a: 3,
+      q: "A pump feeding a pipe of constant diameter is switched off. During the slowing-down, the flow in that pipe is:",
+      opts: [
+        "steady and uniform.",
+        "steady and non-uniform.",
+        "unsteady and non-uniform.",
+        "unsteady and uniform."
+      ],
+      why: "The velocity is falling, so it is unsteady; but at any one instant it is the same all along a pipe of constant section, so it is uniform. Third row of Table 3.1." },
+
+    { ref: "3.1", href: "#s1", a: 1,
+      q: "Why are liquids normally treated as incompressible in this course, while gases often are not?",
+      opts: [
+        "Because liquids have no bulk modulus at all.",
+        "Because a liquid&rsquo;s density changes very little over the pressure range met in ordinary steady flow.",
+        "Because liquids are always at rest.",
+        "Because the continuity equation is only valid for liquids."
+      ],
+      why: "Chapter 1 &sect;1.11 gave water a bulk modulus around 2 GPa, so ordinary pressure changes move its density by a fraction of a per cent. Gases are far more compliant &mdash; though a slow-moving gas can also be treated as incompressible." },
+
+    { ref: "3.1", href: "#s1", a: 1,
+      q: "Calling pipe flow &ldquo;one-dimensional&rdquo; is strictly an approximation, because:",
+      opts: [
+        "the pipe is round rather than square.",
+        "the velocity must be zero at the wall and a maximum on the axis, so it does vary across the section.",
+        "the pressure changes along the pipe.",
+        "the density changes along the pipe."
+      ],
+      why: "Ignoring that variation and using a single mean velocity is the central simplification of &sect;3.1. It costs a few per cent and is corrected by a coefficient where accuracy demands." },
+
+    /* ----------------------------- 3.2 Streamlines and streamtubes */
+    { ref: "3.2", href: "#s2", a: 2,
+      q: "Two streamlines can never cross, because at the crossing point:",
+      opts: [
+        "the pressure would become infinite.",
+        "the density would have to change.",
+        "the fluid would have to have two different velocities at once.",
+        "the flow would have to become unsteady."
+      ],
+      why: "A streamline is defined by the local velocity direction. Two directions at one point is not physically possible, so streamlines never cross." },
+
+    { ref: "3.2", href: "#s2", a: 0,
+      q: "Close to a solid boundary, a streamline runs:",
+      opts: [
+        "parallel to the boundary.",
+        "perpendicular to the boundary.",
+        "at 45&deg; to the boundary.",
+        "in whatever direction the pressure gradient points."
+      ],
+      why: "Fluid can neither enter nor leave a solid surface, so the velocity there has no component normal to the surface &mdash; and the streamline is therefore parallel to it." },
+
+    { ref: "3.2", href: "#s2", a: 3,
+      q: "The property of a streamtube that makes it useful for accounting is that:",
+      opts: [
+        "the pressure inside it is constant.",
+        "the velocity inside it is constant.",
+        "it has rigid walls.",
+        "no fluid crosses its walls, because they are made of streamlines."
+      ],
+      why: "That is precisely what lets us say all the mass enters at one end and leaves at the other &mdash; the step that produces the continuity equation in &sect;3.4." },
+
+    { ref: "3.2", href: "#s2", a: 1,
+      q: "A streamtube differs from a real pipe in that:",
+      opts: [
+        "fluid can leak through its walls.",
+        "its walls move with the fluid, and in unsteady flow they change position with time.",
+        "it can only be drawn in a liquid, not in a gas.",
+        "it must have a circular cross-section."
+      ],
+      why: "It is a surface defined by the flow itself, not an object. In steady flow its position is fixed, which is another reason we restrict this course to steady flow." },
+
+    /* ----------------------------- 3.3 Flow rate */
+    { ref: "3.3", href: "#s3", a: 2,
+      q: "A discharge of 1 m<sup>3</sup>/s is the same as:",
+      opts: [
+        "100 l/s.",
+        "1000 m<sup>3</sup>/h.",
+        "1000 l/s, or 3600 m<sup>3</sup>/h.",
+        "60 l/s."
+      ],
+      why: "A cubic metre is 1000 litres, and an hour is 3600 seconds. Both conversions appear constantly in irrigation practice, so learn them now." },
+
+    { ref: "3.3", href: "#s3", a: 1,
+      q: "A bucket collects 15 kg of water in 20 s from a pipe. The discharge is:",
+      opts: [
+        "0.75 m<sup>3</sup>/s.",
+        "0.75 l/s.",
+        "1.33 l/s.",
+        "300 l/s."
+      ],
+      why: "<i>m&#775;</i> = 15/20 = 0.75 kg/s, and <i>Q</i> = <i>m&#775;</i>/<i>&rho;</i> = 0.75/1000 = 7.5 &times; 10<sup>&minus;4</sup> m<sup>3</sup>/s, which is 0.75 l/s. For water the two numbers happen to agree, because 1 litre weighs 1 kg." },
+
+    { ref: "3.3", href: "#s3", a: 0,
+      q: "The <b>mean velocity</b> over a cross-section is defined as:",
+      opts: [
+        "the uniform velocity that would carry the same discharge through the same area.",
+        "the arithmetic average of the wall velocity and the centreline velocity.",
+        "half the maximum velocity, always.",
+        "the velocity measured at the pipe wall."
+      ],
+      why: "<i>u&#772;</i> = <i>Q</i>/<i>A</i>, by definition. The half-of-maximum rule holds only for fully developed laminar pipe flow; in turbulent flow the ratio is around 0.82." },
+
+    { ref: "3.3", href: "#s3", a: 3,
+      q: "Water flows at 1.2 m/s in a 150 mm pipe. The discharge is closest to:",
+      opts: [
+        "2.1 l/s.",
+        "8.5 l/s.",
+        "14 l/s.",
+        "21 l/s."
+      ],
+      why: "<i>A</i> = <i>&pi;</i>(0.15)<sup>2</sup>/4 = 0.01767 m<sup>2</sup>, and <i>Q</i> = <i>Au</i> = 0.01767 &times; 1.2 = 0.0212 m<sup>3</sup>/s = 21.2 l/s." },
+
+    /* ----------------------------- 3.4 Continuity */
+    { ref: "3.4", href: "#s4", a: 1,
+      q: "The continuity equation is a statement of the conservation of:",
+      opts: [
+        "energy.",
+        "mass.",
+        "momentum.",
+        "pressure."
+      ],
+      why: "Nothing else. That is why it needs no information about friction, pressure or what the fluid is &mdash; and why it is almost always the first equation to write down." },
+
+    { ref: "3.4", href: "#s4", a: 2,
+      q: "Density cancels out of <i>&rho;</i><sub>1</sub><i>A</i><sub>1</sub><i>u</i><sub>1</sub> = <i>&rho;</i><sub>2</sub><i>A</i><sub>2</sub><i>u</i><sub>2</sub> only when:",
+      opts: [
+        "the pipe is horizontal.",
+        "the flow is frictionless.",
+        "the flow is incompressible, so the density is the same at both sections.",
+        "the two sections have the same area."
+      ],
+      why: "This is the only place the incompressibility assumption enters the continuity equation. Equation (3.5) with the densities in it is valid for a compressible fluid too." },
+
+    { ref: "3.4", href: "#s4", a: 3,
+      q: "A pipe of 100 mm diameter reduces to 50 mm. If the velocity in the larger pipe is 1.5 m/s, the velocity in the smaller pipe is:",
+      opts: [
+        "0.375 m/s.",
+        "0.75 m/s.",
+        "3.0 m/s.",
+        "6.0 m/s."
+      ],
+      why: "Areas go as the square of the diameter, so halving the diameter quarters the area and quadruples the velocity: 1.5 &times; (100/50)<sup>2</sup> = 6.0 m/s. Equation (3.7)." },
+
+    { ref: "3.4", href: "#s4", a: 0,
+      q: "A pipe carrying 40 l/s divides into two branches. One branch carries 15 l/s. The other carries:",
+      opts: [
+        "25 l/s, whatever the angles of the branches.",
+        "25 l/s, but only if the two branches are symmetrical.",
+        "40 l/s, since continuity applies to each branch separately.",
+        "an amount that cannot be found without knowing the pressures."
+      ],
+      why: "Total in equals total out, and the geometry is irrelevant to continuity. The angles matter only for the momentum equation of Chapter 4, which gives the force on the junction." },
+
+    /* ----------------------------- 3.5 The Bernoulli equation */
+    { ref: "3.5", href: "#s5", a: 1,
+      q: "Which of the following is <b>not</b> an assumption behind the Bernoulli equation as derived in &sect;3.5?",
+      opts: [
+        "The flow is steady.",
+        "The pipe is horizontal.",
+        "Friction losses are negligible.",
+        "No energy is added or removed between the two points."
+      ],
+      why: "The elevation term <i>z</i> is there precisely so that the pipe need not be horizontal. The other three are genuine assumptions, and the frictionless one is the first to fail in practice." },
+
+    { ref: "3.5", href: "#s5", a: 2,
+      q: "The term <i>p</i>/<i>&rho;</i> in the energy-per-unit-mass form of the Bernoulli equation represents:",
+      opts: [
+        "the kinetic energy of the fluid.",
+        "the potential energy of the fluid.",
+        "the work done on the element by the fluid pushing it from behind.",
+        "the energy lost to friction."
+      ],
+      why: "Pushing an element of area <i>A</i> a distance <i>&delta;s</i> takes work <i>pA&delta;s</i>; the volume <i>A&delta;s</i> equals <i>m</i>/<i>&rho;</i>, so the work per unit mass is <i>p</i>/<i>&rho;</i>. It is often called flow work." },
+
+    { ref: "3.5", href: "#s5", a: 0,
+      q: "The Bernoulli equation is a statement of the conservation of:",
+      opts: [
+        "energy.",
+        "mass.",
+        "momentum.",
+        "volume."
+      ],
+      why: "Mass gives continuity (&sect;3.4), energy gives Bernoulli (&sect;3.5), and momentum gives the force equation of Chapter 4. Keeping the three straight is half of the subject." },
+
+    { ref: "3.5", href: "#s5", a: 3,
+      q: "Every term in the form <i>p</i>/<i>&rho;g</i> + <i>u</i><sup>2</sup>/2<i>g</i> + <i>z</i> has the dimension:",
+      opts: [
+        "of pressure, ML<sup>&minus;1</sup>T<sup>&minus;2</sup>.",
+        "of energy, ML<sup>2</sup>T<sup>&minus;2</sup>.",
+        "of energy per unit mass, L<sup>2</sup>T<sup>&minus;2</sup>.",
+        "of length, L."
+      ],
+      why: "That is why this form is called the head form and is measured in metres of fluid &mdash; and why it can be drawn as the two grade lines of &sect;3.6. Check it with the method of &sect;1.3." },
+
+    { ref: "3.5", href: "#s5", a: 1,
+      q: "In a <b>horizontal</b> pipe, if the velocity at a section increases then the pressure there must:",
+      opts: [
+        "increase in proportion.",
+        "decrease, since the total head is unchanged.",
+        "stay the same, since the pipe is level.",
+        "increase as the square of the velocity."
+      ],
+      why: "With <i>z</i> constant, equation (3.13) says the sum of pressure head and velocity head is fixed. Gaining one means losing the other. This is the principle behind the Venturi, the orifice plate and the Pitot tube alike." },
+
+    { ref: "3.5", href: "#s5", a: 2,
+      q: "A pump is installed between sections 1 and 2 of a pipeline. The Bernoulli equation in the form of equation (3.11):",
+      opts: [
+        "still applies unchanged.",
+        "applies if the pipe is horizontal.",
+        "does not apply, because energy has been added between the two points.",
+        "applies only if the pump is switched off &mdash; but then so does the flow."
+      ],
+      why: "Assumption 5 is violated. The fix is to add the pump head to the left-hand side, giving <i>H</i><sub>1</sub> + <i>h</i><sub>p</sub> = <i>H</i><sub>2</sub>. The same is done in reverse for a turbine, and for friction in Chapter 5." },
+
+    /* ----------------------------- 3.6 Heads and grade lines */
+    { ref: "3.6", href: "#s6", a: 3,
+      q: "The vertical distance between the energy grade line and the hydraulic grade line at any section equals:",
+      opts: [
+        "the elevation head.",
+        "the pressure head.",
+        "the friction loss so far.",
+        "the velocity head, <i>u</i><sup>2</sup>/2<i>g</i>."
+      ],
+      why: "The EGL plots <i>p</i>/<i>&rho;g</i> + <i>u</i><sup>2</sup>/2<i>g</i> + <i>z</i> and the HGL plots <i>p</i>/<i>&rho;g</i> + <i>z</i>. The difference is the velocity head, so the two lines meet only where the fluid is at rest." },
+
+    { ref: "3.6", href: "#s6", a: 0,
+      q: "If the hydraulic grade line falls <b>below</b> the pipe at some point, then at that point:",
+      opts: [
+        "the pressure in the pipe is below atmospheric.",
+        "the flow has reversed direction.",
+        "the pipe must be leaking.",
+        "the velocity head has become negative."
+      ],
+      why: "The HGL is the level water would stand at in a piezometer. Below the pipe means a negative gauge pressure &mdash; the warning sign for cavitation, for air being drawn in at joints, and for a siphon about to break." },
+
+    { ref: "3.6", href: "#s6", a: 2,
+      q: "For an <b>ideal</b> fluid flowing through a pipe that narrows and then widens again, the energy grade line is:",
+      opts: [
+        "sloping down in the direction of flow.",
+        "dipping at the throat and recovering afterwards.",
+        "horizontal throughout.",
+        "sloping up in the direction of flow."
+      ],
+      why: "The total head is constant for an ideal fluid, so the EGL cannot change. It is the <i>HGL</i> that dips at the throat. In a real pipe (Chapter 5) friction tilts the EGL gently downwards; it can never rise without a pump." },
+
+    { ref: "3.6", href: "#s6", a: 1,
+      q: "The <b>piezometric head</b> is:",
+      opts: [
+        "<i>u</i><sup>2</sup>/2<i>g</i> + <i>z</i>.",
+        "<i>p</i>/<i>&rho;g</i> + <i>z</i>.",
+        "<i>p</i>/<i>&rho;g</i> + <i>u</i><sup>2</sup>/2<i>g</i>.",
+        "<i>p</i>/<i>&rho;g</i> only."
+      ],
+      why: "It is what a piezometer tapped into the pipe wall reads, measured from the datum &mdash; pressure head plus elevation. Plotted along the pipe it is the hydraulic grade line." },
+
+    /* ----------------------------- 3.7 Pitot */
+    { ref: "3.7", href: "#s7", a: 2,
+      q: "At a stagnation point:",
+      opts: [
+        "the pressure is atmospheric.",
+        "the total head is zero.",
+        "the velocity is zero and the pressure is therefore at its highest.",
+        "the velocity is a maximum."
+      ],
+      why: "All the velocity head has been converted into pressure head, so <i>p</i><sub>stag</sub> = <i>p</i><sub>static</sub> + &frac12;<i>&rho;u</i><sup>2</sup>. That excess &frac12;<i>&rho;u</i><sup>2</sup> is the dynamic pressure." },
+
+    { ref: "3.7", href: "#s7", a: 3,
+      q: "The advantage of a Pitot-<b>static</b> tube over a simple Pitot tube is that:",
+      opts: [
+        "it reads the mean velocity rather than the point velocity.",
+        "it needs no coefficient.",
+        "it works in compressible flow.",
+        "it senses the stagnation and static pressures in one body, so a single manometer gives their difference."
+      ],
+      why: "A simple Pitot tube gives only the stagnation pressure, and the static pressure must be found separately &mdash; awkward and inaccurate. Both instruments still measure a <i>point</i> velocity and both still need a coefficient." },
+
+    { ref: "3.7", href: "#s7", a: 0,
+      q: "A Pitot tube reads a velocity head of 0.45 m in water. The local velocity is:",
+      opts: [
+        "2.97 m/s.",
+        "4.41 m/s.",
+        "8.83 m/s.",
+        "0.45 m/s."
+      ],
+      why: "<i>u</i> = &radic;(2<i>gh</i>) = &radic;(2 &times; 9.81 &times; 0.45) = &radic;8.829 = 2.97 m/s. Equation (3.15)." },
+
+    { ref: "3.7", href: "#s7", a: 1,
+      q: "A Pitot-static tube placed on the axis of a pipe measures:",
+      opts: [
+        "the mean velocity directly, so <i>Q</i> = <i>Au</i> can be used at once.",
+        "the maximum velocity, which must be converted to a mean before the discharge is found.",
+        "the discharge directly.",
+        "the pressure drop along the pipe."
+      ],
+      why: "It measures the velocity at the point of its mouth. For turbulent pipe flow the mean is about 0.82 of the axial maximum &mdash; or place the tube at about 0.76<i>R</i> from the axis, where the local velocity equals the mean." },
+
+    /* ----------------------------- 3.8 Venturi */
+    { ref: "3.8", href: "#s8", a: 3,
+      q: "The divergent cone of a Venturi meter is made much longer and gentler than the convergent cone in order to:",
+      opts: [
+        "make the meter easier to cast.",
+        "increase the pressure difference at the throat.",
+        "reduce the velocity at the throat.",
+        "stop the flow separating from the wall, which would cause a large permanent energy loss."
+      ],
+      why: "A converging flow is stable and will not separate, so the inlet cone can be steep. A diverging flow is on the edge of separation, so it must open out at 5&ndash;7&deg;. This asymmetry is the defining feature of the design." },
+
+    { ref: "3.8", href: "#s8", a: 0,
+      q: "A Venturi meter is tilted from horizontal to 30&deg;, the discharge being unchanged. The manometer reading:",
+      opts: [
+        "does not change, because the elevation terms cancel in the manometer analysis.",
+        "increases, because the throat is now higher.",
+        "decreases, because part of the head is used to lift the water.",
+        "becomes meaningless; the meter must be re-calibrated."
+      ],
+      why: "Equation (3.19) shows that <i>z</i><sub>1</sub> &minus; <i>z</i><sub>2</sub> is absorbed into the manometer reading. This insensitivity to slope is one of the meter&rsquo;s chief practical advantages." },
+
+    { ref: "3.8", href: "#s8", a: 2,
+      q: "The coefficient of discharge of a well-made Venturi meter is about:",
+      opts: [
+        "0.5.",
+        "0.62.",
+        "0.98.",
+        "1.25."
+      ],
+      why: "Losses between inlet and throat are genuinely small, so the meter is close to ideal. Compare an orifice plate at about 0.6 and a sharp-edged orifice at about 0.62 &mdash; both dominated by contraction, which a Venturi does not suffer." },
+
+    { ref: "3.8", href: "#s8", a: 1,
+      q: "In a Venturi meter, if the discharge is halved the manometer reading falls to:",
+      opts: [
+        "one half.",
+        "one quarter.",
+        "one eighth.",
+        "one sixteenth."
+      ],
+      why: "<i>Q</i> &prop; &radic;<i>h</i>, so <i>h</i> &prop; <i>Q</i><sup>2</sup>. This square law is why a single differential meter has a useful range of only about 4:1 &mdash; below that the reading becomes too small to read accurately." },
+
+    /* ----------------------------- 3.9 Orifice */
+    { ref: "3.9", href: "#s9", a: 2,
+      q: "The <b>vena contracta</b> of a jet issuing from a sharp-edged orifice is:",
+      opts: [
+        "the plane of the orifice itself.",
+        "the point where the jet strikes the ground.",
+        "the section a short distance downstream where the jet area is a minimum and the streamlines are parallel.",
+        "the widest part of the jet."
+      ],
+      why: "The fluid approaching the hole already has sideways momentum, so the jet keeps narrowing after it leaves, reaching its minimum about half a diameter downstream." },
+
+    { ref: "3.9", href: "#s9", a: 0,
+      q: "Why must the Bernoulli equation be applied at the vena contracta rather than at the plane of the orifice?",
+      opts: [
+        "Because only there are the streamlines parallel, so the pressure is atmospheric right across the jet.",
+        "Because the velocity is highest there.",
+        "Because friction is zero there.",
+        "Because the jet is fastest there."
+      ],
+      why: "At the hole itself the streamlines are still strongly curved, so there is a pressure gradient across the jet and the pressure is not atmospheric. Apply Bernoulli where the streamlines are parallel &mdash; a rule worth carrying into every later problem." },
+
+    { ref: "3.9", href: "#s9", a: 1,
+      q: "The theoretical velocity of efflux from an orifice under a head <i>h</i> is &radic;(2<i>gh</i>). This is also:",
+      opts: [
+        "the velocity of sound in the fluid.",
+        "the speed a stone would reach if dropped through the same height <i>h</i>.",
+        "twice the mean velocity in the tank.",
+        "independent of <i>g</i>, since the fluid is a liquid."
+      ],
+      why: "Torricelli&rsquo;s result is nothing more than conservation of energy: the potential energy of a height <i>h</i> becomes kinetic energy, for a falling stone and for a fluid element alike." },
+
+    { ref: "3.9", href: "#s9", a: 3,
+      q: "The coefficient of discharge <i>C</i><sub>d</sub> of an orifice is:",
+      opts: [
+        "<i>C</i><sub>c</sub> + <i>C</i><sub>v</sub>.",
+        "<i>C</i><sub>v</sub> / <i>C</i><sub>c</sub>.",
+        "<i>C</i><sub>c</sub> / <i>C</i><sub>v</sub>.",
+        "<i>C</i><sub>c</sub> &times; <i>C</i><sub>v</sub>."
+      ],
+      why: "The actual discharge is the contracted area times the reduced velocity, so the two coefficients multiply. For a sharp-edged orifice about 0.63 &times; 0.98 &asymp; 0.62." },
+
+    { ref: "3.9", href: "#s9", a: 2,
+      q: "If a sharp-edged orifice is replaced by a bell-mouthed one of the same bore, under the same head:",
+      opts: [
+        "the discharge falls, because the bell adds friction.",
+        "the discharge is unchanged; only the shape of the jet alters.",
+        "the discharge rises sharply, because the contraction is almost eliminated and <i>C</i><sub>c</sub> approaches 1.",
+        "the discharge rises, because <i>C</i><sub>v</sub> rises above 1."
+      ],
+      why: "<i>C</i><sub>d</sub> goes from about 0.62 to about 0.97 &mdash; more than half as much water again. A coefficient of velocity above 1 would mean creating energy, which cannot happen." },
+
+    /* ----------------------------- 3.10 Notches and weirs */
+    { ref: "3.10", href: "#s10", a: 1,
+      q: "The discharge over a sharp-crested rectangular notch varies as:",
+      opts: [
+        "<i>H</i><sup>1/2</sup>.",
+        "<i>H</i><sup>3/2</sup>.",
+        "<i>H</i><sup>5/2</sup>.",
+        "<i>H</i><sup>2</sup>."
+      ],
+      why: "The integration in &sect;3.10 gives <i>Q</i> = <sup>2</sup>&frasl;<sub>3</sub><i>C</i><sub>d</sub><i>B</i>&radic;(2<i>g</i>)<i>H</i><sup>3/2</sup>. The exponent comes from integrating <i>h</i><sup>1/2</sup> across a strip of constant width." },
+
+    { ref: "3.10", href: "#s10", a: 3,
+      q: "A V-notch is preferred to a rectangular notch for measuring small discharges because:",
+      opts: [
+        "its coefficient of discharge is higher.",
+        "it can be cut with a simple saw.",
+        "it is unaffected by the velocity of approach.",
+        "with <i>Q</i> &prop; <i>H</i><sup>5/2</sup>, a small flow still produces a large, readable head."
+      ],
+      why: "Example 3.7 makes the point numerically: at 5 l/s the V-notch head is 106 mm and the rectangular head only 27 mm. Its <i>C</i><sub>d</sub> is in fact slightly lower, at about 0.58." },
+
+    { ref: "3.10", href: "#s10", a: 0,
+      q: "The Cipoletti notch has side slopes of 1 horizontal to 4 vertical because:",
+      opts: [
+        "the extra area at the sides compensates for the end contractions, so no end correction is needed.",
+        "that slope is the steepest that can be cut in sheet steel.",
+        "it makes the discharge vary as <i>H</i><sup>5/2</sup>.",
+        "it prevents sediment collecting behind the weir."
+      ],
+      why: "That convenience &mdash; the simple <i>H</i><sup>3/2</sup> law with no correction to apply in the field &mdash; is why it is a standard irrigation structure worldwide." },
+
+    { ref: "3.10", href: "#s10", a: 2,
+      q: "The head <i>H</i> over a measuring weir must be read:",
+      opts: [
+        "at the crest itself, where the water is thinnest.",
+        "just downstream of the crest, in the nappe.",
+        "well upstream of the drawdown, about 4<i>H</i> back from the crest.",
+        "anywhere in the pool, since the water is at rest."
+      ],
+      why: "Near the crest the surface is drawn down as the water accelerates, so a reading taken there is too low. Reading upstream of the drawdown, in a stilling well, is one of several installation rules that make the published coefficient true." },
+
+    /* ----------------------------- 3.11 Extension */
+    { ref: "3.11", href: "#s11", a: 1,
+      q: "<b>Extension.</b> Compared with a Venturi meter, an orifice plate of the same throat size:",
+      opts: [
+        "gives a smaller reading for the same discharge, but a smaller permanent loss.",
+        "is far cheaper and shorter, but has a much lower <i>C</i><sub>d</sub> and a much larger permanent head loss.",
+        "has a higher <i>C</i><sub>d</sub> and a lower permanent loss.",
+        "cannot be used with water."
+      ],
+      why: "About 0.6 against 0.98, and 50&ndash;70 % permanent loss against 10&ndash;20 %. The orifice plate wins on cost and length; the Venturi wins on pumping energy, which is why it is chosen for continuous metering." },
+
+    { ref: "3.11", href: "#s11", a: 3,
+      q: "<b>Extension.</b> An electromagnetic flowmeter works by:",
+      opts: [
+        "timing ultrasonic pulses sent across the flow.",
+        "measuring the pressure drop across a magnetic constriction.",
+        "counting the revolutions of a magnetised rotor.",
+        "detecting the voltage the moving conductive liquid generates as it crosses a magnetic field."
+      ],
+      why: "Faraday&rsquo;s law of induction. The bore is left completely clear, so there is no obstruction, no head loss and nothing to block &mdash; but the liquid must be electrically conductive, which irrigation water always is." },
+
+    { ref: "3.11", href: "#s11", a: 0,
+      q: "<b>Extension.</b> A Parshall flume is often chosen instead of a weir on a flat irrigation canal because:",
+      opts: [
+        "it costs far less head and does not trap sediment behind it.",
+        "it is more accurate at very low flows.",
+        "it needs no head reading at all.",
+        "it works equally well when drowned."
+      ],
+      why: "A weir dams the channel: it needs head to spare and it silts up behind. The flume narrows and raises the floor instead, forcing critical flow at a fraction of the head loss &mdash; the decisive advantage on a flat scheme." },
+
+    { ref: "3.11", href: "#s11", a: 2,
+      q: "<b>Extension.</b> Standards such as ISO 5167 and ISO 1438 exist mainly to:",
+      opts: [
+        "set the maximum discharge a meter may pass.",
+        "specify the material a meter must be made from.",
+        "fix the installation conditions under which the published coefficients can be trusted.",
+        "define the SI unit of discharge."
+      ],
+      why: "A coefficient is only meaningful alongside the geometry it was measured in &mdash; straight lengths upstream, tapping positions, crest thickness, approach pool. A flow measurement is only as good as its installation." }
+
+  ]
+};
+</script>
+<script src="lang.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>
