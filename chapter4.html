@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 4: The Momentum Equation | ASE 221 Introduction to Fluid Mechanics</title>
+<meta name="description" content="Newton's second law applied to a control volume: rate of change of momentum, the total, pressure, body and reaction forces, and their application to nozzles, pipe bends, jets striking plates, curved vanes and the Pelton wheel.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">FM</span>
+      <span class="logo-text">ASE-FM<small>Biosystem and Agricultural Engineering, KMITL</small></span>
+    </a>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="index.html">About</a>
+      <a href="chapter1.html">Lecture Notes</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="chapter4.html" class="active">EN</a>
+      <a href="chapter4-th.html" lang="th">ไทย</a>
+    </div>
+    <a class="btn-give" href="#s11">Worked Examples</a>
+  </div>
+</header>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ASE 221 <span>|</span> Chapter 4 <span>|</span> Lecture Notes</p>
+    <h1>The Momentum Equation</h1>
+    <p class="tagline">Continuity counted the mass, the Bernoulli equation counted the energy. Neither can
+      tell you what holds a pipe bend down. For that you need the third conservation law &mdash; of
+      momentum &mdash; and it is the one that turns fluid mechanics into structural design.</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="course-menu">
+      <h2>Course Menu</h2>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter1.html">Ch.&nbsp;1 &mdash; Fluid Properties</a></li>
+        <li><a href="chapter2.html">Ch.&nbsp;2 &mdash; Forces in Static Fluids</a></li>
+        <li><a href="chapter3.html">Ch.&nbsp;3 &mdash; Continuity and Bernoulli</a></li>
+        <li><a href="chapter4.html" class="active">Ch.&nbsp;4 &mdash; The Momentum Equation</a></li>
+        <li><span class="muted">Ch.&nbsp;5 &mdash; Real Fluids in Pipes<em>Not yet published</em></span></li>
+      </ul>
+    </nav>
+
+    <section class="course-info">
+      <h2>Chapter Info</h2>
+      <dl>
+        <dt>Lectures</dt>
+        <dd>4 (6 hours)</dd>
+
+        <dt>Reference</dt>
+        <dd class="crumbs">Sleigh, CIVE 1400 &mdash; &sect;3.6&ndash;3.7</dd>
+
+        <dt>Key Equations</dt>
+        <dd>
+          <ul>
+            <li><var>F</var> = <var>&rho;Q</var>(<var>u</var><sub>2</sub> &minus; <var>u</var><sub>1</sub>)</li>
+            <li><var>F</var><sub>T</sub> = <var>F</var><sub>R</sub> + <var>F</var><sub>P</sub> + <var>F</var><sub>B</sub></li>
+            <li><var>F</var> = <var>&rho;Au</var><sup>2</sup> &nbsp;(jet on a plate)</li>
+            <li><var>P</var> = <var>Fv</var> &nbsp;(power to a vane)</li>
+          </ul>
+        </dd>
+
+        <dt>Tables</dt>
+        <dd>
+          <ul>
+            <li><a href="#t1">4.1 The three laws side by side</a></li>
+            <li><a href="#t2">4.2 Jets on plates and vanes</a></li>
+          </ul>
+        </dd>
+
+        <dt>You Will Need</dt>
+        <dd class="crumbs">Ch. 2 &gt; pressure force on a surface</dd>
+        <dd class="crumbs">Ch. 3 &gt; continuity, Bernoulli</dd>
+        <dd class="crumbs">Statics &gt; resolving and adding vectors</dd>
+      </dl>
+    </section>
+  </aside>
+
+  <main class="content">
+
+    <p class="lead">A jet of water from a hose can knock a grown adult over, and the water in it weighs
+      almost nothing. A 300&nbsp;mm irrigation main with a right-angle bend pushes on its thrust block with
+      a force of several tonnes. Neither fact follows from anything in Chapters&nbsp;1 to&nbsp;3. Both
+      follow in two lines from this one.</p>
+
+    <nav class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#s1">What Momentum Adds</a></li>
+        <li><a href="#s2">Newton&rsquo;s Second Law for a Flowing Fluid</a></li>
+        <li><a href="#s3">Momentum in Two Dimensions</a></li>
+        <li><a href="#s4">The Four Forces</a></li>
+        <li><a href="#s5">A Procedure That Always Works</a></li>
+        <li><a href="#s6">Force on a Nozzle</a></li>
+        <li><a href="#s7">Force on a Pipe Bend</a></li>
+        <li><a href="#s8">Impact of a Jet on a Plane Surface</a></li>
+        <li><a href="#s9">Curved Vanes and the Pelton Wheel</a></li>
+        <li><a href="#s10">Beyond the Core &mdash; Where the Thrust Goes</a></li>
+        <li><a href="#s11">Worked Examples</a></li>
+        <li><a href="#s12">Nomenclature</a></li>
+        <li><a href="#s13">Self-Check &mdash; 46 Questions</a></li>
+        <li><a href="#s14">Problems</a></li>
+        <li><a href="#s15">References</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================ 4.1 -->
+    <h2 id="s1">4.1 What Momentum Adds</h2>
+
+    <p>You now have two equations for a control volume. Continuity (&sect;3.4) says mass is conserved; the
+      Bernoulli equation (&sect;3.5) says energy is conserved. Between them they will size a pipe and read a
+      meter. But ask either of them what force the water exerts on the bend it is being pushed round, and
+      neither has anything to say &mdash; because neither contains a force.</p>
+
+    <p>Momentum is the missing law, and the reason is Newton&rsquo;s: <b>a force is what changes
+      momentum</b>. If a fluid enters a control volume travelling one way and leaves travelling another,
+      its momentum has changed, so something must have pushed it. That something is the pipe &mdash; and by
+      Newton&rsquo;s third law the fluid pushes back on the pipe just as hard.</p>
+
+    <div class="table-wrap">
+      <table id="t1">
+        <caption><b>Table 4.1.</b> The three conservation laws of this course, and what each one can and
+          cannot tell you. All three are applied to the same control volume; the art is choosing which one
+          answers the question in front of you.</caption>
+        <thead>
+          <tr><th>Law</th><th>Equation</th><th>Gives you</th><th>Silent about</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Mass</b><br><span class="units">&sect;3.4</span></td>
+            <td><var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub></td>
+            <td>Velocities from areas, and the reverse.</td>
+            <td>Pressure; force; losses.</td>
+          </tr>
+          <tr>
+            <td><b>Energy</b><br><span class="units">&sect;3.5</span></td>
+            <td><var>p</var>/<var>&rho;g</var> + <var>u</var><sup>2</sup>/2<var>g</var> + <var>z</var> = <var>H</var></td>
+            <td>Pressures from velocities and heights.</td>
+            <td>Force; direction.</td>
+          </tr>
+          <tr>
+            <td><b>Momentum</b><br><span class="units">this chapter</span></td>
+            <td><var>F</var> = <var>&rho;Q</var>(<var>u</var><sub>2</sub> &minus; <var>u</var><sub>1</sub>)</td>
+            <td>Forces, with direction.</td>
+            <td>Where the energy went.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">The division of labour</span>
+      <p>In almost every problem in this chapter you will use <b>all three</b>, in this order: continuity to
+        get the velocities, the Bernoulli equation to get the pressures, and momentum to get the force.
+        Trying to start with momentum is the commonest way to get stuck, because the momentum equation
+        needs velocities and pressures as inputs &mdash; it does not produce them.</p>
+    </div>
+
+    <p>One more difference is worth stating now. Continuity and the Bernoulli equation are <b>scalar</b>
+      equations: one equation, one number. Momentum is a <b>vector</b> equation: it has a direction, and in
+      two dimensions it is really two equations. Almost every mistake made in this chapter is a sign
+      mistake, and almost every sign mistake comes from forgetting that.</p>
+
+    <!-- ============================================================ 4.2 -->
+    <h2 id="s2">4.2 Newton&rsquo;s Second Law for a Flowing Fluid</h2>
+
+    <p>Newton&rsquo;s second law is usually met as <var>F</var> = <var>ma</var>, but the form he actually
+      wrote is more general and is the one we need:</p>
+
+    <div class="eq">
+      <span class="body">the rate of change of momentum of a body is equal to the resultant force acting on
+        the body, and takes place in the direction of that force</span>
+    </div>
+
+    <p>Written as an equation, with momentum being mass times velocity:</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var> = <span class="frac"><span class="num">d(<var>mu</var>)</span><span class="den">d<var>t</var></span></span></span>
+      <span class="tag">(4.1)</span>
+    </div>
+
+    <h3>Applying it to a streamtube</h3>
+
+    <figure>
+      <svg viewBox="0 0 860 280" role="img" aria-label="A streamtube between section 1 and section 2. In a small time delta t, a slug of fluid of mass rho A1 u1 delta t enters at section 1 with velocity u1, and an equal mass leaves at section 2 with velocity u2.">
+        <defs>
+          <marker id="ma" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="mb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#b03a2e"/>
+          </marker>
+        </defs>
+
+        <!-- streamtube -->
+        <path d="M60,96 Q300,58 520,74 Q700,88 800,130 L800,196 Q700,160 520,146 Q300,130 60,176 z"
+              fill="#eaf7fa" stroke="#00788A" stroke-width="2.4"/>
+
+        <!-- inlet face -->
+        <line x1="60" y1="96" x2="60" y2="176" stroke="#1c1917" stroke-width="3"/>
+        <text x="24" y="92" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">1</tspan></text>
+        <text x="28" y="200" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">1</text>
+
+        <!-- entering slug -->
+        <path d="M60,96 Q108,88 152,84 L152,160 Q108,168 60,176 z" fill="#FFF1D1" stroke="#c8a14a" stroke-width="1.8"/>
+        <line x1="152" y1="84" x2="152" y2="160" stroke="#c8a14a" stroke-width="2"/>
+        <text x="64" y="232" font-family="Segoe UI, Arial" font-size="12.5" fill="#8a6d1f">mass entering in &delta;t</text>
+        <text x="64" y="250" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#8a6d1f">&rho;A<tspan font-size="10" dy="4">1</tspan><tspan font-size="15" dy="-4">u</tspan><tspan font-size="10" dy="4">1</tspan><tspan font-size="15" dy="-4">&thinsp;&delta;t</tspan></text>
+
+        <!-- outlet face -->
+        <line x1="800" y1="130" x2="800" y2="196" stroke="#1c1917" stroke-width="3"/>
+        <text x="812" y="126" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">2</tspan></text>
+        <text x="806" y="218" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">2</text>
+
+        <!-- leaving slug -->
+        <path d="M720,110 Q762,120 800,130 L800,196 Q762,178 720,166 z" fill="#FFF1D1" stroke="#c8a14a" stroke-width="1.8"/>
+
+        <!-- velocity arrows -->
+        <line x1="86" y1="136" x2="176" y2="128" stroke="#00788A" stroke-width="2.8" marker-end="url(#ma)"/>
+        <text x="100" y="120" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#00788A">u<tspan font-size="12" dy="4">1</tspan></text>
+
+        <line x1="690" y1="152" x2="784" y2="166" stroke="#00788A" stroke-width="2.8" marker-end="url(#ma)"/>
+        <text x="716" y="196" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#00788A">u<tspan font-size="12" dy="4">2</tspan></text>
+
+        <!-- the force -->
+        <line x1="400" y1="118" x2="470" y2="150" stroke="#b03a2e" stroke-width="3" marker-end="url(#mb)"/>
+        <text x="392" y="110" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#b03a2e">F</text>
+        <text x="330" y="254" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">the velocity changed, so something pushed &mdash; that push is F</text>
+      </svg>
+      <figcaption><b>Figure 4.1.</b> In a small time <var>&delta;t</var> a slug of fluid enters at
+        section&nbsp;1 with velocity <var>u</var><sub>1</sub> and an equal mass leaves at section&nbsp;2
+        with velocity <var>u</var><sub>2</sub>. Everything between the two slugs is unchanged, because the
+        flow is steady &mdash; so the whole change of momentum of the control volume is the difference
+        between what left and what entered.</figcaption>
+    </figure>
+
+    <p>Take the streamtube of Figure&nbsp;4.1 and consider a small interval <var>&delta;t</var>. The mass
+      entering in that interval is <var>&rho;</var><sub>1</sub><var>A</var><sub>1</sub><var>u</var><sub>1</sub><var>&delta;t</var>,
+      and it carries momentum equal to that mass times its velocity. Since the flow is steady, an equal
+      mass must leave at section&nbsp;2 over the same interval. The fluid in between has not changed at
+      all, so it contributes nothing.</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.2)</span>
+      <span class="body"><span class="say">momentum entering</span> = <var>&rho;</var><sub>1</sub><var>A</var><sub>1</sub><var>u</var><sub>1</sub><var>&delta;t</var> &middot; <var>u</var><sub>1</sub></span>
+      <span class="body"><span class="say">momentum leaving</span> = <var>&rho;</var><sub>2</sub><var>A</var><sub>2</sub><var>u</var><sub>2</sub><var>&delta;t</var> &middot; <var>u</var><sub>2</sub></span>
+      <span class="body"><span class="say">and by continuity, both masses are the same:</span>
+        <var>&rho;</var><sub>1</sub><var>A</var><sub>1</sub><var>u</var><sub>1</sub>
+        = <var>&rho;</var><sub>2</sub><var>A</var><sub>2</sub><var>u</var><sub>2</sub> = <var>m&#775;</var></span>
+    </div>
+
+    <p>Newton&rsquo;s law says the force equals the rate of change of momentum, so divide the change by
+      <var>&delta;t</var>:</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.3)</span>
+      <span class="body"><var>F</var> = <span class="frac"><span class="num"><var>m&#775;&delta;t</var>(<var>u</var><sub>2</sub> &minus; <var>u</var><sub>1</sub>)</span><span class="den"><var>&delta;t</var></span></span> = <var>m&#775;</var>(<var>u</var><sub>2</sub> &minus; <var>u</var><sub>1</sub>)</span>
+      <span class="body"><span class="say">and since</span> <var>m&#775;</var> = <var>&rho;Q</var>,</span>
+      <span class="body"><var>F</var> = <var>&rho;Q</var>(<var>u</var><sub>2</sub> &minus; <var>u</var><sub>1</sub>)
+        = <var>&rho;A</var><sub>1</sub><var>u</var><sub>1</sub>(<var>u</var><sub>2</sub> &minus; <var>u</var><sub>1</sub>)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">The momentum equation, in words</span>
+      <p><b>Force = mass flow rate &times; change in velocity</b>, with the change taken as
+        <em>out minus in</em>. Note what is <em>not</em> in it: no length, no volume, no shape of the pipe
+        between the two sections, no friction coefficient. Only what crosses the two faces matters. That is
+        why the momentum equation is so powerful &mdash; and why it tells you nothing about what happened
+        inside.</p>
+    </div>
+
+    <div class="callout">
+      <span class="label">Which force is this?</span>
+      <p><var>F</var> in equation&nbsp;(4.3) is the <b>total</b> force on the fluid, from every source:
+        the pipe walls, the pressure at the two faces, and gravity. Pulling out the one piece an engineer
+        actually wants &mdash; the force between the fluid and the pipe &mdash; is the whole business of
+        &sect;4.4. Do not skip it and do not guess.</p>
+    </div>
+
+    <!-- ============================================================ 4.3 -->
+    <h2 id="s3">4.3 Momentum in Two Dimensions</h2>
+
+    <p>Equation&nbsp;(4.3) was written as though the flow ran along a single straight line. It rarely does.
+      The fluid in Figure&nbsp;4.1 enters at one angle and leaves at another, and a force has a direction as
+      well as a size.</p>
+
+    <p>The fix is the standard one from statics: <b>choose a pair of axes, resolve every velocity onto
+      them, and write the momentum equation separately for each axis</b>. Momentum in the
+      <var>x</var> direction can only be changed by a force in the <var>x</var> direction, so the two
+      equations do not interfere with each other.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="A control volume in which flow enters at angle theta one to the x axis with velocity u one and leaves at angle theta two with velocity u two. Each velocity is resolved into its x and y components.">
+        <defs>
+          <marker id="na" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="nb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#4b4540"/>
+          </marker>
+          <marker id="nc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- axes -->
+        <line x1="60" y1="252" x2="250" y2="252" stroke="#1c1917" stroke-width="1.8" marker-end="url(#nc)"/>
+        <line x1="60" y1="252" x2="60" y2="118" stroke="#1c1917" stroke-width="1.8" marker-end="url(#nc)"/>
+        <text x="256" y="257" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">x</text>
+        <text x="48" y="112" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">y</text>
+
+        <!-- control volume -->
+        <path d="M330,96 Q470,72 590,96 Q680,116 700,190 Q660,240 560,244 Q420,248 350,206 Q310,160 330,96 z"
+              fill="#eaf7fa" stroke="#00788A" stroke-width="2.4" stroke-dasharray="9 5"/>
+        <text x="470" y="176" font-family="Segoe UI, Arial" font-size="13" fill="#4b4540" text-anchor="middle">control volume</text>
+
+        <!-- inlet velocity u1 at angle theta1 -->
+        <line x1="250" y1="196" x2="342" y2="146" stroke="#00788A" stroke-width="3" marker-end="url(#na)"/>
+        <text x="256" y="142" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#00788A">u<tspan font-size="12" dy="4">1</tspan></text>
+        <!-- components -->
+        <line x1="250" y1="196" x2="340" y2="196" stroke="#4b4540" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#nb)"/>
+        <line x1="340" y1="196" x2="340" y2="150" stroke="#4b4540" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#nb)"/>
+        <text x="270" y="214" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#4b4540">u<tspan font-size="10" dy="3">1</tspan><tspan font-size="14" dy="-3">cos&#952;</tspan><tspan font-size="10" dy="3">1</tspan></text>
+        <text x="348" y="178" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#4b4540">u<tspan font-size="10" dy="3">1</tspan><tspan font-size="14" dy="-3">sin&#952;</tspan><tspan font-size="10" dy="3">1</tspan></text>
+        <path d="M282,196 A32,32 0 0 0 274,178" fill="none" stroke="#b03a2e" stroke-width="1.6"/>
+        <text x="286" y="182" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">&#952;<tspan font-size="10" dy="3">1</tspan></text>
+
+        <!-- outlet velocity u2 at angle theta2 -->
+        <line x1="700" y1="150" x2="800" y2="112" stroke="#00788A" stroke-width="3" marker-end="url(#na)"/>
+        <text x="756" y="94" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#00788A">u<tspan font-size="12" dy="4">2</tspan></text>
+        <line x1="700" y1="150" x2="790" y2="150" stroke="#4b4540" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#nb)"/>
+        <line x1="790" y1="150" x2="790" y2="118" stroke="#4b4540" stroke-width="1.8" stroke-dasharray="5 4" marker-end="url(#nb)"/>
+        <text x="702" y="170" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#4b4540">u<tspan font-size="10" dy="3">2</tspan><tspan font-size="14" dy="-3">cos&#952;</tspan><tspan font-size="10" dy="3">2</tspan></text>
+        <path d="M732,150 A32,32 0 0 0 728,136" fill="none" stroke="#b03a2e" stroke-width="1.6"/>
+        <text x="736" y="140" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">&#952;<tspan font-size="10" dy="3">2</tspan></text>
+
+        <text x="60" y="288" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">resolve every velocity onto the axes first, then write one momentum equation per axis</text>
+      </svg>
+      <figcaption><b>Figure 4.2.</b> Angles are measured from the positive <var>x</var> axis,
+        anticlockwise, for every velocity in the problem. Keeping that convention without exception is what
+        makes the signs come out right; an angle measured &ldquo;the obvious way&rdquo; for one velocity and
+        the other way for another is the classic source of a wrong answer.</figcaption>
+    </figure>
+
+    <p>Resolving the velocities in Figure&nbsp;4.2 and applying equation&nbsp;(4.3) to each axis in turn:</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.4)</span>
+      <span class="body"><var>F</var><sub>x</sub> = <var>m&#775;</var>(<var>u</var><sub>2</sub> cos<var>&theta;</var><sub>2</sub> &minus; <var>u</var><sub>1</sub> cos<var>&theta;</var><sub>1</sub>)
+        = <var>&rho;Q</var>(<var>u</var><sub>2<var>x</var></sub> &minus; <var>u</var><sub>1<var>x</var></sub>)</span>
+    </div>
+
+    <div class="eq stack">
+      <span class="tag">(4.5)</span>
+      <span class="body"><var>F</var><sub>y</sub> = <var>m&#775;</var>(<var>u</var><sub>2</sub> sin<var>&theta;</var><sub>2</sub> &minus; <var>u</var><sub>1</sub> sin<var>&theta;</var><sub>1</sub>)
+        = <var>&rho;Q</var>(<var>u</var><sub>2<var>y</var></sub> &minus; <var>u</var><sub>1<var>y</var></sub>)</span>
+    </div>
+
+    <p>These two components are then recombined into a single force by the usual rules:</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var> = <span class="sqrt"><span class="rad"><var>F</var><sub>x</sub><sup>2</sup> + <var>F</var><sub>y</sub><sup>2</sup></span></span></span>
+      <span class="tag">(4.6)</span>
+    </div>
+
+    <div class="eq">
+      <span class="body"><var>&phi;</var> = tan<sup>&minus;1</sup><span class="pren t2"><span class="frac sm"><span class="num"><var>F</var><sub>y</sub></span><span class="den"><var>F</var><sub>x</sub></span></span></span></span>
+      <span class="tag">(4.7)</span>
+    </div>
+
+    <p>where <var>&phi;</var> is measured from the <var>x</var> axis in the same sense as the angles
+      <var>&theta;</var>.</p>
+
+    <div class="callout warn">
+      <span class="label">The three sign traps</span>
+      <ul>
+        <li><b>Out minus in, never in minus out.</b> The change of anything across a control volume is
+          always what left less what entered.</li>
+        <li><b>A velocity pointing backwards along an axis is negative.</b> A jet that reverses through
+          180&deg; has <var>u</var><sub>2<var>x</var></sub> = &minus;<var>u</var><sub>2</sub>, so the change
+          is &minus;<var>u</var><sub>2</sub> &minus; <var>u</var><sub>1</sub> and the force is nearly
+          <em>twice</em> what a plate that simply stops the jet would feel. This is not a subtlety; it is
+          the whole reason a Pelton bucket is shaped the way it is.</li>
+        <li><b>A negative answer is an answer.</b> It means the force acts the other way along the axis you
+          chose. Do not silently make it positive.</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ 4.4 -->
+    <h2 id="s4">4.4 The Four Forces</h2>
+
+    <p>Equation&nbsp;(4.3) gives the <b>total</b> force acting on the fluid in the control volume. That is
+      not usually what you want to know. What a designer needs is the force between the fluid and the
+      <em>solid boundary</em> &mdash; the thing that has to be bolted down. So the total must be broken
+      into its parts.</p>
+
+    <p>There are three sources of force on the fluid, and they add:</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var><sub>T</sub> = <var>F</var><sub>R</sub> + <var>F</var><sub>P</sub> + <var>F</var><sub>B</sub></span>
+      <span class="tag">(4.8)</span>
+    </div>
+
+    <div class="nomen">
+      <div><b><var>F</var><sub>T</sub></b> &mdash; total force <span class="u">N</span></div>
+      <div>The whole force on the fluid, and the one equation&nbsp;(4.3) computes:
+        <var>F</var><sub>T</sub> = <var>&rho;Q</var>(<var>u</var><sub>2</sub> &minus; <var>u</var><sub>1</sub>).
+        Never measured &mdash; always calculated from the velocities.</div>
+      <div><b><var>F</var><sub>P</sub></b> &mdash; pressure force <span class="u">N</span></div>
+      <div>The force of the fluid pressure acting on the <em>inlet and outlet faces</em> of the control
+        volume, from the fluid outside it. Always <var>pA</var>, always pushing <em>into</em> the control
+        volume, always normal to the face. Chapter&nbsp;2 &sect;2.6.</div>
+      <div><b><var>F</var><sub>B</sub></b> &mdash; body force <span class="u">N</span></div>
+      <div>The weight of the fluid in the control volume, acting vertically downwards. For a horizontal
+        bend it is zero in both working directions; for a short nozzle it is usually small enough to
+        neglect. Say which you are doing.</div>
+      <div><b><var>F</var><sub>R</sub></b> &mdash; reaction force <span class="u">N</span></div>
+      <div>The force of the <em>solid boundary</em> on the fluid. This is the unknown you are solving
+        for.</div>
+    </div>
+
+    <p>Rearranging equation&nbsp;(4.8) gives the working form of the whole chapter:</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var><sub>R</sub> = <var>F</var><sub>T</sub> &minus; <var>F</var><sub>P</sub> &minus; <var>F</var><sub>B</sub></span>
+      <span class="tag">(4.9)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">The last step, and the one most often forgotten</span>
+      <p><var>F</var><sub>R</sub> is the force the <b>pipe exerts on the fluid</b>. The force the
+        <b>fluid exerts on the pipe</b> &mdash; the one the thrust block must resist, the one you quote in a
+        report &mdash; is equal and opposite, by Newton&rsquo;s third law:</p>
+      <div class="eq plain"><span class="body"><var>F</var><sub>on pipe</sub> = &minus;<var>F</var><sub>R</sub></span></div>
+      <p>An answer that stops at <var>F</var><sub>R</sub> and calls it the force on the bend has the
+        direction exactly backwards.</p>
+    </div>
+
+    <!-- ============================================================ 4.5 -->
+    <h2 id="s5">4.5 A Procedure That Always Works</h2>
+
+    <p>Every problem in &sect;4.6 to &sect;4.9 is the same problem with different geometry. Learn the
+      sequence once and the rest is arithmetic.</p>
+
+    <div class="callout">
+      <span class="label">The seven steps</span>
+      <ol>
+        <li><b>Draw the control volume</b> and mark the inlet and outlet faces. Cut them where you know,
+          or can find, the velocity and the pressure &mdash; in practice, where the streamlines are
+          parallel (&sect;3.9).</li>
+        <li><b>Choose the axes</b> and mark the positive direction of each. Put <var>x</var> along the
+          inlet flow unless there is a good reason not to; it removes one angle from the arithmetic.</li>
+        <li><b>Find the velocities</b> from continuity: <var>Q</var> = <var>A</var><sub>1</sub><var>u</var><sub>1</sub> = <var>A</var><sub>2</sub><var>u</var><sub>2</sub>.</li>
+        <li><b>Find the pressures</b> from the Bernoulli equation, if they are not given.</li>
+        <li><b>Compute <var>F</var><sub>T</sub></b> on each axis, from equations&nbsp;(4.4) and&nbsp;(4.5).</li>
+        <li><b>Compute <var>F</var><sub>P</sub></b> on each axis, and <var>F</var><sub>B</sub> if it
+          matters. Then <var>F</var><sub>R</sub> = <var>F</var><sub>T</sub> &minus; <var>F</var><sub>P</sub> &minus; <var>F</var><sub>B</sub>.</li>
+        <li><b>Combine and reverse.</b> Get the magnitude and angle from equations&nbsp;(4.6)
+          and&nbsp;(4.7), then reverse the sign to give the force on the solid boundary.</li>
+      </ol>
+    </div>
+
+    <div class="callout warn">
+      <span class="label">Where to cut the control volume</span>
+      <p>The single most useful skill in this chapter is choosing the faces. Cut them where the streamlines
+        are parallel, so the pressure is uniform across the face and <var>F</var><sub>P</sub> = <var>pA</var>
+        is exactly right. Cut them where the velocity is known or findable. And cut them so the boundary
+        you care about lies <em>inside</em> the volume &mdash; if the bend is not inside, its reaction never
+        appears in the equations.</p>
+    </div>
+
+    <!-- ============================================================ 4.6 -->
+    <h2 id="s6">4.6 Force on a Nozzle</h2>
+
+    <p>Start with the simplest case, where everything happens along one axis. A nozzle at the end of a
+      hose accelerates the water by reducing the area. The flow never changes direction, so there is no
+      <var>y</var> equation at all.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 260" role="img" aria-label="A nozzle tapering from area A one to area A two, with the control volume cut across the inlet and across the jet just outside the nozzle. Pressure p one acts on the inlet face and atmospheric pressure on the outlet.">
+        <defs>
+          <marker id="oa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="ob" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#b03a2e"/>
+          </marker>
+        </defs>
+
+        <!-- nozzle body -->
+        <path d="M110,74 L360,74 L560,116 L660,116 L660,150 L560,150 L360,192 L110,192 z"
+              fill="#f4efe4" stroke="#1c1917" stroke-width="2.4"/>
+        <!-- water -->
+        <path d="M116,80 L358,80 L556,120 L656,120 L656,146 L556,146 L358,186 L116,186 z" fill="#eaf7fa" stroke="none"/>
+        <!-- jet -->
+        <path d="M660,118 L800,118 L800,148 L660,148 z" fill="#d9eef3" stroke="none"/>
+        <line x1="660" y1="118" x2="800" y2="118" stroke="#00788A" stroke-width="2"/>
+        <line x1="660" y1="148" x2="800" y2="148" stroke="#00788A" stroke-width="2"/>
+
+        <!-- control volume -->
+        <path d="M116,62 L740,62 L740,204 L116,204 z" fill="none" stroke="#00788A" stroke-width="2" stroke-dasharray="9 5"/>
+        <text x="122" y="54" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">control volume</text>
+
+        <!-- section labels -->
+        <text x="86" y="70" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">1</text>
+        <text x="746" y="70" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">2</text>
+        <text x="130" y="228" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">1</tspan><tspan font-size="15" dy="-4">, p</tspan><tspan font-size="11" dy="4">1</tspan><tspan font-size="15" dy="-4">, u</tspan><tspan font-size="11" dy="4">1</tspan></text>
+        <text x="680" y="228" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">A<tspan font-size="11" dy="4">2</tspan><tspan font-size="15" dy="-4">, u</tspan><tspan font-size="11" dy="4">2</tspan></text>
+        <text x="662" y="246" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">p&#8322; = 0 gauge</text>
+
+        <!-- pressure force arrow -->
+        <line x1="74" y1="133" x2="112" y2="133" stroke="#b03a2e" stroke-width="3" marker-end="url(#ob)"/>
+        <text x="30" y="128" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">p<tspan font-size="11" dy="4">1</tspan><tspan font-size="15" dy="-4">A</tspan><tspan font-size="11" dy="4">1</tspan></text>
+
+        <!-- velocities -->
+        <line x1="180" y1="133" x2="250" y2="133" stroke="#00788A" stroke-width="2.6" marker-end="url(#oa)"/>
+        <text x="196" y="124" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">1</tspan></text>
+        <line x1="694" y1="133" x2="792" y2="133" stroke="#00788A" stroke-width="3.2" marker-end="url(#oa)"/>
+        <text x="726" y="110" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">2</tspan></text>
+
+        <!-- axis -->
+        <line x1="116" y1="30" x2="196" y2="30" stroke="#1c1917" stroke-width="1.6" marker-end="url(#oa)"/>
+        <text x="202" y="35" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">x</text>
+      </svg>
+      <figcaption><b>Figure 4.3.</b> The outlet face is cut in the jet, just clear of the nozzle, where the
+        streamlines are parallel and the pressure is therefore atmospheric &mdash; the same argument as the
+        vena contracta of &sect;3.9. Cutting it inside the nozzle instead would leave an unknown pressure on
+        the face.</figcaption>
+    </figure>
+
+    <h3>Working through the seven steps</h3>
+
+    <p><b>Steps 3 and 4.</b> Continuity gives both velocities from the discharge, and the Bernoulli
+      equation gives the inlet pressure, since the outlet is at atmospheric:</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.10)</span>
+      <span class="body"><var>u</var><sub>1</sub> = <span class="frac"><span class="num"><var>Q</var></span><span class="den"><var>A</var><sub>1</sub></span></span>
+        <span class="say">and</span>
+        <var>u</var><sub>2</sub> = <span class="frac"><span class="num"><var>Q</var></span><span class="den"><var>A</var><sub>2</sub></span></span></span>
+      <span class="body"><var>p</var><sub>1</sub> = <span class="frac"><span class="num"><var>&rho;</var></span><span class="den">2</span></span><span class="pren"><var>u</var><sub>2</sub><sup>2</sup> &minus; <var>u</var><sub>1</sub><sup>2</sup></span>
+        <span class="say">from the Bernoulli equation, with</span> <var>p</var><sub>2</sub> = 0
+        <span class="say">gauge</span></span>
+    </div>
+
+    <p><b>Step 5.</b> The total force, with both velocities along <var>x</var> so
+      <var>&theta;</var><sub>1</sub> = <var>&theta;</var><sub>2</sub> = 0:</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var><sub>T<var>x</var></sub> = <var>&rho;Q</var>(<var>u</var><sub>2</sub> &minus; <var>u</var><sub>1</sub>)</span>
+      <span class="tag">(4.11)</span>
+    </div>
+
+    <p><b>Step 6.</b> The pressure force. Both faces are normal to <var>x</var>. The inlet pressure pushes
+      the fluid forwards, in the <var>+x</var> direction; the outlet pressure would push it backwards, but
+      it is zero gauge:</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var><sub>P<var>x</var></sub> = <var>p</var><sub>1</sub><var>A</var><sub>1</sub> &minus; <var>p</var><sub>2</sub><var>A</var><sub>2</sub> = <var>p</var><sub>1</sub><var>A</var><sub>1</sub></span>
+      <span class="tag">(4.12)</span>
+    </div>
+
+    <p>The nozzle is horizontal, so the body force has no <var>x</var> component:
+      <var>F</var><sub>B<var>x</var></sub> = 0. Then from equation&nbsp;(4.9):</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var><sub>R<var>x</var></sub> = <var>&rho;Q</var>(<var>u</var><sub>2</sub> &minus; <var>u</var><sub>1</sub>) &minus; <var>p</var><sub>1</sub><var>A</var><sub>1</sub></span>
+      <span class="tag">(4.13)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">Reading the answer</span>
+      <p><var>F</var><sub>R<var>x</var></sub> comes out <b>negative</b>: the nozzle pulls the fluid
+        backwards, because it is holding back water that the pressure behind is trying to push out.
+        Reversing the sign, <b>the water pushes the nozzle forwards</b>, away from the hose &mdash; which is
+        exactly the force you feel trying to tear a fire hose out of your hands, and the force the coupling
+        threads have to carry.</p>
+    </div>
+
+    <!-- ============================================================ 4.7 -->
+    <h2 id="s7">4.7 Force on a Pipe Bend</h2>
+
+    <p>Now the flow changes direction, and both components are live. This is the case that matters most in
+      practice: every buried irrigation main has bends, and every bend needs a thrust block sized from this
+      calculation.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 330" role="img" aria-label="A pipe bend turning the flow through an angle theta. The control volume is cut across the inlet and the outlet. Pressure forces p one A one and p two A two act inward on the two faces, and the reaction of the bend on the fluid is shown as two components.">
+        <defs>
+          <marker id="pa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="pb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#b03a2e"/>
+          </marker>
+          <marker id="pc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- bend: horizontal in, up-right out at theta -->
+        <path d="M90,196 L360,196 Q470,196 520,112 L556,52 L616,86 L580,146 Q506,268 360,268 L90,268 z"
+              fill="#eaf7fa" stroke="#1c1917" stroke-width="2.4"/>
+
+        <!-- control volume -->
+        <path d="M96,184 L96,280 L380,280 Q540,280 596,180 L640,102 L560,58 L520,128 Q476,184 380,184 z"
+              fill="none" stroke="#00788A" stroke-width="2" stroke-dasharray="9 5"/>
+
+        <!-- inlet -->
+        <line x1="90" y1="196" x2="90" y2="268" stroke="#1c1917" stroke-width="3"/>
+        <text x="66" y="190" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">1</text>
+        <line x1="140" y1="232" x2="230" y2="232" stroke="#00788A" stroke-width="3" marker-end="url(#pa)"/>
+        <text x="164" y="222" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">1</tspan></text>
+        <line x1="34" y1="232" x2="84" y2="232" stroke="#b03a2e" stroke-width="3" marker-end="url(#pb)"/>
+        <text x="20" y="222" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">p<tspan font-size="11" dy="4">1</tspan><tspan font-size="15" dy="-4">A</tspan><tspan font-size="11" dy="4">1</tspan></text>
+
+        <!-- outlet -->
+        <line x1="556" y1="52" x2="616" y2="86" stroke="#1c1917" stroke-width="3"/>
+        <text x="620" y="54" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">2</text>
+        <line x1="560" y1="126" x2="618" y2="26" stroke="#00788A" stroke-width="3" marker-end="url(#pa)"/>
+        <text x="620" y="22" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">2</tspan></text>
+        <line x1="656" y1="38" x2="606" y2="124" stroke="#b03a2e" stroke-width="3" marker-end="url(#pb)"/>
+        <text x="664" y="34" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">p<tspan font-size="11" dy="4">2</tspan><tspan font-size="15" dy="-4">A</tspan><tspan font-size="11" dy="4">2</tspan></text>
+
+        <!-- angle -->
+        <line x1="90" y1="308" x2="300" y2="308" stroke="#9c9287" stroke-width="1.4" stroke-dasharray="7 4"/>
+        <path d="M300,232 A78,78 0 0 0 340,166" fill="none" stroke="#b03a2e" stroke-width="1.8"/>
+        <text x="312" y="200" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#b03a2e">&#952;</text>
+        <line x1="300" y1="232" x2="420" y2="232" stroke="#9c9287" stroke-width="1.4" stroke-dasharray="7 4"/>
+        <line x1="300" y1="232" x2="392" y2="146" stroke="#9c9287" stroke-width="1.4" stroke-dasharray="7 4"/>
+
+        <!-- axes -->
+        <line x1="700" y1="286" x2="780" y2="286" stroke="#1c1917" stroke-width="1.8" marker-end="url(#pc)"/>
+        <line x1="700" y1="286" x2="700" y2="212" stroke="#1c1917" stroke-width="1.8" marker-end="url(#pc)"/>
+        <text x="786" y="291" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">x</text>
+        <text x="688" y="206" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">y</text>
+      </svg>
+      <figcaption><b>Figure 4.4.</b> A bend turning the flow through <var>&theta;</var>. Note that both
+        pressure forces push <em>into</em> the control volume, normal to their faces &mdash; so
+        <var>p</var><sub>1</sub><var>A</var><sub>1</sub> acts along <var>+x</var> while
+        <var>p</var><sub>2</sub><var>A</var><sub>2</sub> acts back along the outlet direction, giving it
+        components in <var>&minus;x</var> and <var>&minus;y</var>.</figcaption>
+    </figure>
+
+    <p>Take <var>x</var> along the inlet, so <var>&theta;</var><sub>1</sub> = 0 and
+      <var>&theta;</var><sub>2</sub> = <var>&theta;</var>. Then:</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.14)</span>
+      <span class="body"><var>F</var><sub>T<var>x</var></sub> = <var>&rho;Q</var>(<var>u</var><sub>2</sub> cos<var>&theta;</var> &minus; <var>u</var><sub>1</sub>)</span>
+      <span class="body"><var>F</var><sub>T<var>y</var></sub> = <var>&rho;Q</var>(<var>u</var><sub>2</sub> sin<var>&theta;</var> &minus; 0)
+        = <var>&rho;Qu</var><sub>2</sub> sin<var>&theta;</var></span>
+    </div>
+
+    <div class="eq stack">
+      <span class="tag">(4.15)</span>
+      <span class="body"><var>F</var><sub>P<var>x</var></sub> = <var>p</var><sub>1</sub><var>A</var><sub>1</sub> &minus; <var>p</var><sub>2</sub><var>A</var><sub>2</sub> cos<var>&theta;</var></span>
+      <span class="body"><var>F</var><sub>P<var>y</var></sub> = 0 &minus; <var>p</var><sub>2</sub><var>A</var><sub>2</sub> sin<var>&theta;</var></span>
+    </div>
+
+    <p>For a bend in a horizontal plane the weight acts perpendicular to both working axes, so
+      <var>F</var><sub>B<var>x</var></sub> = <var>F</var><sub>B<var>y</var></sub> = 0. Subtracting as
+      equation&nbsp;(4.9) requires:</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.16)</span>
+      <span class="body"><var>F</var><sub>R<var>x</var></sub> = <var>&rho;Q</var>(<var>u</var><sub>2</sub> cos<var>&theta;</var> &minus; <var>u</var><sub>1</sub>)
+        &minus; <var>p</var><sub>1</sub><var>A</var><sub>1</sub> + <var>p</var><sub>2</sub><var>A</var><sub>2</sub> cos<var>&theta;</var></span>
+      <span class="body"><var>F</var><sub>R<var>y</var></sub> = <var>&rho;Qu</var><sub>2</sub> sin<var>&theta;</var>
+        + <var>p</var><sub>2</sub><var>A</var><sub>2</sub> sin<var>&theta;</var></span>
+    </div>
+
+    <p>and the force on the bend itself is the reverse of the resultant of these two:</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var><sub>on bend</sub> = <span class="sqrt"><span class="rad"><var>F</var><sub>R<var>x</var></sub><sup>2</sup> + <var>F</var><sub>R<var>y</var></sub><sup>2</sup></span></span>
+        <span class="say">directed opposite to</span> <var>&phi;</var> = tan<sup>&minus;1</sup><span class="pren t2"><span class="frac sm"><span class="num"><var>F</var><sub>R<var>y</var></sub></span><span class="den"><var>F</var><sub>R<var>x</var></sub></span></span></span></span>
+      <span class="tag">(4.17)</span>
+    </div>
+
+    <div class="callout">
+      <span class="label">Which term dominates?</span>
+      <p>In a real pipeline the pressure terms are usually far larger than the momentum terms. For a
+        300&nbsp;mm main at 4&nbsp;bar carrying 1.5&nbsp;m/s, <var>pA</var> is about 28&nbsp;kN while
+        <var>&rho;Qu</var> is about 160&nbsp;N &mdash; a factor of nearly 200. This is why a thrust block is
+        sized almost entirely by the <em>static</em> pressure, and why a pipeline is at its most vulnerable
+        during a pressure surge rather than at maximum flow. But do not drop the momentum term without
+        checking: in a high-velocity, low-pressure jet the balance reverses completely.</p>
+    </div>
+
+    <div class="callout warn">
+      <span class="label">A 180&deg; bend is not twice a 90&deg; bend</span>
+      <p>Put <var>&theta;</var> = 180&deg; into equation&nbsp;(4.16): cos&nbsp;180&deg; = &minus;1 and
+        sin&nbsp;180&deg; = 0, so <var>F</var><sub>R<var>y</var></sub> vanishes and
+        <var>F</var><sub>R<var>x</var></sub> = &minus;<var>&rho;Q</var>(<var>u</var><sub>2</sub> + <var>u</var><sub>1</sub>)
+        &minus; <var>p</var><sub>1</sub><var>A</var><sub>1</sub> &minus; <var>p</var><sub>2</sub><var>A</var><sub>2</sub>.
+        Every term now <em>adds</em>. A U-bend carries roughly 1.4 times the thrust of a right-angle bend of
+        the same size and pressure, all of it along one line.</p>
+    </div>
+
+    <!-- ============================================================ 4.8 -->
+    <h2 id="s8">4.8 Impact of a Jet on a Plane Surface</h2>
+
+    <p>A free jet is the easiest case of all, because it is surrounded by atmosphere. The pressure is
+      atmospheric everywhere on the control surface, so <b><var>F</var><sub>P</sub> = 0</b> in gauge terms
+      and equation&nbsp;(4.9) collapses to <var>F</var><sub>R</sub> = <var>F</var><sub>T</sub>. There is
+      nothing to subtract.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="Three cases: a jet striking a flat plate at right angles and spreading sideways; a jet striking a plate inclined at angle theta; and a jet striking a plate that is itself moving away at velocity v.">
+        <defs>
+          <marker id="qa" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="qb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#b03a2e"/>
+          </marker>
+        </defs>
+
+        <!-- (a) normal plate -->
+        <text x="24" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(a) normal to the jet</text>
+        <rect x="204" y="62" width="14" height="180" fill="#9c9287" stroke="#1c1917" stroke-width="2"/>
+        <rect x="40" y="136" width="164" height="32" fill="#d9eef3" stroke="none"/>
+        <line x1="40" y1="136" x2="204" y2="136" stroke="#00788A" stroke-width="2"/>
+        <line x1="40" y1="168" x2="204" y2="168" stroke="#00788A" stroke-width="2"/>
+        <line x1="66" y1="152" x2="166" y2="152" stroke="#00788A" stroke-width="3" marker-end="url(#qa)"/>
+        <text x="96" y="142" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u</text>
+        <!-- spreading -->
+        <path d="M204,136 Q186,104 190,66" fill="none" stroke="#00788A" stroke-width="2.4" marker-end="url(#qa)"/>
+        <path d="M204,168 Q186,200 190,238" fill="none" stroke="#00788A" stroke-width="2.4" marker-end="url(#qa)"/>
+        <line x1="226" y1="152" x2="282" y2="152" stroke="#b03a2e" stroke-width="3.2" marker-end="url(#qb)"/>
+        <text x="230" y="142" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">F</text>
+        <text x="24" y="272" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">all the x momentum is destroyed</text>
+        <text x="24" y="290" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#b03a2e">F = &rho;Au&#178;</text>
+
+        <line x1="308" y1="16" x2="308" y2="288" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <!-- (b) inclined plate -->
+        <text x="330" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(b) inclined at &#952;</text>
+        <path d="M512,54 L530,64 L448,246 L430,236 z" fill="#9c9287" stroke="#1c1917" stroke-width="2"/>
+        <rect x="336" y="136" width="130" height="32" fill="#d9eef3" stroke="none"/>
+        <line x1="336" y1="136" x2="470" y2="136" stroke="#00788A" stroke-width="2"/>
+        <line x1="336" y1="168" x2="456" y2="168" stroke="#00788A" stroke-width="2"/>
+        <line x1="350" y1="152" x2="430" y2="152" stroke="#00788A" stroke-width="3" marker-end="url(#qa)"/>
+        <text x="372" y="142" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u</text>
+        <path d="M498,110 Q530,88 548,60" fill="none" stroke="#00788A" stroke-width="2.2" marker-end="url(#qa)"/>
+        <path d="M466,200 Q450,226 442,252" fill="none" stroke="#00788A" stroke-width="2.2" marker-end="url(#qa)"/>
+        <!-- normal force -->
+        <line x1="486" y1="146" x2="540" y2="172" stroke="#b03a2e" stroke-width="3.2" marker-end="url(#qb)"/>
+        <text x="524" y="142" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">F<tspan font-size="11" dy="4">n</tspan></text>
+        <path d="M466,176 A34,34 0 0 0 478,196" fill="none" stroke="#b03a2e" stroke-width="1.6"/>
+        <text x="462" y="206" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">&#952;</text>
+        <text x="330" y="272" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">only the normal component is destroyed</text>
+        <text x="330" y="290" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#b03a2e">F<tspan font-size="10" dy="3">n</tspan><tspan font-size="14" dy="-3"> = &rho;Au&#178; sin&#952;</tspan></text>
+
+        <line x1="574" y1="16" x2="574" y2="288" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <!-- (c) moving plate -->
+        <text x="596" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(c) plate running away at v</text>
+        <rect x="752" y="62" width="14" height="180" fill="#9c9287" stroke="#1c1917" stroke-width="2"/>
+        <rect x="600" y="136" width="152" height="32" fill="#d9eef3" stroke="none"/>
+        <line x1="600" y1="136" x2="752" y2="136" stroke="#00788A" stroke-width="2"/>
+        <line x1="600" y1="168" x2="752" y2="168" stroke="#00788A" stroke-width="2"/>
+        <line x1="612" y1="152" x2="700" y2="152" stroke="#00788A" stroke-width="3" marker-end="url(#qa)"/>
+        <text x="640" y="142" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u</text>
+        <line x1="772" y1="104" x2="828" y2="104" stroke="#1c1917" stroke-width="2.6" marker-end="url(#qa)"/>
+        <text x="790" y="94" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#1c1917">v</text>
+        <path d="M752,136 Q734,110 738,78" fill="none" stroke="#00788A" stroke-width="2.2" marker-end="url(#qa)"/>
+        <path d="M752,168 Q734,196 738,230" fill="none" stroke="#00788A" stroke-width="2.2" marker-end="url(#qa)"/>
+        <text x="596" y="272" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">only the relative velocity matters</text>
+        <text x="596" y="290" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#b03a2e">F = &rho;A(u &minus; v)&#178;</text>
+      </svg>
+      <figcaption><b>Figure 4.5.</b> In every case the jet leaves along the surface, so it keeps no velocity
+        component normal to the plate. What the plate feels is whatever normal momentum the jet arrived
+        with.</figcaption>
+    </figure>
+
+    <h3>A jet striking a plate at right angles</h3>
+    <p>Take <var>x</var> along the jet. The water arrives at <var>u</var><sub>1</sub> = <var>u</var> and
+      leaves sideways along the plate, so its <var>x</var> velocity afterwards is zero. All of the
+      <var>x</var> momentum is destroyed:</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.18)</span>
+      <span class="body"><var>F</var><sub>T<var>x</var></sub> = <var>&rho;Q</var>(0 &minus; <var>u</var>) = &minus;<var>&rho;Qu</var></span>
+      <span class="body"><span class="say">and since</span> <var>Q</var> = <var>Au</var>,
+        <span class="say">the force on the plate is</span>
+        <var>F</var> = <var>&rho;Qu</var> = <var>&rho;Au</var><sup>2</sup></span>
+    </div>
+
+    <p>Note the square. Doubling the jet velocity gives <em>four</em> times the force: twice the mass
+      arriving each second, each kilogram carrying twice the momentum.</p>
+
+    <h3>A jet striking an inclined plate</h3>
+    <p>If the plate is set at <var>&theta;</var> to the jet, only the component of the jet velocity
+      <em>normal to the plate</em> is destroyed; the component along the plate simply runs off. Resolving
+      normal to the plate:</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var><sub>n</sub> = <var>&rho;Qu</var> sin<var>&theta;</var>
+        = <var>&rho;Au</var><sup>2</sup> sin<var>&theta;</var></span>
+      <span class="tag">(4.19)</span>
+    </div>
+
+    <p>At <var>&theta;</var> = 90&deg; this recovers equation&nbsp;(4.18); at <var>&theta;</var> = 0 the jet
+      grazes the plate and exerts no normal force at all, which is why a deflector plate is always angled to
+      the flow rather than set square to it.</p>
+
+    <h3>A jet striking a moving plate</h3>
+    <p>If the plate retreats at velocity <var>v</var> along the jet, sit on the plate and watch. The water
+      now appears to approach at the <b>relative velocity</b> <var>u</var> &minus; <var>v</var>, and the
+      mass arriving each second falls too, because the jet has to catch up:</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.20)</span>
+      <span class="body"><var>m&#775;</var><sub>rel</sub> = <var>&rho;A</var>(<var>u</var> &minus; <var>v</var>)</span>
+      <span class="body"><var>F</var> = <var>&rho;A</var>(<var>u</var> &minus; <var>v</var>) &middot; (<var>u</var> &minus; <var>v</var>)
+        = <var>&rho;A</var>(<var>u</var> &minus; <var>v</var>)<sup>2</sup></span>
+    </div>
+
+    <div class="callout">
+      <span class="label">Force is not the point &mdash; power is</span>
+      <p>A stationary plate feels the biggest force but does no work, because it does not move. A plate
+        running away at the jet speed feels no force at all. Somewhere in between lies the maximum
+        <b>power</b>, <var>P</var> = <var>Fv</var>, and finding it is the whole design problem of a water
+        turbine. &sect;4.9 solves it.</p>
+    </div>
+
+    <!-- ============================================================ 4.9 -->
+    <h2 id="s9">4.9 Curved Vanes and the Pelton Wheel</h2>
+
+    <p>A flat plate throws the water sideways, and sideways momentum is wasted. A <b>curved</b> vane turns
+      the water right round and sends it back the way it came &mdash; and by the sign rule of &sect;4.3, a
+      reversal changes the momentum by nearly twice as much as a stop does.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="Left: a jet entering a curved vane and leaving at angle beta to its original direction. Right: a Pelton wheel bucket, split down the middle, turning the jet through almost 180 degrees and splitting it into two streams.">
+        <defs>
+          <marker id="ra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="rb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#b03a2e"/>
+          </marker>
+        </defs>
+
+        <text x="24" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(a) a curved vane</text>
+
+        <!-- vane -->
+        <path d="M250,240 Q360,240 360,150 Q360,84 296,66" fill="none" stroke="#1c1917" stroke-width="7" stroke-linecap="round"/>
+        <!-- incoming jet -->
+        <rect x="60" y="222" width="190" height="30" fill="#d9eef3" stroke="none"/>
+        <line x1="60" y1="222" x2="250" y2="222" stroke="#00788A" stroke-width="2"/>
+        <line x1="60" y1="252" x2="250" y2="252" stroke="#00788A" stroke-width="2"/>
+        <line x1="84" y1="237" x2="190" y2="237" stroke="#00788A" stroke-width="3" marker-end="url(#ra)"/>
+        <text x="116" y="226" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">1</tspan></text>
+        <!-- outgoing jet -->
+        <path d="M290,80 Q248,62 208,70" fill="none" stroke="#00788A" stroke-width="3" marker-end="url(#ra)"/>
+        <text x="214" y="52" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">2</tspan></text>
+        <!-- angle beta -->
+        <line x1="250" y1="120" x2="400" y2="120" stroke="#9c9287" stroke-width="1.4" stroke-dasharray="7 4"/>
+        <path d="M312,120 A62,62 0 0 1 268,98" fill="none" stroke="#b03a2e" stroke-width="1.8"/>
+        <text x="298" y="100" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#b03a2e">&#946;</text>
+        <text x="24" y="284" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">&#946; is the angle the jet is turned through</text>
+
+        <line x1="430" y1="16" x2="430" y2="288" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="456" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(b) a Pelton bucket, &#946; &asymp; 180&#176;</text>
+
+        <!-- bucket: two cups -->
+        <path d="M660,60 Q760,60 762,124 Q762,150 700,150 Q660,150 660,120 z" fill="#f4efe4" stroke="#1c1917" stroke-width="2.6"/>
+        <path d="M660,240 Q760,240 762,176 Q762,150 700,150 Q660,150 660,180 z" fill="#f4efe4" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="660" y1="150" x2="762" y2="150" stroke="#b03a2e" stroke-width="2.4" stroke-dasharray="6 4"/>
+        <text x="768" y="155" font-family="Segoe UI, Arial" font-size="11.5" fill="#b03a2e">splitter</text>
+
+        <!-- jet in -->
+        <rect x="492" y="136" width="168" height="28" fill="#d9eef3" stroke="none"/>
+        <line x1="492" y1="136" x2="660" y2="136" stroke="#00788A" stroke-width="2"/>
+        <line x1="492" y1="164" x2="660" y2="164" stroke="#00788A" stroke-width="2"/>
+        <line x1="512" y1="150" x2="616" y2="150" stroke="#00788A" stroke-width="3" marker-end="url(#ra)"/>
+        <text x="544" y="130" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u</text>
+
+        <!-- jets out -->
+        <path d="M690,70 Q600,52 520,60" fill="none" stroke="#00788A" stroke-width="2.8" marker-end="url(#ra)"/>
+        <path d="M690,230 Q600,248 520,240" fill="none" stroke="#00788A" stroke-width="2.8" marker-end="url(#ra)"/>
+
+        <!-- bucket motion -->
+        <line x1="700" y1="272" x2="776" y2="272" stroke="#1c1917" stroke-width="2.6" marker-end="url(#ra)"/>
+        <text x="726" y="292" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#1c1917">v</text>
+        <line x1="790" y1="118" x2="836" y2="118" stroke="#b03a2e" stroke-width="3.2" marker-end="url(#rb)"/>
+        <text x="796" y="108" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">F</text>
+      </svg>
+      <figcaption><b>Figure 4.6.</b> The splitter ridge down the middle of a Pelton bucket divides the jet
+        into two halves and turns each through almost 180&deg;. The bucket is not made to turn it through a
+        full 180&deg;, because the returning water would then strike the back of the following bucket; the
+        usual compromise is 165&ndash;170&deg;.</figcaption>
+    </figure>
+
+    <h3>The general curved vane</h3>
+    <p>Let the jet be turned through an angle <var>&beta;</var> measured from its original direction, and
+      assume no friction, so the speed is unchanged: <var>u</var><sub>2</sub> = <var>u</var><sub>1</sub> =
+      <var>u</var>. Taking <var>x</var> along the incoming jet and using equation&nbsp;(4.4):</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.21)</span>
+      <span class="body"><var>F</var><sub>T<var>x</var></sub> = <var>&rho;Q</var>(<var>u</var> cos<var>&beta;</var> &minus; <var>u</var>)
+        = &minus;<var>&rho;Qu</var><span class="pren">1 &minus; cos<var>&beta;</var></span></span>
+      <span class="body"><span class="say">so the force on the vane is</span>
+        <var>F</var> = <var>&rho;Qu</var><span class="pren">1 &minus; cos<var>&beta;</var></span></span>
+    </div>
+
+    <div class="table-wrap">
+      <table id="t2">
+        <caption><b>Table 4.2.</b> The factor (1 &minus; cos&nbsp;<var>&beta;</var>) for the shapes met in
+          practice. Everything in &sect;4.8 and &sect;4.9 is one equation with one number changed.</caption>
+        <thead>
+          <tr><th>Shape</th><th>Turned through <var>&beta;</var></th><th>1 &minus; cos <var>&beta;</var></th><th>Force on a stationary vane</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Flat plate, jet grazing</td><td>0&deg;</td><td>0</td><td>0</td></tr>
+          <tr><td>Flat plate, normal to the jet</td><td>90&deg;</td><td>1</td><td><var>&rho;Au</var><sup>2</sup></td></tr>
+          <tr><td>Practical Pelton bucket</td><td>165&deg;</td><td>1.97</td><td>1.97&nbsp;<var>&rho;Au</var><sup>2</sup></td></tr>
+          <tr><td>Ideal hemispherical cup</td><td>180&deg;</td><td>2</td><td>2&nbsp;<var>&rho;Au</var><sup>2</sup></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Turning the jet right round therefore doubles the force compared with simply stopping it, for the
+      same jet. That factor of two, available for nothing but a change of shape, is the reason every impulse
+      turbine ever built uses a cup rather than a paddle.</p>
+
+    <h3>The Pelton wheel</h3>
+    <p>Now let the buckets move. A Pelton wheel carries many buckets round a rim at velocity <var>v</var>,
+      and as one bucket leaves the jet the next enters it. The consequence is important and easily missed:
+      <b>the whole jet is used</b>. The mass flow rate delivered to the wheel is
+      <var>&rho;Au</var>, set by the nozzle, not <var>&rho;A</var>(<var>u</var> &minus; <var>v</var>).</p>
+
+    <p>But the <em>velocity change</em> each bucket imposes is still governed by the relative velocity
+      <var>u</var> &minus; <var>v</var>. Combining the two:</p>
+
+    <div class="eq">
+      <span class="body"><var>F</var> = <var>&rho;Au</var>(<var>u</var> &minus; <var>v</var>)<span class="pren">1 &minus; cos<var>&beta;</var></span></span>
+      <span class="tag">(4.22)</span>
+    </div>
+
+    <div class="eq">
+      <span class="body"><var>P</var> = <var>Fv</var> = <var>&rho;Au</var>(<var>u</var> &minus; <var>v</var>)<span class="pren">1 &minus; cos<var>&beta;</var></span><var>v</var></span>
+      <span class="tag">(4.23)</span>
+    </div>
+
+    <p>To find the wheel speed that gives the most power, differentiate with respect to <var>v</var> and set
+      the result to zero. Only the product <var>v</var>(<var>u</var> &minus; <var>v</var>) depends on
+      <var>v</var>:</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.24)</span>
+      <span class="body"><span class="frac"><span class="num">d<var>P</var></span><span class="den">d<var>v</var></span></span>
+        = <var>&rho;Au</var><span class="pren">1 &minus; cos<var>&beta;</var></span><span class="pren"><var>u</var> &minus; 2<var>v</var></span> = 0</span>
+      <span class="body"><var>v</var> = <span class="frac"><span class="num"><var>u</var></span><span class="den">2</span></span>
+        <span class="say">&mdash; the buckets should run at half the jet speed</span></span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">Why one third, and why one half</span>
+      <p>Repeat the same differentiation for a <b>single</b> plate or bucket, where the mass flow is
+        <var>&rho;A</var>(<var>u</var> &minus; <var>v</var>) as in equation&nbsp;(4.20), and the answer comes
+        out <var>v</var> = <var>u</var>/3 instead. The two results differ because of what the mass flow
+        rate is, not because of any difference in the momentum argument:</p>
+      <ul>
+        <li><b>One bucket</b> &mdash; the jet must chase it, so less water arrives each second as the bucket
+          speeds up. Best at <var>v</var> = <var>u</var>/3.</li>
+        <li><b>A wheel of buckets</b> &mdash; the next bucket is always arriving, so all the water is caught
+          whatever the wheel speed. Best at <var>v</var> = <var>u</var>/2.</li>
+      </ul>
+      <p>A real Pelton wheel runs a little below <var>u</var>/2, at about 0.46&nbsp;<var>u</var>, because
+        friction in the bucket makes the return speed slightly less than the arrival speed.</p>
+    </div>
+
+    <p>Substituting <var>v</var> = <var>u</var>/2 and <var>&beta;</var> = 180&deg; into
+      equation&nbsp;(4.23) gives the ideal maximum power:</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.25)</span>
+      <span class="body"><var>P</var><sub>max</sub> = <var>&rho;Au</var> &middot; <span class="pren t2"><span class="frac sm"><span class="num"><var>u</var></span><span class="den">2</span></span></span> &middot; <span class="pren">1 &minus; cos&thinsp;180&deg;</span> &middot; <span class="pren t2"><span class="frac sm"><span class="num"><var>u</var></span><span class="den">2</span></span></span> = <span class="frac"><span class="num">1</span><span class="den">2</span></span><var>&rho;Au</var><sup>3</sup></span>
+      <span class="body"><span class="say">and the power carried by the jet is</span>
+        <span class="frac"><span class="num">1</span><span class="den">2</span></span><var>m&#775;u</var><sup>2</sup>
+        = <span class="frac"><span class="num">1</span><span class="den">2</span></span><var>&rho;Au</var><sup>3</sup>
+        <span class="say">&mdash; identical, so the ideal efficiency is 100 %</span></span>
+    </div>
+
+    <p>An ideal Pelton wheel extracts <em>all</em> the kinetic energy of the jet: the water is left at rest
+      in the ground frame, having given up everything it had. Real machines reach 90&ndash;92&nbsp;%, which
+      is the highest efficiency of any prime mover in common use.</p>
+
+    <!-- ============================================================ 4.10 -->
+    <h2 id="s10">4.10 Beyond the Core &mdash; Where the Thrust Goes</h2>
+
+    <div class="callout rule">
+      <span class="label">Extension material &mdash; not examinable</span>
+      <p>This section goes beyond CIVE&nbsp;1400 &sect;3.6&ndash;3.7. It is here because &sect;4.7 produces a
+        number in kilonewtons and stops, and the obvious next question &mdash; what holds that back? &mdash;
+        is answered on every irrigation scheme you will ever work on. Nothing here is examined. Any example
+        or problem drawing on it is marked <span class="pill">&sect;4.10</span>.</p>
+    </div>
+
+    <h3>Thrust blocks</h3>
+    <p>The force you computed in &sect;4.7 has to go somewhere. In a pipeline with welded or flanged joints
+      it can travel along the pipe wall as tension, but the pipe used on an irrigation scheme &mdash; PVC or
+      ductile iron with push-fit spigot-and-socket joints &mdash; carries almost no tension across a joint.
+      The thrust must therefore be taken into the ground by a <b>thrust block</b>: a mass of concrete cast
+      between the fitting and undisturbed soil.</p>
+
+    <p>Thrust blocks are needed wherever the momentum or pressure balance is broken:</p>
+    <ul>
+      <li><b>Bends</b> &mdash; the case of &sect;4.7, resultant pointing outward along the bisector of the
+        turn.</li>
+      <li><b>Tees</b> &mdash; thrust along the branch, equal to <var>pA</var> of the branch.</li>
+      <li><b>Reducers</b> &mdash; unbalanced <var>pA</var> from the difference in area, as in &sect;4.6.</li>
+      <li><b>Dead ends and caps</b> &mdash; the full <var>pA</var>, and the largest thrust of all for a given
+        diameter.</li>
+      <li><b>Valves</b> &mdash; a closed valve is a dead end, so a line valve needs blocks on both sides.</li>
+    </ul>
+
+    <p>The block is sized so that the soil bearing pressure stays within an allowable value:</p>
+
+    <div class="eq">
+      <span class="body"><var>A</var><sub>block</sub> &ge; <span class="frac"><span class="num"><var>F</var><sub>thrust</sub></span><span class="den"><var>&sigma;</var><sub>allow</sub></span></span></span>
+      <span class="tag">(4.26)</span>
+    </div>
+
+    <p>with <var>&sigma;</var><sub>allow</sub> typically 50&ndash;100&nbsp;kPa for soft clay and
+      200&ndash;400&nbsp;kPa for dense sand or gravel. The two rules that matter in the field are that the
+      block must bear against <b>undisturbed</b> ground, not backfill, and that the design pressure is the
+      <b>test pressure or the surge pressure</b>, not the working pressure.</p>
+
+    <h3>Where the energy went: the sudden expansion</h3>
+    <p>Chapter&nbsp;3 said the Bernoulli equation cannot account for losses. The momentum equation can find
+      one of them exactly, and the trick is worth seeing: apply momentum and energy to the same control
+      volume and subtract.</p>
+
+    <p>At an abrupt enlargement from <var>A</var><sub>1</sub> to <var>A</var><sub>2</sub>, the jet cannot
+      follow the sudden step, so it separates and mixes turbulently. Momentum, which does not care about the
+      mess inside, still holds; energy does not. Eliminating the pressures between the two gives the
+      <b>Borda&ndash;Carnot</b> loss:</p>
+
+    <div class="eq">
+      <span class="body"><var>h</var><sub>L</sub> = <span class="frac"><span class="num"><span class="pren"><var>u</var><sub>1</sub> &minus; <var>u</var><sub>2</sub></span><sup>2</sup></span><span class="den">2<var>g</var></span></span></span>
+      <span class="tag">(4.27)</span>
+    </div>
+
+    <p>This is the only major head loss in the whole course that can be derived from first principles rather
+      than measured. Every other loss coefficient in Chapter&nbsp;5 comes from a laboratory. Note the
+      limiting case: a pipe discharging into a large reservoir has <var>u</var><sub>2</sub> &asymp; 0, so the
+      whole velocity head <var>u</var><sub>1</sub><sup>2</sup>/2<var>g</var> is lost &mdash; which is why the
+      exit loss coefficient in a pipe-network calculation is 1.0.</p>
+
+    <h3>The hydraulic jump</h3>
+    <p>Water leaving under a sluice gate, or over a drop structure, arrives fast and shallow. It cannot stay
+      that way, and it returns to a slow, deep state through a <b>hydraulic jump</b> &mdash; a short, violent
+      standing wave that dissipates a great deal of energy in a few metres.</p>
+
+    <p>The jump is turbulent and lossy, so the Bernoulli equation is useless across it. Momentum is not.
+      Applying equation&nbsp;(4.9) to a control volume enclosing the jump in a rectangular channel, with the
+      hydrostatic pressure forces of &sect;2.6 on the two faces, gives the <b>sequent depth</b> relation:</p>
+
+    <div class="eq stack">
+      <span class="tag">(4.28)</span>
+      <span class="body"><span class="frac"><span class="num"><var>y</var><sub>2</sub></span><span class="den"><var>y</var><sub>1</sub></span></span>
+        = <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+        <span class="pren t2"><span class="sqrt"><span class="rad">1 + 8<var>Fr</var><sub>1</sub><sup>2</sup></span></span> &minus; 1</span></span>
+      <span class="body"><span class="say">where the Froude number is</span>
+        <var>Fr</var><sub>1</sub> = <span class="frac"><span class="num"><var>u</var><sub>1</sub></span><span class="den"><span class="sqrt"><span class="rad"><var>gy</var><sub>1</sub></span></span></span></span></span>
+    </div>
+
+    <p>A jump forms only if <var>Fr</var><sub>1</sub> &gt; 1 &mdash; that is, only if the incoming flow is
+      <b>supercritical</b>, running faster than a surface wave can travel upstream. This single criterion
+      governs the design of every stilling basin below every gate and every drop on an irrigation system,
+      and you will meet it properly in year two.</p>
+
+    <h3>The rotating sprinkler</h3>
+    <p>An impact sprinkler turns because the jet leaving its nozzle carries momentum away tangentially, and
+      the reaction spins the head. The same argument applied about an axis rather than along a line gives the
+      <b>moment of momentum</b>, or angular momentum, equation:</p>
+
+    <div class="eq">
+      <span class="body"><var>T</var> = <var>&rho;Q</var>(<var>r</var><sub>2</sub><var>u</var><sub>t2</sub> &minus; <var>r</var><sub>1</sub><var>u</var><sub>t1</sub>)</span>
+      <span class="tag">(4.29)</span>
+    </div>
+
+    <p>where <var>u</var><sub>t</sub> is the tangential velocity component and <var>r</var> the radius at
+      which it acts. This is the equation behind rotary sprinklers, centrifugal pump impellers and Francis
+      turbines alike &mdash; three machines that look nothing like one another and obey the same line of
+      algebra.</p>
+
+    <h3>Water hammer, seen as momentum</h3>
+    <p>Chapter&nbsp;1 &sect;1.11 introduced water hammer through the bulk modulus. Momentum gives the same
+      result more directly: shutting a valve destroys the momentum of a whole column of moving water, and
+      the faster you destroy it, the larger the force. For an instantaneous closure the pressure rise is:</p>
+
+    <div class="eq">
+      <span class="body">&Delta;<var>p</var> = <var>&rho;c</var>&thinsp;&Delta;<var>u</var></span>
+      <span class="tag">(4.30)</span>
+    </div>
+
+    <p>where <var>c</var> is the speed of the pressure wave, about 1200&nbsp;m/s in a rigid steel pipe and
+      300&ndash;500&nbsp;m/s in PVC. For water at 1.5&nbsp;m/s in PVC, &Delta;<var>p</var> &asymp; 1000
+      &times; 400 &times; 1.5 = 600&nbsp;kPa &mdash; six bar added to the working pressure by nothing more
+      than closing a valve quickly. That is the number behind every instruction to close an irrigation valve
+      slowly, and behind the surge pressure used to size the thrust blocks above.</p>
+
+    <!-- ============================================================ 4.11 -->
+    <h2 id="s11">4.11 Worked Examples</h2>
+
+    <p>Every one of these follows the seven steps of &sect;4.5 in order. Throughout,
+      <var>&rho;</var> = 1000&nbsp;kg&nbsp;m<sup>&minus;3</sup>,
+      <var>g</var> = 9.81&nbsp;m&nbsp;s<sup>&minus;2</sup>, all pressures are gauge, and losses are
+      neglected unless stated.</p>
+
+    <div class="example">
+      <h4>Example 4.1 &mdash; The force on a hose nozzle</h4>
+      <p>A fire hose of 75&nbsp;mm bore ends in a nozzle of 25&nbsp;mm bore and discharges
+        15&nbsp;l&nbsp;s<sup>&minus;1</sup> to atmosphere. Find the force the water exerts on the nozzle,
+        and say which way it acts.</p>
+      <p class="step"><b>Steps 1&ndash;2.</b> Control volume from the hose inlet to a section cut in the free
+        jet, just clear of the nozzle where the pressure is atmospheric. One axis, <var>x</var>, along the
+        flow.</p>
+      <p class="step"><b>Step 3 &mdash; continuity.</b>
+        <var>A</var><sub>1</sub> = 4.418&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>2</sup>,
+        <var>A</var><sub>2</sub> = 4.909&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;m<sup>2</sup>.<br>
+        <var>u</var><sub>1</sub> = 0.015 / 4.418&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        3.40&nbsp;m&nbsp;s<sup>&minus;1</sup>;
+        <var>u</var><sub>2</sub> = 0.015 / 4.909&nbsp;&times;&nbsp;10<sup>&minus;4</sup> =
+        30.56&nbsp;m&nbsp;s<sup>&minus;1</sup></p>
+      <p class="step"><b>Step 4 &mdash; the Bernoulli equation</b>, horizontal, with
+        <var>p</var><sub>2</sub> = 0:<br>
+        <var>p</var><sub>1</sub> = &frac12;<var>&rho;</var>(<var>u</var><sub>2</sub><sup>2</sup> &minus;
+        <var>u</var><sub>1</sub><sup>2</sup>) = 500(933.8 &minus; 11.5) = <b>461.1&nbsp;kPa</b></p>
+      <p class="step"><b>Step 5 &mdash; total force.</b>
+        <var>F</var><sub>T<var>x</var></sub> = <var>&rho;Q</var>(<var>u</var><sub>2</sub> &minus;
+        <var>u</var><sub>1</sub>) = 1000 &times; 0.015 &times; (30.56 &minus; 3.40) = <b>407&nbsp;N</b></p>
+      <p class="step"><b>Step 6 &mdash; pressure and body forces.</b>
+        <var>F</var><sub>P<var>x</var></sub> = <var>p</var><sub>1</sub><var>A</var><sub>1</sub> =
+        461&thinsp;100 &times; 4.418&nbsp;&times;&nbsp;10<sup>&minus;3</sup> = 2037&nbsp;N;
+        <var>F</var><sub>B<var>x</var></sub> = 0 (horizontal).<br>
+        <var>F</var><sub>R<var>x</var></sub> = 407 &minus; 2037 = &minus;1630&nbsp;N</p>
+      <p class="result"><b>Step 7.</b> The nozzle pulls the water back with 1630&nbsp;N, so the water pushes
+        the nozzle <b>forwards with 1.63&nbsp;kN</b>, away from the hose &mdash; about the weight of a small
+        car, which is why a fire hose needs two people. Notice that the pressure term is five times the
+        momentum term even here.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 4.2 &mdash; A right-angle bend at constant diameter</h4>
+      <p>A 300&nbsp;mm pipe carries 0.25&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup> round a 90&deg; bend
+        lying in a horizontal plane. The gauge pressure is 400&nbsp;kPa and may be taken as the same at
+        both ends. Find the magnitude and direction of the force on the bend.</p>
+      <p class="step"><b>Steps 3&ndash;4.</b> <var>A</var> = <var>&pi;</var>(0.300)<sup>2</sup>/4 =
+        0.07069&nbsp;m<sup>2</sup>, the same at both faces, so
+        <var>u</var><sub>1</sub> = <var>u</var><sub>2</sub> = 0.25/0.07069 =
+        3.54&nbsp;m&nbsp;s<sup>&minus;1</sup>, and <var>p</var><sub>1</sub> = <var>p</var><sub>2</sub> =
+        400&nbsp;kPa.</p>
+      <p class="step"><b>Step 5.</b> With <var>x</var> along the inlet and <var>&theta;</var> = 90&deg;, so
+        cos&nbsp;<var>&theta;</var> = 0 and sin&nbsp;<var>&theta;</var> = 1:<br>
+        <var>F</var><sub>T<var>x</var></sub> = 1000 &times; 0.25 &times; (0 &minus; 3.54) =
+        &minus;884&nbsp;N<br>
+        <var>F</var><sub>T<var>y</var></sub> = 1000 &times; 0.25 &times; (3.54 &minus; 0) =
+        +884&nbsp;N</p>
+      <p class="step"><b>Step 6.</b>
+        <var>pA</var> = 400&thinsp;000 &times; 0.07069 = 28&thinsp;274&nbsp;N, so<br>
+        <var>F</var><sub>P<var>x</var></sub> = 28&thinsp;274 &minus; 0 = +28&thinsp;274&nbsp;N;
+        <var>F</var><sub>P<var>y</var></sub> = 0 &minus; 28&thinsp;274 = &minus;28&thinsp;274&nbsp;N<br>
+        <var>F</var><sub>R<var>x</var></sub> = &minus;884 &minus; 28&thinsp;274 =
+        &minus;29&thinsp;158&nbsp;N<br>
+        <var>F</var><sub>R<var>y</var></sub> = 884 + 28&thinsp;274 = +29&thinsp;158&nbsp;N</p>
+      <p class="result"><b>Step 7.</b>
+        <var>F</var> = &radic;(29&thinsp;158<sup>2</sup> + 29&thinsp;158<sup>2</sup>) =
+        <b>41.2&nbsp;kN</b>, and the reaction on the fluid points at 135&deg;, so the
+        <b>force on the bend acts at &minus;45&deg;</b> &mdash; outward along the bisector of the turn,
+        exactly where you would put the thrust block.<br>
+        The momentum terms contributed 884&nbsp;N out of 29&thinsp;158, about 3&nbsp;%. The pressure did
+        the rest.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 4.3 &mdash; A jet striking a plate</h4>
+      <p>A jet 30&nbsp;mm in diameter strikes a large flat plate at 25&nbsp;m&nbsp;s<sup>&minus;1</sup>.
+        Find the force on the plate (a) when the plate is normal to the jet and (b) when it is inclined at
+        40&deg; to the jet.</p>
+      <p class="step"><var>A</var> = <var>&pi;</var>(0.030)<sup>2</sup>/4 =
+        7.069&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;m<sup>2</sup>, so
+        <var>Q</var> = <var>Au</var> = 7.069&nbsp;&times;&nbsp;10<sup>&minus;4</sup> &times; 25 =
+        0.01767&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup>.</p>
+      <p class="step">The jet is free, so the pressure is atmospheric all round the control surface and
+        <var>F</var><sub>P</sub> = 0. There is nothing to subtract.</p>
+      <p class="step"><b>(a)</b> <var>F</var> = <var>&rho;Au</var><sup>2</sup> = 1000 &times;
+        7.069&nbsp;&times;&nbsp;10<sup>&minus;4</sup> &times; 25<sup>2</sup> = <b>442&nbsp;N</b></p>
+      <p class="result"><b>(b)</b> <var>F</var><sub>n</sub> = <var>&rho;Au</var><sup>2</sup>
+        sin&nbsp;40&deg; = 442 &times; 0.643 = <b>284&nbsp;N</b>, normal to the plate.<br>
+        Tilting the plate by 50&deg; from square has shed 36&nbsp;% of the load &mdash; the reason a
+        deflector or a splash plate is always set at an angle.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 4.4 &mdash; A Pelton wheel</h4>
+      <p>A Pelton wheel is driven by a 50&nbsp;mm jet at 40&nbsp;m&nbsp;s<sup>&minus;1</sup>. The buckets
+        turn the jet through 165&deg;. Find (a) the force on a single stationary bucket, (b) the force and
+        power when the wheel runs at half the jet speed, and (c) the efficiency at that speed.</p>
+      <p class="step"><var>A</var> = <var>&pi;</var>(0.050)<sup>2</sup>/4 =
+        1.963&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>2</sup>,
+        <var>Q</var> = 1.963&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; 40 =
+        0.0785&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup>.<br>
+        1 &minus; cos&nbsp;165&deg; = 1 &minus; (&minus;0.966) = 1.966</p>
+      <p class="step"><b>(a) stationary.</b> <var>F</var> = <var>&rho;Qu</var>(1 &minus;
+        cos&nbsp;<var>&beta;</var>) = 1000 &times; 0.0785 &times; 40 &times; 1.966 =
+        <b>6.18&nbsp;kN</b><br>
+        Against a flat plate the same jet would give 3.14&nbsp;kN. The cup shape is worth a factor of
+        1.97.</p>
+      <p class="step"><b>(b) running at <var>v</var> = <var>u</var>/2 = 20&nbsp;m&nbsp;s<sup>&minus;1</sup>.</b>
+        The whole jet is still caught, because the next bucket is always arriving, so use
+        equation&nbsp;(4.22):<br>
+        <var>F</var> = <var>&rho;Au</var>(<var>u</var> &minus; <var>v</var>)(1 &minus;
+        cos&nbsp;<var>&beta;</var>) = 1000 &times; 1.963&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; 40
+        &times; 20 &times; 1.966 = <b>3.09&nbsp;kN</b><br>
+        <var>P</var> = <var>Fv</var> = 3088 &times; 20 = <b>61.8&nbsp;kW</b></p>
+      <p class="result"><b>(c)</b> The power in the jet is
+        &frac12;<var>&rho;Au</var><sup>3</sup> = 0.5 &times; 1000 &times;
+        1.963&nbsp;&times;&nbsp;10<sup>&minus;3</sup> &times; 40<sup>3</sup> = 62.8&nbsp;kW.<br>
+        Efficiency = 61.8 / 62.8 = <b>98.3&nbsp;%</b><br>
+        The whole of the 1.7&nbsp;% shortfall is the 15&deg; the bucket falls short of a full reversal. A
+        real wheel loses another 6&ndash;8&nbsp;% to friction and windage.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 4.5 &mdash; A tapering bend: all seven steps</h4>
+      <p>A horizontal bend turns the flow through 45&deg; while reducing from 200&nbsp;mm to 150&nbsp;mm
+        diameter. It carries 0.08&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup> and the inlet gauge pressure
+        is 250&nbsp;kPa. Find the force on the bend.</p>
+      <p class="step"><b>Step 3 &mdash; continuity.</b>
+        <var>A</var><sub>1</sub> = 0.03142&nbsp;m<sup>2</sup>,
+        <var>A</var><sub>2</sub> = 0.01767&nbsp;m<sup>2</sup>;
+        <var>u</var><sub>1</sub> = 2.55&nbsp;m&nbsp;s<sup>&minus;1</sup>,
+        <var>u</var><sub>2</sub> = 4.53&nbsp;m&nbsp;s<sup>&minus;1</sup>.</p>
+      <p class="step"><b>Step 4 &mdash; the Bernoulli equation</b>, horizontal:<br>
+        <var>p</var><sub>2</sub> = <var>p</var><sub>1</sub> + &frac12;<var>&rho;</var>(<var>u</var><sub>1</sub><sup>2</sup>
+        &minus; <var>u</var><sub>2</sub><sup>2</sup>) = 250&thinsp;000 + 500(6.48 &minus; 20.49) =
+        <b>243.0&nbsp;kPa</b><br>
+        <var>p</var><sub>1</sub><var>A</var><sub>1</sub> = 7854&nbsp;N and
+        <var>p</var><sub>2</sub><var>A</var><sub>2</sub> = 4294&nbsp;N.</p>
+      <p class="step"><b>Step 5 &mdash; total force</b>, <var>x</var> along the inlet,
+        <var>&theta;</var> = 45&deg;:<br>
+        <var>F</var><sub>T<var>x</var></sub> = 1000 &times; 0.08 &times; (4.53 &times; 0.7071 &minus; 2.55)
+        = 80 &times; 0.655 = +52&nbsp;N<br>
+        <var>F</var><sub>T<var>y</var></sub> = 80 &times; (4.53 &times; 0.7071) = +256&nbsp;N</p>
+      <p class="step"><b>Step 6 &mdash; pressure force</b>, both acting into the control volume:<br>
+        <var>F</var><sub>P<var>x</var></sub> = 7854 &minus; 4294 &times; 0.7071 = 7854 &minus; 3036 =
+        +4818&nbsp;N<br>
+        <var>F</var><sub>P<var>y</var></sub> = 0 &minus; 4294 &times; 0.7071 = &minus;3036&nbsp;N<br>
+        Horizontal, so <var>F</var><sub>B</sub> has no component on either axis. Then<br>
+        <var>F</var><sub>R<var>x</var></sub> = 52 &minus; 4818 = &minus;4765&nbsp;N;
+        <var>F</var><sub>R<var>y</var></sub> = 256 + 3036 = +3293&nbsp;N</p>
+      <p class="result"><b>Step 7.</b>
+        <var>F</var> = &radic;(4765<sup>2</sup> + 3293<sup>2</sup>) = <b>5.79&nbsp;kN</b><br>
+        <var>&phi;</var> = tan<sup>&minus;1</sup>(3293 / &minus;4765) = 145.4&deg; on the fluid, so the
+        <b>force on the bend acts at 34.6&deg; below the inlet direction</b> &mdash; outward from the turn,
+        as it must be.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 4.6 &mdash; Sizing a thrust block <span class="pill">&sect;4.10</span></h4>
+      <p>A 250&nbsp;mm PVC irrigation main ends in a capped dead end. The working pressure is 600&nbsp;kPa
+        and the line is tested at 1.5 times that. The soil at the site has an allowable bearing pressure of
+        120&nbsp;kPa. Find the thrust on the cap and the bearing area the thrust block needs.</p>
+      <p class="step"><b>The design pressure.</b> A thrust block is sized on the worst case the pipe will
+        ever see, which is the test pressure, not the working pressure:
+        <var>p</var> = 1.5 &times; 600 = 900&nbsp;kPa.</p>
+      <p class="step"><b>The thrust.</b> A dead end is the simplest momentum problem there is: the velocity
+        is zero on both sides, so <var>F</var><sub>T</sub> = 0 and the whole thrust is pressure.<br>
+        <var>A</var> = <var>&pi;</var>(0.250)<sup>2</sup>/4 = 0.04909&nbsp;m<sup>2</sup><br>
+        <var>F</var> = <var>pA</var> = 900&thinsp;000 &times; 0.04909 = <b>44.2&nbsp;kN</b></p>
+      <p class="step"><b>The block.</b> From equation&nbsp;(4.26),
+        <var>A</var><sub>block</sub> &ge; 44&thinsp;200 / 120&thinsp;000 = 0.368&nbsp;m<sup>2</sup>.</p>
+      <p class="result">A bearing face of about <b>0.65&nbsp;m &times; 0.60&nbsp;m</b> gives
+        0.39&nbsp;m<sup>2</sup> and will do &mdash; provided it bears against <b>undisturbed</b> ground and
+        not against backfill.<br>
+        Compare this with the 41.2&nbsp;kN of the 300&nbsp;mm bend in Example&nbsp;4.2: a plain cap on a
+        smaller pipe produces more thrust than a right-angle bend on a larger one, because a dead end turns
+        the flow through a full 180&deg; in effect and wastes none of the pressure force.</p>
+    </div>
+
+    <!-- ============================================================ 4.12 -->
+    <h2 id="s12">4.12 Nomenclature</h2>
+
+    <div class="nomen">
+      <div><var>A</var> &mdash; cross-sectional area <span class="u">m<sup>2</sup></span></div>
+      <div><var>c</var> &mdash; speed of a pressure wave in a pipe <span class="u">m&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>F</var><sub>T</sub> &mdash; total force on the fluid <span class="u">N</span></div>
+      <div><var>F</var><sub>P</sub> &mdash; pressure force on the control-volume faces <span class="u">N</span></div>
+      <div><var>F</var><sub>B</sub> &mdash; body force, the weight of the fluid <span class="u">N</span></div>
+      <div><var>F</var><sub>R</sub> &mdash; reaction of the boundary on the fluid <span class="u">N</span></div>
+      <div><var>F</var><sub>n</sub> &mdash; force normal to a plate <span class="u">N</span></div>
+      <div><var>Fr</var> &mdash; Froude number, <var>u</var>/&radic;(<var>gy</var>) <span class="u">&ndash;</span></div>
+      <div><var>g</var> &mdash; gravitational acceleration, 9.81 <span class="u">m&nbsp;s<sup>&minus;2</sup></span></div>
+      <div><var>h</var><sub>L</sub> &mdash; head lost <span class="u">m</span></div>
+      <div><var>m&#775;</var> &mdash; mass flow rate, <var>&rho;Q</var> <span class="u">kg&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>p</var> &mdash; pressure, gauge unless stated <span class="u">Pa</span></div>
+      <div><var>P</var> &mdash; power <span class="u">W</span></div>
+      <div><var>Q</var> &mdash; discharge <span class="u">m<sup>3</sup>&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>r</var> &mdash; radius at which a tangential velocity acts <span class="u">m</span></div>
+      <div><var>T</var> &mdash; torque <span class="u">N&nbsp;m</span></div>
+      <div><var>u</var> &mdash; fluid velocity, mean over the section <span class="u">m&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>u</var><sub>t</sub> &mdash; tangential component of velocity <span class="u">m&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>v</var> &mdash; velocity of a moving plate, vane or bucket <span class="u">m&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>y</var> &mdash; depth of flow in a channel <span class="u">m</span></div>
+      <div><var>&beta;</var> &mdash; angle a jet is turned through by a vane <span class="u">degrees</span></div>
+      <div><var>&theta;</var> &mdash; angle of a velocity to the <var>x</var> axis <span class="u">degrees</span></div>
+      <div><var>&phi;</var> &mdash; angle of the resultant force to the <var>x</var> axis <span class="u">degrees</span></div>
+      <div><var>&rho;</var> &mdash; density <span class="u">kg&nbsp;m<sup>&minus;3</sup></span></div>
+      <div><var>&sigma;</var><sub>allow</sub> &mdash; allowable soil bearing pressure <span class="u">Pa</span></div>
+    </div>
+
+    <!-- ============================================================ 4.13 -->
+    <h2 id="s13">4.13 Self-Check</h2>
+
+    <p>Forty-six questions on this chapter, marked in your own browser as you answer them. Nothing is
+      stored and nothing is sent anywhere. Each question carries the section it came from, and the summary
+      at the end lists the sections to revise.</p>
+
+    <p>Work through these <em>before</em> the problems in &sect;4.14. Four of the questions come from the
+      extension material in &sect;4.10 and are marked as such.</p>
+
+    <noscript>
+      <div class="quiz-noscript">
+        <b>This section needs JavaScript.</b> The questions are marked in your own browser, so nothing
+        appears with scripting turned off. The same ground is covered by the written problems in
+        <a href="#s14">&sect;4.14</a>.
+      </div>
+    </noscript>
+
+    <div id="quiz"></div>
+
+    <!-- ============================================================ 4.14 -->
+    <h2 id="s14">4.14 Problems</h2>
+
+    <p>Take <var>g</var> = 9.81&nbsp;m/s<sup>2</sup> and <var>&rho;</var><sub>water</sub> =
+      1000&nbsp;kg/m<sup>3</sup>. All pressures are gauge and all bends lie in a horizontal plane unless
+      stated. Neglect friction losses. Work through the seven steps of &sect;4.5 every time; the marks are
+      in the working, and in particular in getting the signs and the final reversal right. Problems marked
+      <span class="pill">&sect;4.10</span> draw on the extension material and are not examinable.</p>
+
+    <ol class="problems">
+      <li>A nozzle reduces from 60&nbsp;mm to 20&nbsp;mm bore and discharges 8&nbsp;l/s to atmosphere. Find
+        the two velocities, the inlet gauge pressure, and the magnitude and direction of the force on the
+        nozzle.
+        <span class="ans">2.83 and 25.5 m/s; 320 kPa; 724 N pushing the nozzle away from the pipe</span></li>
+
+      <li>A 200&nbsp;mm pipe carries 50&nbsp;l/s round a 90&deg; bend at a gauge pressure of 300&nbsp;kPa,
+        which may be taken as the same at both ends. Find the magnitude and direction of the force on the
+        bend.
+        <span class="ans">13.4 kN acting at 45&deg; outward from the bisector of the turn</span></li>
+
+      <li>Repeat Problem 2 for a 45&deg; bend, everything else unchanged. Compare the two answers and
+        explain the ratio you find.
+        <span class="ans">7.27 kN at 67.5&deg; to the inlet. The ratio is 0.54, which is sin&thinsp;22.5&deg;/sin&thinsp;45&deg; &mdash; the thrust on a bend of equal area goes as 2pA&thinsp;sin(&theta;/2)</span></li>
+
+      <li>A jet 25&nbsp;mm in diameter travelling at 30&nbsp;m/s strikes a large flat plate. Find the force
+        (a) with the plate normal to the jet, (b) with the plate inclined at 30&deg; to the jet, and (c)
+        with the plate normal to the jet but retreating along it at 12&nbsp;m/s.
+        <span class="ans">(a) 442 N (b) 221 N (c) 159 N</span></li>
+
+      <li>A jet 40&nbsp;mm in diameter at 20&nbsp;m/s is deflected through 150&deg; by a stationary curved
+        vane. Find the force on the vane, and state what fraction of it a flat plate would have caught.
+        <span class="ans">938 N; a flat plate would give 503 N, so 54 % &mdash; the curve is worth a factor of 1.87</span></li>
+
+      <li>A Pelton wheel is driven by a 60&nbsp;mm jet at 35&nbsp;m/s. The buckets deflect the jet through
+        170&deg; and the wheel runs at 16&nbsp;m/s. Find the force on the buckets, the power developed and
+        the efficiency. Is the wheel running at its best speed?
+        <span class="ans">3.73 kN; 59.7 kW; 98.5 %. Best speed is u/2 = 17.5 m/s, which would give 60.2 kW at 99.2 %</span></li>
+
+      <li>A horizontal bend turns the flow through 30&deg; while reducing from 250&nbsp;mm to 200&nbsp;mm
+        diameter. It carries 0.12&nbsp;m<sup>3</sup>/s at an inlet gauge pressure of 180&nbsp;kPa. Find the
+        force on the bend.
+        <span class="ans">p<sub>2</sub> = 175.7 kPa; 4.96 kN acting at 37.1&deg; below the inlet direction</span></li>
+
+      <li>A 400&nbsp;mm main is closed by a blank flange at a gauge pressure of 800&nbsp;kPa. Find the
+        thrust on the flange, and explain why a dead end produces more thrust than a 90&deg; bend of the
+        same diameter at the same pressure.
+        <span class="ans">100.5 kN. A bend redirects the pressure force, so the two ends partly oppose one another and the resultant is 2pA&thinsp;sin&thinsp;45&deg; = 1.41pA; a dead end opposes nothing, so the full 2pA&hellip;1pA acts on one face alone with nothing to cancel it</span></li>
+
+      <li>A jet 50&nbsp;mm in diameter at 24&nbsp;m/s strikes a <em>single</em> flat plate that is free to
+        move along the jet. Show that the power delivered is greatest when the plate travels at
+        <var>u</var>/3, find that power, and find the efficiency. Why is the answer <var>u</var>/3 here but
+        <var>u</var>/2 for a Pelton wheel?
+        <span class="ans">4.02 kW at v = 8 m/s; jet power 13.57 kW, so 29.6 % (the maximum for a single plate is 8/27). A single plate must be chased by the jet, so the mass flow it catches falls as it speeds up; on a wheel the next bucket always catches the whole jet</span></li>
+
+      <li><span class="pill">&sect;4.10</span> Water leaves a sluice gate at 4.5&nbsp;m/s in a layer
+        0.30&nbsp;m deep in a wide rectangular channel. Find the Froude number, say whether a hydraulic jump
+        will form, and if so find the depth after it.
+        <span class="ans">Fr<sub>1</sub> = 2.62, which is supercritical, so a jump forms; the sequent depth is 0.97 m</span></li>
+
+      <li><span class="pill">&sect;4.10</span> A 100&nbsp;mm pipe carrying 25&nbsp;l/s expands abruptly to
+        200&nbsp;mm. Find the head lost at the expansion and the power it wastes.
+        <span class="ans">0.291 m of water; 71 W lost continuously</span></li>
+
+      <li><span class="pill">&sect;4.10</span> A 200&nbsp;mm PVC main carries water at 1.8&nbsp;m/s under a
+        working pressure of 500&nbsp;kPa. A valve is closed suddenly; the pressure wave travels at
+        420&nbsp;m/s. Find the surge pressure, the peak pressure, and the thrust on a 90&deg; bend in the
+        line at that peak. Compare it with the thrust at working pressure.
+        <span class="ans">Surge 756 kPa, peak 1256 kPa; thrust 55.8 kN against 22.2 kN &mdash; a factor of 2.5, which is why thrust blocks are sized on surge and valves are closed slowly</span></li>
+    </ol>
+
+    <!-- ============================================================ 4.15 -->
+    <h2 id="s15">4.15 References</h2>
+
+    <ol class="refs">
+      <li>Sleigh, A. <em>An Introduction to Fluid Mechanics</em>, CIVE 1400, School of Civil Engineering,
+        University of Leeds. &sect;3.6&ndash;3.7 &mdash; the sections this chapter follows, including the
+        decomposition into total, pressure, body and reaction forces.</li>
+      <li>Massey, B. S. <em>Mechanics of Fluids</em>, Van Nostrand Reinhold. Chapter 4, the fullest
+        treatment of the momentum equation at this level, and the place to go for the moment-of-momentum
+        form.</li>
+      <li>Douglas, J. F., Gasiorek, J. M. and Swaffield, J. A. <em>Fluid Mechanics</em>, Longman. Chapters
+        5 and 14; a large stock of worked bend, vane and turbine problems.</li>
+      <li>Featherstone, R. E. and Nalluri, C. <em>Civil Engineering Hydraulics</em>, Blackwell Science.
+        Written for water engineers; thrust on pipe fittings in the units used on site.</li>
+      <li>Chadwick, A. and Morfett, J. <em>Hydraulics in Civil and Environmental Engineering</em>, Spon.
+        Chapter 4 for momentum, Chapter 5 for the hydraulic jump and stilling basins.</li>
+      <li>Twort, A. C., Ratnayaka, D. D. and Brandt, M. J. <em>Water Supply</em>, Butterworth-Heinemann.
+        <span class="units">(Beyond the syllabus.)</span> Practical thrust-block design, anchorage of
+        push-fit pipelines, and surge protection.</li>
+      <li>AWWA M23, <em>PVC Pipe &mdash; Design and Installation</em>, and AWWA M11 for steel pipe.
+        <span class="units">(Beyond the syllabus.)</span> The tabulated thrust and bearing-area data that
+        equation&nbsp;(4.26) sits behind, together with allowable soil bearing values.</li>
+      <li>US Bureau of Reclamation, <em>Design of Small Canal Structures</em>.
+        <span class="units">(Beyond the syllabus, freely available online.)</span> Stilling basins,
+        baffle blocks and drop structures &mdash; the hydraulic jump of &sect;4.10 turned into concrete.</li>
+    </ol>
+
+    <div class="chapter-nav">
+      <span><a href="chapter3.html">&larr; Chapter 3: Continuity and Bernoulli</a></span>
+      <span class="muted-nav">Chapter 5: Real Fluids in Pipes &mdash; in preparation</span>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h3>Course</h3>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter2.html">Chapter 2: Forces in Static Fluids</a></li>
+        <li><a href="chapter3.html">Chapter 3: Continuity and Bernoulli</a></li>
+        <li><a href="chapter4.html">Chapter 4: The Momentum Equation</a></li>
+        <li><a href="chapter4-th.html" lang="th">บทที่ 4 (ภาษาไทย)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>In This Chapter</h3>
+      <ul>
+        <li><a href="#t1">Table 4.1 &mdash; The three laws</a></li>
+        <li><a href="#t2">Table 4.2 &mdash; Jets on plates and vanes</a></li>
+        <li><a href="#s5">The Seven Steps</a></li>
+        <li><a href="#s11">Worked Examples</a></li>
+        <li><a href="#s13">Self-Check Questions</a></li>
+        <li><a href="#s14">Problems</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <p>Lecture notes for ASE 221. All rights reserved. Layout follows the departmental courseware
+        template; content and code are original to this course.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Charatchai Yenphayab. All rights reserved. ASE 221 Introduction to Fluid Mechanics &mdash;
+    course notes, Semester 1 / 2026. No part of this site may be reproduced, adapted or redistributed
+    without prior written permission.
+  </div>
+</footer>
+
+<script>
+/* Self-check for Chapter 4. Marked entirely in the reader's own browser by
+   quiz.js; no result is stored or transmitted. */
+window.QUIZ = {
+  text: {
+    answered:     "Answered",
+    correctCount: "Correct",
+    section:      "&sect;",
+    markCorrect:  "correct",
+    markYours:    "your answer",
+    whyLabel:     "Why",
+    readMore:     "Re-read &sect;{ref}",
+    reset:        "Start again",
+    revealAll:    "Reveal remaining answers",
+    resultTitle:  "Self-check complete",
+    band90: "Solid. Go on to the written problems in &sect;4.14.",
+    band70: "A good pass. Re-read the sections listed below, then attempt &sect;4.14.",
+    band50: "Half the ground is secure. Work through the sections below again before the problems.",
+    band0:  "Read the chapter through once more before going on; start with the sections listed below.",
+    revise: "Sections to revise:"
+  },
+  questions: [
+
+    /* ----------------------------- 4.1 What momentum adds */
+    { ref: "4.1", href: "#s1", a: 2,
+      q: "Why can neither continuity nor the Bernoulli equation give the force on a pipe bend?",
+      opts: [
+        "Because both assume the fluid is ideal.",
+        "Because both are restricted to horizontal pipes.",
+        "Because neither of them contains a force at all &mdash; one conserves mass, the other energy.",
+        "Because a bend is a non-uniform flow."
+      ],
+      why: "A force appears in the equations only through Newton&rsquo;s second law, which is a statement about momentum. Adding it is the whole purpose of this chapter." },
+
+    { ref: "4.1", href: "#s1", a: 0,
+      q: "In a typical problem in this chapter, the correct order of work is:",
+      opts: [
+        "continuity for the velocities, the Bernoulli equation for the pressures, then momentum for the force.",
+        "momentum first, then continuity, then the Bernoulli equation.",
+        "the Bernoulli equation first, then momentum, then continuity.",
+        "momentum alone, since it contains everything needed."
+      ],
+      why: "The momentum equation consumes velocities and pressures; it does not produce them. Starting with it is the commonest way to get stuck." },
+
+    { ref: "4.1", href: "#s1", a: 3,
+      q: "The momentum equation differs from the other two conservation laws in that it is:",
+      opts: [
+        "valid only for incompressible flow.",
+        "valid only for steady flow.",
+        "an approximation rather than an exact law.",
+        "a vector equation, so in two dimensions it is really two equations."
+      ],
+      why: "Continuity and the Bernoulli equation each give one number. Momentum has a direction, and almost every error in this chapter is a sign error that follows from forgetting it." },
+
+    { ref: "4.1", href: "#s1", a: 1,
+      q: "Which quantity does the momentum equation say nothing about?",
+      opts: [
+        "The direction of the force on a boundary.",
+        "Where the energy lost in a bend went.",
+        "The magnitude of the force on a boundary.",
+        "The change of velocity across a control volume."
+      ],
+      why: "Momentum accounts only for what crosses the two faces. It is blind to what happened inside &mdash; which is exactly why it still works across a turbulent hydraulic jump, where the Bernoulli equation fails." },
+
+    /* ----------------------------- 4.2 Newton for a flowing fluid */
+    { ref: "4.2", href: "#s2", a: 1,
+      q: "Newton&rsquo;s second law, in the form needed for a fluid, states that force equals:",
+      opts: [
+        "mass times velocity.",
+        "the rate of change of momentum.",
+        "momentum divided by time squared.",
+        "mass times distance divided by time."
+      ],
+      why: "<i>F</i> = d(<i>mu</i>)/d<i>t</i>. The familiar <i>F</i> = <i>ma</i> is the special case in which the mass does not change, which is not the case for fluid crossing a control volume." },
+
+    { ref: "4.2", href: "#s2", a: 3,
+      q: "The momentum equation for steady flow through a streamtube is:",
+      opts: [
+        "<i>F</i> = <i>&rho;Q</i>(<i>u</i><sub>1</sub> &minus; <i>u</i><sub>2</sub>).",
+        "<i>F</i> = <i>&rho;A</i>(<i>u</i><sub>2</sub> &minus; <i>u</i><sub>1</sub>).",
+        "<i>F</i> = <i>&rho;Qu</i><sub>1</sub><i>u</i><sub>2</sub>.",
+        "<i>F</i> = <i>&rho;Q</i>(<i>u</i><sub>2</sub> &minus; <i>u</i><sub>1</sub>)."
+      ],
+      why: "Mass flow rate times the change of velocity, and the change is always <b>out minus in</b>. Reversing that subtraction reverses the direction of every force in the problem." },
+
+    { ref: "4.2", href: "#s2", a: 0,
+      q: "Why does the fluid in the middle of the control volume contribute nothing to the change of momentum?",
+      opts: [
+        "Because the flow is steady, so its condition is the same at the end of the interval as at the start.",
+        "Because it is not touching the boundary.",
+        "Because its velocity is the average of the inlet and outlet values.",
+        "Because its mass is negligible compared with the slugs at the ends."
+      ],
+      why: "Steadiness is doing the work here. In unsteady flow the fluid inside <i>does</i> change, and an extra storage term appears &mdash; which is why this course keeps to steady flow." },
+
+    { ref: "4.2", href: "#s2", a: 2,
+      q: "Which of the following does <b>not</b> appear anywhere in <i>F</i> = <i>&rho;Q</i>(<i>u</i><sub>2</sub> &minus; <i>u</i><sub>1</sub>)?",
+      opts: [
+        "The density of the fluid.",
+        "The discharge.",
+        "The shape of the boundary between the two faces.",
+        "The velocity at the outlet."
+      ],
+      why: "Only what crosses the two faces matters. The pipe between them may be smooth, rough, long or short: the momentum equation does not ask, which is what makes it so widely usable." },
+
+    { ref: "4.2", href: "#s2", a: 1,
+      q: "Water at 0.04 m<sup>3</sup>/s is brought completely to rest from 6 m/s. The force involved is:",
+      opts: [
+        "0.24 N.",
+        "240 N.",
+        "1.5 N.",
+        "24 kN."
+      ],
+      why: "<i>F</i> = <i>&rho;Q&Delta;u</i> = 1000 &times; 0.04 &times; 6 = 240 N. Note how modest that is; it is the <i>pressure</i> terms that make the forces in a pipeline large." },
+
+    /* ----------------------------- 4.3 Two dimensions */
+    { ref: "4.3", href: "#s3", a: 2,
+      q: "To apply the momentum equation in two dimensions you should:",
+      opts: [
+        "use the resultant velocities directly and take the difference.",
+        "work with the average of the two directions.",
+        "resolve every velocity onto a chosen pair of axes and write one momentum equation per axis.",
+        "always align one axis with the outlet flow."
+      ],
+      why: "Momentum in the <i>x</i> direction is changed only by a force in the <i>x</i> direction, so the two equations are independent and can be solved separately, then recombined." },
+
+    { ref: "4.3", href: "#s3", a: 0,
+      q: "A jet is reversed through 180&deg; by a cup. Compared with a flat plate that merely stops it, the momentum change is:",
+      opts: [
+        "about twice as large, because the velocity goes from +u to &minus;u.",
+        "the same, since the speed is unchanged.",
+        "half as large, because the water returns.",
+        "zero, because the jet ends up with the same speed it started with."
+      ],
+      why: "The change is <i>u</i><sub>2</sub> &minus; <i>u</i><sub>1</sub> = (&minus;<i>u</i>) &minus; (+<i>u</i>) = &minus;2<i>u</i>, against &minus;<i>u</i> for a stop. Speed is a scalar; momentum is not. This factor of two is why every impulse turbine uses a cup." },
+
+    { ref: "4.3", href: "#s3", a: 1,
+      q: "A momentum calculation gives <i>F</i><sub>Rx</sub> = &minus;4800 N. The correct response is to:",
+      opts: [
+        "change the sign, since a force cannot be negative.",
+        "report 4800 N acting in the negative <i>x</i> direction.",
+        "re-do the calculation, since a negative answer indicates an error.",
+        "take the magnitude and ignore the direction."
+      ],
+      why: "A negative answer is an answer: it says the force acts the other way along the axis you chose. Silently making it positive throws away half of what the vector equation told you." },
+
+    { ref: "4.3", href: "#s3", a: 3,
+      q: "The resultant of two perpendicular force components is found from:",
+      opts: [
+        "<i>F</i> = <i>F</i><sub>x</sub> + <i>F</i><sub>y</sub>.",
+        "<i>F</i> = (<i>F</i><sub>x</sub> + <i>F</i><sub>y</sub>)/2.",
+        "<i>F</i> = <i>F</i><sub>x</sub><i>F</i><sub>y</sub>.",
+        "<i>F</i> = &radic;(<i>F</i><sub>x</sub><sup>2</sup> + <i>F</i><sub>y</sub><sup>2</sup>), at an angle tan<sup>&minus;1</sup>(<i>F</i><sub>y</sub>/<i>F</i><sub>x</sub>)."
+      ],
+      why: "The ordinary rule for adding perpendicular vectors, from statics. Both the magnitude and the angle are needed &mdash; a thrust block has to be placed as well as sized." },
+
+    { ref: "4.3", href: "#s3", a: 2,
+      q: "In the convention used in this chapter, angles are measured:",
+      opts: [
+        "from the nearest wall, whichever way is convenient.",
+        "from the vertical, clockwise.",
+        "from the positive <i>x</i> axis, anticlockwise, for every velocity in the problem.",
+        "separately for the inlet and the outlet, whichever makes each angle acute."
+      ],
+      why: "Consistency is the point. Measuring one angle &ldquo;the obvious way&rdquo; and another the opposite way is the classic route to a wrong sign and a force pointing into the pipe instead of out of it." },
+
+    /* ----------------------------- 4.4 The four forces */
+    { ref: "4.4", href: "#s4", a: 1,
+      q: "In <i>F</i><sub>T</sub> = <i>F</i><sub>R</sub> + <i>F</i><sub>P</sub> + <i>F</i><sub>B</sub>, the term <i>F</i><sub>T</sub> is:",
+      opts: [
+        "the force on the pipe.",
+        "the total force on the fluid, which is what <i>&rho;Q</i>(<i>u</i><sub>2</sub> &minus; <i>u</i><sub>1</sub>) computes.",
+        "the tension in the pipe wall.",
+        "the force needed to hold the thrust block."
+      ],
+      why: "<i>F</i><sub>T</sub> is never measured, always calculated from the velocities. Splitting it up to extract <i>F</i><sub>R</sub> is the business of &sect;4.4." },
+
+    { ref: "4.4", href: "#s4", a: 3,
+      q: "The pressure force <i>F</i><sub>P</sub> acts:",
+      opts: [
+        "over the whole inside surface of the pipe.",
+        "only where the pipe changes direction.",
+        "along the flow, always in the direction of motion.",
+        "on the inlet and outlet faces of the control volume, normal to each face and pushing inward."
+      ],
+      why: "It is the push of the fluid <i>outside</i> the control volume on the fluid inside, so it is always <i>pA</i> directed into the volume. The force on the curved wall is not <i>F</i><sub>P</sub>; it is part of what you are solving for." },
+
+    { ref: "4.4", href: "#s4", a: 0,
+      q: "For a bend lying in a horizontal plane, the body force <i>F</i><sub>B</sub>:",
+      opts: [
+        "has no component along either working axis, since the weight acts vertically.",
+        "equals the weight of the whole pipe plus its contents.",
+        "acts along the direction of flow.",
+        "must always be included, whatever the geometry."
+      ],
+      why: "The weight is perpendicular to both axes, so it drops out of both equations. In a vertical bend it does not, and it must then be carried through &mdash; say which case you are in rather than assuming." },
+
+    { ref: "4.4", href: "#s4", a: 2,
+      q: "<i>F</i><sub>R</sub> as defined in this chapter is:",
+      opts: [
+        "the resultant of the pressure forces.",
+        "the force of the fluid on the boundary.",
+        "the force of the boundary on the fluid.",
+        "the residual error in the calculation."
+      ],
+      why: "The reaction of the solid on the fluid. The quantity an engineer reports &mdash; the force on the bend &mdash; is its opposite, and forgetting that last reversal gets the direction exactly backwards." },
+
+    { ref: "4.4", href: "#s4", a: 1,
+      q: "Having found <i>F</i><sub>R</sub>, the force the fluid exerts on the pipe is:",
+      opts: [
+        "the same, <i>F</i><sub>R</sub>.",
+        "equal and opposite, &minus;<i>F</i><sub>R</sub>, by Newton&rsquo;s third law.",
+        "<i>F</i><sub>R</sub> + <i>F</i><sub>P</sub>.",
+        "half of <i>F</i><sub>R</sub>, since the load is shared with the pressure."
+      ],
+      why: "Newton&rsquo;s third law, and the last of the seven steps. It is the step most often left out." },
+
+    { ref: "4.4", href: "#s4", a: 0,
+      q: "Rearranged to solve for the unknown, the force equation reads:",
+      opts: [
+        "<i>F</i><sub>R</sub> = <i>F</i><sub>T</sub> &minus; <i>F</i><sub>P</sub> &minus; <i>F</i><sub>B</sub>.",
+        "<i>F</i><sub>R</sub> = <i>F</i><sub>T</sub> + <i>F</i><sub>P</sub> + <i>F</i><sub>B</sub>.",
+        "<i>F</i><sub>R</sub> = <i>F</i><sub>P</sub> + <i>F</i><sub>B</sub> &minus; <i>F</i><sub>T</sub>.",
+        "<i>F</i><sub>R</sub> = <i>F</i><sub>P</sub> &minus; <i>F</i><sub>T</sub> &minus; <i>F</i><sub>B</sub>."
+      ],
+      why: "Simply equation (4.8) rearranged. Every worked example in &sect;4.11 uses this line and no other." },
+
+    /* ----------------------------- 4.5 The procedure */
+    { ref: "4.5", href: "#s5", a: 2,
+      q: "The faces of a control volume should be cut:",
+      opts: [
+        "as close together as possible, to keep the volume small.",
+        "wherever the pipe is widest.",
+        "where the streamlines are parallel, so the pressure is uniform across the face.",
+        "always at a bend, so the force appears directly."
+      ],
+      why: "Parallel streamlines mean no pressure gradient across the face, so <i>F</i><sub>P</sub> = <i>pA</i> is exact. The same argument put the vena contracta where it is in &sect;3.9." },
+
+    { ref: "4.5", href: "#s5", a: 0,
+      q: "For a nozzle discharging to atmosphere, the outlet face should be cut:",
+      opts: [
+        "in the free jet just clear of the nozzle, where the pressure is atmospheric.",
+        "at the narrowest point inside the nozzle.",
+        "halfway along the taper.",
+        "wherever the velocity is highest."
+      ],
+      why: "Cut inside the nozzle and the pressure on that face is an unknown you would then have to find. In the free jet it is zero gauge, and one term disappears from the arithmetic." },
+
+    { ref: "4.5", href: "#s5", a: 3,
+      q: "If the boundary whose force you want lies <b>outside</b> the control volume, then:",
+      opts: [
+        "the answer is the same, since forces are transmitted through the fluid.",
+        "you must add its weight separately.",
+        "the answer comes out with the wrong sign.",
+        "its reaction never enters the equations at all, so the calculation cannot give you what you asked for."
+      ],
+      why: "Only forces acting on the fluid <i>inside</i> the volume appear. Drawing the volume so that it encloses the bend, the nozzle or the vane is part of setting the problem up, not an afterthought." },
+
+    { ref: "4.5", href: "#s5", a: 1,
+      q: "Putting the <i>x</i> axis along the inlet flow is recommended because:",
+      opts: [
+        "the momentum equation is only valid in that orientation.",
+        "it makes <i>&theta;</i><sub>1</sub> = 0, removing one angle from the arithmetic.",
+        "it guarantees all the answers come out positive.",
+        "the pressure force then has no <i>y</i> component."
+      ],
+      why: "A convenience, not a rule. Any consistent pair of axes gives the same resultant; this choice just halves the number of cosines to evaluate." },
+
+    /* ----------------------------- 4.6 Nozzle */
+    { ref: "4.6", href: "#s6", a: 2,
+      q: "For a nozzle discharging to atmosphere, the pressure force term is:",
+      opts: [
+        "zero, since the jet is free.",
+        "<i>p</i><sub>1</sub><i>A</i><sub>1</sub> + <i>p</i><sub>2</sub><i>A</i><sub>2</sub>.",
+        "<i>p</i><sub>1</sub><i>A</i><sub>1</sub>, because <i>p</i><sub>2</sub> is zero gauge.",
+        "<i>p</i><sub>1</sub><i>A</i><sub>2</sub>."
+      ],
+      why: "The outlet face is in the free jet at atmospheric pressure, so its gauge pressure is zero and only the inlet term survives. Each pressure acts on its own area." },
+
+    { ref: "4.6", href: "#s6", a: 0,
+      q: "In the nozzle of &sect;4.6, <i>F</i><sub>Rx</sub> comes out negative. This means:",
+      opts: [
+        "the nozzle holds the water back, so the water pushes the nozzle forwards, away from the hose.",
+        "the calculation has a sign error.",
+        "the water pushes the nozzle backwards, towards the hose.",
+        "the nozzle is in compression."
+      ],
+      why: "It is the force that tries to tear a fire hose out of your hands, and the force the coupling threads must carry." },
+
+    { ref: "4.6", href: "#s6", a: 3,
+      q: "In Example 4.1 the pressure term was about five times the momentum term. For a nozzle this happens because:",
+      opts: [
+        "the discharge is large.",
+        "the nozzle is short.",
+        "friction has been neglected.",
+        "a large pressure is needed on a comparatively large inlet area to produce the jet, while the mass flow rate itself is modest."
+      ],
+      why: "<i>pA</i> scales with the inlet area; <i>&rho;Q&Delta;u</i> does not. Checking which term dominates before simplifying is a habit worth having &mdash; in a high-velocity, low-pressure jet the balance reverses." },
+
+    { ref: "4.6", href: "#s6", a: 1,
+      q: "Why does the nozzle problem need no <i>y</i> equation?",
+      opts: [
+        "Because the nozzle is short.",
+        "Because the flow does not change direction, so all the momentum is along one axis.",
+        "Because the pressure is atmospheric at the outlet.",
+        "Because the body force is neglected."
+      ],
+      why: "A <i>y</i> equation would read 0 = 0. The moment the flow turns, as in &sect;4.7, the second equation comes alive." },
+
+    /* ----------------------------- 4.7 Pipe bend */
+    { ref: "4.7", href: "#s7", a: 2,
+      q: "In the bend of Figure 4.4, the outlet pressure force <i>p</i><sub>2</sub><i>A</i><sub>2</sub>:",
+      opts: [
+        "acts along the outlet direction, away from the control volume.",
+        "has no <i>y</i> component.",
+        "acts back along the outlet direction, into the control volume, so it has components in &minus;<i>x</i> and &minus;<i>y</i>.",
+        "is zero because the pipe is of constant diameter."
+      ],
+      why: "Every pressure force on a control surface pushes inward. Getting this one outward is the second commonest sign error in the chapter, after out-minus-in." },
+
+    { ref: "4.7", href: "#s7", a: 0,
+      q: "In a typical buried irrigation main, the thrust at a bend is dominated by:",
+      opts: [
+        "the pressure terms, often by a factor of a hundred or more.",
+        "the momentum terms, since the water is moving fast.",
+        "the weight of the water in the bend.",
+        "the weight of the pipe itself."
+      ],
+      why: "For a 300 mm main at 4 bar and 1.5 m/s, <i>pA</i> is about 28 kN against <i>&rho;Qu</i> of about 160 N. It is why a thrust block is sized on pressure, and why a pipeline is most at risk during a surge rather than at maximum flow." },
+
+    { ref: "4.7", href: "#s7", a: 3,
+      q: "Compared with a 90&deg; bend of the same size and pressure, a 180&deg; bend carries:",
+      opts: [
+        "no thrust at all, since the two ends balance.",
+        "half the thrust.",
+        "exactly twice the thrust, at right angles to the pipe.",
+        "about 1.4 times the thrust, all of it along a single line."
+      ],
+      why: "At 180&deg; every term adds and the <i>y</i> component vanishes. The thrust on an equal-area bend goes as 2<i>pA</i>&thinsp;sin(<i>&theta;</i>/2), so the ratio is sin&thinsp;90&deg;/sin&thinsp;45&deg; = 1.41." },
+
+    { ref: "4.7", href: "#s7", a: 1,
+      q: "The force on a 90&deg; bend of constant diameter acts:",
+      opts: [
+        "along the inlet pipe, backwards.",
+        "outward along the bisector of the turn, at 45&deg; to both legs.",
+        "at right angles to the plane of the bend.",
+        "along the outlet pipe, forwards."
+      ],
+      why: "Which is where the thrust block goes. Getting the magnitude right and the direction wrong puts the concrete in the wrong place, and the joint still pulls apart." },
+
+    { ref: "4.7", href: "#s7", a: 2,
+      q: "In a bend of constant diameter with friction neglected, the two velocities are:",
+      opts: [
+        "different, because the flow has turned.",
+        "different, because the pressure has changed.",
+        "equal in magnitude but different in direction.",
+        "equal in both magnitude and direction."
+      ],
+      why: "Continuity fixes the magnitude, since the area has not changed; the bend changes only the direction. That direction change is the entire momentum term." },
+
+    /* ----------------------------- 4.8 Jet on a plate */
+    { ref: "4.8", href: "#s8", a: 1,
+      q: "For a free jet striking a plate in the open air, the pressure force term is:",
+      opts: [
+        "<i>p</i><sub>atm</sub><i>A</i>, acting along the jet.",
+        "zero in gauge terms, because the pressure is atmospheric all round the control surface.",
+        "equal and opposite to the momentum term.",
+        "the stagnation pressure times the jet area."
+      ],
+      why: "Atmospheric pressure acts equally on every part of the control surface and cancels, so <i>F</i><sub>R</sub> = <i>F</i><sub>T</sub> and there is nothing to subtract. It is what makes jet problems the easiest in the chapter." },
+
+    { ref: "4.8", href: "#s8", a: 3,
+      q: "A jet striking a flat plate at right angles exerts a force:",
+      opts: [
+        "<i>&rho;Au</i>.",
+        "&frac12;<i>&rho;Au</i><sup>2</sup>.",
+        "<i>&rho;A</i><sup>2</sup><i>u</i>.",
+        "<i>&rho;Au</i><sup>2</sup>."
+      ],
+      why: "<i>F</i> = <i>&rho;Qu</i> and <i>Q</i> = <i>Au</i>. There is no factor of a half &mdash; that belongs to kinetic energy, not to momentum, and confusing the two is a common slip." },
+
+    { ref: "4.8", href: "#s8", a: 0,
+      q: "If the velocity of a jet striking a plate is doubled, the force becomes:",
+      opts: [
+        "four times as large.",
+        "twice as large.",
+        "eight times as large.",
+        "unchanged, since the plate still stops it."
+      ],
+      why: "<i>F</i> &prop; <i>u</i><sup>2</sup>: twice the mass arrives each second, and each kilogram carries twice the momentum." },
+
+    { ref: "4.8", href: "#s8", a: 2,
+      q: "A jet strikes a plate inclined at <i>&theta;</i> to the jet. The force normal to the plate is:",
+      opts: [
+        "<i>&rho;Au</i><sup>2</sup> cos<i>&theta;</i>.",
+        "<i>&rho;Au</i><sup>2</sup>, whatever the angle.",
+        "<i>&rho;Au</i><sup>2</sup> sin<i>&theta;</i>.",
+        "<i>&rho;Au</i><sup>2</sup> tan<i>&theta;</i>."
+      ],
+      why: "Only the component of the arriving velocity normal to the plate is destroyed; the rest runs along the surface. At <i>&theta;</i> = 90&deg; this recovers the full <i>&rho;Au</i><sup>2</sup>." },
+
+    { ref: "4.8", href: "#s8", a: 1,
+      q: "A plate retreating along the jet at velocity <i>v</i> feels a force:",
+      opts: [
+        "<i>&rho;Au</i>(<i>u</i> &minus; <i>v</i>).",
+        "<i>&rho;A</i>(<i>u</i> &minus; <i>v</i>)<sup>2</sup>.",
+        "<i>&rho;Au</i><sup>2</sup> &minus; <i>&rho;Av</i><sup>2</sup>.",
+        "<i>&rho;A</i>(<i>u</i> + <i>v</i>)<sup>2</sup>."
+      ],
+      why: "The relative velocity appears twice over: once because the water arrives more slowly, and once because less of it arrives each second, since the jet must chase the plate." },
+
+    /* ----------------------------- 4.9 Vanes and the Pelton wheel */
+    { ref: "4.9", href: "#s9", a: 0,
+      q: "The force on a stationary vane that turns a jet through <i>&beta;</i> is:",
+      opts: [
+        "<i>&rho;Qu</i>(1 &minus; cos<i>&beta;</i>).",
+        "<i>&rho;Qu</i> cos<i>&beta;</i>.",
+        "<i>&rho;Qu</i> sin<i>&beta;</i>.",
+        "<i>&rho;Qu</i>(1 + cos<i>&beta;</i>)."
+      ],
+      why: "At <i>&beta;</i> = 90&deg; the factor is 1 and the flat-plate result returns; at 180&deg; it is 2. Table 4.2 is this one expression with the angle changed." },
+
+    { ref: "4.9", href: "#s9", a: 3,
+      q: "A Pelton bucket turns the jet through about 165&deg; rather than a full 180&deg; because:",
+      opts: [
+        "the extra 15&deg; would halve the force.",
+        "a full reversal is impossible to manufacture.",
+        "the water would cavitate.",
+        "the returning water would otherwise strike the back of the following bucket."
+      ],
+      why: "The cost is small &mdash; the factor falls from 2.00 to 1.97, about 1.7 % &mdash; and it buys a clean exit for the spent water." },
+
+    { ref: "4.9", href: "#s9", a: 2,
+      q: "A Pelton <b>wheel</b> develops most power when the buckets run at:",
+      opts: [
+        "the jet speed <i>u</i>.",
+        "one third of the jet speed.",
+        "half the jet speed.",
+        "two thirds of the jet speed."
+      ],
+      why: "Differentiating <i>P</i> = <i>&rho;Au</i>(<i>u</i> &minus; <i>v</i>)(1 &minus; cos<i>&beta;</i>)<i>v</i> gives <i>u</i> &minus; 2<i>v</i> = 0. Real wheels run a little under, at about 0.46<i>u</i>, because friction slows the water inside the bucket." },
+
+    { ref: "4.9", href: "#s9", a: 1,
+      q: "The best speed is <i>u</i>/2 for a wheel but <i>u</i>/3 for a single bucket because:",
+      opts: [
+        "the wheel turns the jet through a larger angle.",
+        "on a wheel the next bucket always catches the whole jet, so the mass flow rate is <i>&rho;Au</i> and does not fall as the wheel speeds up.",
+        "a single bucket has more friction.",
+        "the wheel has many buckets, so the force is shared."
+      ],
+      why: "The momentum argument is identical in the two cases; only the mass flow rate differs. A single bucket must be chased by the jet, so <i>m&#775;</i> = <i>&rho;A</i>(<i>u</i> &minus; <i>v</i>) and the optimum shifts." },
+
+    /* ----------------------------- 4.10 Extension */
+    { ref: "4.10", href: "#s10", a: 2,
+      q: "<b>Extension.</b> A thrust block is needed at a bend in a push-fit pipeline because:",
+      opts: [
+        "the pipe would otherwise float.",
+        "the concrete stiffens the bend against internal pressure.",
+        "a push-fit joint carries almost no tension, so the thrust must be taken into undisturbed ground.",
+        "the water hammer would otherwise burst the pipe."
+      ],
+      why: "A welded or fully restrained line can carry the thrust along the pipe wall; a spigot-and-socket line cannot, and the joint simply pulls apart. Blocks are needed at bends, tees, reducers, valves and dead ends." },
+
+    { ref: "4.10", href: "#s10", a: 0,
+      q: "<b>Extension.</b> The Borda&ndash;Carnot loss at a sudden expansion, <i>h</i><sub>L</sub> = (<i>u</i><sub>1</sub> &minus; <i>u</i><sub>2</sub>)<sup>2</sup>/2<i>g</i>, is notable because:",
+      opts: [
+        "it is the one major head loss in the course that can be derived rather than measured, by applying momentum and energy to the same control volume.",
+        "it is the largest loss in any pipe system.",
+        "it applies only to laminar flow.",
+        "it does not depend on the velocity."
+      ],
+      why: "Momentum survives the turbulent mixing at the step; energy does not. Subtracting the two isolates the loss. Every other loss coefficient in Chapter 5 comes from a laboratory." },
+
+    { ref: "4.10", href: "#s10", a: 3,
+      q: "<b>Extension.</b> A hydraulic jump is analysed with momentum rather than the Bernoulli equation because:",
+      opts: [
+        "the flow is compressible through the jump.",
+        "the jump is unsteady.",
+        "the channel is not horizontal.",
+        "the jump dissipates a large and unknown amount of energy, which the Bernoulli equation cannot account for, while momentum is blind to it."
+      ],
+      why: "The same property that makes the momentum equation silent about losses makes it usable where losses are large and unknown. A jump forms only where the approaching flow is supercritical, Fr &gt; 1." },
+
+    { ref: "4.10", href: "#s10", a: 1,
+      q: "<b>Extension.</b> Closing a valve quickly on a PVC irrigation main is dangerous because:",
+      opts: [
+        "the pipe may collapse inward under the vacuum.",
+        "destroying the momentum of the whole water column quickly produces a large pressure rise, &Delta;p = &rho;c&Delta;u.",
+        "the flow becomes turbulent.",
+        "the thrust blocks are designed for the working pressure only."
+      ],
+      why: "At 1.5 m/s in PVC, with a wave speed near 400 m/s, the surge is about 600 kPa &mdash; six bar added to the working pressure for nothing. It is why thrust blocks are sized on surge pressure and valves are closed slowly." }
+
+  ]
+};
+</script>
+<script src="lang.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>
