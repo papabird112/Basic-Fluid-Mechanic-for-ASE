@@ -1,0 +1,2134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chapter 5: Real Fluids in Pipes | ASE 221 Introduction to Fluid Mechanics</title>
+<meta name="description" content="Reynolds' experiment and the Reynolds number, laminar transitional and turbulent flow, pressure loss due to friction, shear stress in a pipe, the parabolic velocity profile of laminar flow, the Hagen-Poiseuille equation and the Darcy friction factor.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index.html">
+      <span class="logo-mark">FM</span>
+      <span class="logo-text">ASE-FM<small>Biosystem and Agricultural Engineering, KMITL</small></span>
+    </a>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="index.html">About</a>
+      <a href="chapter1.html">Lecture Notes</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="chapter5.html" class="active">EN</a>
+      <a href="chapter5-th.html" lang="th">ไทย</a>
+    </div>
+    <a class="btn-give" href="#s11">Worked Examples</a>
+  </div>
+</header>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ASE 221 <span>|</span> Chapter 5 <span>|</span> Lecture Notes</p>
+    <h1>Real Fluids in Pipes</h1>
+    <p class="tagline">Every equation so far has assumed a fluid with no viscosity. Chapter&nbsp;1 measured
+      viscosity and then put it away; the Bernoulli equation quietly threw its consequences out. This
+      chapter opens that box &mdash; and what comes out is the number every pipeline on earth is sized
+      by.</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="course-menu">
+      <h2>Course Menu</h2>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter1.html">Ch.&nbsp;1 &mdash; Fluid Properties</a></li>
+        <li><a href="chapter2.html">Ch.&nbsp;2 &mdash; Forces in Static Fluids</a></li>
+        <li><a href="chapter3.html">Ch.&nbsp;3 &mdash; Continuity and Bernoulli</a></li>
+        <li><a href="chapter4.html">Ch.&nbsp;4 &mdash; The Momentum Equation</a></li>
+        <li><a href="chapter5.html" class="active">Ch.&nbsp;5 &mdash; Real Fluids in Pipes</a></li>
+      </ul>
+    </nav>
+
+    <section class="course-info">
+      <h2>Chapter Info</h2>
+      <dl>
+        <dt>Lectures</dt>
+        <dd>5 (7&frac12; hours)</dd>
+
+        <dt>Reference</dt>
+        <dd class="crumbs">Sleigh, CIVE 1400 &mdash; &sect;4.1&ndash;4.3</dd>
+
+        <dt>Key Equations</dt>
+        <dd>
+          <ul>
+            <li><var>Re</var> = <var>&rho;ud</var>/<var>&mu;</var></li>
+            <li><var>&tau;</var><sub>w</sub> = &Delta;<var>p d</var>/4<var>L</var></li>
+            <li><var>Q</var> = <var>&pi;</var>&Delta;<var>p d</var><sup>4</sup>/128<var>&mu;L</var></li>
+            <li><var>h</var><sub>f</sub> = <var>&lambda;Lu</var><sup>2</sup>/2<var>gd</var></li>
+          </ul>
+        </dd>
+
+        <dt>Tables</dt>
+        <dd>
+          <ul>
+            <li><a href="#t1">5.1 The three regimes</a></li>
+            <li><a href="#t2">5.2 Laminar and turbulent compared</a></li>
+            <li><a href="#t3">5.3 Pipe roughness</a></li>
+          </ul>
+        </dd>
+
+        <dt>You Will Need</dt>
+        <dd class="crumbs">Ch. 1 &gt; viscosity, Newton&rsquo;s law</dd>
+        <dd class="crumbs">Ch. 3 &gt; head, the energy grade line</dd>
+        <dd class="crumbs">Ch. 4 &gt; force balance on a control volume</dd>
+        <dd class="crumbs">Maths &gt; integrating a simple function</dd>
+      </dl>
+    </section>
+  </aside>
+
+  <main class="content">
+
+    <p class="lead">Water does not flow along a pipe for free. Push it 1000&nbsp;m down a 150&nbsp;mm
+      irrigation main at 1.5&nbsp;m/s and it arrives about 15&nbsp;m of head poorer than it set off &mdash;
+      a loss the Bernoulli equation of Chapter&nbsp;3 says flatly does not exist. Finding that number is
+      what this chapter is for, and it is the single most-used calculation in water engineering.</p>
+
+    <nav class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#s1">Where the Ideal Fluid Runs Out</a></li>
+        <li><a href="#s2">Reynolds&rsquo; Experiment</a></li>
+        <li><a href="#s3">The Reynolds Number</a></li>
+        <li><a href="#s4">Laminar, Transitional and Turbulent Flow</a></li>
+        <li><a href="#s5">What Experiment Says About Friction</a></li>
+        <li><a href="#s6">Shear Stress in a Pipe</a></li>
+        <li><a href="#s7">The Velocity Profile in Laminar Flow</a></li>
+        <li><a href="#s8">The Hagen&ndash;Poiseuille Equation</a></li>
+        <li><a href="#s9">The Friction Factor and the Darcy Equation</a></li>
+        <li><a href="#s10">Beyond the Core &mdash; Sizing a Real Pipeline</a></li>
+        <li><a href="#s11">Worked Examples</a></li>
+        <li><a href="#s12">Nomenclature</a></li>
+        <li><a href="#s13">Self-Check &mdash; 47 Questions</a></li>
+        <li><a href="#s14">Problems</a></li>
+        <li><a href="#s15">References</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================ 5.1 -->
+    <h2 id="s1">5.1 Where the Ideal Fluid Runs Out</h2>
+
+    <p>Chapter&nbsp;1 &sect;1.5 defined viscosity, measured it, and tabulated it. Then nothing in
+      Chapters&nbsp;2 to&nbsp;4 used it. That was not an oversight: every one of those chapters bought its
+      simplicity by assuming an <b>ideal fluid</b> &mdash; one with no viscosity, in which no shear stress
+      can act and therefore nothing can resist the flow.</p>
+
+    <p>The price of that assumption comes due here. Put a row of piezometers along a straight, level pipe
+      carrying water at a steady rate and you will find the water standing a little lower in each one than
+      in the one before. Nothing in Chapter&nbsp;3 permits that: with <var>z</var> constant and
+      <var>u</var> constant, equation&nbsp;(3.11) insists the pressure head must be constant too.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="A straight level pipe with five piezometer tubes along it. The water stands progressively lower in each successive tube, so the hydraulic grade line slopes steadily downwards. The energy grade line runs parallel above it, and the vertical drop between the first and last section is the friction head loss.">
+        <defs>
+          <marker id="w1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="w1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="w1c" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- energy grade line -->
+        <line x1="60" y1="44" x2="800" y2="128" stroke="#b03a2e" stroke-width="2.6"/>
+        <text x="600" y="36" font-family="Segoe UI, Arial" font-size="12.5" font-weight="700" fill="#b03a2e">energy grade line &mdash; now it slopes</text>
+
+        <!-- hydraulic grade line through the piezometer tops -->
+        <line x1="60" y1="70" x2="800" y2="154" stroke="#00788A" stroke-width="2.6" stroke-dasharray="9 5"/>
+        <text x="620" y="176" font-family="Segoe UI, Arial" font-size="12.5" font-weight="700" fill="#00788A">hydraulic grade line</text>
+
+        <!-- piezometers -->
+        <rect x="140" y="79" width="13" height="121" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="290" y="96" width="13" height="104" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="440" y="113" width="13" height="87" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="590" y="130" width="13" height="70" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="740" y="147" width="13" height="53" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+
+        <!-- the pipe -->
+        <rect x="60" y="200" width="740" height="44" fill="#eaf7fa"/>
+        <line x1="60" y1="200" x2="800" y2="200" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="60" y1="244" x2="800" y2="244" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="90" y1="222" x2="200" y2="222" stroke="#00788A" stroke-width="3" marker-end="url(#w1a)"/>
+        <text x="122" y="214" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u</text>
+        <text x="330" y="234" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">same diameter, same velocity, level all the way</text>
+
+        <!-- the loss -->
+        <line x1="824" y1="70" x2="824" y2="154" stroke="#1c1917" stroke-width="1.4" marker-start="url(#w1c)" marker-end="url(#w1b)"/>
+        <text x="806" y="66" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">h<tspan font-size="11" dy="4">f</tspan></text>
+        <line x1="800" y1="70" x2="830" y2="70" stroke="#9c9287" stroke-width="1.2" stroke-dasharray="5 3"/>
+
+        <!-- datum -->
+        <line x1="60" y1="276" x2="800" y2="276" stroke="#4b4540" stroke-width="1.6" stroke-dasharray="4 4"/>
+        <text x="60" y="294" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">datum</text>
+      </svg>
+      <figcaption><b>Figure 5.1.</b> The observation this whole chapter exists to explain. The pipe is
+        straight, level and of constant bore, so neither the velocity head nor the elevation head changes;
+        yet the pressure head falls steadily along it. The energy grade line of &sect;3.6, which was
+        horizontal for an ideal fluid, now slopes downwards in the direction of flow &mdash; and it can
+        never do anything else.</figcaption>
+    </figure>
+
+    <p>The head that disappears is called the <b>friction head loss</b>, written
+      <var>h</var><sub>f</sub>. It has not vanished: it has been converted into heat by the shearing of
+      one layer of fluid over another, and it is gone for good as far as the flow is concerned. Adding it
+      to the Bernoulli equation gives the form used for the rest of your career:</p>
+
+    <div class="eq">
+      <span class="body"><span class="frac"><span class="num"><var>p</var><sub>1</sub></span><span class="den"><var>&rho;g</var></span></span>
+        + <span class="frac"><span class="num"><var>u</var><sub>1</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span>
+        + <var>z</var><sub>1</sub>
+        = <span class="frac"><span class="num"><var>p</var><sub>2</sub></span><span class="den"><var>&rho;g</var></span></span>
+        + <span class="frac"><span class="num"><var>u</var><sub>2</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span>
+        + <var>z</var><sub>2</sub> + <var>h</var><sub>f</sub></span>
+      <span class="tag">(5.1)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">What is left to find</span>
+      <p>Equation&nbsp;(5.1) is not an achievement; it is a promissory note. It says a loss exists and
+        gives it a name, but it does not say how big it is. Everything from &sect;5.2 to &sect;5.9 is the
+        work of turning <var>h</var><sub>f</sub> into a number you can calculate from the things you
+        actually know: the pipe, the fluid and the flow rate.</p>
+    </div>
+
+    <p>And there is a second, less obvious debt to settle. Chapter&nbsp;3 &sect;3.3 asserted, without
+      justification, that the mean velocity in a pipe is half the maximum in one case and about 0.82 of it
+      in another, and never said why there were two cases at all. By &sect;5.7 you will be able to derive
+      the first figure exactly and explain the second.</p>
+
+    <!-- ============================================================ 5.2 -->
+    <h2 id="s2">5.2 Reynolds&rsquo; Experiment</h2>
+
+    <p>In 1883 Osborne Reynolds, at Manchester, ran what is probably the most consequential experiment in
+      the history of fluid mechanics, and it is simple enough to repeat in an afternoon. Water flows from a
+      tank through a straight glass tube, the rate controlled by a valve at the outlet. A fine filament of
+      dye is injected on the axis at the inlet.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 344" role="img" aria-label="Reynolds' apparatus: a tank of water feeding a horizontal glass tube through a bellmouth, with a dye reservoir injecting a filament of dye on the axis, and a control valve at the far end. Three panels below show the dye filament straight at low flow, wavering at higher flow, and breaking up into eddies that colour the whole tube at high flow.">
+        <defs>
+          <marker id="w2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+        </defs>
+
+        <!-- tank -->
+        <path d="M40,40 L40,190 L210,190 L210,40" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <rect x="40" y="62" width="170" height="128" fill="#eaf7fa"/>
+        <line x1="40" y1="62" x2="210" y2="62" stroke="#00788A" stroke-width="2.2"/>
+        <text x="58" y="54" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">constant head</text>
+
+        <!-- dye reservoir -->
+        <rect x="96" y="6" width="58" height="34" fill="#f6e3e0" stroke="#b03a2e" stroke-width="2"/>
+        <text x="100" y="28" font-family="Segoe UI, Arial" font-size="11.5" fill="#b03a2e">dye</text>
+        <line x1="125" y1="40" x2="125" y2="132" stroke="#b03a2e" stroke-width="2.2"/>
+        <path d="M125,132 Q135,132 142,136" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+
+        <!-- bellmouth and tube -->
+        <path d="M210,118 Q232,118 248,126 L800,126" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <path d="M210,158 Q232,158 248,150 L800,150" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <rect x="248" y="126" width="552" height="24" fill="#eaf7fa"/>
+        <text x="300" y="112" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">glass tube</text>
+
+        <!-- dye filament -->
+        <line x1="142" y1="138" x2="782" y2="138" stroke="#b03a2e" stroke-width="2.4"/>
+
+        <!-- valve -->
+        <path d="M800,116 L818,106 L818,170 L800,160 z" fill="#9c9287" stroke="#1c1917" stroke-width="2"/>
+        <text x="794" y="190" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">valve</text>
+        <line x1="828" y1="138" x2="852" y2="138" stroke="#00788A" stroke-width="2.6" marker-end="url(#w2a)"/>
+
+        <!-- three regimes -->
+        <text x="40" y="228" font-family="Segoe UI, Arial" font-size="12.5" font-weight="700" fill="#1c1917">open the valve a little at a time, and the dye does this:</text>
+
+        <rect x="40" y="240" width="250" height="24" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.6"/>
+        <line x1="40" y1="252" x2="290" y2="252" stroke="#b03a2e" stroke-width="2.4"/>
+        <text x="300" y="257" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">a straight thread &mdash; <b>laminar</b></text>
+
+        <rect x="40" y="274" width="250" height="24" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.6"/>
+        <path d="M40,286 Q70,280 100,286 Q130,292 160,286 Q190,278 220,287 Q250,296 290,284" fill="none" stroke="#b03a2e" stroke-width="2.4"/>
+        <text x="300" y="291" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">it wavers &mdash; <b>transitional</b></text>
+
+        <rect x="40" y="308" width="250" height="24" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.6"/>
+        <path d="M40,320 Q58,310 72,320 Q86,330 104,318" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+        <path d="M104,318 C130,306 130,332 156,320 C176,311 186,329 206,320" fill="none" stroke="#b03a2e" stroke-width="2"/>
+        <ellipse cx="228" cy="318" rx="13" ry="7" fill="none" stroke="#b03a2e" stroke-width="1.6"/>
+        <ellipse cx="256" cy="322" rx="11" ry="6" fill="none" stroke="#b03a2e" stroke-width="1.6"/>
+        <ellipse cx="276" cy="315" rx="9" ry="5" fill="none" stroke="#b03a2e" stroke-width="1.6"/>
+        <rect x="40" y="308" width="250" height="24" fill="#b03a2e" opacity=".12"/>
+        <text x="300" y="325" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">it breaks up and colours the whole tube &mdash; <b>turbulent</b></text>
+      </svg>
+      <figcaption><b>Figure 5.2.</b> Reynolds&rsquo; apparatus and what it shows. At low flow the dye
+        travels the length of the tube as a single thread, which is direct evidence that the fluid moves in
+        parallel layers with no exchange between them. Open the valve further and the thread begins to
+        waver; further still and it is torn apart within a few diameters and the whole tube goes cloudy.
+        The change is not gradual &mdash; there is a definite flow rate at which it happens.</figcaption>
+    </figure>
+
+    <div class="callout">
+      <span class="label">Why the dye matters</span>
+      <p>The dye is not decoration; it is the measurement. A dye filament that stays intact proves there is
+        <em>no transport across the flow</em> &mdash; no fluid crossing from one layer to the next. The
+        moment the filament disperses, fluid is being carried sideways in bulk. That sideways transport is
+        what turbulence is, and it is why turbulent flow mixes, scours, and loses far more energy than
+        laminar flow.</p>
+    </div>
+
+    <p>Reynolds then did the part that mattered. He repeated the experiment with tubes of different
+      diameter, and with water at different temperatures &mdash; that is, at different viscosities &mdash;
+      and found that the change did <em>not</em> happen at a fixed velocity. It happened at a fixed value
+      of a particular <em>combination</em> of velocity, diameter, density and viscosity. That combination
+      now carries his name.</p>
+
+    <!-- ============================================================ 5.3 -->
+    <h2 id="s3">5.3 The Reynolds Number</h2>
+
+    <p>The combination Reynolds found is now written <var>Re</var> and called the <b>Reynolds number</b>:</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.2)</span>
+      <span class="body"><var>Re</var> = <span class="frac"><span class="num"><var>&rho;ud</var></span><span class="den"><var>&mu;</var></span></span>
+        = <span class="frac"><span class="num"><var>ud</var></span><span class="den"><var>&nu;</var></span></span></span>
+      <span class="body"><span class="say">where</span> <var>&nu;</var> = <var>&mu;</var>/<var>&rho;</var>
+        <span class="say">is the kinematic viscosity of &sect;1.10</span></span>
+    </div>
+
+    <p>Here <var>u</var> is the mean velocity and <var>d</var> the pipe diameter. The second form is the one
+      to use in practice, because a single tabulated number &mdash; <var>&nu;</var> &asymp;
+      1.0&nbsp;&times;&nbsp;10<sup>&minus;6</sup>&nbsp;m<sup>2</sup>&nbsp;s<sup>&minus;1</sup> for water at
+      20&nbsp;&deg;C &mdash; replaces two.</p>
+
+    <h3>It is a pure number</h3>
+    <p>Apply the test of &sect;1.3 and something remarkable happens:</p>
+
+    <div class="callout">
+      <span class="label">Dimensions of the Reynolds number</span>
+      <p class="dim">[&rho;ud/&mu;] = (ML<sup>&minus;3</sup>)(LT<sup>&minus;1</sup>)(L) &divide; (ML<sup>&minus;1</sup>T<sup>&minus;1</sup>)
+        = M L<sup>&minus;1</sup> T<sup>&minus;1</sup> &divide; M L<sup>&minus;1</sup> T<sup>&minus;1</sup> = 1</p>
+      <p>Every dimension cancels. <var>Re</var> is <b>dimensionless</b> &mdash; it has no units, and it
+        comes out the same whether you work in SI, in feet and pounds, or in any other consistent system.
+        That is exactly why it can have a universal critical value, which no quantity carrying units could
+        ever have.</p>
+    </div>
+
+    <h3>What it means physically</h3>
+    <p>The Reynolds number is best read as a ratio of two competing tendencies:</p>
+
+    <div class="eq plain">
+      <span class="body"><var>Re</var> &nbsp;=&nbsp;
+        <span class="frac"><span class="num">inertial forces &mdash; the fluid&rsquo;s tendency to keep going and to break up</span><span class="den">viscous forces &mdash; the fluid&rsquo;s tendency to stick together in layers</span></span></span>
+    </div>
+
+    <p>When <var>Re</var> is small, viscosity wins: any small disturbance is damped out by the fluid&rsquo;s
+      internal friction before it can grow, and the layers stay intact. When <var>Re</var> is large,
+      inertia wins: a disturbance is carried along and amplified faster than viscosity can smother it, and
+      the flow breaks down into eddies.</p>
+
+    <div class="callout rule">
+      <span class="label">The critical values, for flow in a circular pipe</span>
+      <div class="eq plain">
+        <span class="body"><var>Re</var> &lt; 2000 &nbsp;&rarr;&nbsp; laminar &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+          2000 &lt; <var>Re</var> &lt; 4000 &nbsp;&rarr;&nbsp; transitional &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+          <var>Re</var> &gt; 4000 &nbsp;&rarr;&nbsp; turbulent</span>
+      </div>
+      <p>These numbers belong to <b>pipe flow and to nothing else</b>. A flat plate changes over at
+        <var>Re</var> near 5&nbsp;&times;&nbsp;10<sup>5</sup>, an open channel at about 500 on its own
+        definition. Quoting 2000 for anything but a pipe is a mistake, and quoting it without saying which
+        length was used for <var>d</var> is meaningless.</p>
+    </div>
+
+    <h3>What this means for an irrigation main</h3>
+    <p>Take the pipe from the opening of this chapter: 150&nbsp;mm bore, water at 1.5&nbsp;m/s,
+      20&nbsp;&deg;C.</p>
+
+    <div class="eq plain">
+      <span class="body"><var>Re</var> = <span class="frac"><span class="num">1.5 &times; 0.15</span><span class="den">1.0 &times; 10<sup>&minus;6</sup></span></span>
+        = 2.25 &times; 10<sup>5</sup></span>
+    </div>
+
+    <p>That is more than fifty times the turbulent threshold. To make the same pipe run laminar you would
+      have to slow the water to <var>u</var> = 2000&nbsp;&times;&nbsp;10<sup>&minus;6</sup>/0.15 =
+      0.013&nbsp;m&nbsp;s<sup>&minus;1</sup> &mdash; thirteen millimetres a second, a discharge of about a
+      quarter of a litre per second.</p>
+
+    <div class="callout warn">
+      <span class="label">The conclusion to take away</span>
+      <p><b>Water in any pipe you will ever design is turbulent.</b> Laminar flow is not a design case for
+        a water main; it is a teaching case, and a real case only for small bores, slow flows or thick
+        fluids. In agricultural engineering you will meet it in exactly three places: inside a
+        <b>drip-irrigation emitter</b>, where the passage is a fraction of a millimetre wide; in
+        <b>groundwater</b> seeping through soil; and in <b>oil</b> pipework, where <var>&nu;</var> can be a
+        hundred times that of water.</p>
+      <p>So why spend &sect;5.6 to &sect;5.8 on it? Because laminar flow is the only case that can be
+        solved exactly from first principles. It is the anchor everything else is measured against, and it
+        is where the shear stress of Chapter&nbsp;1 finally does visible work.</p>
+    </div>
+
+    <!-- ============================================================ 5.4 -->
+    <h2 id="s4">5.4 Laminar, Transitional and Turbulent Flow</h2>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="Three pipes compared. In laminar flow the fluid moves in parallel layers sliding over one another and the velocity profile is a smooth parabola. In transitional flow the layers begin to waver. In turbulent flow eddies mix fluid across the pipe and the velocity profile is much flatter, with a very steep gradient close to the wall.">
+        <defs>
+          <marker id="w3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+        </defs>
+
+        <!-- (a) laminar -->
+        <text x="24" y="24" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">laminar &mdash; Re &lt; 2000</text>
+        <rect x="24" y="44" width="240" height="116" fill="#eaf7fa"/>
+        <line x1="24" y1="44" x2="264" y2="44" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="24" y1="160" x2="264" y2="160" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="34" y1="58" x2="254" y2="58" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="73" x2="254" y2="73" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="88" x2="254" y2="88" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="102" x2="254" y2="102" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="117" x2="254" y2="117" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="132" x2="254" y2="132" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="146" x2="254" y2="146" stroke="#9fd8e2" stroke-width="1.6"/>
+        <text x="24" y="182" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">layers slide; nothing crosses between them</text>
+
+        <!-- parabolic profile -->
+        <path d="M120,44 Q214,102 120,160" fill="#d9eef3" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="120" y1="44" x2="120" y2="160" stroke="#00788A" stroke-width="1.4"/>
+        <line x1="120" y1="102" x2="206" y2="102" stroke="#00788A" stroke-width="1.8" marker-end="url(#w3a)"/>
+        <line x1="120" y1="73" x2="182" y2="73" stroke="#00788A" stroke-width="1.6" marker-end="url(#w3a)"/>
+        <line x1="120" y1="132" x2="182" y2="132" stroke="#00788A" stroke-width="1.6" marker-end="url(#w3a)"/>
+        <text x="30" y="212" font-family="Segoe UI, Arial" font-size="12" fill="#00788A">a parabola, exactly (&sect;5.7)</text>
+        <text x="30" y="230" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#00788A">u&#772; = &frac12; u<tspan font-size="10" dy="3">max</tspan></text>
+
+        <line x1="292" y1="16" x2="292" y2="284" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <!-- (b) transitional -->
+        <text x="312" y="24" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">transitional &mdash; 2000 to 4000</text>
+        <rect x="312" y="44" width="230" height="116" fill="#eaf7fa"/>
+        <line x1="312" y1="44" x2="542" y2="44" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="312" y1="160" x2="542" y2="160" stroke="#1c1917" stroke-width="2.6"/>
+        <path d="M322,62 Q372,56 422,64 Q472,72 532,60" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <path d="M322,84 Q372,92 422,82 Q472,72 532,86" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <path d="M322,102 Q372,96 422,106 Q472,116 532,100" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <path d="M322,124 Q372,132 422,120 Q472,110 532,126" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <path d="M322,144 Q372,136 422,146 Q472,154 532,140" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <text x="312" y="182" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">the layers waver; it may switch back and forth</text>
+        <text x="312" y="212" font-family="Segoe UI, Arial" font-size="12" fill="#b03a2e">unpredictable &mdash; never design to sit here</text>
+
+        <line x1="566" y1="16" x2="566" y2="284" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <!-- (c) turbulent -->
+        <text x="586" y="24" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">turbulent &mdash; Re &gt; 4000</text>
+        <rect x="586" y="44" width="230" height="116" fill="#eaf7fa"/>
+        <line x1="586" y1="44" x2="816" y2="44" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="586" y1="160" x2="816" y2="160" stroke="#1c1917" stroke-width="2.6"/>
+        <ellipse cx="612" cy="68" rx="15" ry="9" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <ellipse cx="654" cy="96" rx="18" ry="11" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <ellipse cx="688" cy="64" rx="13" ry="8" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <ellipse cx="616" cy="128" rx="16" ry="9" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <ellipse cx="664" cy="140" rx="13" ry="8" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <ellipse cx="696" cy="108" rx="14" ry="8" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <text x="586" y="182" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">eddies carry fluid right across the pipe</text>
+
+        <!-- flat profile -->
+        <path d="M722,44 Q758,52 768,74 L768,130 Q758,152 722,160" fill="#d9eef3" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="722" y1="44" x2="722" y2="160" stroke="#00788A" stroke-width="1.4"/>
+        <line x1="722" y1="102" x2="762" y2="102" stroke="#00788A" stroke-width="1.8" marker-end="url(#w3a)"/>
+        <line x1="722" y1="60" x2="748" y2="60" stroke="#00788A" stroke-width="1.6" marker-end="url(#w3a)"/>
+        <line x1="722" y1="144" x2="748" y2="144" stroke="#00788A" stroke-width="1.6" marker-end="url(#w3a)"/>
+        <text x="586" y="212" font-family="Segoe UI, Arial" font-size="12" fill="#00788A">much flatter, but very steep at the wall</text>
+        <text x="586" y="230" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#00788A">u&#772; &asymp; 0.82 u<tspan font-size="10" dy="3">max</tspan></text>
+
+        <text x="24" y="266" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">The velocity is zero at the wall in every case &mdash; the no-slip condition of &sect;1.4 does not care which regime the flow is in.</text>
+        <text x="24" y="286" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">What changes is how fast it climbs away from the wall, and that gradient is what sets the friction.</text>
+      </svg>
+      <figcaption><b>Figure 5.3.</b> The two regimes are not two strengths of the same thing; they are two
+        different mechanisms. Laminar flow resists motion by molecular viscosity alone. Turbulent flow
+        resists it mainly by eddies bodily carrying slow fluid outwards and fast fluid inwards, which is a
+        far more effective &mdash; and far more expensive &mdash; way of transferring momentum.</figcaption>
+    </figure>
+
+    <div class="table-wrap">
+      <table id="t1">
+        <caption><b>Table 5.1.</b> The three regimes in a circular pipe, with the velocity at which each
+          begins for water at 20&nbsp;&deg;C in a 150&nbsp;mm main.</caption>
+        <thead>
+          <tr><th>Regime</th><th><var>Re</var></th><th>What the dye does</th><th><var>u</var> in a 150&nbsp;mm pipe</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>Laminar</b></td>
+            <td>&lt; 2000</td>
+            <td>Stays a single thread the length of the tube.</td>
+            <td>below 13&nbsp;mm/s</td>
+          </tr>
+          <tr>
+            <td><b>Transitional</b></td>
+            <td>2000&ndash;4000</td>
+            <td>Wavers, and may flick between the two states.</td>
+            <td>13&ndash;27&nbsp;mm/s</td>
+          </tr>
+          <tr>
+            <td><b>Turbulent</b></td>
+            <td>&gt; 4000</td>
+            <td>Breaks up within a few diameters; the tube goes cloudy.</td>
+            <td>above 27&nbsp;mm/s</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-wrap">
+      <table id="t2">
+        <caption><b>Table 5.2.</b> The two regimes compared. Almost every practical difference in this
+          chapter comes from the row in bold.</caption>
+        <thead>
+          <tr><th></th><th>Laminar</th><th>Turbulent</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Momentum is carried across the pipe by</b></td>
+            <td>molecules, one layer to the next</td>
+            <td>eddies, in bulk</td></tr>
+          <tr><td><b>Head loss varies as</b></td>
+            <td><var>h</var><sub>f</sub> &prop; <var>u</var></td>
+            <td><var>h</var><sub>f</sub> &prop; <var>u</var><sup>1.7</sup> to <var>u</var><sup>2</sup></td></tr>
+          <tr><td>Velocity profile</td>
+            <td>a parabola</td>
+            <td>flat in the core, steep at the wall</td></tr>
+          <tr><td>Mean / maximum velocity</td><td>0.50</td><td>&asymp; 0.82</td></tr>
+          <tr><td>Depends on pipe roughness?</td>
+            <td>No &mdash; roughness is buried in the slow layer</td>
+            <td>Yes, once the flow is fully rough</td></tr>
+          <tr><td>Can be solved exactly?</td>
+            <td>Yes &mdash; &sect;5.8</td>
+            <td>No; every formula is fitted to experiment</td></tr>
+          <tr><td>Mixes, scours, transports sediment?</td>
+            <td>Hardly at all</td>
+            <td>Strongly</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ============================================================ 5.5 -->
+    <h2 id="s5">5.5 What Experiment Says About Friction</h2>
+
+    <p>Before deriving anything, look at what the measurement actually gives. Reynolds, and many after him,
+      measured <var>h</var><sub>f</sub> over a fixed length of pipe at a series of velocities and plotted
+      one against the other on logarithmic axes &mdash; which turns a power law
+      <var>h</var><sub>f</sub> &prop; <var>u</var><sup>n</sup> into a straight line of slope <var>n</var>.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="A logarithmic plot of friction head loss against mean velocity. At low velocity the data lie on a straight line of slope one, the laminar branch. Above the critical velocity the data jump to a second straight line of slope about 1.8, the turbulent branch, with an unstable gap between the two.">
+        <defs>
+          <marker id="w4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- axes -->
+        <line x1="110" y1="250" x2="700" y2="250" stroke="#1c1917" stroke-width="2" marker-end="url(#w4a)"/>
+        <line x1="110" y1="250" x2="110" y2="36" stroke="#1c1917" stroke-width="2" marker-end="url(#w4a)"/>
+        <text x="640" y="278" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">log u</text>
+        <text x="52" y="44" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">log h<tspan font-size="11" dy="4">f</tspan></text>
+
+        <!-- laminar branch, slope 1 -->
+        <line x1="140" y1="232" x2="330" y2="150" stroke="#00788A" stroke-width="3"/>
+        <circle cx="162" cy="222" r="4" fill="#00788A"/>
+        <circle cx="210" cy="201" r="4" fill="#00788A"/>
+        <circle cx="258" cy="181" r="4" fill="#00788A"/>
+        <circle cx="306" cy="160" r="4" fill="#00788A"/>
+        <text x="130" y="188" font-family="Segoe UI, Arial" font-size="12.5" font-weight="700" fill="#00788A">laminar</text>
+        <text x="130" y="206" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">slope 1</text>
+
+        <!-- gradient triangle on laminar -->
+        <line x1="258" y1="181" x2="306" y2="181" stroke="#4b4540" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <line x1="306" y1="181" x2="306" y2="160" stroke="#4b4540" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+        <!-- turbulent branch, slope ~1.8 -->
+        <line x1="380" y1="150" x2="620" y2="54" stroke="#b03a2e" stroke-width="3"/>
+        <circle cx="404" cy="140" r="4" fill="#b03a2e"/>
+        <circle cx="452" cy="121" r="4" fill="#b03a2e"/>
+        <circle cx="500" cy="102" r="4" fill="#b03a2e"/>
+        <circle cx="548" cy="83" r="4" fill="#b03a2e"/>
+        <circle cx="596" cy="64" r="4" fill="#b03a2e"/>
+        <text x="620" y="74" font-family="Segoe UI, Arial" font-size="12.5" font-weight="700" fill="#b03a2e">turbulent</text>
+        <text x="620" y="92" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">slope 1.7 to 2.0</text>
+
+        <!-- the unstable zone -->
+        <rect x="330" y="36" width="50" height="214" fill="#c8a14a" opacity=".16"/>
+        <line x1="330" y1="36" x2="330" y2="250" stroke="#c8a14a" stroke-width="1.6" stroke-dasharray="6 4"/>
+        <line x1="380" y1="36" x2="380" y2="250" stroke="#c8a14a" stroke-width="1.6" stroke-dasharray="6 4"/>
+        <path d="M330,150 Q352,166 380,150" fill="none" stroke="#9c9287" stroke-width="2" stroke-dasharray="5 4"/>
+        <text x="322" y="272" font-family="Segoe UI, Arial" font-size="12" fill="#8a6d1f">transition</text>
+
+        <text x="404" y="200" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">the loss jumps as the flow changes over,</text>
+        <text x="404" y="218" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">and then climbs almost twice as steeply</text>
+        <text x="404" y="242" font-family="Segoe UI, Arial" font-size="12" fill="#8a6d1f">the dashed link is not a measurement &mdash; nothing settles here</text>
+      </svg>
+      <figcaption><b>Figure 5.4.</b> The result Reynolds got, and the shape of every friction experiment
+        since. Two straight lines with a discontinuity between them: the flow does not ease from one regime
+        into the other, it changes mechanism. Note also that the transition velocity is higher going
+        <em>up</em> than coming <em>down</em> &mdash; a laminar flow carefully kept free of disturbance can
+        survive well past <var>Re</var> = 2000, which is why 2000 is a design limit and not a law of
+        nature.</figcaption>
+    </figure>
+
+    <p>Reading the two slopes off the plot gives the whole of the experimental result:</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.3)</span>
+      <span class="body"><var>h</var><sub>f</sub> &prop; <var>u</var><sup class="pow">1</sup>
+        <span class="say">in laminar flow</span></span>
+      <span class="body"><var>h</var><sub>f</sub> &prop; <var>u</var><sup class="pow">n</sup>,
+        <span class="say">with</span> <var>n</var> = 1.7 <span class="say">to</span> 2.0
+        <span class="say">in turbulent flow</span></span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">Why that exponent is the whole story</span>
+      <p>Everything expensive about pipelines follows from <var>n</var> &asymp; 2. Double the flow through
+        a given pipe and the friction loss <b>quadruples</b>; the pumping power, which is
+        <var>&rho;gQh</var><sub>f</sub>, goes up <b>eight times</b>. It is also why increasing the diameter
+        is such a powerful remedy: at fixed discharge, <var>u</var> &prop; 1/<var>d</var><sup>2</sup>, so
+        &mdash; as &sect;5.9 will show &mdash; <var>h</var><sub>f</sub> falls as roughly
+        1/<var>d</var><sup>5</sup>. Going from a 100&nbsp;mm to a 150&nbsp;mm main cuts the friction loss
+        to about one eighth.</p>
+    </div>
+
+    <!-- ============================================================ 5.6 -->
+    <h2 id="s6">5.6 Shear Stress in a Pipe</h2>
+
+    <p>Now build the theory. The first step needs no assumption about the regime at all &mdash; it is the
+      force balance of Chapter&nbsp;4 applied to a cylinder of fluid, and it holds for laminar and
+      turbulent flow alike.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="Left: a cylinder of fluid of radius r and length L inside a pipe, with pressure p one pushing on its upstream face, pressure p two on its downstream face, and shear stress tau acting backwards over its curved surface. Right: the resulting shear stress distribution, zero on the axis and rising linearly to tau w at the wall.">
+        <defs>
+          <marker id="w5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#b03a2e"/>
+          </marker>
+          <marker id="w5b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#c8a14a"/>
+          </marker>
+          <marker id="w5c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="w5d" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- pipe -->
+        <rect x="70" y="60" width="380" height="200" fill="#f7fbfc"/>
+        <line x1="70" y1="60" x2="450" y2="60" stroke="#1c1917" stroke-width="3"/>
+        <line x1="70" y1="260" x2="450" y2="260" stroke="#1c1917" stroke-width="3"/>
+        <line x1="70" y1="160" x2="450" y2="160" stroke="#9c9287" stroke-width="1.2" stroke-dasharray="10 5 3 5"/>
+
+        <!-- the cylinder of fluid -->
+        <rect x="130" y="112" width="250" height="96" fill="#d9eef3" stroke="#00788A" stroke-width="2.2"/>
+        <ellipse cx="130" cy="160" rx="9" ry="48" fill="#eaf7fa" stroke="#00788A" stroke-width="2.2"/>
+        <ellipse cx="380" cy="160" rx="9" ry="48" fill="#cfe9ef" stroke="#00788A" stroke-width="2.2"/>
+
+        <!-- radius r -->
+        <line x1="255" y1="160" x2="255" y2="112" stroke="#1c1917" stroke-width="1.4" marker-start="url(#w5d)" marker-end="url(#w5c)"/>
+        <text x="262" y="140" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">r</text>
+        <line x1="300" y1="160" x2="300" y2="60" stroke="#4b4540" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <text x="306" y="92" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">R</text>
+
+        <!-- length L -->
+        <line x1="130" y1="284" x2="380" y2="284" stroke="#1c1917" stroke-width="1.4" marker-start="url(#w5d)" marker-end="url(#w5c)"/>
+        <text x="248" y="302" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">L</text>
+
+        <!-- pressure forces -->
+        <line x1="80" y1="160" x2="124" y2="160" stroke="#b03a2e" stroke-width="3.2" marker-end="url(#w5a)"/>
+        <text x="72" y="150" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">p<tspan font-size="11" dy="4">1</tspan><tspan font-size="15" dy="-4">&#960;r&#178;</tspan></text>
+        <line x1="430" y1="160" x2="388" y2="160" stroke="#b03a2e" stroke-width="3.2" marker-end="url(#w5a)"/>
+        <text x="392" y="150" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">p<tspan font-size="11" dy="4">2</tspan><tspan font-size="15" dy="-4">&#960;r&#178;</tspan></text>
+
+        <!-- shear on the curved surface, pointing backwards -->
+        <line x1="200" y1="112" x2="160" y2="112" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <line x1="270" y1="112" x2="230" y2="112" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <line x1="340" y1="112" x2="300" y2="112" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <line x1="200" y1="208" x2="160" y2="208" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <line x1="270" y1="208" x2="230" y2="208" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <line x1="340" y1="208" x2="300" y2="208" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <text x="150" y="102" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#8a6d1f">&#964; &times; 2&#960;rL</text>
+
+        <text x="70" y="42" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">(a) steady flow, so the cylinder is not accelerating</text>
+
+        <line x1="486" y1="16" x2="486" y2="306" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <!-- (b) shear stress distribution -->
+        <text x="510" y="42" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">(b) so the shear varies linearly</text>
+
+        <rect x="600" y="60" width="200" height="200" fill="#f7fbfc"/>
+        <line x1="600" y1="60" x2="800" y2="60" stroke="#1c1917" stroke-width="3"/>
+        <line x1="600" y1="260" x2="800" y2="260" stroke="#1c1917" stroke-width="3"/>
+        <line x1="600" y1="160" x2="800" y2="160" stroke="#9c9287" stroke-width="1.2" stroke-dasharray="10 5 3 5"/>
+
+        <!-- triangles -->
+        <path d="M620,160 L700,60 L620,60 z" fill="#fdf0d5" stroke="#c8a14a" stroke-width="2.2"/>
+        <path d="M620,160 L700,260 L620,260 z" fill="#fdf0d5" stroke="#c8a14a" stroke-width="2.2"/>
+        <line x1="620" y1="60" x2="620" y2="260" stroke="#c8a14a" stroke-width="1.6" stroke-dasharray="4 3"/>
+
+        <text x="704" y="56" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#8a6d1f">&#964;<tspan font-size="11" dy="4">w</tspan></text>
+        <text x="704" y="272" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#8a6d1f">&#964;<tspan font-size="11" dy="4">w</tspan></text>
+        <text x="626" y="176" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#8a6d1f">&#964; = 0</text>
+
+        <text x="510" y="290" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">zero on the axis, greatest at the wall &mdash; whatever the regime</text>
+      </svg>
+      <figcaption><b>Figure 5.5.</b> The cylinder is moving at constant velocity, so by Newton&rsquo;s first
+        law the forces on it must balance exactly. The pressure difference over its two ends drives it
+        forward; the shear stress over its curved side holds it back. Nothing in this argument mentions
+        viscosity or the flow regime, so the result holds for turbulent flow just as it does for
+        laminar.</figcaption>
+    </figure>
+
+    <p>Writing that balance for a cylinder of radius <var>r</var> and length <var>L</var>:</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.4)</span>
+      <span class="body">(<var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub>)<var>&pi;r</var><sup>2</sup>
+        = <var>&tau;</var> &middot; 2<var>&pi;rL</var></span>
+      <span class="body"><var>&tau;</var> = <span class="frac"><span class="num">&Delta;<var>p r</var></span><span class="den">2<var>L</var></span></span></span>
+    </div>
+
+    <p>So the shear stress is <b>zero on the axis and rises in direct proportion to the radius</b>. Setting
+      <var>r</var> = <var>R</var> = <var>d</var>/2 gives the stress at the wall, which is the quantity that
+      actually drags on the pipe:</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.5)</span>
+      <span class="body"><var>&tau;</var><sub>w</sub> = <span class="frac"><span class="num">&Delta;<var>p R</var></span><span class="den">2<var>L</var></span></span>
+        = <span class="frac"><span class="num">&Delta;<var>p d</var></span><span class="den">4<var>L</var></span></span></span>
+      <span class="body"><span class="say">and reading it the other way round,</span>
+        &Delta;<var>p</var> = <span class="frac"><span class="num">4<var>L&tau;</var><sub>w</sub></span><span class="den"><var>d</var></span></span></span>
+    </div>
+
+    <p>Dividing (5.4) by (5.5) removes everything but the geometry:</p>
+
+    <div class="eq">
+      <span class="body"><span class="frac"><span class="num"><var>&tau;</var></span><span class="den"><var>&tau;</var><sub>w</sub></span></span>
+        = <span class="frac"><span class="num"><var>r</var></span><span class="den"><var>R</var></span></span></span>
+      <span class="tag">(5.6)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">Two things equation (5.5) is telling you</span>
+      <ul>
+        <li><b>The pressure drop and the wall shear are the same fact twice.</b> All the head lost to
+          friction is paid out as shear on the pipe wall; the pipe feels it as a drag force
+          <var>&tau;</var><sub>w</sub> &times; <var>&pi;dL</var> pulling it downstream, which is one more
+          thing an anchor block has to take.</li>
+        <li><b>The 4<var>L</var>/<var>d</var> is where the diameter earns its keep.</b> For the same wall
+          stress, a pipe of twice the bore loses half the pressure over the same length &mdash; and that is
+          before the velocity has even been allowed to fall.</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ 5.7 -->
+    <h2 id="s7">5.7 The Velocity Profile in Laminar Flow</h2>
+
+    <p>Equation&nbsp;(5.4) relates shear to radius. To get any further we need a second relation between
+      shear and velocity &mdash; and for laminar flow we have one exactly: Newton&rsquo;s law of viscosity
+      from &sect;1.5. This is the step that fails for turbulent flow, and the reason turbulent flow has no
+      exact solution.</p>
+
+    <p>Take the velocity to fall as the radius grows, so d<var>u</var>/d<var>r</var> is negative while the
+      shear stress is positive:</p>
+
+    <div class="eq">
+      <span class="body"><var>&tau;</var> = &minus;<var>&mu;</var>
+        <span class="frac"><span class="num">d<var>u</var></span><span class="den">d<var>r</var></span></span></span>
+      <span class="tag">(5.7)</span>
+    </div>
+
+    <p>Setting (5.4) and (5.7) equal and separating the variables:</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.8)</span>
+      <span class="body">&minus;<var>&mu;</var><span class="frac"><span class="num">d<var>u</var></span><span class="den">d<var>r</var></span></span>
+        = <span class="frac"><span class="num">&Delta;<var>p r</var></span><span class="den">2<var>L</var></span></span>
+        &nbsp;&rArr;&nbsp;
+        <span class="dx">d</span><var>u</var> = &minus;<span class="frac"><span class="num">&Delta;<var>p</var></span><span class="den">2<var>&mu;L</var></span></span><var>r</var>&thinsp;<span class="dx">d</span><var>r</var></span>
+      <span class="body"><span class="say">integrating,</span>
+        <var>u</var> = &minus;<span class="frac"><span class="num">&Delta;<var>p r</var><sup>2</sup></span><span class="den">4<var>&mu;L</var></span></span> + <var>C</var></span>
+      <span class="body"><span class="say">and the no-slip condition of &sect;1.4 gives the constant: at</span>
+        <var>r</var> = <var>R</var>, <var>u</var> = 0,
+        <span class="say">so</span>
+        <var>C</var> = <span class="frac"><span class="num">&Delta;<var>p R</var><sup>2</sup></span><span class="den">4<var>&mu;L</var></span></span></span>
+    </div>
+
+    <p>which leaves the velocity at any radius:</p>
+
+    <div class="eq">
+      <span class="body"><var>u</var><sub>r</sub> = <span class="frac"><span class="num">&Delta;<var>p</var></span><span class="den">4<var>&mu;L</var></span></span>
+        <span class="pren"><var>R</var><sup>2</sup> &minus; <var>r</var><sup>2</sup></span></span>
+      <span class="tag">(5.9)</span>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="The parabolic velocity profile of laminar pipe flow. The velocity is zero at both walls and maximum on the axis, and the mean velocity is drawn as a dashed line at exactly half the maximum. An annular element of radius r and thickness delta r is shaded, and the discharge is the sum of the velocity times the area of all such annuli.">
+        <defs>
+          <marker id="w6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="w6b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#b03a2e"/>
+          </marker>
+          <marker id="w6c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="w6d" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- pipe -->
+        <rect x="70" y="50" width="520" height="200" fill="#f7fbfc"/>
+        <line x1="70" y1="50" x2="590" y2="50" stroke="#1c1917" stroke-width="3"/>
+        <line x1="70" y1="250" x2="590" y2="250" stroke="#1c1917" stroke-width="3"/>
+        <line x1="70" y1="150" x2="590" y2="150" stroke="#9c9287" stroke-width="1.2" stroke-dasharray="10 5 3 5"/>
+
+        <!-- the parabola: u = umax (1 - (r/R)^2), umax drawn 220 px long -->
+        <path d="M150,50 Q370,150 150,250" fill="#d9eef3" stroke="#00788A" stroke-width="2.8"/>
+        <line x1="150" y1="50" x2="150" y2="250" stroke="#00788A" stroke-width="1.6"/>
+
+        <!-- a few velocity arrows -->
+        <line x1="150" y1="150" x2="315" y2="150" stroke="#00788A" stroke-width="2.4" marker-end="url(#w6a)"/>
+        <line x1="150" y1="110" x2="270" y2="110" stroke="#00788A" stroke-width="1.8" marker-end="url(#w6a)"/>
+        <line x1="150" y1="190" x2="270" y2="190" stroke="#00788A" stroke-width="1.8" marker-end="url(#w6a)"/>
+        <line x1="150" y1="76" x2="192" y2="76" stroke="#00788A" stroke-width="1.8" marker-end="url(#w6a)"/>
+        <line x1="150" y1="224" x2="192" y2="224" stroke="#00788A" stroke-width="1.8" marker-end="url(#w6a)"/>
+        <text x="326" y="144" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">max</tspan></text>
+
+        <!-- mean velocity, exactly half -->
+        <line x1="260" y1="50" x2="260" y2="250" stroke="#b03a2e" stroke-width="2.6" stroke-dasharray="7 4"/>
+        <line x1="150" y1="64" x2="254" y2="64" stroke="#b03a2e" stroke-width="1.6" marker-end="url(#w6b)"/>
+        <line x1="150" y1="236" x2="254" y2="236" stroke="#b03a2e" stroke-width="1.6" marker-end="url(#w6b)"/>
+        <text x="266" y="44" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#b03a2e">u&#772; = &frac12;u<tspan font-size="11" dy="4">max</tspan></text>
+
+        <!-- the annular element -->
+        <rect x="150" y="96" width="94" height="12" fill="#c8a14a" opacity=".45"/>
+        <line x1="112" y1="150" x2="112" y2="102" stroke="#1c1917" stroke-width="1.4" marker-start="url(#w6d)" marker-end="url(#w6c)"/>
+        <text x="90" y="128" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">r</text>
+        <line x1="132" y1="96" x2="132" y2="108" stroke="#8a6d1f" stroke-width="2.2"/>
+        <text x="96" y="92" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#8a6d1f">&#948;r</text>
+
+        <text x="620" y="90" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">the shaded ring has area</text>
+        <text x="620" y="110" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#8a6d1f">&#948;A = 2&#960;r&thinsp;&#948;r</text>
+        <text x="620" y="138" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">and carries</text>
+        <text x="620" y="158" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#8a6d1f">&#948;Q = u<tspan font-size="10" dy="3">r</tspan><tspan font-size="15" dy="-3"> &middot; 2&#960;r&thinsp;&#948;r</tspan></text>
+        <text x="620" y="186" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">add up every ring from</text>
+        <text x="620" y="204" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">the axis to the wall and</text>
+        <text x="620" y="222" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">you have the discharge</text>
+
+        <text x="70" y="280" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">Zero at the wall because of no-slip; maximum on the axis because that is furthest from both walls.</text>
+      </svg>
+      <figcaption><b>Figure 5.6.</b> Equation&nbsp;(5.9) written as a picture: <var>u</var> against
+        <var>r</var><sup>2</sup> is a parabola with its vertex on the axis. To get from this profile to the
+        discharge, the pipe is cut into thin rings, each carrying <var>u</var><sub>r</sub>&nbsp;&times; its
+        own area, and the rings are added up &mdash; which is the integral of &sect;5.8.</figcaption>
+    </figure>
+
+    <p>The velocity is greatest on the axis, where <var>r</var> = 0:</p>
+
+    <div class="eq">
+      <span class="body"><var>u</var><sub>max</sub> = <span class="frac"><span class="num">&Delta;<var>p R</var><sup>2</sup></span><span class="den">4<var>&mu;L</var></span></span>
+        = <span class="frac"><span class="num">&Delta;<var>p d</var><sup>2</sup></span><span class="den">16<var>&mu;L</var></span></span></span>
+      <span class="tag">(5.10)</span>
+    </div>
+
+    <!-- ============================================================ 5.8 -->
+    <h2 id="s8">5.8 The Hagen&ndash;Poiseuille Equation</h2>
+
+    <p>The profile gives the velocity at every radius. The discharge is the sum of that velocity times the
+      area it flows through, taken ring by ring as Figure&nbsp;5.6 shows:</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.11)</span>
+      <span class="body"><var>Q</var> =
+        <span class="intg"><span class="lim"><span class="hi"><var>R</var></span><span class="lo">0</span></span></span>
+        <var>u</var><sub>r</sub> &middot; 2<var>&pi;r</var>&thinsp;<span class="dx">d</span><var>r</var>
+        = <span class="frac"><span class="num">2<var>&pi;</var>&Delta;<var>p</var></span><span class="den">4<var>&mu;L</var></span></span>
+        <span class="intg"><span class="lim"><span class="hi"><var>R</var></span><span class="lo">0</span></span></span>
+        <span class="pren"><var>R</var><sup>2</sup><var>r</var> &minus; <var>r</var><sup>3</sup></span>&thinsp;<span class="dx">d</span><var>r</var></span>
+      <span class="body">= <span class="frac"><span class="num"><var>&pi;</var>&Delta;<var>p</var></span><span class="den">2<var>&mu;L</var></span></span>
+        <span class="pren sq t2"><span class="frac sm"><span class="num"><var>R</var><sup>2</sup><var>r</var><sup>2</sup></span><span class="den">2</span></span>
+        &minus; <span class="frac sm"><span class="num"><var>r</var><sup>4</sup></span><span class="den">4</span></span></span><sub>0</sub><sup><var>R</var></sup>
+        = <span class="frac"><span class="num"><var>&pi;</var>&Delta;<var>p R</var><sup>4</sup></span><span class="den">8<var>&mu;L</var></span></span></span>
+    </div>
+
+    <p>Writing it in terms of the diameter, since that is what a pipe is sold by, gives the
+      <b>Hagen&ndash;Poiseuille equation</b>:</p>
+
+    <div class="eq">
+      <span class="body"><var>Q</var> = <span class="frac"><span class="num"><var>&pi;</var>&Delta;<var>p d</var><sup>4</sup></span><span class="den">128<var>&mu;L</var></span></span></span>
+      <span class="tag">(5.12)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">The fourth power</span>
+      <p>For a given pressure drop, the discharge of a laminar pipe goes as the <b>fourth power of the
+        diameter</b>. Widen the bore by 20&nbsp;% and you pass twice the flow; halve it and you pass one
+        sixteenth. This is why a partly blocked drip emitter loses its output so abruptly, why a needle
+        gauge is so sensitive, and why blood pressure responds so strongly to small changes in vessel
+        diameter &mdash; Poiseuille was a physician, and it was blood he was measuring.</p>
+    </div>
+
+    <p>Dividing by the area gives the mean velocity, and comparing it with equation&nbsp;(5.10) settles the
+      promise made back in &sect;3.3:</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.13)</span>
+      <span class="body"><var>u&#772;</var> = <span class="frac"><span class="num"><var>Q</var></span><span class="den"><var>&pi;R</var><sup>2</sup></span></span>
+        = <span class="frac"><span class="num">&Delta;<var>p R</var><sup>2</sup></span><span class="den">8<var>&mu;L</var></span></span>
+        = <span class="frac"><span class="num">&Delta;<var>p d</var><sup>2</sup></span><span class="den">32<var>&mu;L</var></span></span></span>
+      <span class="body"><span class="say">and therefore</span>
+        <span class="frac"><span class="num"><var>u&#772;</var></span><span class="den"><var>u</var><sub>max</sub></span></span>
+        = <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+        <span class="say">exactly, for laminar flow in a circular pipe</span></span>
+    </div>
+
+    <p>Finally, rearrange (5.13) for the pressure drop and divide by <var>&rho;g</var> to put it in the head
+      units of Chapter&nbsp;3:</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.14)</span>
+      <span class="body">&Delta;<var>p</var> = <span class="frac"><span class="num">32<var>&mu;Lu&#772;</var></span><span class="den"><var>d</var><sup>2</sup></span></span>
+        &nbsp;&nbsp;&rArr;&nbsp;&nbsp;
+        <var>h</var><sub>f</sub> = <span class="frac"><span class="num">32<var>&mu;Lu&#772;</var></span><span class="den"><var>&rho;gd</var><sup>2</sup></span></span></span>
+    </div>
+
+    <div class="callout">
+      <span class="label">Theory meets the measurement</span>
+      <p>Look at what equation&nbsp;(5.14) says about the exponent: <var>h</var><sub>f</sub> is proportional
+        to <var>u&#772;</var> to the <b>first power</b>. That is exactly the slope of&nbsp;1 that
+        Figure&nbsp;5.4 measured on the laminar branch, derived here from nothing but a force balance and
+        Newton&rsquo;s law of viscosity. The theory and the experiment agree without a single fitted
+        constant &mdash; which is why the laminar case is worth the trouble even though you will rarely
+        design for it.</p>
+    </div>
+
+    <!-- ============================================================ 5.9 -->
+    <h2 id="s9">5.9 The Friction Factor and the Darcy Equation</h2>
+
+    <p>Turbulent flow cannot be solved the way &sect;5.7 solved laminar flow, because Newton&rsquo;s law of
+      viscosity no longer describes the whole shear: most of the momentum is being carried by eddies, and
+      there is no equation for those. So the turbulent case is handled the way engineers always handle
+      what they cannot derive &mdash; by isolating the ignorance in a single coefficient and measuring
+      it.</p>
+
+    <p>Start from the one relation that survived, equation&nbsp;(5.5), which needed no assumption about the
+      regime:</p>
+
+    <div class="eq plain">
+      <span class="body">&Delta;<var>p</var> = <span class="frac"><span class="num">4<var>L&tau;</var><sub>w</sub></span><span class="den"><var>d</var></span></span></span>
+    </div>
+
+    <p>Experiment shows that in turbulent flow the wall shear is very nearly proportional to
+      <var>&rho;u</var><sup>2</sup> &mdash; which is no surprise, since that is a momentum flux and eddies
+      transport momentum. Define a dimensionless <b>friction factor</b> <var>&lambda;</var> to carry the
+      constant of proportionality:</p>
+
+    <div class="eq">
+      <span class="body"><var>&tau;</var><sub>w</sub> = <span class="frac"><span class="num"><var>&lambda;&rho;u</var><sup>2</sup></span><span class="den">8</span></span></span>
+      <span class="tag">(5.15)</span>
+    </div>
+
+    <p>Substituting and dividing by <var>&rho;g</var> gives the <b>Darcy&ndash;Weisbach equation</b>, the
+      single most-used formula in water engineering:</p>
+
+    <div class="eq">
+      <span class="body"><var>h</var><sub>f</sub> = <span class="frac"><span class="num"><var>&lambda;Lu</var><sup>2</sup></span><span class="den">2<var>gd</var></span></span></span>
+      <span class="tag">(5.16)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">What has and has not been achieved</span>
+      <p>Equation&nbsp;(5.16) is not a solution &mdash; it is a <em>definition</em> that puts every
+        unknown into <var>&lambda;</var>. Its value is that it shows what <var>h</var><sub>f</sub> depends
+        on even before <var>&lambda;</var> is known: proportional to length, proportional to velocity
+        squared, inversely proportional to diameter. Finding <var>&lambda;</var> is then a separate
+        problem, solved in &sect;5.10 for turbulent flow &mdash; and solved exactly, right now, for
+        laminar.</p>
+    </div>
+
+    <h3>The laminar friction factor</h3>
+    <p>For laminar flow we have two expressions for the same head loss: equation&nbsp;(5.14) from theory
+      and equation&nbsp;(5.16) by definition. Setting them equal:</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.17)</span>
+      <span class="body"><span class="frac"><span class="num">32<var>&mu;Lu</var></span><span class="den"><var>&rho;gd</var><sup>2</sup></span></span>
+        = <span class="frac"><span class="num"><var>&lambda;Lu</var><sup>2</sup></span><span class="den">2<var>gd</var></span></span>
+        &nbsp;&rArr;&nbsp;
+        <var>&lambda;</var> = <span class="frac"><span class="num">64<var>&mu;</var></span><span class="den"><var>&rho;ud</var></span></span>
+        = <span class="frac"><span class="num">64</span><span class="den"><var>Re</var></span></span></span>
+    </div>
+
+    <p>So in laminar flow the friction factor depends on the Reynolds number and on <b>nothing else</b>
+      &mdash; in particular not on the roughness of the pipe. That is the entry in Table&nbsp;5.2 that
+      surprises people, and the reason is physical: in laminar flow the roughness peaks are buried inside
+      a slow-moving layer and the fluid never sees them.</p>
+
+    <div class="callout warn">
+      <span class="label">Two friction factors, and the mess they cause</span>
+      <p>Older British texts &mdash; including much of the CIVE&nbsp;1400 source &mdash; use a different
+        friction factor, written <var>f</var>, defined so that</p>
+      <div class="eq plain">
+        <span class="body"><var>h</var><sub>f</sub> = <span class="frac"><span class="num">4<var>fLu</var><sup>2</sup></span><span class="den">2<var>gd</var></span></span>
+          <span class="say">with</span> <var>f</var> = <span class="frac sm"><span class="num">16</span><span class="den"><var>Re</var></span></span>
+          <span class="say">in laminar flow</span></span>
+      </div>
+      <p>The two are related by <b><var>&lambda;</var> = 4<var>f</var></b>. They describe the same physics
+        and give the same answer, but a factor of four is a factor of four. This course uses
+        <var>&lambda;</var>, the Darcy friction factor, because it is what every Moody chart, every
+        software package and every international standard prints. <b>Whenever you take a friction factor
+        from a book, check which one it is</b> &mdash; if the laminar value quoted is 64/<var>Re</var> it
+        is <var>&lambda;</var>; if it is 16/<var>Re</var> it is <var>f</var>.</p>
+    </div>
+
+    <h3>The hydraulic gradient</h3>
+    <p>Dividing the head loss by the length gives the slope of the hydraulic grade line, which is how
+      pipeline losses are usually quoted in the field:</p>
+
+    <div class="eq">
+      <span class="body"><var>i</var> = <span class="frac"><span class="num"><var>h</var><sub>f</sub></span><span class="den"><var>L</var></span></span>
+        = <span class="frac"><span class="num"><var>&lambda;u</var><sup>2</sup></span><span class="den">2<var>gd</var></span></span></span>
+      <span class="tag">(5.18)</span>
+    </div>
+
+    <p>A designer quoting &ldquo;3&nbsp;metres per kilometre&rdquo; is quoting <var>i</var> = 0.003. Because
+      <var>i</var> does not depend on length, it can be worked out once for a given pipe and flow and then
+      multiplied by whatever length the route turns out to be.</p>
+
+    <!-- ============================================================ 5.10 -->
+    <h2 id="s10">5.10 Beyond the Core &mdash; Sizing a Real Pipeline</h2>
+
+    <div class="callout rule">
+      <span class="label">Extension material &mdash; not examinable</span>
+      <p>This section goes beyond CIVE&nbsp;1400 &sect;4.1&ndash;4.3. &sect;5.9 defined
+        <var>&lambda;</var> and stopped; this is how it is actually found, and what else has to be added
+        before a number becomes a pipe order. Nothing here is examined, but all of it is second-year
+        Irrigation Engineering, and some of it you will use before then. Any example or problem drawing on
+        it is marked <span class="pill">&sect;5.10</span>.</p>
+    </div>
+
+    <h3>Roughness, and the Moody diagram</h3>
+    <p>In turbulent flow the friction factor depends on two things: the Reynolds number, and the
+      <b>relative roughness</b> <var>k</var><sub>s</sub>/<var>d</var>, where <var>k</var><sub>s</sub> is
+      the average height of the bumps on the pipe wall. Plotting <var>&lambda;</var> against <var>Re</var>
+      for a family of relative roughnesses gives the <b>Moody diagram</b>, which has been the working tool
+      of pipeline design since 1944.</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="A schematic Moody diagram. Friction factor lambda is plotted against Reynolds number on logarithmic axes. On the left a single straight laminar line follows lambda equals 64 over Re. After an unstable critical zone, a family of turbulent curves for different relative roughnesses falls with Reynolds number and then flattens to a horizontal value that depends on roughness alone. The lowest curve is the smooth pipe curve.">
+        <defs>
+          <marker id="w7a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <!-- frame -->
+        <rect x="110" y="44" width="680" height="200" fill="#fdfcf9" stroke="#e3dac7" stroke-width="1.4"/>
+
+        <!-- gridlines -->
+        <line x1="148.5" y1="44" x2="148.5" y2="244" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="276.8" y1="44" x2="276.8" y2="244" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="405.1" y1="44" x2="405.1" y2="244" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="533.4" y1="44" x2="533.4" y2="244" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="661.7" y1="44" x2="661.7" y2="244" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="110" y1="73.9" x2="790" y2="73.9" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="110" y1="114.8" x2="790" y2="114.8" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="110" y1="168.9" x2="790" y2="168.9" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="110" y1="209.8" x2="790" y2="209.8" stroke="#efe9dc" stroke-width="1"/>
+
+        <!-- axes -->
+        <line x1="110" y1="244" x2="800" y2="244" stroke="#1c1917" stroke-width="1.8" marker-end="url(#w7a)"/>
+        <line x1="110" y1="244" x2="110" y2="36" stroke="#1c1917" stroke-width="1.8" marker-end="url(#w7a)"/>
+        <text x="700" y="268" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">Re</text>
+        <text x="66" y="40" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">&#955;</text>
+
+        <!-- x ticks -->
+        <text x="134" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#179;</text>
+        <text x="262" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#8308;</text>
+        <text x="390" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#8309;</text>
+        <text x="519" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#8310;</text>
+        <text x="647" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#8311;</text>
+        <text x="775" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#8312;</text>
+        <!-- y ticks -->
+        <text x="76" y="78" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">0.10</text>
+        <text x="76" y="119" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">0.05</text>
+        <text x="76" y="173" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">0.02</text>
+        <text x="76" y="214" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">0.01</text>
+
+        <!-- laminar line -->
+        <line x1="110" y1="59.4" x2="187.1" y2="141.2" stroke="#00788A" stroke-width="3"/>
+        <text x="116" y="96" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#00788A">&#955; = 64/Re</text>
+        <text x="114" y="130" font-family="Segoe UI, Arial" font-size="11.5" font-weight="700" fill="#00788A">laminar</text>
+
+        <!-- critical zone -->
+        <rect x="187.1" y="44" width="38.6" height="200" fill="#c8a14a" opacity=".18"/>
+        <text x="182" y="286" font-family="Segoe UI, Arial" font-size="11" fill="#8a6d1f">critical zone</text>
+
+        <!-- turbulent: rough curves, flattening to a value set by roughness alone -->
+        <path d="M225.7,128.4 C262,110 305,97 365,94.6 L790,93.6" fill="none" stroke="#b03a2e" stroke-width="2.4"/>
+        <text x="796" y="97" font-family="Segoe UI, Arial" font-size="10.5" fill="#b03a2e">0.05</text>
+
+        <path d="M250,134.7 C300,140 344,134 404,131.8 L790,131.1" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+        <text x="796" y="135" font-family="Segoe UI, Arial" font-size="10.5" fill="#b03a2e">0.01</text>
+
+        <path d="M300,150 C360,166 424,163 484,160.4 L790,159.7" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+        <text x="796" y="163" font-family="Segoe UI, Arial" font-size="10.5" fill="#b03a2e">0.002</text>
+
+        <path d="M405.1,175.8 C470,192 544,193 604,191.5 L790,191.1" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+        <text x="796" y="195" font-family="Segoe UI, Arial" font-size="10.5" fill="#b03a2e">0.0002</text>
+
+        <!-- smooth pipe -->
+        <path d="M225.7,128.4 C250,136 262,140 276.8,141.9 C330,156 360,168 405.1,175.8 C460,187 490,195 533.4,201.1 C590,211 620,217 661.7,222.3" fill="none" stroke="#1c1917" stroke-width="2.6" stroke-dasharray="8 4"/>
+        <text x="620" y="238" font-family="Segoe UI, Arial" font-size="11.5" fill="#1c1917">smooth pipe</text>
+
+        <text x="440" y="70" font-family="Segoe UI, Arial" font-size="11.5" fill="#b03a2e">fully rough: &#955; depends on k<tspan font-size="8.5" dy="3">s</tspan><tspan font-size="11.5" dy="-3">/d alone, not on Re</tspan></text>
+        <text x="300" y="116" font-family="Segoe UI, Arial" font-size="11.5" fill="#4b4540">transitional turbulence</text>
+        <text x="796" y="76" font-family="Segoe UI, Arial" font-size="10.5" fill="#b03a2e">k<tspan font-size="8.5" dy="3">s</tspan><tspan font-size="10.5" dy="-3">/d</tspan></text>
+      </svg>
+      <figcaption><b>Figure 5.7.</b> The Moody diagram, drawn schematically &mdash; use a printed one for
+        real work. Three regions matter. On the left, one line: laminar flow, roughness irrelevant. In the
+        middle, curves that depend on both <var>Re</var> and roughness. On the right, the curves go flat:
+        the flow is <b>fully rough</b> and <var>&lambda;</var> no longer depends on <var>Re</var> at all,
+        so <var>h</var><sub>f</sub> becomes exactly proportional to <var>u</var><sup>2</sup>. Most
+        irrigation mains sit in the middle region or just into the fully rough one.</figcaption>
+    </figure>
+
+    <p>The curves are drawn from the <b>Colebrook&ndash;White</b> equation, which fits almost the whole
+      turbulent field:</p>
+
+    <div class="eq">
+      <span class="body"><span class="frac"><span class="num">1</span><span class="den"><span class="sqrt"><span class="rad"><var>&lambda;</var></span></span></span></span>
+        = &minus;2 log<sub>10</sub>
+        <span class="pren t2"><span class="frac sm"><span class="num"><var>k</var><sub>s</sub></span><span class="den">3.7<var>d</var></span></span>
+        + <span class="frac sm"><span class="num">2.51</span><span class="den"><var>Re</var> <span class="sqrt"><span class="rad"><var>&lambda;</var></span></span></span></span></span></span>
+      <span class="tag">(5.19)</span>
+    </div>
+
+    <p>Note that <var>&lambda;</var> appears on both sides: the equation cannot be rearranged and must be
+      solved by iteration, or read off the chart, or evaluated with one of the explicit approximations
+      built into design software. That awkwardness is the price of covering the whole field with one
+      formula.</p>
+
+    <div class="table-wrap">
+      <table id="t3">
+        <caption><b>Table 5.3.</b> Typical roughness heights. The right-hand column is what actually enters
+          the calculation, for a 150&nbsp;mm pipe.</caption>
+        <thead>
+          <tr><th>Pipe material</th><th><var>k</var><sub>s</sub> (mm)</th><th><var>k</var><sub>s</sub>/<var>d</var> at 150&nbsp;mm</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>PVC, PE, drawn tubing &mdash; effectively smooth</td><td>0.0015&ndash;0.03</td><td>0.0000&ndash;0.0002</td></tr>
+          <tr><td>Commercial steel, new</td><td>0.045</td><td>0.0003</td></tr>
+          <tr><td>Galvanised iron</td><td>0.15</td><td>0.0010</td></tr>
+          <tr><td>Cast iron, new</td><td>0.25</td><td>0.0017</td></tr>
+          <tr><td>Concrete, depending on finish</td><td>0.3&ndash;3.0</td><td>0.002&ndash;0.020</td></tr>
+          <tr><td>Cast iron, badly tuberculated after 20 years</td><td>up to 6</td><td>up to 0.04</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <span class="label">Pipes get rougher, and it matters more than the pipe you chose</span>
+      <p>Corrosion, scale and biological growth raise <var>k</var><sub>s</sub> over the life of a main, and
+        the bumps also narrow the bore. An old cast-iron pipe can carry less than half its original
+        discharge at the same head. A design that gives no allowance for ageing is a design that fails in
+        service while every number in it is correct, which is why design codes require the friction factor
+        for the <em>end</em> of the design life, not for the day of commissioning.</p>
+    </div>
+
+    <h3>Losses that are not friction</h3>
+    <p>Friction along the straight lengths is only part of it. Every bend, valve, contraction, tee and
+      entry costs head as well, because each one makes the flow separate and re-mix &mdash; the mechanism
+      of &sect;4.10. These are called <b>local</b> or <b>minor</b> losses, and each is charged as a
+      multiple of the velocity head:</p>
+
+    <div class="eq">
+      <span class="body"><var>h</var><sub>L</sub> = <var>K</var>
+        <span class="frac"><span class="num"><var>u</var><sup>2</sup></span><span class="den">2<var>g</var></span></span></span>
+      <span class="tag">(5.20)</span>
+    </div>
+
+    <p>with <var>K</var> &asymp; 0.5 for a sharp-edged entry, 1.0 for an exit into a tank (the
+      Borda&ndash;Carnot result of &sect;4.10), 0.3&ndash;0.9 for a bend, 0.2 for a fully open gate valve
+      and 10 or more for a part-closed one. &ldquo;Minor&rdquo; is a bad name: on a short pumped line with
+      many fittings they can exceed the pipe friction, and on a long main they are usually negligible. The
+      only way to know which case you are in is to add them up.</p>
+
+    <h3>Hazen&ndash;Williams, and why you will meet it</h3>
+    <p>Irrigation practice very often uses an older empirical formula instead of Darcy&ndash;Weisbach,
+      because it needs no iteration and no viscosity:</p>
+
+    <div class="eq">
+      <span class="body"><var>h</var><sub>f</sub> = <span class="frac"><span class="num">10.67 <var>L Q</var><sup class="pow">1.852</sup></span><span class="den"><var>C</var><sup class="pow">1.852</sup> <var>d</var><sup class="pow">4.87</sup></span></span></span>
+      <span class="tag">(5.21)</span>
+    </div>
+
+    <p>in SI units, with <var>C</var> the Hazen&ndash;Williams coefficient: about 150 for PVC, 140 for new
+      steel, 130 for new cast iron and 100 or less for old. Note the exponent 1.852 on the discharge &mdash;
+      almost, but not exactly, the square of &sect;5.5.</p>
+
+    <div class="callout">
+      <span class="label">Which to use</span>
+      <p>Hazen&ndash;Williams is only valid for water, at ordinary temperatures, in turbulent flow, at
+        velocities up to about 3&nbsp;m/s &mdash; the conditions of a water supply or irrigation main,
+        which is what Hazen and Williams fitted it to. Outside those conditions it is simply wrong, and
+        Darcy&ndash;Weisbach, which rests on the physics of &sect;5.6 rather than on a curve fit, is always
+        valid. Use Hazen&ndash;Williams for speed on routine water mains; use Darcy&ndash;Weisbach when the
+        fluid is not water, the flow may be laminar, or the answer matters.</p>
+    </div>
+
+    <h3>What the answer is for</h3>
+    <p>The head loss is never the end of the job. It goes on to fix the pumping power, and therefore the
+      electricity bill for the next twenty years:</p>
+
+    <div class="eq">
+      <span class="body"><var>P</var> = <span class="frac"><span class="num"><var>&rho;gQH</var></span><span class="den"><var>&eta;</var></span></span>
+        <span class="say">with</span> <var>H</var> = <var>H</var><sub>static</sub> + <var>h</var><sub>f</sub> + &Sigma;<var>h</var><sub>L</sub></span>
+      <span class="tag">(5.22)</span>
+    </div>
+
+    <p>where <var>&eta;</var> is the pump efficiency, typically 0.6&ndash;0.8. This is what makes pipe
+      sizing an economic problem rather than a hydraulic one: a larger pipe costs more to buy once and less
+      to pump through every year. The <b>economic diameter</b> is the one that minimises the sum, and it is
+      almost always larger than the smallest pipe that would physically do the job.</p>
+
+    <div class="callout rule">
+      <span class="label">Rules of thumb worth carrying</span>
+      <ul>
+        <li><b>Design velocity</b> in an irrigation main: 0.6 to 2.0&nbsp;m/s. Below that, sediment settles
+          out; above it, friction and surge both climb steeply and erosion begins.</li>
+        <li><b>Hydraulic gradient</b>: 1 to 5&nbsp;m per km is normal for a long main; much more than that
+          is usually a sign the pipe is too small.</li>
+        <li><b>Check the Reynolds number once</b> at the start, to confirm the flow is turbulent so the
+          turbulent formulae apply. It always will be &mdash; but the one time it is not, nothing else you
+          calculate will be right.</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ 5.11 -->
+    <h2 id="s11">5.11 Worked Examples</h2>
+
+    <p>Throughout, water at 20&nbsp;&deg;C has <var>&rho;</var> = 1000&nbsp;kg&nbsp;m<sup>&minus;3</sup>
+      and <var>&nu;</var> = 1.0&nbsp;&times;&nbsp;10<sup>&minus;6</sup>&nbsp;m<sup>2</sup>&nbsp;s<sup>&minus;1</sup>,
+      and <var>g</var> = 9.81&nbsp;m&nbsp;s<sup>&minus;2</sup>. Every one of these starts by finding
+      <var>Re</var>, because until you know the regime you do not know which formula you are allowed to
+      use.</p>
+
+    <div class="example">
+      <h4>Example 5.1 &mdash; The same pipe, two fluids</h4>
+      <p>A 25&nbsp;mm pipe carries 0.8&nbsp;l&nbsp;s<sup>&minus;1</sup>. Find the Reynolds number and the
+        regime (a) for water at 20&nbsp;&deg;C and (b) for olive oil, <var>&rho;</var> =
+        920&nbsp;kg&nbsp;m<sup>&minus;3</sup>, <var>&mu;</var> = 0.084&nbsp;Pa&nbsp;s.</p>
+      <p class="step"><var>A</var> = <var>&pi;</var>(0.025)<sup>2</sup>/4 =
+        4.909&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;m<sup>2</sup>, so the mean velocity is the same
+        in both cases:<br>
+        <var>u</var> = 0.0008 / 4.909&nbsp;&times;&nbsp;10<sup>&minus;4</sup> =
+        1.63&nbsp;m&nbsp;s<sup>&minus;1</sup></p>
+      <p class="step"><b>(a) Water.</b>
+        <var>Re</var> = <var>ud</var>/<var>&nu;</var> = 1.63 &times; 0.025 /
+        1.0&nbsp;&times;&nbsp;10<sup>&minus;6</sup> = <b>4.07&nbsp;&times;&nbsp;10<sup>4</sup></b>
+        &mdash; well above 4000, so <b>turbulent</b>.</p>
+      <p class="step"><b>(b) Oil.</b> First its kinematic viscosity:
+        <var>&nu;</var> = <var>&mu;</var>/<var>&rho;</var> = 0.084/920 =
+        9.13&nbsp;&times;&nbsp;10<sup>&minus;5</sup>&nbsp;m<sup>2</sup>&nbsp;s<sup>&minus;1</sup>, which is
+        91 times that of water.<br>
+        <var>Re</var> = 1.63 &times; 0.025 / 9.13&nbsp;&times;&nbsp;10<sup>&minus;5</sup> =
+        <b>446</b> &mdash; below 2000, so <b>laminar</b>.</p>
+      <p class="result">Same pipe, same discharge, same velocity &mdash; and the two fluids are in
+        completely different regimes, obeying different laws, with head losses that scale differently with
+        velocity. Nothing but the viscosity has changed. This is the experiment Reynolds ran, and it is
+        why the Reynolds number rather than the velocity is the thing to look at.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 5.2 &mdash; Laminar flow: the whole set of answers</h4>
+      <p>Oil of <var>&rho;</var> = 900&nbsp;kg&nbsp;m<sup>&minus;3</sup> and <var>&mu;</var> =
+        0.12&nbsp;Pa&nbsp;s flows at 0.2&nbsp;l&nbsp;s<sup>&minus;1</sup> through a 20&nbsp;mm pipe
+        50&nbsp;m long. Find the regime, the pressure drop, the head loss, the maximum velocity and the
+        shear stress at the wall.</p>
+      <p class="step"><b>Regime first.</b> <var>A</var> = 3.142&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;m<sup>2</sup>,
+        <var>u&#772;</var> = 0.0002/3.142&nbsp;&times;&nbsp;10<sup>&minus;4</sup> =
+        0.637&nbsp;m&nbsp;s<sup>&minus;1</sup>.<br>
+        <var>&nu;</var> = 0.12/900 = 1.333&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;m<sup>2</sup>&nbsp;s<sup>&minus;1</sup>,
+        so <var>Re</var> = 0.637 &times; 0.020 / 1.333&nbsp;&times;&nbsp;10<sup>&minus;4</sup> =
+        <b>95.5</b> &mdash; firmly laminar, so equations (5.9) to (5.14) apply.</p>
+      <p class="step"><b>Pressure drop</b>, from equation&nbsp;(5.14):<br>
+        &Delta;<var>p</var> = 32<var>&mu;Lu&#772;</var>/<var>d</var><sup>2</sup> =
+        32 &times; 0.12 &times; 50 &times; 0.637 / (0.020)<sup>2</sup> = <b>306&nbsp;kPa</b></p>
+      <p class="step"><b>Head loss</b>, in metres of the oil:<br>
+        <var>h</var><sub>f</sub> = &Delta;<var>p</var>/<var>&rho;g</var> = 305&thinsp;600 / (900 &times;
+        9.81) = <b>34.6&nbsp;m</b></p>
+      <p class="step"><b>Maximum velocity</b>, from equation&nbsp;(5.13):
+        <var>u</var><sub>max</sub> = 2<var>u&#772;</var> =
+        <b>1.27&nbsp;m&nbsp;s<sup>&minus;1</sup></b>, on the axis.</p>
+      <p class="result"><b>Wall shear stress</b>, from equation&nbsp;(5.5):<br>
+        <var>&tau;</var><sub>w</sub> = &Delta;<var>p d</var>/4<var>L</var> = 305&thinsp;600 &times; 0.020 /
+        (4 &times; 50) = <b>30.6&nbsp;Pa</b><br>
+        <b>Check by a different route.</b> <var>&lambda;</var> = 64/<var>Re</var> = 64/95.5 = 0.670, and
+        equation&nbsp;(5.16) gives <var>h</var><sub>f</sub> = 0.670 &times; 50 &times; 0.637<sup>2</sup> /
+        (2 &times; 9.81 &times; 0.020) = 34.6&nbsp;m &#10003;. The two formulae are the same statement, so
+        they must agree; if they do not, one of them has been copied wrongly.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 5.3 &mdash; A microtube drip emitter</h4>
+      <p>A microtube emitter is 1.0&nbsp;m of 0.6&nbsp;mm-bore tubing, working at 100&nbsp;kPa. For water
+        at 25&nbsp;&deg;C take <var>&rho;</var> = 997&nbsp;kg&nbsp;m<sup>&minus;3</sup> and
+        <var>&mu;</var> = 8.9&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;Pa&nbsp;s. Find the discharge,
+        and confirm the assumption you had to make to find it.</p>
+      <p class="step"><b>Assume laminar</b> and use Hagen&ndash;Poiseuille, equation&nbsp;(5.12):<br>
+        <var>Q</var> = <var>&pi;</var>&Delta;<var>p d</var><sup>4</sup> / 128<var>&mu;L</var>
+        = <var>&pi;</var> &times; 100&thinsp;000 &times; (0.0006)<sup>4</sup> /
+        (128 &times; 8.9&nbsp;&times;&nbsp;10<sup>&minus;4</sup> &times; 1.0)</p>
+      <p class="step">= 4.072&nbsp;&times;&nbsp;10<sup>&minus;8</sup> / 0.11392 =
+        <b>3.57&nbsp;&times;&nbsp;10<sup>&minus;7</sup>&nbsp;m<sup>3</sup>&nbsp;s<sup>&minus;1</sup>
+        = 1.29&nbsp;l&nbsp;h<sup>&minus;1</sup></b></p>
+      <p class="step"><b>Now check the assumption</b>, which is not optional:<br>
+        <var>A</var> = 2.827&nbsp;&times;&nbsp;10<sup>&minus;7</sup>&nbsp;m<sup>2</sup>, so
+        <var>u</var> = 3.57&nbsp;&times;&nbsp;10<sup>&minus;7</sup>/2.827&nbsp;&times;&nbsp;10<sup>&minus;7</sup>
+        = 1.26&nbsp;m&nbsp;s<sup>&minus;1</sup><br>
+        <var>Re</var> = <var>&rho;ud</var>/<var>&mu;</var> = 997 &times; 1.26 &times; 0.0006 /
+        8.9&nbsp;&times;&nbsp;10<sup>&minus;4</sup> = <b>850</b> &mdash; laminar, so the answer
+        stands.</p>
+      <p class="result"><b>And a warning that falls straight out of it.</b> In laminar flow
+        <var>Q</var> &prop; 1/<var>&mu;</var>, and the viscosity of water falls by about 2&nbsp;% per
+        degree. Between a cool morning at 20&nbsp;&deg;C and a hot afternoon at 35&nbsp;&deg;C this emitter
+        would deliver roughly 30&nbsp;% more water, at the same pressure. That is exactly why commercial
+        emitters use a <em>turbulent</em> labyrinth passage instead: turbulent discharge barely depends on
+        viscosity, so it barely depends on temperature. <span class="pill">&sect;5.10</span></p>
+    </div>
+
+    <div class="example">
+      <h4>Example 5.4 &mdash; A turbulent main, and what the answer tells you</h4>
+      <p>A 150&nbsp;mm PVC main 1200&nbsp;m long carries 25&nbsp;l&nbsp;s<sup>&minus;1</sup> of water at
+        20&nbsp;&deg;C. Take <var>&lambda;</var> = 0.019. Find the Reynolds number, the head loss, the
+        hydraulic gradient and the wall shear stress &mdash; then say whether the pipe is the right
+        size.</p>
+      <p class="step"><var>A</var> = 0.01767&nbsp;m<sup>2</sup>,
+        <var>u</var> = 0.025/0.01767 = 1.41&nbsp;m&nbsp;s<sup>&minus;1</sup>.<br>
+        <var>Re</var> = 1.41 &times; 0.15 / 1.0&nbsp;&times;&nbsp;10<sup>&minus;6</sup> =
+        <b>2.12&nbsp;&times;&nbsp;10<sup>5</sup></b> &mdash; turbulent, so the Darcy equation applies.</p>
+      <p class="step"><b>Head loss</b>, from equation&nbsp;(5.16):<br>
+        <var>u</var><sup>2</sup>/2<var>g</var> = 1.41<sup>2</sup>/19.62 = 0.102&nbsp;m, and
+        <var>&lambda;L</var>/<var>d</var> = 0.019 &times; 1200/0.15 = 152<br>
+        <var>h</var><sub>f</sub> = 152 &times; 0.102 = <b>15.5&nbsp;m</b></p>
+      <p class="step"><b>Hydraulic gradient.</b> <var>i</var> = 15.5/1200 = 0.0129, that is
+        <b>12.9&nbsp;m per km</b>.</p>
+      <p class="step"><b>Wall shear</b>, from equation&nbsp;(5.15):
+        <var>&tau;</var><sub>w</sub> = <var>&lambda;&rho;u</var><sup>2</sup>/8 = 0.019 &times; 1000 &times;
+        2.00/8 = <b>4.75&nbsp;Pa</b></p>
+      <p class="result"><b>Is it the right size? No.</b> A gradient of 12.9&nbsp;m/km is far above the
+        1&ndash;5&nbsp;m/km that a long main should run at, and 15.5&nbsp;m of head thrown away is a
+        permanent charge on the pump. Try 200&nbsp;mm instead: <var>u</var> falls to
+        0.80&nbsp;m&nbsp;s<sup>&minus;1</sup>, <var>&lambda;</var> to about 0.0175, and<br>
+        <var>h</var><sub>f</sub> = 0.0175 &times; (1200/0.2) &times; 0.633<sup>2</sup>/19.62 =
+        <b>3.4&nbsp;m</b>, a gradient of 2.8&nbsp;m/km.<br>
+        One size up has cut the loss to less than a quarter &mdash; close to the
+        (200/150)<sup>5</sup> = 4.2 that &sect;5.5 predicted.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 5.5 &mdash; What the pump has to do</h4>
+      <p>A pump lifts water 18&nbsp;m from a sump to a tank through 400&nbsp;m of 100&nbsp;mm pipe with
+        <var>&lambda;</var> = 0.022, at 12&nbsp;l&nbsp;s<sup>&minus;1</sup>. The line has a sharp-edged
+        entry (<var>K</var> = 0.5), two bends (<var>K</var> = 0.4 each) and discharges into the tank
+        (<var>K</var> = 1.0). Find the total head required and the power drawn at 70&nbsp;% pump
+        efficiency. <span class="pill">&sect;5.10</span></p>
+      <p class="step"><var>A</var> = 7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;m<sup>2</sup>,
+        <var>u</var> = 0.012/7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        1.53&nbsp;m&nbsp;s<sup>&minus;1</sup>, and the velocity head is
+        <var>u</var><sup>2</sup>/2<var>g</var> = 0.119&nbsp;m.<br>
+        <var>Re</var> = 1.53 &times; 0.10 / 10<sup>&minus;6</sup> =
+        1.5&nbsp;&times;&nbsp;10<sup>5</sup>, turbulent &#10003;</p>
+      <p class="step"><b>Pipe friction.</b>
+        <var>&lambda;L</var>/<var>d</var> = 0.022 &times; 400/0.1 = 88, so
+        <var>h</var><sub>f</sub> = 88 &times; 0.119 = <b>10.5&nbsp;m</b></p>
+      <p class="step"><b>Local losses.</b> &Sigma;<var>K</var> = 0.5 + 0.4 + 0.4 + 1.0 = 2.3, so
+        &Sigma;<var>h</var><sub>L</sub> = 2.3 &times; 0.119 = <b>0.27&nbsp;m</b> &mdash; under 3&nbsp;% of
+        the pipe friction, which is what &ldquo;minor&rdquo; is supposed to mean on a long main.</p>
+      <p class="step"><b>Total head.</b>
+        <var>H</var> = <var>H</var><sub>static</sub> + <var>h</var><sub>f</sub> +
+        &Sigma;<var>h</var><sub>L</sub> = 18 + 10.5 + 0.3 = <b>28.8&nbsp;m</b></p>
+      <p class="result"><b>Power</b>, from equation&nbsp;(5.22):<br>
+        <var>P</var> = <var>&rho;gQH</var>/<var>&eta;</var> = 1000 &times; 9.81 &times; 0.012 &times; 28.8 /
+        0.70 = <b>4.8&nbsp;kW</b><br>
+        Of that, 3.0&nbsp;kW does the useful work of lifting the water and 1.8&nbsp;kW is spent purely on
+        friction &mdash; more than a third of the bill, every hour the pump runs.</p>
+    </div>
+
+    <div class="example">
+      <h4>Example 5.6 &mdash; What ageing costs <span class="pill">&sect;5.10</span></h4>
+      <p>A 300&nbsp;mm cast-iron main 2&nbsp;km long carries 80&nbsp;l&nbsp;s<sup>&minus;1</sup> of water
+        at 20&nbsp;&deg;C. When new, <var>k</var><sub>s</sub> = 0.25&nbsp;mm; after twenty years of
+        tuberculation it is 1.2&nbsp;mm. Find the head loss in each case, and the extra pumping power the
+        ageing costs at 75&nbsp;% efficiency.</p>
+      <p class="step"><var>A</var> = 0.07069&nbsp;m<sup>2</sup>,
+        <var>u</var> = 0.080/0.07069 = 1.13&nbsp;m&nbsp;s<sup>&minus;1</sup>,
+        <var>u</var><sup>2</sup>/2<var>g</var> = 0.0653&nbsp;m.<br>
+        <var>Re</var> = 1.13 &times; 0.30/10<sup>&minus;6</sup> =
+        3.4&nbsp;&times;&nbsp;10<sup>5</sup></p>
+      <p class="step"><b>New pipe.</b> <var>k</var><sub>s</sub>/<var>d</var> = 0.25/300 =
+        8.3&nbsp;&times;&nbsp;10<sup>&minus;4</sup>. From Colebrook&ndash;White, or the Moody chart at that
+        <var>Re</var>, <var>&lambda;</var> = <b>0.0198</b>.<br>
+        <var>h</var><sub>f</sub> = 0.0198 &times; (2000/0.3) &times; 0.0653 = <b>8.6&nbsp;m</b></p>
+      <p class="step"><b>Aged pipe.</b> <var>k</var><sub>s</sub>/<var>d</var> = 1.2/300 =
+        4.0&nbsp;&times;&nbsp;10<sup>&minus;3</sup>, giving <var>&lambda;</var> = <b>0.0287</b>.<br>
+        <var>h</var><sub>f</sub> = 0.0287 &times; (2000/0.3) &times; 0.0653 = <b>12.5&nbsp;m</b></p>
+      <p class="result">The loss has risen by 3.9&nbsp;m, or <b>45&nbsp;%</b>, without a single thing
+        changing except the inside of the pipe. The extra power is<br>
+        <var>P</var> = <var>&rho;gQ</var>&Delta;<var>h</var>/<var>&eta;</var> = 9810 &times; 0.080 &times;
+        3.9 / 0.75 = <b>4.1&nbsp;kW</b>, drawn continuously for the rest of the pipe&rsquo;s life.<br>
+        This is the calculation that justifies designing on the <em>aged</em> roughness rather than the new
+        one &mdash; and the one that pays for pipe cleaning and relining programmes.</p>
+    </div>
+
+    <!-- ============================================================ 5.12 -->
+    <h2 id="s12">5.12 Nomenclature</h2>
+
+    <div class="nomen">
+      <div><var>A</var> &mdash; cross-sectional area <span class="u">m<sup>2</sup></span></div>
+      <div><var>C</var> &mdash; Hazen&ndash;Williams coefficient <span class="u">&ndash;</span></div>
+      <div><var>d</var> &mdash; internal pipe diameter <span class="u">m</span></div>
+      <div><var>g</var> &mdash; gravitational acceleration, 9.81 <span class="u">m&nbsp;s<sup>&minus;2</sup></span></div>
+      <div><var>h</var><sub>f</sub> &mdash; head lost to friction along the pipe <span class="u">m</span></div>
+      <div><var>h</var><sub>L</sub> &mdash; head lost at a fitting, a local loss <span class="u">m</span></div>
+      <div><var>H</var> &mdash; total head a pump must provide <span class="u">m</span></div>
+      <div><var>i</var> &mdash; hydraulic gradient, <var>h</var><sub>f</sub>/<var>L</var> <span class="u">&ndash;</span></div>
+      <div><var>k</var><sub>s</sub> &mdash; equivalent roughness height of the wall <span class="u">m</span></div>
+      <div><var>K</var> &mdash; local loss coefficient <span class="u">&ndash;</span></div>
+      <div><var>L</var> &mdash; length of pipe <span class="u">m</span></div>
+      <div><var>P</var> &mdash; power <span class="u">W</span></div>
+      <div><var>Q</var> &mdash; discharge <span class="u">m<sup>3</sup>&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>r</var> &mdash; radius to a point in the flow <span class="u">m</span></div>
+      <div><var>R</var> &mdash; internal radius of the pipe, <var>d</var>/2 <span class="u">m</span></div>
+      <div><var>Re</var> &mdash; Reynolds number, <var>&rho;ud</var>/<var>&mu;</var> <span class="u">&ndash;</span></div>
+      <div><var>u</var>, <var>u&#772;</var> &mdash; velocity; mean velocity over the section <span class="u">m&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>u</var><sub>r</sub> &mdash; velocity at radius <var>r</var> <span class="u">m&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>u</var><sub>max</sub> &mdash; velocity on the axis <span class="u">m&nbsp;s<sup>&minus;1</sup></span></div>
+      <div>&Delta;<var>p</var> &mdash; pressure drop over the length <var>L</var> <span class="u">Pa</span></div>
+      <div><var>&eta;</var> &mdash; pump efficiency <span class="u">&ndash;</span></div>
+      <div><var>&lambda;</var> &mdash; Darcy friction factor; 64/<var>Re</var> when laminar <span class="u">&ndash;</span></div>
+      <div><var>f</var> &mdash; the older British friction factor, <var>&lambda;</var>/4 <span class="u">&ndash;</span></div>
+      <div><var>&mu;</var> &mdash; dynamic viscosity <span class="u">Pa&nbsp;s</span></div>
+      <div><var>&nu;</var> &mdash; kinematic viscosity, <var>&mu;</var>/<var>&rho;</var> <span class="u">m<sup>2</sup>&nbsp;s<sup>&minus;1</sup></span></div>
+      <div><var>&rho;</var> &mdash; density <span class="u">kg&nbsp;m<sup>&minus;3</sup></span></div>
+      <div><var>&tau;</var> &mdash; shear stress at radius <var>r</var> <span class="u">Pa</span></div>
+      <div><var>&tau;</var><sub>w</sub> &mdash; shear stress at the pipe wall <span class="u">Pa</span></div>
+    </div>
+
+    <!-- ============================================================ 5.13 -->
+    <h2 id="s13">5.13 Self-Check</h2>
+
+    <p>Forty-seven questions on this chapter, marked in your own browser as you answer them. Nothing is
+      stored and nothing is sent anywhere. Each question carries the section it came from, and the summary
+      at the end lists the sections to revise.</p>
+
+    <p>Work through these <em>before</em> the problems in &sect;5.14. Five of the questions come from the
+      extension material in &sect;5.10 and are marked as such.</p>
+
+    <noscript>
+      <div class="quiz-noscript">
+        <b>This section needs JavaScript.</b> The questions are marked in your own browser, so nothing
+        appears with scripting turned off. The same ground is covered by the written problems in
+        <a href="#s14">&sect;5.14</a>.
+      </div>
+    </noscript>
+
+    <div id="quiz"></div>
+
+    <!-- ============================================================ 5.14 -->
+    <h2 id="s14">5.14 Problems</h2>
+
+    <p>Take <var>g</var> = 9.81&nbsp;m/s<sup>2</sup>, and for water at 20&nbsp;&deg;C
+      <var>&rho;</var> = 1000&nbsp;kg/m<sup>3</sup> and
+      <var>&nu;</var> = 1.0&nbsp;&times;&nbsp;10<sup>&minus;6</sup>&nbsp;m<sup>2</sup>/s.
+      <b>Find the Reynolds number first in every problem</b>, and say which regime you are in before
+      choosing a formula; marks are lost for using a laminar equation on a turbulent flow whatever the
+      arithmetic afterwards. Problems marked <span class="pill">&sect;5.10</span> draw on the extension
+      material and are not examinable.</p>
+
+    <ol class="problems">
+      <li>Water at 20&nbsp;&deg;C flows at 1.2&nbsp;m/s in a 50&nbsp;mm pipe. Find the Reynolds number and
+        state the regime. What velocity would be needed to make the same pipe run laminar, and is that a
+        realistic design condition?
+        <span class="ans">Re = 6.0 &times; 10<sup>4</sup>, turbulent; laminar would need u below 0.04 m/s, a discharge of 0.08 l/s &mdash; not a usable design</span></li>
+
+      <li>Glycerine, <var>&rho;</var> = 1260&nbsp;kg/m<sup>3</sup> and <var>&mu;</var> =
+        0.9&nbsp;Pa&nbsp;s, flows at 2&nbsp;l/s through a 100&nbsp;mm pipe 30&nbsp;m long. Find the
+        Reynolds number, the regime, the head loss, the maximum velocity and the wall shear stress.
+        <span class="ans">Re = 36, laminar; &Delta;p = 22.0 kPa so h<sub>f</sub> = 1.78 m of glycerine; u<sub>max</sub> = 0.509 m/s; &tau;<sub>w</sub> = 18.3 Pa</span></li>
+
+      <li>For the pipe in Problem 2, find the friction factor from <var>&lambda;</var> = 64/<var>Re</var>
+        and use the Darcy equation to recompute the head loss. Explain why the two answers must agree.
+        <span class="ans">&lambda; = 1.80, h<sub>f</sub> = 1.78 m. They agree because &lambda; = 64/Re was derived by equating the two expressions in the first place &mdash; it is a definition, not an independent result</span></li>
+
+      <li>Oil of <var>&rho;</var> = 850&nbsp;kg/m<sup>3</sup> and <var>&mu;</var> = 0.08&nbsp;Pa&nbsp;s is
+        driven through a 25&nbsp;mm tube 10&nbsp;m long by a pressure difference of 40&nbsp;kPa. Find the
+        discharge and the mean velocity, then confirm the assumption you made.
+        <span class="ans">Q = 0.479 l/s, u&#772; = 0.977 m/s; Re = 259, laminar, so Hagen&ndash;Poiseuille was justified</span></li>
+
+      <li>A 200&nbsp;mm main 800&nbsp;m long carries 60&nbsp;l/s of water with <var>&lambda;</var> = 0.020.
+        Find the Reynolds number, the head loss, the hydraulic gradient, the wall shear stress and the
+        power dissipated in friction.
+        <span class="ans">Re = 3.8 &times; 10<sup>5</sup>; h<sub>f</sub> = 14.9 m; i = 18.6 m/km; &tau;<sub>w</sub> = 9.1 Pa; 8.75 kW lost</span></li>
+
+      <li>Repeat Problem 5 for a 250&nbsp;mm pipe carrying the same discharge, with <var>&lambda;</var> =
+        0.0185. Compare the two head losses and check the ratio against the 1/<var>d</var><sup>5</sup> rule
+        of &sect;5.5.
+        <span class="ans">h<sub>f</sub> = 4.51 m, i = 5.6 m/km, 2.65 kW lost &mdash; a saving of 6.1 kW. The ratio is 3.30, against (250/200)<sup>5</sup> = 3.05 corrected by the ratio of the two friction factors</span></li>
+
+      <li>A pipeline is to carry 40&nbsp;l/s over 1500&nbsp;m with a friction head loss of not more than
+        6&nbsp;m. Taking <var>&lambda;</var> = 0.020, find the smallest diameter that will do, and the
+        nearest commercial size you would order.
+        <span class="ans">Rearranging the Darcy equation, d<sup>5</sup> = 8&lambda;LQ<sup>2</sup>/&pi;<sup>2</sup>gh<sub>f</sub> gives d = 231 mm, so order 250 mm &mdash; which gives 4.1 m, comfortably inside the limit</span></li>
+
+      <li>Laminar flow in a 40&nbsp;mm pipe has a maximum velocity of 0.9&nbsp;m/s. Find (a) the mean
+        velocity, (b) the discharge, (c) the velocity 10&nbsp;mm from the axis, and (d) the radius at which
+        the local velocity equals the mean.
+        <span class="ans">(a) 0.45 m/s (b) 0.566 l/s (c) 0.675 m/s (d) r = 0.707R = 14.1 mm &mdash; compare the 0.76R quoted for turbulent flow in &sect;3.7</span></li>
+
+      <li>A horizontal 30&nbsp;mm pipe carries oil, <var>&rho;</var> = 890&nbsp;kg/m<sup>3</sup> and
+        <var>&mu;</var> = 0.075&nbsp;Pa&nbsp;s, at 0.35&nbsp;l/s. Gauges 15&nbsp;m apart read 180&nbsp;kPa
+        and 160&nbsp;kPa. Find the head loss from the gauge readings, then predict it from theory and
+        comment on the agreement.
+        <span class="ans">Measured: &Delta;p = 20 kPa so h<sub>f</sub> = 2.29 m of oil. Re = 176, laminar, and equation (5.14) predicts &Delta;p = 19.8 kPa, h<sub>f</sub> = 2.27 m &mdash; within 1 %, which is the sort of agreement only the laminar case ever gives</span></li>
+
+      <li><span class="pill">&sect;5.10</span> A 400&nbsp;mm steel main, <var>k</var><sub>s</sub> =
+        0.045&nbsp;mm, carries 150&nbsp;l/s of water over 3&nbsp;km. Find the Reynolds number, the relative
+        roughness and the friction factor, then the head loss and the hydraulic gradient. Is the pipe well
+        sized?
+        <span class="ans">Re = 4.8 &times; 10<sup>5</sup>, k<sub>s</sub>/d = 1.1 &times; 10<sup>&minus;4</sup>, &lambda; = 0.0146; h<sub>f</sub> = 7.95 m, i = 2.65 m/km &mdash; comfortably inside the 1 to 5 m/km rule, so yes</span></li>
+
+      <li><span class="pill">&sect;5.10</span> Rework the head loss of Problem 10 with the
+        Hazen&ndash;Williams equation, taking <var>C</var> = 140. Compare the two answers and say which you
+        would trust and why.
+        <span class="ans">8.75 m against 7.95 m, about 10 % higher. Trust Darcy&ndash;Weisbach: it rests on the force balance of &sect;5.6 and is valid for any fluid and any regime, while Hazen&ndash;Williams is a curve fit valid only for water in turbulent flow below about 3 m/s</span></li>
+
+      <li><span class="pill">&sect;5.10</span> A pump delivering 40&nbsp;l/s over 1500&nbsp;m runs
+        2500&nbsp;hours a year at 72&nbsp;% efficiency, and electricity costs 4&nbsp;baht per kWh. Using
+        <var>&lambda;</var> = 0.020 for a 200&nbsp;mm pipe and 0.0185 for a 250&nbsp;mm one, find the
+        annual pumping cost saved by choosing the larger pipe.
+        <span class="ans">h<sub>f</sub> falls from 12.4 m to 3.8 m, so the pump draws 4.7 kW less; 11 800 kWh a year, about 47 000 baht a year saved &mdash; which is what has to be set against the extra cost of the pipe</span></li>
+    </ol>
+
+    <!-- ============================================================ 5.15 -->
+    <h2 id="s15">5.15 References</h2>
+
+    <ol class="refs">
+      <li>Sleigh, A. <em>An Introduction to Fluid Mechanics</em>, CIVE 1400, School of Civil Engineering,
+        University of Leeds. &sect;4.1&ndash;4.3 &mdash; the sections this chapter follows, including
+        Reynolds&rsquo; experiment and the laminar pipe-flow derivation. Note that it uses the British
+        friction factor <var>f</var> = <var>&lambda;</var>/4.</li>
+      <li>Reynolds, O. &lsquo;An experimental investigation of the circumstances which determine whether
+        the motion of water shall be direct or sinuous&rsquo;, <em>Philosophical Transactions of the Royal
+        Society</em>, 174, 1883. The original paper, and unusually readable.</li>
+      <li>Massey, B. S. <em>Mechanics of Fluids</em>, Van Nostrand Reinhold. Chapters 6 and 7; the clearest
+        account at this level of why turbulent flow cannot be solved the way laminar flow can.</li>
+      <li>Douglas, J. F., Gasiorek, J. M. and Swaffield, J. A. <em>Fluid Mechanics</em>, Longman. Chapters
+        10 and 14, with a large stock of worked pipeline problems.</li>
+      <li>Featherstone, R. E. and Nalluri, C. <em>Civil Engineering Hydraulics</em>, Blackwell Science.
+        Written for water engineers; pipe friction, networks and pumps in the units used on site.</li>
+      <li>Moody, L. F. &lsquo;Friction factors for pipe flow&rsquo;, <em>Transactions of the ASME</em>, 66,
+        1944. <span class="units">(Beyond the syllabus.)</span> The paper the chart comes from.</li>
+      <li>Twort, A. C., Ratnayaka, D. D. and Brandt, M. J. <em>Water Supply</em>, Butterworth-Heinemann.
+        <span class="units">(Beyond the syllabus.)</span> Pipe materials, ageing, roughness in service, and
+        economic pipe sizing.</li>
+      <li>Keller, J. and Bliesner, R. D. <em>Sprinkle and Trickle Irrigation</em>, Blackburn Press.
+        <span class="units">(Beyond the syllabus.)</span> Where this chapter is going: emitter hydraulics,
+        lateral and manifold design, and why emitters are built to run turbulent.</li>
+      <li>Food and Agriculture Organization, <em>Irrigation Water Management</em> training manuals, and the
+        <em>FAO Irrigation and Drainage Papers</em> series.
+        <span class="units">(Freely available online.)</span> Practical scheme design, at the level you
+        will meet in year two.</li>
+    </ol>
+
+    <div class="callout rule">
+      <span class="label">The end of the course &mdash; and what it was for</span>
+      <p>Five chapters, and they are one argument. Chapter&nbsp;1 said what a fluid is and measured the
+        two properties that matter. Chapter&nbsp;2 held it still and found the forces. Chapter&nbsp;3 set
+        it moving and conserved mass and energy. Chapter&nbsp;4 conserved momentum and got the forces that
+        moving fluid exerts. Chapter&nbsp;5 put the viscosity of Chapter&nbsp;1 back into the flow of
+        Chapter&nbsp;3, and turned the result into a number you can order a pipe with.</p>
+      <p>In year two, Irrigation Engineering takes all five for granted from the first lecture. Open
+        channels are Chapter&nbsp;3 and&nbsp;4 with a free surface; pump selection is &sect;5.10 with a
+        catalogue; scheme design is all of it at once, with money attached.</p>
+    </div>
+
+    <div class="chapter-nav">
+      <span><a href="chapter4.html">&larr; Chapter 4: The Momentum Equation</a></span>
+      <span><a href="index.html">Course Home &rarr;</a></span>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h3>Course</h3>
+      <ul>
+        <li><a href="index.html">Course Home</a></li>
+        <li><a href="chapter3.html">Chapter 3: Continuity and Bernoulli</a></li>
+        <li><a href="chapter4.html">Chapter 4: The Momentum Equation</a></li>
+        <li><a href="chapter5.html">Chapter 5: Real Fluids in Pipes</a></li>
+        <li><a href="chapter5-th.html" lang="th">บทที่ 5 (ภาษาไทย)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>In This Chapter</h3>
+      <ul>
+        <li><a href="#t1">Table 5.1 &mdash; The three regimes</a></li>
+        <li><a href="#t2">Table 5.2 &mdash; Laminar vs turbulent</a></li>
+        <li><a href="#t3">Table 5.3 &mdash; Pipe roughness</a></li>
+        <li><a href="#s11">Worked Examples</a></li>
+        <li><a href="#s13">Self-Check Questions</a></li>
+        <li><a href="#s14">Problems</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>About</h3>
+      <p>Lecture notes for ASE 221. All rights reserved. Layout follows the departmental courseware
+        template; content and code are original to this course.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2026 Charatchai Yenphayab. All rights reserved. ASE 221 Introduction to Fluid Mechanics &mdash;
+    course notes, Semester 1 / 2026. No part of this site may be reproduced, adapted or redistributed
+    without prior written permission.
+  </div>
+</footer>
+
+<script>
+/* Self-check for Chapter 5. Marked entirely in the reader's own browser by
+   quiz.js; no result is stored or transmitted. */
+window.QUIZ = {
+  text: {
+    answered:     "Answered",
+    correctCount: "Correct",
+    section:      "&sect;",
+    markCorrect:  "correct",
+    markYours:    "your answer",
+    whyLabel:     "Why",
+    readMore:     "Re-read &sect;{ref}",
+    reset:        "Start again",
+    revealAll:    "Reveal remaining answers",
+    resultTitle:  "Self-check complete",
+    band90: "Solid. Go on to the written problems in &sect;5.14.",
+    band70: "A good pass. Re-read the sections listed below, then attempt &sect;5.14.",
+    band50: "Half the ground is secure. Work through the sections below again before the problems.",
+    band0:  "Read the chapter through once more before going on; start with the sections listed below.",
+    revise: "Sections to revise:"
+  },
+  questions: [
+
+    /* ----------------------------- 5.1 Where the ideal fluid runs out */
+    { ref: "5.1", href: "#s1", a: 2,
+      q: "Along a straight, level pipe of constant bore carrying a steady flow, the pressure head:",
+      opts: [
+        "stays constant, as the Bernoulli equation of Chapter 3 requires.",
+        "rises, because the water is being pushed.",
+        "falls steadily, because head is being lost to friction.",
+        "falls only at the bends."
+      ],
+      why: "This is the observation the whole chapter exists to explain. Neither the velocity head nor the elevation head is changing, so the drop can only come from a term Chapter 3 did not have." },
+
+    { ref: "5.1", href: "#s1", a: 0,
+      q: "In a real pipe, the energy grade line:",
+      opts: [
+        "always slopes downwards in the direction of flow, unless a pump adds energy.",
+        "is always horizontal.",
+        "slopes upwards where the pipe narrows.",
+        "coincides with the hydraulic grade line."
+      ],
+      why: "Energy can be lost but never spontaneously gained, so the EGL can only fall. For an ideal fluid it was horizontal (&sect;3.6); friction tilts it, and the slope is the hydraulic gradient of &sect;5.9." },
+
+    { ref: "5.1", href: "#s1", a: 1,
+      q: "The head lost to friction has been:",
+      opts: [
+        "stored as pressure further down the pipe.",
+        "converted into heat by fluid shearing over fluid, and is gone as far as the flow is concerned.",
+        "converted into velocity head.",
+        "lost as leakage through the pipe wall."
+      ],
+      why: "Energy is conserved overall &mdash; the water is very slightly warmer &mdash; but it is no longer available to drive the flow, which is all the hydraulics cares about." },
+
+    { ref: "5.1", href: "#s1", a: 3,
+      q: "Chapters 2 to 4 never used the viscosity measured in Chapter 1 because:",
+      opts: [
+        "viscosity only matters for gases.",
+        "it is too small to matter in water.",
+        "they dealt only with static fluids.",
+        "they all assumed an ideal fluid, in which no shear stress can act."
+      ],
+      why: "It was a deliberate purchase of simplicity, not an oversight. Chapter 5 is where the bill arrives &mdash; and where the shear stress of &sect;1.5 finally does visible work." },
+
+    /* ----------------------------- 5.2 Reynolds' experiment */
+    { ref: "5.2", href: "#s2", a: 1,
+      q: "In Reynolds' experiment, a dye filament that stays as a single thread the length of the tube shows that:",
+      opts: [
+        "the dye is denser than the water.",
+        "there is no bulk transport of fluid across the flow &mdash; the layers slide without mixing.",
+        "the flow has stopped.",
+        "the tube is perfectly smooth."
+      ],
+      why: "The dye is the measurement, not decoration. An intact filament is direct evidence of laminar flow; the moment it disperses, fluid is being carried sideways in bulk." },
+
+    { ref: "5.2", href: "#s2", a: 3,
+      q: "As the valve is opened progressively, the dye filament:",
+      opts: [
+        "gradually and smoothly becomes more diffuse throughout.",
+        "stays intact at all flow rates in a glass tube.",
+        "disperses first near the inlet and last near the outlet.",
+        "stays intact, then wavers, then breaks up completely &mdash; and the change happens at a definite flow rate."
+      ],
+      why: "The abruptness is the whole point. The flow does not gradually become more turbulent; it changes mechanism at a threshold, which is what makes a critical value possible at all." },
+
+    { ref: "5.2", href: "#s2", a: 2,
+      q: "The decisive part of Reynolds' work was that he:",
+      opts: [
+        "measured the viscosity of water accurately for the first time.",
+        "proved that all flows are ultimately turbulent.",
+        "repeated the experiment at different diameters and temperatures and found the change happened at a fixed value of a combination of quantities, not at a fixed velocity.",
+        "showed that the dye itself triggers the transition."
+      ],
+      why: "A fixed critical <i>velocity</i> would have been a fact about one apparatus. A fixed critical <i>combination</i> is a fact about all pipe flow everywhere, which is why it is still used." },
+
+    { ref: "5.2", href: "#s2", a: 0,
+      q: "Reynolds' tube was fed from a large tank through a bellmouth rather than a sharp-edged inlet because:",
+      opts: [
+        "a sharp inlet would itself disturb the flow and trigger transition early.",
+        "a bellmouth increases the discharge.",
+        "a bellmouth makes the dye easier to see.",
+        "it is required to keep the head constant."
+      ],
+      why: "The experiment is about when the flow becomes unstable on its own, so every avoidable disturbance has to be removed. The same care is why a very clean laminar flow can survive far past Re = 2000." },
+
+    { ref: "5.2", href: "#s2", a: 1,
+      q: "Why was the tank kept at constant head?",
+      opts: [
+        "To keep the water at constant temperature.",
+        "So that the flow is steady, and any change seen in the dye is caused by the flow rate rather than by the rate changing.",
+        "To prevent cavitation at the valve.",
+        "To make the pressure at the outlet atmospheric."
+      ],
+      why: "An unsteady flow would confuse the result completely. Steadiness is the one assumption this course has never given up, from &sect;3.1 onwards." },
+
+    /* ----------------------------- 5.3 The Reynolds number */
+    { ref: "5.3", href: "#s3", a: 2,
+      q: "The Reynolds number for pipe flow is:",
+      opts: [
+        "<i>&mu;ud</i>/<i>&rho;</i>.",
+        "<i>&rho;u</i>/<i>&mu;d</i>.",
+        "<i>&rho;ud</i>/<i>&mu;</i>, equivalently <i>ud</i>/<i>&nu;</i>.",
+        "<i>ud</i>/<i>&mu;</i>."
+      ],
+      why: "Density times velocity times diameter, over dynamic viscosity. The second form uses the kinematic viscosity of &sect;1.10 and is the one to use in practice, since it needs only one tabulated number." },
+
+    { ref: "5.3", href: "#s3", a: 0,
+      q: "The Reynolds number is dimensionless. Why does that matter?",
+      opts: [
+        "Because only a dimensionless quantity can have a universal critical value, the same in every system of units.",
+        "Because it makes the arithmetic easier.",
+        "Because it means the flow has no units either.",
+        "Because it proves the flow is incompressible."
+      ],
+      why: "A critical <i>velocity</i> would depend on the units and on the pipe. A critical pure number does not, which is what makes 2000 and 4000 meaningful at all." },
+
+    { ref: "5.3", href: "#s3", a: 3,
+      q: "Physically, the Reynolds number is the ratio of:",
+      opts: [
+        "pressure forces to gravity forces.",
+        "kinetic energy to potential energy.",
+        "shear stress to pressure.",
+        "inertial forces, which tend to break the flow up, to viscous forces, which hold it together."
+      ],
+      why: "At low Re viscosity damps disturbances before they grow; at high Re inertia carries and amplifies them faster than viscosity can smother them, and the flow breaks into eddies." },
+
+    { ref: "5.3", href: "#s3", a: 1,
+      q: "Water at 20 &deg;C flows at 1.5 m/s in a 150 mm pipe. The Reynolds number is closest to:",
+      opts: [
+        "2.3 &times; 10<sup>3</sup>.",
+        "2.3 &times; 10<sup>5</sup>.",
+        "2.3 &times; 10<sup>7</sup>.",
+        "0.225."
+      ],
+      why: "Re = ud/&nu; = 1.5 &times; 0.15 / 10<sup>&minus;6</sup> = 2.25 &times; 10<sup>5</sup> &mdash; more than fifty times the turbulent threshold." },
+
+    { ref: "5.3", href: "#s3", a: 2,
+      q: "In practice, water flowing in a pipe you would actually design is:",
+      opts: [
+        "usually laminar.",
+        "laminar in small pipes and turbulent in large ones.",
+        "turbulent in essentially every case.",
+        "usually in the transitional range."
+      ],
+      why: "Making a 150 mm main run laminar would need a velocity of 13 mm/s. Laminar water flow is a teaching case, plus three real ones: drip emitters, groundwater, and thick fluids such as oil." },
+
+    { ref: "5.3", href: "#s3", a: 0,
+      q: "The critical values 2000 and 4000 apply to:",
+      opts: [
+        "flow in a circular pipe, with the diameter as the length in Re, and to nothing else.",
+        "any flow of any fluid.",
+        "open channels as well as pipes.",
+        "flow over a flat plate."
+      ],
+      why: "A flat plate changes over near Re = 5 &times; 10<sup>5</sup>, an open channel near 500 on its own definition. A Reynolds number quoted without saying which length was used is meaningless." },
+
+    /* ----------------------------- 5.4 The three regimes */
+    { ref: "5.4", href: "#s4", a: 1,
+      q: "In turbulent flow, momentum is carried across the pipe mainly by:",
+      opts: [
+        "molecules moving between adjacent layers.",
+        "eddies bodily carrying slow fluid outwards and fast fluid inwards.",
+        "pressure waves.",
+        "the pipe wall."
+      ],
+      why: "That is what makes turbulence so much more effective at transferring momentum &mdash; and so much more expensive. Laminar flow has only molecular viscosity to work with." },
+
+    { ref: "5.4", href: "#s4", a: 3,
+      q: "Compared with laminar flow, the velocity profile in turbulent pipe flow is:",
+      opts: [
+        "the same shape but larger.",
+        "a steeper parabola.",
+        "uniform right up to the wall.",
+        "much flatter across the core, but with a far steeper gradient close to the wall."
+      ],
+      why: "Eddies keep the core well mixed and nearly uniform, so all the velocity change is squeezed into a thin region at the wall &mdash; where a steep du/dy means a large shear stress and a large loss." },
+
+    { ref: "5.4", href: "#s4", a: 2,
+      q: "At the pipe wall itself, the fluid velocity is:",
+      opts: [
+        "highest, since there is no fluid beyond it.",
+        "equal to the mean velocity.",
+        "zero, in laminar and turbulent flow alike.",
+        "zero only in laminar flow."
+      ],
+      why: "The no-slip condition of &sect;1.4 has nothing to do with the regime. What changes between the regimes is how steeply the velocity climbs away from the wall, and that gradient is what sets the friction." },
+
+    { ref: "5.4", href: "#s4", a: 0,
+      q: "The ratio of mean to maximum velocity in a pipe is:",
+      opts: [
+        "0.5 in laminar flow and about 0.82 in turbulent flow.",
+        "0.5 in both.",
+        "about 0.82 in both.",
+        "1.0 in turbulent flow, since the profile is flat."
+      ],
+      why: "The laminar value is derived exactly in &sect;5.8. The turbulent value is higher because the profile is flatter, and it is not exact &mdash; it drifts slowly with Reynolds number." },
+
+    { ref: "5.4", href: "#s4", a: 1,
+      q: "Designing a pipeline to run in the transitional range is a bad idea because:",
+      opts: [
+        "the head loss is higher there than in turbulent flow.",
+        "the flow may flick between the two regimes, so the head loss is unpredictable.",
+        "the pipe will corrode faster.",
+        "the Reynolds number cannot be calculated there."
+      ],
+      why: "Neither set of formulae applies reliably, and the flow may not settle. It is the one region of Figure 5.4 that carries no measured line, only a dashed guess." },
+
+    /* ----------------------------- 5.5 What experiment says */
+    { ref: "5.5", href: "#s5", a: 2,
+      q: "Plotting head loss against velocity on logarithmic axes is useful because:",
+      opts: [
+        "it compresses the scale.",
+        "it removes the units.",
+        "a power law h<sub>f</sub> &prop; u<sup>n</sup> becomes a straight line whose slope is n.",
+        "it makes laminar and turbulent data coincide."
+      ],
+      why: "It turns the question &ldquo;what power?&rdquo; into &ldquo;what slope?&rdquo;, which can be read straight off the graph &mdash; and the answer came out 1 and about 1.8." },
+
+    { ref: "5.5", href: "#s5", a: 0,
+      q: "Experiment shows that head loss varies as:",
+      opts: [
+        "u<sup>1</sup> in laminar flow and u<sup>1.7</sup> to u<sup>2</sup> in turbulent flow.",
+        "u<sup>2</sup> in both.",
+        "u<sup>1</sup> in both.",
+        "u<sup>2</sup> in laminar and u<sup>1</sup> in turbulent flow."
+      ],
+      why: "Two different mechanisms give two different exponents. The laminar value of exactly 1 is confirmed by theory in &sect;5.8, without a single fitted constant." },
+
+    { ref: "5.5", href: "#s5", a: 3,
+      q: "If the flow through a given pipe is doubled, the pumping power needed to overcome friction rises by a factor of about:",
+      opts: [
+        "2.",
+        "3.",
+        "4.",
+        "8."
+      ],
+      why: "h<sub>f</sub> &prop; u<sup>2</sup> gives four times the loss, and power is &rho;gQh<sub>f</sub>, so twice the discharge times four times the head is eight. This is why velocity limits matter so much." },
+
+    { ref: "5.5", href: "#s5", a: 1,
+      q: "At a fixed discharge, the friction head loss varies with pipe diameter roughly as:",
+      opts: [
+        "1/d.",
+        "1/d<sup>5</sup>.",
+        "1/d<sup>2</sup>.",
+        "d<sup>2</sup>."
+      ],
+      why: "h<sub>f</sub> &prop; u<sup>2</sup>/d and u &prop; 1/d<sup>2</sup> at fixed Q, so h<sub>f</sub> &prop; 1/d<sup>5</sup>. Going from 100 mm to 150 mm cuts the loss to about an eighth &mdash; which is why increasing the diameter is such a powerful remedy." },
+
+    /* ----------------------------- 5.6 Shear stress */
+    { ref: "5.6", href: "#s6", a: 2,
+      q: "The force balance on a cylinder of fluid in a pipe (Figure 5.5) is valid:",
+      opts: [
+        "for laminar flow only.",
+        "for turbulent flow only.",
+        "for both, because it uses no assumption about viscosity or regime.",
+        "only if the pipe is vertical."
+      ],
+      why: "It is Newton's first law and nothing more: steady flow means the forces balance. That generality is exactly why it is the starting point for both &sect;5.7 and &sect;5.9." },
+
+    { ref: "5.6", href: "#s6", a: 0,
+      q: "The shear stress in a pipe carrying a steady flow:",
+      opts: [
+        "is zero on the axis and rises linearly to a maximum at the wall.",
+        "is uniform across the section.",
+        "is greatest on the axis, where the velocity is greatest.",
+        "is zero at the wall because the fluid is not moving there."
+      ],
+      why: "From &tau; = &Delta;p&thinsp;r/2L, the stress is directly proportional to radius. The common wrong answer is the last one: the velocity is zero at the wall, but the velocity <i>gradient</i> is greatest there, and it is the gradient that sets the stress." },
+
+    { ref: "5.6", href: "#s6", a: 3,
+      q: "The wall shear stress is related to the pressure drop by:",
+      opts: [
+        "&tau;<sub>w</sub> = &Delta;p L/d.",
+        "&tau;<sub>w</sub> = &Delta;p/(&rho;g).",
+        "&tau;<sub>w</sub> = &Delta;p d/L.",
+        "&tau;<sub>w</sub> = &Delta;p d/4L."
+      ],
+      why: "Put r = R = d/2 into &tau; = &Delta;p&thinsp;r/2L. Read the other way round, &Delta;p = 4L&tau;<sub>w</sub>/d: the pressure drop and the wall shear are the same fact stated twice." },
+
+    { ref: "5.6", href: "#s6", a: 1,
+      q: "All the head lost to friction in a straight pipe is paid out as:",
+      opts: [
+        "heat generated at the pipe wall by the pump.",
+        "shear stress dragging on the pipe wall, which the pipe feels as a force &tau;<sub>w</sub>&thinsp;&pi;dL pulling it downstream.",
+        "an increase in the velocity head.",
+        "leakage through the joints."
+      ],
+      why: "Which is one more force an anchor block has to take, alongside the thrusts of &sect;4.10. Long pipelines are anchored against friction drag as well as against bend thrust." },
+
+    { ref: "5.6", href: "#s6", a: 2,
+      q: "For the same wall shear stress, doubling the pipe diameter changes the pressure drop over a given length to:",
+      opts: [
+        "twice as much.",
+        "four times as much.",
+        "half as much.",
+        "a quarter as much."
+      ],
+      why: "&Delta;p = 4L&tau;<sub>w</sub>/d, so &Delta;p &prop; 1/d at fixed wall stress. And that is before the velocity has been allowed to fall, which is where the rest of the 1/d<sup>5</sup> comes from." },
+
+    /* ----------------------------- 5.7 Velocity profile */
+    { ref: "5.7", href: "#s7", a: 1,
+      q: "The step that works for laminar flow but fails for turbulent flow is:",
+      opts: [
+        "the force balance on a cylinder of fluid.",
+        "using Newton's law of viscosity, &tau; = &minus;&mu; du/dr, to relate shear to velocity.",
+        "applying the no-slip condition at the wall.",
+        "integrating over the cross-section to get the discharge."
+      ],
+      why: "In turbulent flow most of the shear is carried by eddies, for which there is no such law. That single missing relation is why turbulent flow has no exact solution and needs a measured friction factor instead." },
+
+    { ref: "5.7", href: "#s7", a: 3,
+      q: "The velocity profile for laminar flow in a circular pipe is:",
+      opts: [
+        "linear from wall to axis.",
+        "uniform.",
+        "logarithmic.",
+        "a parabola, u<sub>r</sub> = &Delta;p(R<sup>2</sup> &minus; r<sup>2</sup>)/4&mu;L."
+      ],
+      why: "It comes from integrating &tau; = &Delta;p&thinsp;r/2L against Newton's law once. Plotted against r it is a parabola with its vertex on the axis." },
+
+    { ref: "5.7", href: "#s7", a: 0,
+      q: "The constant of integration in the velocity-profile derivation is fixed by:",
+      opts: [
+        "the no-slip condition, u = 0 at r = R.",
+        "the requirement that u = u<sub>max</sub> on the axis.",
+        "continuity.",
+        "the Bernoulli equation."
+      ],
+      why: "The no-slip condition of &sect;1.4, used here for the first time as an actual boundary condition rather than a description. Without it the profile would be undetermined." },
+
+    { ref: "5.7", href: "#s7", a: 2,
+      q: "In laminar pipe flow the velocity is greatest:",
+      opts: [
+        "at the wall.",
+        "at r = 0.707R.",
+        "on the axis, where r = 0.",
+        "just inside the wall."
+      ],
+      why: "Putting r = 0 into the profile gives u<sub>max</sub> = &Delta;pR<sup>2</sup>/4&mu;L. The axis is the point furthest from the retarding wall on every side." },
+
+    { ref: "5.7", href: "#s7", a: 1,
+      q: "To get the discharge from the velocity profile, the pipe is divided into:",
+      opts: [
+        "equal squares.",
+        "thin annular rings of area 2&pi;r&thinsp;&delta;r, each carrying its own local velocity.",
+        "two halves, above and below the axis.",
+        "equal-velocity strips."
+      ],
+      why: "Every point on one ring is at the same radius and therefore at the same velocity, so the ring is the natural element. Adding the rings up is the integral of &sect;5.8." },
+
+    /* ----------------------------- 5.8 Hagen-Poiseuille */
+    { ref: "5.8", href: "#s8", a: 2,
+      q: "The Hagen&ndash;Poiseuille equation says the laminar discharge is proportional to:",
+      opts: [
+        "the diameter.",
+        "the square of the diameter.",
+        "the fourth power of the diameter.",
+        "the fifth power of the diameter."
+      ],
+      why: "Q = &pi;&Delta;p d<sup>4</sup>/128&mu;L. Widen the bore 20 % and you pass twice the flow; halve it and you pass a sixteenth. It is why a partly blocked emitter fails so abruptly." },
+
+    { ref: "5.8", href: "#s8", a: 0,
+      q: "For laminar flow in a circular pipe, the ratio of mean velocity to maximum velocity is:",
+      opts: [
+        "exactly 0.5.",
+        "about 0.82.",
+        "exactly 0.667.",
+        "it depends on the Reynolds number."
+      ],
+      why: "Comparing the integrated mean with the axial maximum gives exactly one half. This is the figure &sect;3.3 asserted without proof; here it is derived." },
+
+    { ref: "5.8", href: "#s8", a: 3,
+      q: "The head loss in laminar pipe flow, h<sub>f</sub> = 32&mu;Lu&#772;/&rho;gd<sup>2</sup>, is important partly because:",
+      opts: [
+        "it applies to turbulent flow too.",
+        "it contains no viscosity.",
+        "it shows head loss is independent of velocity.",
+        "it predicts h<sub>f</sub> &prop; u to the first power, exactly the slope measured on the laminar branch in Figure 5.4."
+      ],
+      why: "Theory and experiment agree with no fitted constant at all. That is the only place in this chapter where that happens, and it is why the laminar case is worth deriving even though you will rarely design for it." },
+
+    { ref: "5.8", href: "#s8", a: 1,
+      q: "In laminar flow, doubling the viscosity of the fluid at the same discharge:",
+      opts: [
+        "leaves the head loss unchanged.",
+        "doubles the head loss.",
+        "quadruples the head loss.",
+        "halves the head loss."
+      ],
+      why: "h<sub>f</sub> &prop; &mu; directly. It is also why a laminar drip emitter delivers noticeably more water on a hot afternoon than on a cool morning, and why commercial emitters are built to run turbulent instead." },
+
+    /* ----------------------------- 5.9 Friction factor and Darcy */
+    { ref: "5.9", href: "#s9", a: 2,
+      q: "The Darcy&ndash;Weisbach equation h<sub>f</sub> = &lambda;Lu<sup>2</sup>/2gd is best described as:",
+      opts: [
+        "an exact solution for turbulent flow.",
+        "valid only for turbulent flow.",
+        "a definition that isolates everything not known into &lambda;, and is valid for both regimes.",
+        "an approximation that holds only at high Reynolds number."
+      ],
+      why: "It gives the shape of the answer &mdash; proportional to length, to velocity squared, inversely to diameter &mdash; before &lambda; is known. Finding &lambda; is then a separate problem, solved exactly for laminar flow and by measurement for turbulent." },
+
+    { ref: "5.9", href: "#s9", a: 0,
+      q: "For laminar flow the Darcy friction factor is:",
+      opts: [
+        "&lambda; = 64/Re, independent of the pipe roughness.",
+        "&lambda; = 16/Re.",
+        "&lambda; = 0.316 Re<sup>&minus;0.25</sup>.",
+        "a constant, about 0.02."
+      ],
+      why: "Obtained by equating the two expressions for the same head loss. Roughness does not appear because in laminar flow the roughness peaks are buried inside a slow layer and the fluid never sees them." },
+
+    { ref: "5.9", href: "#s9", a: 3,
+      q: "A textbook quotes a friction factor f with f = 16/Re in laminar flow. To use it in h<sub>f</sub> = &lambda;Lu<sup>2</sup>/2gd you must:",
+      opts: [
+        "use it unchanged; the two are the same.",
+        "divide it by 4.",
+        "square it.",
+        "multiply it by 4, since &lambda; = 4f."
+      ],
+      why: "Two conventions are in circulation and a factor of four is a factor of four. Check which one a source uses by looking at its laminar value: 64/Re means &lambda;, 16/Re means f." },
+
+    { ref: "5.9", href: "#s9", a: 1,
+      q: "The hydraulic gradient i = h<sub>f</sub>/L is useful in design because:",
+      opts: [
+        "it is dimensionless and therefore universal.",
+        "it does not depend on length, so it can be found once for a given pipe and flow and then multiplied by whatever route length results.",
+        "it is the same for all pipe diameters.",
+        "it equals the slope of the ground."
+      ],
+      why: "A designer quoting &ldquo;3 metres per kilometre&rdquo; is quoting i = 0.003. It is the slope of the hydraulic grade line, and it is how pipeline losses are talked about on site." },
+
+    /* ----------------------------- 5.10 Extension */
+    { ref: "5.10", href: "#s10", a: 2,
+      q: "<b>Extension.</b> On the Moody diagram, the right-hand region where the curves run flat means that:",
+      opts: [
+        "the flow has become laminar again.",
+        "the friction factor no longer depends on roughness.",
+        "the flow is fully rough: &lambda; depends on relative roughness alone and not on Re, so h<sub>f</sub> becomes exactly proportional to u<sup>2</sup>.",
+        "the pipe has become smooth."
+      ],
+      why: "It is the other extreme from the laminar line, where &lambda; depended on Re alone and not on roughness. Most irrigation mains sit between the two, or just into the fully rough region." },
+
+    { ref: "5.10", href: "#s10", a: 1,
+      q: "<b>Extension.</b> The Colebrook&ndash;White equation must be solved by iteration because:",
+      opts: [
+        "it contains a logarithm.",
+        "the friction factor appears on both sides and cannot be separated.",
+        "the Reynolds number is not known in advance.",
+        "the roughness is never known accurately."
+      ],
+      why: "That awkwardness is the price of one formula covering almost the whole turbulent field. In practice it is read off a chart, or evaluated by software using an explicit approximation." },
+
+    { ref: "5.10", href: "#s10", a: 0,
+      q: "<b>Extension.</b> Design codes require the friction factor for the end of the pipe's design life rather than for the day it is commissioned because:",
+      opts: [
+        "corrosion, scale and growth raise the roughness and narrow the bore, so an old main can carry less than half its original discharge at the same head.",
+        "pipes are laid oversized to begin with.",
+        "the Reynolds number falls as the pipe ages.",
+        "the pump will be replaced anyway."
+      ],
+      why: "A design with no ageing allowance fails in service while every number in it is correct. It is also the calculation that justifies pipe cleaning and relining programmes." },
+
+    { ref: "5.10", href: "#s10", a: 3,
+      q: "<b>Extension.</b> Local or 'minor' losses at bends, valves and fittings:",
+      opts: [
+        "are always negligible, as the name says.",
+        "are always the dominant loss.",
+        "depend on the length of pipe between them.",
+        "are charged as K times the velocity head, and can exceed the pipe friction on a short line with many fittings."
+      ],
+      why: "&ldquo;Minor&rdquo; is a poor name. On a long main they really are negligible; on a short pumped line they may not be, and the only way to know which case you are in is to add them up." },
+
+    { ref: "5.10", href: "#s10", a: 2,
+      q: "<b>Extension.</b> Compared with Darcy&ndash;Weisbach, the Hazen&ndash;Williams equation:",
+      opts: [
+        "is more accurate because it is newer.",
+        "works for any fluid in any regime.",
+        "is quicker because it needs no iteration and no viscosity, but is a curve fit valid only for water in turbulent flow at moderate velocity.",
+        "gives identical answers in all cases."
+      ],
+      why: "Use it for speed on routine water mains. Use Darcy&ndash;Weisbach, which rests on the force balance of &sect;5.6, when the fluid is not water, the flow may be laminar, or the answer matters." }
+
+  ]
+};
+</script>
+<script src="lang.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>
