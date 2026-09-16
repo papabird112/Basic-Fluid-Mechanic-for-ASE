@@ -809,58 +809,117 @@
       การย้อนกลับเปลี่ยนโมเมนตัมได้เกือบสองเท่าของการหยุด</p>
 
     <figure>
-      <svg viewBox="0 0 860 300" role="img" aria-label="ซ้าย: ลำน้ำเข้าสู่ใบพัดโค้งแล้วออกไปทำมุมเบตากับทิศทางเดิม ขวา: ถ้วยกังหันเพลตันที่ผ่าเป็นสองซีกตรงกลาง หมุนลำน้ำเกือบ 180 องศาและแยกเป็นสองสาย">
+      <svg viewBox="0 0 860 340" role="img" aria-label="ซ้าย: ลำน้ำไหลไปตามใบพัดโค้งที่เป็นของแข็งแล้วออกไปในทิศทางใหม่ เส้นประยกทิศทางเดิมของลำน้ำมาไว้ที่ทางออก และมุมเบตาถูกทำเครื่องหมายจากเส้นประนั้นวนไปหาลำน้ำขาออก ขวา: การสร้างแบบเดียวกันสำหรับถ้วยกังหันเพลตันที่เบตาราว 165 องศา พร้อมถ้วยที่วิ่งไปตามขอบล้อด้วยความเร็ววีและแรงเอฟที่กระทำต่อมัน ภาพแทรกแสดงสันแบ่งเมื่อมองจากทางที่ลำน้ำพุ่งเข้ามา">
         <defs>
-          <marker id="ra" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <marker id="v6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
             <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
           </marker>
-          <marker id="rb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <marker id="v6b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
             <path d="M0,0 L10,5 L0,10 z" fill="#b03a2e"/>
+          </marker>
+          <marker id="v6c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
           </marker>
         </defs>
 
-        <text x="24" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(ก) ใบพัดโค้ง</text>
+        <!-- ============================================ (a) what beta measures -->
+        <text x="24" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(ก) มุม &#946; วัดอะไร</text>
 
-        <path d="M250,240 Q360,240 360,150 Q360,84 296,66" fill="none" stroke="#1c1917" stroke-width="7" stroke-linecap="round"/>
-        <rect x="60" y="222" width="190" height="30" fill="#d9eef3" stroke="none"/>
-        <line x1="60" y1="222" x2="250" y2="222" stroke="#00788A" stroke-width="2"/>
-        <line x1="60" y1="252" x2="250" y2="252" stroke="#00788A" stroke-width="2"/>
-        <line x1="84" y1="237" x2="190" y2="237" stroke="#00788A" stroke-width="3" marker-end="url(#ra)"/>
-        <text x="116" y="226" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">1</tspan></text>
-        <path d="M290,80 Q248,62 208,70" fill="none" stroke="#00788A" stroke-width="3" marker-end="url(#ra)"/>
-        <text x="214" y="52" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">2</tspan></text>
-        <line x1="250" y1="120" x2="400" y2="120" stroke="#9c9287" stroke-width="1.4" stroke-dasharray="7 4"/>
-        <path d="M312,120 A62,62 0 0 1 268,98" fill="none" stroke="#b03a2e" stroke-width="1.8"/>
-        <text x="298" y="100" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#b03a2e">&#946;</text>
-        <text x="24" y="284" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">&#946; คือมุมที่ลำน้ำถูกหมุนไป</text>
+        <!-- the jet on its way in -->
+        <rect x="40" y="232" width="230" height="18" fill="#d9eef3"/>
+        <line x1="40" y1="232" x2="270" y2="232" stroke="#00788A" stroke-width="1.8"/>
+        <line x1="40" y1="250" x2="270" y2="250" stroke="#00788A" stroke-width="1.8"/>
+        <line x1="72" y1="241" x2="192" y2="241" stroke="#00788A" stroke-width="3" marker-end="url(#v6a)"/>
+        <text x="106" y="226" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#00788A">u<tspan font-size="12" dy="4">1</tspan></text>
 
-        <line x1="430" y1="16" x2="430" y2="288" stroke="#e3dac7" stroke-width="1.5"/>
+        <!-- water running along the concave face of the vane -->
+        <path d="M270,232 A60,60 0 0 0 312.43,129.57 L325.15,116.85 A78,78 0 0 1 270,250 Z"
+              fill="#d9eef3" stroke="#00788A" stroke-width="1.6"/>
 
-        <text x="456" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(ข) ถ้วยกังหันเพลตัน &#946; &asymp; 180&#176;</text>
+        <!-- the vane, drawn solid so it reads as a blade and not a line -->
+        <path d="M270,250 A78,78 0 0 0 325.15,116.85 L333.64,108.36 A90,90 0 0 1 270,262 Z"
+              fill="#6b635a" stroke="#1c1917" stroke-width="1.8"/>
+        <line x1="352" y1="172" x2="368" y2="172" stroke="#4b4540" stroke-width="1.2"/>
+        <text x="372" y="177" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ใบพัด</text>
 
-        <path d="M660,60 Q760,60 762,124 Q762,150 700,150 Q660,150 660,120 z" fill="#f4efe4" stroke="#1c1917" stroke-width="2.6"/>
-        <path d="M660,240 Q760,240 762,176 Q762,150 700,150 Q660,150 660,180 z" fill="#f4efe4" stroke="#1c1917" stroke-width="2.6"/>
-        <line x1="660" y1="150" x2="762" y2="150" stroke="#b03a2e" stroke-width="2.4" stroke-dasharray="6 4"/>
-        <text x="768" y="155" font-family="Segoe UI, Arial" font-size="11.5" fill="#b03a2e">สันแบ่ง</text>
+        <!-- the jet on its way out -->
+        <path d="M312.43,129.57 L245.2,62.4 L257.9,49.6 L325.15,116.85 Z"
+              fill="#d9eef3" stroke="#00788A" stroke-width="1.6"/>
+        <line x1="304.7" y1="109.1" x2="258" y2="62.4" stroke="#00788A" stroke-width="3" marker-end="url(#v6a)"/>
+        <text x="220" y="52" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#00788A">u<tspan font-size="12" dy="4">2</tspan></text>
 
-        <rect x="492" y="136" width="168" height="28" fill="#d9eef3" stroke="none"/>
-        <line x1="492" y1="136" x2="660" y2="136" stroke="#00788A" stroke-width="2"/>
-        <line x1="492" y1="164" x2="660" y2="164" stroke="#00788A" stroke-width="2"/>
-        <line x1="512" y1="150" x2="616" y2="150" stroke="#00788A" stroke-width="3" marker-end="url(#ra)"/>
-        <text x="544" y="130" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u</text>
+        <!-- the original direction, carried forward to the exit -->
+        <line x1="318.79" y1="123.21" x2="412" y2="123.21" stroke="#9c9287" stroke-width="1.8" stroke-dasharray="7 4"/>
+        <circle cx="318.79" cy="123.21" r="3.4" fill="#9c9287"/>
 
-        <path d="M690,70 Q600,52 520,60" fill="none" stroke="#00788A" stroke-width="2.8" marker-end="url(#ra)"/>
-        <path d="M690,230 Q600,248 520,240" fill="none" stroke="#00788A" stroke-width="2.8" marker-end="url(#ra)"/>
+        <!-- beta: from that direction, round to the outgoing jet -->
+        <path d="M362.79,123.21 A44,44 0 0 0 287.68,92.10" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+        <text x="350" y="78" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#b03a2e">&#946;</text>
 
-        <line x1="700" y1="272" x2="776" y2="272" stroke="#1c1917" stroke-width="2.6" marker-end="url(#ra)"/>
-        <text x="726" y="292" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#1c1917">v</text>
-        <line x1="790" y1="118" x2="836" y2="118" stroke="#b03a2e" stroke-width="3.2" marker-end="url(#rb)"/>
-        <text x="796" y="108" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">F</text>
+        <text x="24" y="292" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">เส้นประยกทิศทางที่ลำน้ำมีอยู่ก่อนถึงใบพัด มาไว้ที่ทางออก</text>
+        <text x="24" y="312" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ดังนั้น &#946; จึงคือมุมที่ใบพัดหมุนลำน้ำไป</text>
+
+        <line x1="430" y1="16" x2="430" y2="326" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <!-- ============================================ (b) a Pelton bucket -->
+        <text x="446" y="26" font-family="Segoe UI, Arial" font-size="13.5" font-weight="700" fill="#1c1917">(ข) ถ้วยกังหันเพลตัน มองตามแนวแกนล้อ: &#946; &asymp; 165&#176;</text>
+
+        <!-- jet in -->
+        <rect x="450" y="234" width="110" height="16" fill="#d9eef3"/>
+        <line x1="450" y1="234" x2="560" y2="234" stroke="#00788A" stroke-width="1.8"/>
+        <line x1="450" y1="250" x2="560" y2="250" stroke="#00788A" stroke-width="1.8"/>
+        <line x1="462" y1="242" x2="540" y2="242" stroke="#00788A" stroke-width="3" marker-end="url(#v6a)"/>
+        <text x="488" y="228" font-family="Cambria, Georgia, serif" font-size="18" font-style="italic" fill="#00788A">u</text>
+
+        <!-- water running round the bucket -->
+        <path d="M560,234 A54,54 0 0 0 573.98,127.84 L578.12,112.39 A70,70 0 0 1 560,250 Z"
+              fill="#d9eef3" stroke="#00788A" stroke-width="1.6"/>
+
+        <!-- the bucket -->
+        <path d="M560,250 A70,70 0 0 0 578.12,112.39 L581.22,100.79 A82,82 0 0 1 560,262 Z"
+              fill="#6b635a" stroke="#1c1917" stroke-width="1.8"/>
+
+        <!-- jet out: almost back along its own path, and clear of the incoming jet -->
+        <path d="M573.98,127.84 L448.4,94.1 L452.5,78.7 L578.12,112.39 Z"
+              fill="#d9eef3" stroke="#00788A" stroke-width="1.6"/>
+        <line x1="562" y1="116" x2="482" y2="95" stroke="#00788A" stroke-width="3" marker-end="url(#v6a)"/>
+
+        <!-- original direction, and beta again -->
+        <line x1="576.05" y1="120.12" x2="676" y2="120.12" stroke="#9c9287" stroke-width="1.8" stroke-dasharray="7 4"/>
+        <circle cx="576.05" cy="120.12" r="3.4" fill="#9c9287"/>
+        <path d="M622.05,120.12 A46,46 0 0 0 531.62,108.22" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+        <text x="598" y="64" font-family="Cambria, Georgia, serif" font-size="19" font-style="italic" fill="#b03a2e">&#946;</text>
+
+        <!-- the force the water puts on the bucket -->
+        <line x1="600" y1="188" x2="672" y2="188" stroke="#b03a2e" stroke-width="3.4" marker-end="url(#v6b)"/>
+        <text x="630" y="180" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#b03a2e">F</text>
+
+        <!-- the rim the bucket runs along -->
+        <path d="M470,304 Q580,290 690,304" fill="none" stroke="#9c9287" stroke-width="2.4"/>
+        <line x1="560" y1="262" x2="560" y2="292" stroke="#9c9287" stroke-width="2.4"/>
+        <line x1="600" y1="278" x2="672" y2="278" stroke="#1c1917" stroke-width="2.6" marker-end="url(#v6c)"/>
+        <text x="630" y="270" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#1c1917">v</text>
+        <text x="454" y="324" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">ขอบล้อ</text>
+
+        <!-- inset: the splitter, which the view above cannot show -->
+        <rect x="700" y="146" width="138" height="92" fill="#fdfcf9" stroke="#e3dac7" stroke-width="1.5" rx="4"/>
+        <ellipse cx="744" cy="192" rx="24" ry="32" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.8"/>
+        <ellipse cx="794" cy="192" rx="24" ry="32" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.8"/>
+        <line x1="769" y1="159" x2="769" y2="225" stroke="#b03a2e" stroke-width="3.4"/>
+        <circle cx="769" cy="192" r="9" fill="#00788A" opacity=".5"/>
+        <line x1="758" y1="192" x2="726" y2="192" stroke="#00788A" stroke-width="2.4" marker-end="url(#v6a)"/>
+        <line x1="780" y1="192" x2="812" y2="192" stroke="#00788A" stroke-width="2.4" marker-end="url(#v6a)"/>
+        <text x="700" y="258" font-family="Segoe UI, Arial" font-size="11.5" fill="#b03a2e">สันแบ่ง</text>
+        <text x="700" y="274" font-family="Segoe UI, Arial" font-size="11.5" fill="#4b4540">มองจากทางที่ลำน้ำพุ่งเข้ามา</text>
       </svg>
-      <figcaption><b>รูปที่ 4.6</b> สันแบ่งที่อยู่กลางถ้วยกังหันเพลตันแยกลำน้ำออกเป็นสองซีก
-        แล้วหมุนแต่ละซีกไปเกือบ 180&deg; ถ้วยไม่ได้ถูกทำให้หมุนน้ำครบ 180&deg; เต็ม
-        เพราะน้ำที่ย้อนกลับจะไปกระทบด้านหลังของถ้วยใบถัดไป
-        การประนีประนอมที่ใช้กันคือ 165&ndash;170&deg;</figcaption>
+      <figcaption><b>รูปที่ 4.6</b> (ก) <var>&beta;</var> วัดจากทิศทางที่ลำน้ำมีอยู่<em>ก่อน</em>ที่มันจะพบใบพัด
+        ไม่ได้วัดจากสิ่งใดบนตัวใบพัดเอง ให้ยกทิศทางนั้นมาไว้ที่ทางออกเป็นเส้นประ แล้ว <var>&beta;</var>
+        ก็คือมุมจากเส้นประนั้นวนไปหาลำน้ำขาออก (ข) ถ้วยกังหันเพลตันคือการสร้างแบบเดียวกัน
+        โดยดัน <var>&beta;</var> ขึ้นไปราว 165&deg; น้ำจึงออกไปเกือบย้อนกลับทางเดิมของมันเอง
+        และการเปลี่ยนแปลงโมเมนตัมก็เกือบเป็นสองเท่า ถ้วยไม่ได้ถูกทำให้หมุนน้ำครบ 180&deg; เต็ม
+        เพราะน้ำที่ย้อนกลับจะไปกระทบด้านหลังของถ้วยใบถัดไป การหมุนนั้นอยู่ในระนาบของภาพนี้
+        ส่วน<em>สันแบ่ง</em> ซึ่งแบ่งลำน้ำออกเป็นสองซีกที่วิ่งออกไปตามแนวแกนล้อ
+        จะเห็นได้ก็ต่อเมื่อมองย้อนจากด้านต้นน้ำเท่านั้น และนั่นคือสิ่งที่ภาพแทรกแสดงไว้</figcaption>
     </figure>
 
     <h3>ใบพัดโค้งทั่วไป</h3>
