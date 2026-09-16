@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>บทที่ 5: ของไหลจริงในท่อ | ASE 221 กลศาสตร์ของไหลเบื้องต้น</title>
+<meta name="description" content="การทดลองของเรย์โนลด์และเลขเรย์โนลด์ การไหลราบเรียบ ช่วงเปลี่ยนผ่าน และการไหลปั่นป่วน การสูญเสียความดันจากความเสียดทาน ความเค้นเฉือนในท่อ รูปร่างความเร็วแบบพาราโบลาของการไหลราบเรียบ สมการฮาเกน–ปัวเซย และตัวประกอบความเสียดทานของดาร์ซี">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index-th.html">
+      <span class="logo-mark">FM</span>
+      <span class="logo-text">ASE-FM<small lang="en">Biosystem and Agricultural Engineering, KMITL</small></span>
+    </a>
+    <span class="topbar-spacer"></span>
+    <nav class="topbar-nav">
+      <a href="index-th.html">เกี่ยวกับวิชา</a>
+      <a href="chapter1-th.html">เอกสารประกอบการสอน</a>
+    </nav>
+    <div class="lang-switch">
+      <a href="chapter5.html" lang="en">EN</a>
+      <a href="chapter5-th.html" class="active">ไทย</a>
+    </div>
+    <a class="btn-give" href="#s11">ตัวอย่างการคำนวณ</a>
+  </div>
+</header>
+
+<div class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ASE 221 <span>|</span> บทที่ 5 <span>|</span> เอกสารประกอบการบรรยาย</p>
+    <h1>ของไหลจริงในท่อ</h1>
+    <p class="tagline">ทุกสมการที่ผ่านมาสมมติว่าของไหลไม่มีความหนืด บทที่&nbsp;1 วัดความหนืดไว้แล้วเก็บเข้าลิ้นชัก
+      ส่วนสมการแบร์นูลลีก็โยนผลของมันทิ้งไปอย่างเงียบ ๆ บทนี้จะเปิดลิ้นชักนั้นออกมา &mdash;
+      และสิ่งที่ออกมาคือตัวเลขที่ท่อส่งน้ำทุกเส้นบนโลกใช้กำหนดขนาด</p>
+  </div>
+</div>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav class="course-menu">
+      <h2>สารบัญรายวิชา</h2>
+      <ul>
+        <li><a href="index-th.html">หน้าแรกของรายวิชา</a></li>
+        <li><a href="chapter1-th.html">บทที่&nbsp;1 &mdash; สมบัติของของไหล</a></li>
+        <li><a href="chapter2-th.html">บทที่&nbsp;2 &mdash; แรงในของไหลสถิต</a></li>
+        <li><a href="chapter3-th.html">บทที่&nbsp;3 &mdash; ความต่อเนื่องและแบร์นูลลี</a></li>
+        <li><a href="chapter4-th.html">บทที่&nbsp;4 &mdash; สมการโมเมนตัม</a></li>
+        <li><a href="chapter5-th.html" class="active">บทที่&nbsp;5 &mdash; ของไหลจริงในท่อ</a></li>
+      </ul>
+    </nav>
+
+    <section class="course-info">
+      <h2>ข้อมูลประจำบท</h2>
+      <dl>
+        <dt>จำนวนคาบ</dt>
+        <dd>5 คาบ (7 ชั่วโมงครึ่ง)</dd>
+
+        <dt>เอกสารอ้างอิง</dt>
+        <dd class="crumbs" lang="en">Sleigh, CIVE 1400 &mdash; &sect;4.1&ndash;4.3</dd>
+
+        <dt>สมการสำคัญ</dt>
+        <dd>
+          <ul>
+            <li><var>Re</var> = <var>&rho;ud</var>/<var>&mu;</var></li>
+            <li><var>&tau;</var><sub>w</sub> = &Delta;<var>p d</var>/4<var>L</var></li>
+            <li><var>Q</var> = <var>&pi;</var>&Delta;<var>p d</var><sup>4</sup>/128<var>&mu;L</var></li>
+            <li><var>h</var><sub>f</sub> = <var>&lambda;Lu</var><sup>2</sup>/2<var>gd</var></li>
+          </ul>
+        </dd>
+
+        <dt>ตาราง</dt>
+        <dd>
+          <ul>
+            <li><a href="#t1">5.1 สามลักษณะการไหล</a></li>
+            <li><a href="#t2">5.2 ราบเรียบเทียบปั่นป่วน</a></li>
+            <li><a href="#t3">5.3 ความขรุขระของท่อ</a></li>
+          </ul>
+        </dd>
+
+        <dt>ต้องใช้ความรู้จาก</dt>
+        <dd class="crumbs">บทที่ 1 &gt; ความหนืด กฎของนิวตัน</dd>
+        <dd class="crumbs">บทที่ 3 &gt; เฮด เส้นระดับพลังงาน</dd>
+        <dd class="crumbs">บทที่ 4 &gt; สมดุลแรงบนปริมาตรควบคุม</dd>
+        <dd class="crumbs">คณิตศาสตร์ &gt; การอินทิเกรตฟังก์ชันอย่างง่าย</dd>
+      </dl>
+    </section>
+  </aside>
+
+  <main class="content">
+
+    <p class="lead">น้ำไม่ได้ไหลไปตามท่อโดยไม่มีค่าใช้จ่าย ดันน้ำไป 1000&nbsp;ม.
+      ตามท่อส่งน้ำชลประทานขนาด 150&nbsp;มม. ด้วยความเร็ว 1.5&nbsp;ม./วินาที
+      แล้วน้ำจะไปถึงปลายทางโดยเสียเฮดไปราว 15&nbsp;ม. &mdash;
+      การสูญเสียที่สมการแบร์นูลลีในบทที่&nbsp;3 ยืนยันว่าไม่มีอยู่จริง
+      การหาตัวเลขนั้นคือเหตุผลของบทนี้ และเป็นการคำนวณที่ใช้บ่อยที่สุดในงานวิศวกรรมน้ำ</p>
+
+    <nav class="toc">
+      <h2>เนื้อหาในบทนี้</h2>
+      <ol>
+        <li><a href="#s1">จุดที่ของไหลอุดมคติไปต่อไม่ได้</a></li>
+        <li><a href="#s2">การทดลองของเรย์โนลด์</a></li>
+        <li><a href="#s3">เลขเรย์โนลด์</a></li>
+        <li><a href="#s4">การไหลราบเรียบ ช่วงเปลี่ยนผ่าน และการไหลปั่นป่วน</a></li>
+        <li><a href="#s5">การทดลองบอกอะไรเกี่ยวกับความเสียดทาน</a></li>
+        <li><a href="#s6">ความเค้นเฉือนในท่อ</a></li>
+        <li><a href="#s7">รูปร่างความเร็วในการไหลราบเรียบ</a></li>
+        <li><a href="#s8">สมการฮาเกน&ndash;ปัวเซย</a></li>
+        <li><a href="#s9">ตัวประกอบความเสียดทานและสมการดาร์ซี</a></li>
+        <li><a href="#s10">เนื้อหาเสริม &mdash; การกำหนดขนาดท่อส่งน้ำจริง</a></li>
+        <li><a href="#s11">ตัวอย่างการคำนวณ</a></li>
+        <li><a href="#s12">สัญลักษณ์</a></li>
+        <li><a href="#s13">แบบทดสอบทบทวน &mdash; 47 ข้อ</a></li>
+        <li><a href="#s14">โจทย์ปัญหา</a></li>
+        <li><a href="#s15">เอกสารอ้างอิง</a></li>
+      </ol>
+    </nav>
+
+    <!-- ============================================================ 5.1 -->
+    <h2 id="s1">5.1 จุดที่ของไหลอุดมคติไปต่อไม่ได้</h2>
+
+    <p>บทที่&nbsp;1 &sect;1.5 นิยามความหนืด วัดค่า และทำตารางไว้ จากนั้นไม่มีอะไรในบทที่&nbsp;2 ถึง&nbsp;4
+      ใช้มันเลย นั่นไม่ใช่ความหลงลืม: ทุกบทเหล่านั้นซื้อความเรียบง่ายมาด้วยการสมมติว่าเป็น
+      <b>ของไหลอุดมคติ</b> &mdash; ของไหลที่ไม่มีความหนืด ซึ่งความเค้นเฉือนเกิดขึ้นไม่ได้
+      และจึงไม่มีอะไรมาต้านการไหล</p>
+
+    <p>ราคาของสมมติฐานนั้นมาถึงกำหนดชำระที่นี่ ลองติดปิโซมิเตอร์เรียงกันไปตามท่อตรงที่วางในแนวราบ
+      ซึ่งพาน้ำด้วยอัตราคงที่ แล้วจะพบว่าน้ำในหลอดแต่ละอันยืนต่ำกว่าหลอดก่อนหน้าเล็กน้อยเสมอ
+      ไม่มีอะไรในบทที่&nbsp;3 ยอมให้สิ่งนั้นเกิดขึ้น: เมื่อ <var>z</var> คงที่และ <var>u</var> คงที่
+      สมการ&nbsp;(3.11) ยืนยันว่าเฮดความดันต้องคงที่ด้วย</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="ท่อตรงในแนวราบที่มีหลอดปิโซมิเตอร์ห้าหลอดเรียงกันไป น้ำในแต่ละหลอดยืนต่ำลงเรื่อย ๆ เส้นระดับชลศาสตร์จึงลาดลงอย่างสม่ำเสมอ เส้นระดับพลังงานขนานอยู่ด้านบน และระยะดิ่งระหว่างหน้าตัดแรกกับหน้าตัดสุดท้ายคือเฮดที่สูญเสียไปกับความเสียดทาน">
+        <defs>
+          <marker id="w1a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="w1b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="w1c" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <line x1="60" y1="44" x2="800" y2="128" stroke="#b03a2e" stroke-width="2.6"/>
+        <text x="576" y="36" font-family="Segoe UI, Arial" font-size="12.5" font-weight="700" fill="#b03a2e">เส้นระดับพลังงาน &mdash; ตอนนี้ลาดลงแล้ว</text>
+
+        <line x1="60" y1="70" x2="800" y2="154" stroke="#00788A" stroke-width="2.6" stroke-dasharray="9 5"/>
+        <text x="632" y="176" font-family="Segoe UI, Arial" font-size="12.5" font-weight="700" fill="#00788A">เส้นระดับชลศาสตร์</text>
+
+        <rect x="140" y="79" width="13" height="121" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="290" y="96" width="13" height="104" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="440" y="113" width="13" height="87" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="590" y="130" width="13" height="70" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+        <rect x="740" y="147" width="13" height="53" fill="#eaf7fa" stroke="#4b4540" stroke-width="1.6"/>
+
+        <rect x="60" y="200" width="740" height="44" fill="#eaf7fa"/>
+        <line x1="60" y1="200" x2="800" y2="200" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="60" y1="244" x2="800" y2="244" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="90" y1="222" x2="200" y2="222" stroke="#00788A" stroke-width="3" marker-end="url(#w1a)"/>
+        <text x="122" y="214" font-family="Cambria, Georgia, serif" font-size="17" font-style="italic" fill="#00788A">u</text>
+        <text x="300" y="234" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ขนาดเท่ากัน ความเร็วเท่ากัน อยู่ในแนวราบตลอด</text>
+
+        <line x1="824" y1="70" x2="824" y2="154" stroke="#1c1917" stroke-width="1.4" marker-start="url(#w1c)" marker-end="url(#w1b)"/>
+        <text x="806" y="66" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">h<tspan font-size="11" dy="4">f</tspan></text>
+        <line x1="800" y1="70" x2="830" y2="70" stroke="#9c9287" stroke-width="1.2" stroke-dasharray="5 3"/>
+
+        <line x1="60" y1="276" x2="800" y2="276" stroke="#4b4540" stroke-width="1.6" stroke-dasharray="4 4"/>
+        <text x="60" y="294" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ระดับอ้างอิง</text>
+      </svg>
+      <figcaption><b>รูปที่ 5.1</b> ข้อสังเกตที่เป็นเหตุผลของทั้งบทนี้ ท่อตรง อยู่ในแนวราบ และมีขนาดคงที่
+        ทั้งเฮดความเร็วและเฮดตำแหน่งจึงไม่เปลี่ยน แต่เฮดความดันกลับลดลงอย่างสม่ำเสมอไปตามท่อ
+        เส้นระดับพลังงานของ &sect;3.6 ซึ่งเคยเป็นแนวราบสำหรับของไหลอุดมคติ
+        ตอนนี้ลาดลงตามทิศการไหล &mdash; และมันทำอย่างอื่นไม่ได้เลย</figcaption>
+    </figure>
+
+    <p>เฮดที่หายไปเรียกว่า<b>การสูญเสียเฮดจากความเสียดทาน</b> เขียนแทนด้วย <var>h</var><sub>f</sub>
+      มันไม่ได้หายสาบสูญ แต่ถูกเปลี่ยนเป็นความร้อนด้วยการเฉือนกันของของไหลชั้นหนึ่งเหนืออีกชั้นหนึ่ง
+      และหายไปอย่างถาวรในแง่ของการไหล เมื่อเพิ่มมันเข้าไปในสมการแบร์นูลลี
+      จะได้รูปที่นักศึกษาจะใช้ไปตลอดการทำงาน</p>
+
+    <div class="eq">
+      <span class="body"><span class="frac"><span class="num"><var>p</var><sub>1</sub></span><span class="den"><var>&rho;g</var></span></span>
+        + <span class="frac"><span class="num"><var>u</var><sub>1</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span>
+        + <var>z</var><sub>1</sub>
+        = <span class="frac"><span class="num"><var>p</var><sub>2</sub></span><span class="den"><var>&rho;g</var></span></span>
+        + <span class="frac"><span class="num"><var>u</var><sub>2</sub><sup>2</sup></span><span class="den">2<var>g</var></span></span>
+        + <var>z</var><sub>2</sub> + <var>h</var><sub>f</sub></span>
+      <span class="tag">(5.1)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">สิ่งที่ยังเหลือให้หา</span>
+      <p>สมการ&nbsp;(5.1) ไม่ใช่ความสำเร็จ แต่เป็นตั๋วสัญญาใช้เงิน มันบอกว่ามีการสูญเสียอยู่และตั้งชื่อให้
+        แต่ไม่ได้บอกว่ามันใหญ่เท่าใด ทุกอย่างตั้งแต่ &sect;5.2 ถึง &sect;5.9 คืองานของการเปลี่ยน
+        <var>h</var><sub>f</sub> ให้เป็นตัวเลขที่คำนวณได้จากสิ่งที่เรารู้จริง ๆ คือ ตัวท่อ ตัวของไหล
+        และอัตราการไหล</p>
+    </div>
+
+    <p>และยังมีหนี้ข้อที่สองที่เห็นได้ยากกว่า บทที่&nbsp;3 &sect;3.3 ระบุไว้โดยไม่ได้พิสูจน์ว่า
+      ความเร็วเฉลี่ยในท่อเป็นครึ่งหนึ่งของค่าสูงสุดในกรณีหนึ่ง และราว 0.82 ของค่าสูงสุดในอีกกรณีหนึ่ง
+      โดยไม่เคยบอกเลยว่าทำไมจึงมีสองกรณี พอถึง &sect;5.7 นักศึกษาจะพิสูจน์ค่าแรกได้อย่างแม่นยำ
+      และอธิบายค่าที่สองได้</p>
+
+    <!-- ============================================================ 5.2 -->
+    <h2 id="s2">5.2 การทดลองของเรย์โนลด์</h2>
+
+    <p>ในปี ค.ศ.&nbsp;1883 ออสบอร์น เรย์โนลด์ ที่เมืองแมนเชสเตอร์ ได้ทำการทดลองที่อาจเรียกได้ว่า
+      มีผลสืบเนื่องมากที่สุดในประวัติศาสตร์ของกลศาสตร์ของไหล และมันง่ายพอที่จะทำซ้ำได้ในบ่ายวันเดียว
+      น้ำไหลจากถังผ่านหลอดแก้วตรง โดยควบคุมอัตราด้วยวาล์วที่ปลายทางออก
+      และมีการฉีดเส้นสีย้อมเล็ก ๆ เข้าไปที่แกนกลางของทางเข้า</p>
+
+    <figure>
+      <svg viewBox="0 0 860 344" role="img" aria-label="เครื่องมือของเรย์โนลด์: ถังน้ำป้อนหลอดแก้วแนวนอนผ่านปากระฆัง มีถังสีย้อมฉีดเส้นสีเข้าที่แกนกลาง และมีวาล์วควบคุมที่ปลาย ภาพสามแถบด้านล่างแสดงเส้นสีที่ตรงเมื่อไหลช้า สั่นคลอนเมื่อไหลเร็วขึ้น และแตกกระจายจนย้อมทั่วหลอดเมื่อไหลเร็วมาก">
+        <defs>
+          <marker id="w2a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+        </defs>
+
+        <path d="M40,40 L40,190 L210,190 L210,40" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <rect x="40" y="62" width="170" height="128" fill="#eaf7fa"/>
+        <line x1="40" y1="62" x2="210" y2="62" stroke="#00788A" stroke-width="2.2"/>
+        <text x="52" y="54" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">เฮดคงที่</text>
+
+        <rect x="96" y="6" width="58" height="34" fill="#f6e3e0" stroke="#b03a2e" stroke-width="2"/>
+        <text x="100" y="28" font-family="Segoe UI, Arial" font-size="11.5" fill="#b03a2e">สีย้อม</text>
+        <line x1="125" y1="40" x2="125" y2="132" stroke="#b03a2e" stroke-width="2.2"/>
+        <path d="M125,132 Q135,132 142,136" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+
+        <path d="M210,118 Q232,118 248,126 L800,126" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <path d="M210,158 Q232,158 248,150 L800,150" fill="none" stroke="#1c1917" stroke-width="2.6"/>
+        <rect x="248" y="126" width="552" height="24" fill="#eaf7fa"/>
+        <text x="300" y="112" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">หลอดแก้ว</text>
+
+        <line x1="142" y1="138" x2="782" y2="138" stroke="#b03a2e" stroke-width="2.4"/>
+
+        <path d="M800,116 L818,106 L818,170 L800,160 z" fill="#9c9287" stroke="#1c1917" stroke-width="2"/>
+        <text x="792" y="190" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">วาล์ว</text>
+        <line x1="828" y1="138" x2="852" y2="138" stroke="#00788A" stroke-width="2.6" marker-end="url(#w2a)"/>
+
+        <text x="40" y="228" font-family="Segoe UI, Arial" font-size="12.5" font-weight="700" fill="#1c1917">ค่อย ๆ เปิดวาล์วทีละน้อย แล้วสีย้อมจะทำอย่างนี้:</text>
+
+        <rect x="40" y="240" width="250" height="24" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.6"/>
+        <line x1="40" y1="252" x2="290" y2="252" stroke="#b03a2e" stroke-width="2.4"/>
+        <text x="300" y="257" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">เป็นเส้นตรงเส้นเดียว &mdash; <b>ราบเรียบ</b></text>
+
+        <rect x="40" y="274" width="250" height="24" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.6"/>
+        <path d="M40,286 Q70,280 100,286 Q130,292 160,286 Q190,278 220,287 Q250,296 290,284" fill="none" stroke="#b03a2e" stroke-width="2.4"/>
+        <text x="300" y="291" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">เริ่มสั่นคลอน &mdash; <b>ช่วงเปลี่ยนผ่าน</b></text>
+
+        <rect x="40" y="308" width="250" height="24" fill="#eaf7fa" stroke="#1c1917" stroke-width="1.6"/>
+        <path d="M40,320 Q58,310 72,320 Q86,330 104,318" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+        <path d="M104,318 C130,306 130,332 156,320 C176,311 186,329 206,320" fill="none" stroke="#b03a2e" stroke-width="2"/>
+        <ellipse cx="228" cy="318" rx="13" ry="7" fill="none" stroke="#b03a2e" stroke-width="1.6"/>
+        <ellipse cx="256" cy="322" rx="11" ry="6" fill="none" stroke="#b03a2e" stroke-width="1.6"/>
+        <ellipse cx="276" cy="315" rx="9" ry="5" fill="none" stroke="#b03a2e" stroke-width="1.6"/>
+        <rect x="40" y="308" width="250" height="24" fill="#b03a2e" opacity=".12"/>
+        <text x="300" y="325" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">แตกกระจายและย้อมทั่วทั้งหลอด &mdash; <b>ปั่นป่วน</b></text>
+      </svg>
+      <figcaption><b>รูปที่ 5.2</b> เครื่องมือของเรย์โนลด์และสิ่งที่มันแสดงให้เห็น
+        เมื่อไหลช้า สีย้อมเดินทางตลอดความยาวหลอดเป็นเส้นเดียว
+        ซึ่งเป็นหลักฐานโดยตรงว่าของไหลเคลื่อนที่เป็นชั้นขนานกันโดยไม่มีการแลกเปลี่ยนระหว่างชั้น
+        เปิดวาล์วมากขึ้นแล้วเส้นสีจะเริ่มสั่นคลอน เปิดมากขึ้นอีกมันจะถูกฉีกขาดภายในระยะไม่กี่เท่าของเส้นผ่านศูนย์กลาง
+        และทั้งหลอดจะขุ่นไปหมด การเปลี่ยนนี้ไม่ได้ค่อยเป็นค่อยไป &mdash;
+        มีอัตราการไหลค่าหนึ่งที่ชัดเจนซึ่งมันเกิดขึ้น</figcaption>
+    </figure>
+
+    <div class="callout">
+      <span class="label">ทำไมสีย้อมจึงสำคัญ</span>
+      <p>สีย้อมไม่ใช่เครื่องประดับ แต่คือการวัด เส้นสีที่ยังคงสภาพอยู่พิสูจน์ว่า
+        <em>ไม่มีการขนถ่ายข้ามการไหล</em> &mdash; ไม่มีของไหลข้ามจากชั้นหนึ่งไปอีกชั้นหนึ่ง
+        ทันทีที่เส้นสีกระจายตัว ย่อมแปลว่ามีของไหลถูกพาไปด้านข้างเป็นก้อน
+        การขนถ่ายด้านข้างนั้นคือความหมายของความปั่นป่วน
+        และเป็นเหตุผลที่การไหลปั่นป่วนผสม กัดเซาะ และสูญเสียพลังงานมากกว่าการไหลราบเรียบอย่างมาก</p>
+    </div>
+
+    <p>จากนั้นเรย์โนลด์ก็ทำส่วนที่สำคัญจริง ๆ เขาทำการทดลองซ้ำด้วยหลอดที่มีเส้นผ่านศูนย์กลางต่างกัน
+      และด้วยน้ำที่อุณหภูมิต่างกัน &mdash; นั่นคือที่ความหนืดต่างกัน &mdash;
+      แล้วพบว่าการเปลี่ยนแปลงนั้น<em>ไม่ได้</em>เกิดที่ความเร็วค่าหนึ่งที่ตายตัว
+      แต่เกิดที่ค่าตายตัวของ<em>ผลรวม</em>เฉพาะแบบหนึ่งของความเร็ว เส้นผ่านศูนย์กลาง ความหนาแน่น และความหนืด
+      ผลรวมนั้นในปัจจุบันใช้ชื่อของเขา</p>
+
+    <!-- ============================================================ 5.3 -->
+    <h2 id="s3">5.3 เลขเรย์โนลด์</h2>
+
+    <p>ผลรวมที่เรย์โนลด์พบนั้นปัจจุบันเขียนว่า <var>Re</var> และเรียกว่า<b>เลขเรย์โนลด์</b></p>
+
+    <div class="eq stack">
+      <span class="tag">(5.2)</span>
+      <span class="body"><var>Re</var> = <span class="frac"><span class="num"><var>&rho;ud</var></span><span class="den"><var>&mu;</var></span></span>
+        = <span class="frac"><span class="num"><var>ud</var></span><span class="den"><var>&nu;</var></span></span></span>
+      <span class="body"><span class="say">โดย</span> <var>&nu;</var> = <var>&mu;</var>/<var>&rho;</var>
+        <span class="say">คือความหนืดจลนศาสตร์ใน &sect;1.10</span></span>
+    </div>
+
+    <p>ในที่นี้ <var>u</var> คือความเร็วเฉลี่ยและ <var>d</var> คือเส้นผ่านศูนย์กลางท่อ
+      รูปที่สองคือรูปที่ใช้จริงในทางปฏิบัติ เพราะตัวเลขในตารางเพียงตัวเดียว &mdash; <var>&nu;</var> &asymp;
+      1.0&nbsp;&times;&nbsp;10<sup>&minus;6</sup>&nbsp;ม.<sup>2</sup>&nbsp;วินาที<sup>&minus;1</sup>
+      สำหรับน้ำที่ 20&nbsp;&deg;C &mdash; ใช้แทนสองตัวได้</p>
+
+    <h3>มันเป็นตัวเลขล้วน</h3>
+    <p>เมื่อใช้การตรวจสอบของ &sect;1.3 จะเกิดสิ่งที่น่าทึ่งขึ้น</p>
+
+    <div class="callout">
+      <span class="label">มิติของเลขเรย์โนลด์</span>
+      <p class="dim">[&rho;ud/&mu;] = (ML<sup>&minus;3</sup>)(LT<sup>&minus;1</sup>)(L) &divide; (ML<sup>&minus;1</sup>T<sup>&minus;1</sup>)
+        = M L<sup>&minus;1</sup> T<sup>&minus;1</sup> &divide; M L<sup>&minus;1</sup> T<sup>&minus;1</sup> = 1</p>
+      <p>ทุกมิติตัดกันหมด <var>Re</var> <b>ไม่มีมิติ</b> &mdash; มันไม่มีหน่วย
+        และให้ค่าเท่าเดิมไม่ว่าจะคำนวณในระบบ SI ในระบบฟุตและปอนด์ หรือในระบบสอดคล้องใด ๆ ก็ตาม
+        นั่นคือเหตุผลที่มันมีค่าวิกฤตสากลได้ ซึ่งปริมาณที่มีหน่วยไม่มีทางมีได้เลย</p>
+    </div>
+
+    <h3>ความหมายเชิงกายภาพ</h3>
+    <p>เลขเรย์โนลด์อ่านได้ดีที่สุดในฐานะอัตราส่วนของแนวโน้มสองอย่างที่แข่งกันอยู่</p>
+
+    <div class="eq plain">
+      <span class="body"><var>Re</var> &nbsp;=&nbsp;
+        <span class="frac"><span class="num">แรงเฉื่อย &mdash; แนวโน้มของของไหลที่จะพุ่งต่อไปและแตกกระจาย</span><span class="den">แรงหนืด &mdash; แนวโน้มของของไหลที่จะเกาะกันไว้เป็นชั้น</span></span></span>
+    </div>
+
+    <p>เมื่อ <var>Re</var> มีค่าน้อย ความหนืดชนะ: การรบกวนเล็ก ๆ ใด ๆ
+      จะถูกหน่วงด้วยความเสียดทานภายในของของไหลก่อนที่มันจะโตขึ้นได้ ชั้นต่าง ๆ จึงยังคงสภาพอยู่
+      เมื่อ <var>Re</var> มีค่ามาก ความเฉื่อยชนะ:
+      การรบกวนถูกพาไปและถูกขยายเร็วกว่าที่ความหนืดจะดับมันได้ การไหลจึงพังลงกลายเป็นกระแสวน</p>
+
+    <div class="callout rule">
+      <span class="label">ค่าวิกฤต สำหรับการไหลในท่อกลม</span>
+      <div class="eq plain">
+        <span class="body"><var>Re</var> &lt; 2000 &nbsp;&rarr;&nbsp; ราบเรียบ &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+          2000 &lt; <var>Re</var> &lt; 4000 &nbsp;&rarr;&nbsp; ช่วงเปลี่ยนผ่าน &nbsp;&nbsp;&middot;&nbsp;&nbsp;
+          <var>Re</var> &gt; 4000 &nbsp;&rarr;&nbsp; ปั่นป่วน</span>
+      </div>
+      <p>ตัวเลขเหล่านี้เป็นของ<b>การไหลในท่อเท่านั้น ไม่ใช่ของอย่างอื่นเลย</b>
+        แผ่นราบเปลี่ยนสภาพที่ <var>Re</var> ราว 5&nbsp;&times;&nbsp;10<sup>5</sup>
+        ทางน้ำเปิดที่ราว 500 ตามนิยามของมันเอง การอ้างค่า 2000 กับสิ่งอื่นที่ไม่ใช่ท่อจึงเป็นความผิดพลาด
+        และการอ้างโดยไม่บอกว่าใช้ความยาวใดเป็น <var>d</var> ก็ไม่มีความหมาย</p>
+    </div>
+
+    <h3>ความหมายสำหรับท่อส่งน้ำชลประทาน</h3>
+    <p>ลองใช้ท่อจากช่วงเปิดบทนี้: ขนาด 150&nbsp;มม. น้ำที่ 1.5&nbsp;ม./วินาที อุณหภูมิ 20&nbsp;&deg;C</p>
+
+    <div class="eq plain">
+      <span class="body"><var>Re</var> = <span class="frac"><span class="num">1.5 &times; 0.15</span><span class="den">1.0 &times; 10<sup>&minus;6</sup></span></span>
+        = 2.25 &times; 10<sup>5</sup></span>
+    </div>
+
+    <p>นั่นคือมากกว่าเกณฑ์ปั่นป่วนกว่าห้าสิบเท่า การจะทำให้ท่อเดียวกันไหลแบบราบเรียบได้
+      ต้องชะลอน้ำลงเหลือ <var>u</var> = 2000&nbsp;&times;&nbsp;10<sup>&minus;6</sup>/0.15 =
+      0.013&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup> &mdash; สิบสามมิลลิเมตรต่อวินาที
+      คิดเป็นอัตราการไหลราวหนึ่งในสี่ลิตรต่อวินาที</p>
+
+    <div class="callout warn">
+      <span class="label">ข้อสรุปที่ต้องจำไปใช้</span>
+      <p><b>น้ำในท่อทุกเส้นที่นักศึกษาจะได้ออกแบบล้วนไหลแบบปั่นป่วน</b>
+        การไหลราบเรียบไม่ใช่กรณีออกแบบของท่อส่งน้ำ แต่เป็นกรณีสำหรับการเรียนการสอน
+        และเป็นกรณีจริงเฉพาะกับท่อเล็ก การไหลช้า หรือของไหลข้นเท่านั้น
+        ในงานวิศวกรรมเกษตร นักศึกษาจะพบมันในสามที่พอดี: ภายใน<b>หัวน้ำหยด</b>
+        ซึ่งช่องทางเดินน้ำกว้างเพียงเศษส่วนของมิลลิเมตร ใน<b>น้ำใต้ดิน</b>ที่ซึมผ่านดิน
+        และใน<b>ระบบท่อน้ำมัน</b> ซึ่ง <var>&nu;</var> อาจเป็นร้อยเท่าของน้ำ</p>
+      <p>แล้วทำไมจึงใช้ &sect;5.6 ถึง &sect;5.8 ไปกับมัน
+        เพราะการไหลราบเรียบเป็นกรณีเดียวที่แก้ได้อย่างแม่นยำจากหลักการพื้นฐาน
+        มันคือหมุดยึดที่ทุกอย่างอื่นถูกวัดเทียบ และเป็นที่ที่ความเค้นเฉือนจากบทที่&nbsp;1
+        ได้ทำงานให้เห็นเป็นรูปธรรมเสียที</p>
+    </div>
+
+    <!-- ============================================================ 5.4 -->
+    <h2 id="s4">5.4 การไหลราบเรียบ ช่วงเปลี่ยนผ่าน และการไหลปั่นป่วน</h2>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="เปรียบเทียบท่อสามแบบ ในการไหลราบเรียบของไหลเคลื่อนที่เป็นชั้นขนานกันและรูปร่างความเร็วเป็นพาราโบลาเรียบ ในช่วงเปลี่ยนผ่านชั้นต่าง ๆ เริ่มสั่นคลอน ในการไหลปั่นป่วนกระแสวนผสมของไหลข้ามท่อและรูปร่างความเร็วแบนกว่ามากแต่ชันมากที่ผนัง">
+        <defs>
+          <marker id="w3a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+        </defs>
+
+        <text x="24" y="24" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">ราบเรียบ &mdash; Re &lt; 2000</text>
+        <rect x="24" y="44" width="240" height="116" fill="#eaf7fa"/>
+        <line x1="24" y1="44" x2="264" y2="44" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="24" y1="160" x2="264" y2="160" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="34" y1="58" x2="254" y2="58" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="73" x2="254" y2="73" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="88" x2="254" y2="88" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="102" x2="254" y2="102" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="117" x2="254" y2="117" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="132" x2="254" y2="132" stroke="#9fd8e2" stroke-width="1.6"/>
+        <line x1="34" y1="146" x2="254" y2="146" stroke="#9fd8e2" stroke-width="1.6"/>
+        <text x="24" y="182" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">ชั้นเลื่อนไถลกัน ไม่มีอะไรข้ามระหว่างชั้น</text>
+
+        <path d="M120,44 Q214,102 120,160" fill="#d9eef3" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="120" y1="44" x2="120" y2="160" stroke="#00788A" stroke-width="1.4"/>
+        <line x1="120" y1="102" x2="206" y2="102" stroke="#00788A" stroke-width="1.8" marker-end="url(#w3a)"/>
+        <line x1="120" y1="73" x2="182" y2="73" stroke="#00788A" stroke-width="1.6" marker-end="url(#w3a)"/>
+        <line x1="120" y1="132" x2="182" y2="132" stroke="#00788A" stroke-width="1.6" marker-end="url(#w3a)"/>
+        <text x="30" y="212" font-family="Segoe UI, Arial" font-size="12" fill="#00788A">เป็นพาราโบลาพอดี (&sect;5.7)</text>
+        <text x="30" y="230" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#00788A">u&#772; = &frac12; u<tspan font-size="10" dy="3">max</tspan></text>
+
+        <line x1="292" y1="16" x2="292" y2="284" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="312" y="24" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">ช่วงเปลี่ยนผ่าน &mdash; 2000 ถึง 4000</text>
+        <rect x="312" y="44" width="230" height="116" fill="#eaf7fa"/>
+        <line x1="312" y1="44" x2="542" y2="44" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="312" y1="160" x2="542" y2="160" stroke="#1c1917" stroke-width="2.6"/>
+        <path d="M322,62 Q372,56 422,64 Q472,72 532,60" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <path d="M322,84 Q372,92 422,82 Q472,72 532,86" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <path d="M322,102 Q372,96 422,106 Q472,116 532,100" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <path d="M322,124 Q372,132 422,120 Q472,110 532,126" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <path d="M322,144 Q372,136 422,146 Q472,154 532,140" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <text x="312" y="182" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">ชั้นต่าง ๆ สั่นคลอน และอาจสลับไปมาได้</text>
+        <text x="312" y="212" font-family="Segoe UI, Arial" font-size="12" fill="#b03a2e">คาดเดาไม่ได้ &mdash; อย่าออกแบบให้มาอยู่ตรงนี้</text>
+
+        <line x1="566" y1="16" x2="566" y2="284" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="586" y="24" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">ปั่นป่วน &mdash; Re &gt; 4000</text>
+        <rect x="586" y="44" width="230" height="116" fill="#eaf7fa"/>
+        <line x1="586" y1="44" x2="816" y2="44" stroke="#1c1917" stroke-width="2.6"/>
+        <line x1="586" y1="160" x2="816" y2="160" stroke="#1c1917" stroke-width="2.6"/>
+        <ellipse cx="612" cy="68" rx="15" ry="9" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <ellipse cx="654" cy="96" rx="18" ry="11" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <ellipse cx="688" cy="64" rx="13" ry="8" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <ellipse cx="616" cy="128" rx="16" ry="9" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <ellipse cx="664" cy="140" rx="13" ry="8" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <ellipse cx="696" cy="108" rx="14" ry="8" fill="none" stroke="#9fd8e2" stroke-width="1.8"/>
+        <text x="586" y="182" font-family="Segoe UI, Arial" font-size="12" fill="#4b4540">กระแสวนพาของไหลข้ามท่อไปมา</text>
+
+        <path d="M722,44 Q758,52 768,74 L768,130 Q758,152 722,160" fill="#d9eef3" stroke="#00788A" stroke-width="2.4"/>
+        <line x1="722" y1="44" x2="722" y2="160" stroke="#00788A" stroke-width="1.4"/>
+        <line x1="722" y1="102" x2="762" y2="102" stroke="#00788A" stroke-width="1.8" marker-end="url(#w3a)"/>
+        <line x1="722" y1="60" x2="748" y2="60" stroke="#00788A" stroke-width="1.6" marker-end="url(#w3a)"/>
+        <line x1="722" y1="144" x2="748" y2="144" stroke="#00788A" stroke-width="1.6" marker-end="url(#w3a)"/>
+        <text x="586" y="212" font-family="Segoe UI, Arial" font-size="12" fill="#00788A">แบนกว่ามาก แต่ชันมากที่ผนัง</text>
+        <text x="586" y="230" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#00788A">u&#772; &asymp; 0.82 u<tspan font-size="10" dy="3">max</tspan></text>
+
+        <text x="24" y="266" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ความเร็วเป็นศูนย์ที่ผนังในทุกกรณี &mdash; เงื่อนไขไม่ลื่นไถลของ &sect;1.4 ไม่สนใจว่าการไหลอยู่ในลักษณะใด</text>
+        <text x="24" y="286" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">สิ่งที่เปลี่ยนคือความเร็วไต่ขึ้นจากผนังเร็วเพียงใด และเกรเดียนต์นั้นเองที่กำหนดความเสียดทาน</text>
+      </svg>
+      <figcaption><b>รูปที่ 5.3</b> สองลักษณะการไหลนี้ไม่ใช่ความแรงสองระดับของสิ่งเดียวกัน แต่เป็นกลไกสองแบบ
+        การไหลราบเรียบต้านการเคลื่อนที่ด้วยความหนืดระดับโมเลกุลเพียงอย่างเดียว
+        ส่วนการไหลปั่นป่วนต้านด้วยกระแสวนที่พาของไหลช้าออกไปข้างนอกและพาของไหลเร็วเข้ามาข้างใน
+        ซึ่งเป็นวิธีถ่ายโอนโมเมนตัมที่ได้ผลกว่ามาก &mdash; และแพงกว่ามากด้วย</figcaption>
+    </figure>
+
+    <div class="table-wrap">
+      <table id="t1">
+        <caption><b>ตารางที่ 5.1</b> สามลักษณะการไหลในท่อกลม
+          พร้อมความเร็วที่แต่ละลักษณะเริ่มต้น สำหรับน้ำที่ 20&nbsp;&deg;C ในท่อเมนขนาด 150&nbsp;มม.</caption>
+        <thead>
+          <tr><th>ลักษณะ</th><th><var>Re</var></th><th>สีย้อมทำอะไร</th><th><var>u</var> ในท่อ 150&nbsp;มม.</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><b>ราบเรียบ</b></td>
+            <td>&lt; 2000</td>
+            <td>ยังเป็นเส้นเดียวตลอดความยาวหลอด</td>
+            <td>ต่ำกว่า 13&nbsp;มม./วินาที</td>
+          </tr>
+          <tr>
+            <td><b>ช่วงเปลี่ยนผ่าน</b></td>
+            <td>2000&ndash;4000</td>
+            <td>สั่นคลอน และอาจสลับไปมาระหว่างสองสภาวะ</td>
+            <td>13&ndash;27&nbsp;มม./วินาที</td>
+          </tr>
+          <tr>
+            <td><b>ปั่นป่วน</b></td>
+            <td>&gt; 4000</td>
+            <td>แตกกระจายภายในไม่กี่เท่าของเส้นผ่านศูนย์กลาง หลอดขุ่นไปหมด</td>
+            <td>สูงกว่า 27&nbsp;มม./วินาที</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-wrap">
+      <table id="t2">
+        <caption><b>ตารางที่ 5.2</b> เปรียบเทียบสองลักษณะการไหล
+          ความแตกต่างเชิงปฏิบัติแทบทุกข้อในบทนี้มาจากแถวที่เป็นตัวหนา</caption>
+        <thead>
+          <tr><th></th><th>ราบเรียบ</th><th>ปั่นป่วน</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>โมเมนตัมถูกพาข้ามท่อโดย</b></td>
+            <td>โมเลกุล จากชั้นหนึ่งสู่ชั้นถัดไป</td>
+            <td>กระแสวน แบบยกก้อน</td></tr>
+          <tr><td><b>การสูญเสียเฮดแปรตาม</b></td>
+            <td><var>h</var><sub>f</sub> &prop; <var>u</var></td>
+            <td><var>h</var><sub>f</sub> &prop; <var>u</var><sup>1.7</sup> ถึง <var>u</var><sup>2</sup></td></tr>
+          <tr><td>รูปร่างความเร็ว</td>
+            <td>พาราโบลา</td>
+            <td>แบนที่แกนกลาง ชันที่ผนัง</td></tr>
+          <tr><td>ความเร็วเฉลี่ย / สูงสุด</td><td>0.50</td><td>&asymp; 0.82</td></tr>
+          <tr><td>ขึ้นกับความขรุขระของท่อหรือไม่</td>
+            <td>ไม่ &mdash; ความขรุขระจมอยู่ในชั้นที่ไหลช้า</td>
+            <td>ใช่ เมื่อการไหลขรุขระเต็มที่แล้ว</td></tr>
+          <tr><td>แก้ได้อย่างแม่นยำหรือไม่</td>
+            <td>ได้ &mdash; &sect;5.8</td>
+            <td>ไม่ได้ ทุกสูตรมาจากการปรับกับผลการทดลอง</td></tr>
+          <tr><td>ผสม กัดเซาะ พาตะกอนหรือไม่</td>
+            <td>แทบไม่เลย</td>
+            <td>รุนแรง</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ============================================================ 5.5 -->
+    <h2 id="s5">5.5 การทดลองบอกอะไรเกี่ยวกับความเสียดทาน</h2>
+
+    <p>ก่อนจะพิสูจน์อะไร ลองดูสิ่งที่การวัดให้มาจริง ๆ ก่อน เรย์โนลด์และอีกหลายคนหลังจากนั้น
+      วัด <var>h</var><sub>f</sub> บนความยาวท่อที่กำหนดไว้ ที่ความเร็วหลายค่า
+      แล้วพล็อตค่าหนึ่งกับอีกค่าหนึ่งบนแกนลอการิทึม &mdash; ซึ่งเปลี่ยนกฎยกกำลัง
+      <var>h</var><sub>f</sub> &prop; <var>u</var><sup>n</sup> ให้กลายเป็นเส้นตรงที่มีความชัน <var>n</var></p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="กราฟลอการิทึมของการสูญเสียเฮดเทียบกับความเร็วเฉลี่ย ที่ความเร็วต่ำข้อมูลอยู่บนเส้นตรงความชันหนึ่ง คือแขนงราบเรียบ เหนือความเร็ววิกฤตข้อมูลกระโดดไปอยู่บนเส้นตรงเส้นที่สองความชันราว 1.8 คือแขนงปั่นป่วน โดยมีช่วงว่างที่ไม่เสถียรคั่นกลาง">
+        <defs>
+          <marker id="w4a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <line x1="110" y1="250" x2="700" y2="250" stroke="#1c1917" stroke-width="2" marker-end="url(#w4a)"/>
+        <line x1="110" y1="250" x2="110" y2="36" stroke="#1c1917" stroke-width="2" marker-end="url(#w4a)"/>
+        <text x="640" y="278" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">log u</text>
+        <text x="52" y="44" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">log h<tspan font-size="11" dy="4">f</tspan></text>
+
+        <line x1="140" y1="232" x2="330" y2="150" stroke="#00788A" stroke-width="3"/>
+        <circle cx="162" cy="222" r="4" fill="#00788A"/>
+        <circle cx="210" cy="201" r="4" fill="#00788A"/>
+        <circle cx="258" cy="181" r="4" fill="#00788A"/>
+        <circle cx="306" cy="160" r="4" fill="#00788A"/>
+        <text x="128" y="188" font-family="Segoe UI, Arial" font-size="12.5" font-weight="700" fill="#00788A">ราบเรียบ</text>
+        <text x="128" y="206" font-family="Segoe UI, Arial" font-size="12.5" fill="#00788A">ความชัน 1</text>
+
+        <line x1="258" y1="181" x2="306" y2="181" stroke="#4b4540" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <line x1="306" y1="181" x2="306" y2="160" stroke="#4b4540" stroke-width="1.2" stroke-dasharray="4 3"/>
+
+        <line x1="380" y1="150" x2="620" y2="54" stroke="#b03a2e" stroke-width="3"/>
+        <circle cx="404" cy="140" r="4" fill="#b03a2e"/>
+        <circle cx="452" cy="121" r="4" fill="#b03a2e"/>
+        <circle cx="500" cy="102" r="4" fill="#b03a2e"/>
+        <circle cx="548" cy="83" r="4" fill="#b03a2e"/>
+        <circle cx="596" cy="64" r="4" fill="#b03a2e"/>
+        <text x="624" y="74" font-family="Segoe UI, Arial" font-size="12.5" font-weight="700" fill="#b03a2e">ปั่นป่วน</text>
+        <text x="624" y="92" font-family="Segoe UI, Arial" font-size="12.5" fill="#b03a2e">ความชัน 1.7 ถึง 2.0</text>
+
+        <rect x="330" y="36" width="50" height="214" fill="#c8a14a" opacity=".16"/>
+        <line x1="330" y1="36" x2="330" y2="250" stroke="#c8a14a" stroke-width="1.6" stroke-dasharray="6 4"/>
+        <line x1="380" y1="36" x2="380" y2="250" stroke="#c8a14a" stroke-width="1.6" stroke-dasharray="6 4"/>
+        <path d="M330,150 Q352,166 380,150" fill="none" stroke="#9c9287" stroke-width="2" stroke-dasharray="5 4"/>
+        <text x="310" y="272" font-family="Segoe UI, Arial" font-size="11.5" fill="#8a6d1f">ช่วงเปลี่ยนผ่าน</text>
+
+        <text x="404" y="200" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">การสูญเสียกระโดดขึ้นตอนการไหลเปลี่ยนสภาพ</text>
+        <text x="404" y="218" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">แล้วไต่ขึ้นชันเกือบเป็นสองเท่า</text>
+        <text x="404" y="242" font-family="Segoe UI, Arial" font-size="11.5" fill="#8a6d1f">เส้นประที่เชื่อมไม่ใช่ค่าที่วัดได้ &mdash; ไม่มีอะไรนิ่งตรงนี้</text>
+      </svg>
+      <figcaption><b>รูปที่ 5.4</b> ผลที่เรย์โนลด์ได้ และเป็นรูปทรงของการทดลองความเสียดทานทุกครั้งนับแต่นั้น
+        เส้นตรงสองเส้นที่มีรอยขาดคั่นกลาง: การไหลไม่ได้ค่อย ๆ ผ่อนจากลักษณะหนึ่งไปอีกลักษณะหนึ่ง
+        แต่เปลี่ยนกลไก สังเกตด้วยว่าความเร็วที่เกิดการเปลี่ยนตอน<em>เพิ่ม</em>ความเร็วสูงกว่าตอน<em>ลด</em>
+        &mdash; การไหลราบเรียบที่ระวังไม่ให้ถูกรบกวนอาจอยู่รอดไปได้ไกลเกิน <var>Re</var> = 2000
+        ซึ่งเป็นเหตุผลที่ 2000 เป็นขีดจำกัดสำหรับการออกแบบ ไม่ใช่กฎธรรมชาติ</figcaption>
+    </figure>
+
+    <p>การอ่านความชันทั้งสองจากกราฟให้ผลการทดลองทั้งหมด</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.3)</span>
+      <span class="body"><var>h</var><sub>f</sub> &prop; <var>u</var><sup class="pow">1</sup>
+        <span class="say">ในการไหลราบเรียบ</span></span>
+      <span class="body"><var>h</var><sub>f</sub> &prop; <var>u</var><sup class="pow">n</sup>
+        <span class="say">โดย</span> <var>n</var> = 1.7 <span class="say">ถึง</span> 2.0
+        <span class="say">ในการไหลปั่นป่วน</span></span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">ทำไมเลขชี้กำลังนั้นจึงเป็นเรื่องทั้งหมด</span>
+      <p>ทุกอย่างที่แพงเกี่ยวกับท่อส่งน้ำล้วนตามมาจาก <var>n</var> &asymp; 2
+        เพิ่มอัตราการไหลผ่านท่อเดิมเป็นสองเท่า การสูญเสียจากความเสียดทานจะ<b>เป็นสี่เท่า</b>
+        ส่วนกำลังสูบน้ำซึ่งเท่ากับ <var>&rho;gQh</var><sub>f</sub> จะ<b>เป็นแปดเท่า</b>
+        และเป็นเหตุผลที่การเพิ่มขนาดเส้นผ่านศูนย์กลางเป็นยาแก้ที่ทรงพลังมาก:
+        ที่อัตราการไหลคงที่ <var>u</var> &prop; 1/<var>d</var><sup>2</sup> ดังนั้น &mdash;
+        ดังที่ &sect;5.9 จะแสดง &mdash; <var>h</var><sub>f</sub> ลดลงราว
+        1/<var>d</var><sup>5</sup> การเปลี่ยนจากท่อเมน 100&nbsp;มม. เป็น 150&nbsp;มม.
+        ลดการสูญเสียเหลือราวหนึ่งในแปด</p>
+    </div>
+
+    <!-- ============================================================ 5.6 -->
+    <h2 id="s6">5.6 ความเค้นเฉือนในท่อ</h2>
+
+    <p>ทีนี้มาสร้างทฤษฎีกัน ขั้นแรกไม่ต้องใช้สมมติฐานใด ๆ เกี่ยวกับลักษณะการไหลเลย &mdash;
+      มันคือสมดุลแรงของบทที่&nbsp;4 ที่นำมาใช้กับทรงกระบอกของไหล
+      และใช้ได้ทั้งกับการไหลราบเรียบและการไหลปั่นป่วนเหมือนกัน</p>
+
+    <figure>
+      <svg viewBox="0 0 860 320" role="img" aria-label="ซ้าย: ทรงกระบอกของไหลรัศมี r ยาว L ภายในท่อ โดยความดัน p หนึ่งดันที่หน้าตัดต้นน้ำ ความดัน p สองที่หน้าตัดท้ายน้ำ และความเค้นเฉือนเทากระทำย้อนกลับบนผิวโค้ง ขวา: การกระจายความเค้นเฉือนที่ได้ เป็นศูนย์ที่แกนและไต่ขึ้นเป็นเส้นตรงจนถึงเทาดับเบิลยูที่ผนัง">
+        <defs>
+          <marker id="w5a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#b03a2e"/>
+          </marker>
+          <marker id="w5b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#c8a14a"/>
+          </marker>
+          <marker id="w5c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="w5d" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <rect x="70" y="60" width="380" height="200" fill="#f7fbfc"/>
+        <line x1="70" y1="60" x2="450" y2="60" stroke="#1c1917" stroke-width="3"/>
+        <line x1="70" y1="260" x2="450" y2="260" stroke="#1c1917" stroke-width="3"/>
+        <line x1="70" y1="160" x2="450" y2="160" stroke="#9c9287" stroke-width="1.2" stroke-dasharray="10 5 3 5"/>
+
+        <rect x="130" y="112" width="250" height="96" fill="#d9eef3" stroke="#00788A" stroke-width="2.2"/>
+        <ellipse cx="130" cy="160" rx="9" ry="48" fill="#eaf7fa" stroke="#00788A" stroke-width="2.2"/>
+        <ellipse cx="380" cy="160" rx="9" ry="48" fill="#cfe9ef" stroke="#00788A" stroke-width="2.2"/>
+
+        <line x1="255" y1="160" x2="255" y2="112" stroke="#1c1917" stroke-width="1.4" marker-start="url(#w5d)" marker-end="url(#w5c)"/>
+        <text x="262" y="140" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">r</text>
+        <line x1="300" y1="160" x2="300" y2="60" stroke="#4b4540" stroke-width="1.2" stroke-dasharray="4 3"/>
+        <text x="306" y="92" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#4b4540">R</text>
+
+        <line x1="130" y1="284" x2="380" y2="284" stroke="#1c1917" stroke-width="1.4" marker-start="url(#w5d)" marker-end="url(#w5c)"/>
+        <text x="248" y="302" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#1c1917">L</text>
+
+        <line x1="80" y1="160" x2="124" y2="160" stroke="#b03a2e" stroke-width="3.2" marker-end="url(#w5a)"/>
+        <text x="72" y="150" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">p<tspan font-size="11" dy="4">1</tspan><tspan font-size="15" dy="-4">&#960;r&#178;</tspan></text>
+        <line x1="430" y1="160" x2="388" y2="160" stroke="#b03a2e" stroke-width="3.2" marker-end="url(#w5a)"/>
+        <text x="392" y="150" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#b03a2e">p<tspan font-size="11" dy="4">2</tspan><tspan font-size="15" dy="-4">&#960;r&#178;</tspan></text>
+
+        <line x1="200" y1="112" x2="160" y2="112" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <line x1="270" y1="112" x2="230" y2="112" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <line x1="340" y1="112" x2="300" y2="112" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <line x1="200" y1="208" x2="160" y2="208" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <line x1="270" y1="208" x2="230" y2="208" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <line x1="340" y1="208" x2="300" y2="208" stroke="#c8a14a" stroke-width="2.6" marker-end="url(#w5b)"/>
+        <text x="150" y="102" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#8a6d1f">&#964; &times; 2&#960;rL</text>
+
+        <text x="70" y="42" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">(ก) การไหลคงตัว ทรงกระบอกจึงไม่มีความเร่ง</text>
+
+        <line x1="486" y1="16" x2="486" y2="306" stroke="#e3dac7" stroke-width="1.5"/>
+
+        <text x="510" y="42" font-family="Segoe UI, Arial" font-size="13" font-weight="700" fill="#1c1917">(ข) ความเค้นเฉือนจึงแปรเป็นเส้นตรง</text>
+
+        <rect x="600" y="60" width="200" height="200" fill="#f7fbfc"/>
+        <line x1="600" y1="60" x2="800" y2="60" stroke="#1c1917" stroke-width="3"/>
+        <line x1="600" y1="260" x2="800" y2="260" stroke="#1c1917" stroke-width="3"/>
+        <line x1="600" y1="160" x2="800" y2="160" stroke="#9c9287" stroke-width="1.2" stroke-dasharray="10 5 3 5"/>
+
+        <path d="M620,160 L700,60 L620,60 z" fill="#fdf0d5" stroke="#c8a14a" stroke-width="2.2"/>
+        <path d="M620,160 L700,260 L620,260 z" fill="#fdf0d5" stroke="#c8a14a" stroke-width="2.2"/>
+        <line x1="620" y1="60" x2="620" y2="260" stroke="#c8a14a" stroke-width="1.6" stroke-dasharray="4 3"/>
+
+        <text x="704" y="56" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#8a6d1f">&#964;<tspan font-size="11" dy="4">w</tspan></text>
+        <text x="704" y="272" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#8a6d1f">&#964;<tspan font-size="11" dy="4">w</tspan></text>
+        <text x="626" y="176" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#8a6d1f">&#964; = 0</text>
+
+        <text x="510" y="290" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ศูนย์ที่แกน มากที่สุดที่ผนัง &mdash; ไม่ว่าจะเป็นการไหลลักษณะใด</text>
+      </svg>
+      <figcaption><b>รูปที่ 5.5</b> ทรงกระบอกเคลื่อนที่ด้วยความเร็วคงที่
+        ตามกฎข้อที่หนึ่งของนิวตัน แรงที่กระทำต่อมันจึงต้องสมดุลกันพอดี
+        ผลต่างความดันบนหน้าตัดทั้งสองผลักมันไปข้างหน้า ส่วนความเค้นเฉือนบนผิวโค้งด้านข้างหน่วงมันไว้
+        ไม่มีอะไรในข้อโต้แย้งนี้เอ่ยถึงความหนืดหรือลักษณะการไหล
+        ผลลัพธ์จึงใช้ได้กับการไหลปั่นป่วนเช่นเดียวกับการไหลราบเรียบ</figcaption>
+    </figure>
+
+    <p>เขียนสมดุลนั้นสำหรับทรงกระบอกรัศมี <var>r</var> ยาว <var>L</var></p>
+
+    <div class="eq stack">
+      <span class="tag">(5.4)</span>
+      <span class="body">(<var>p</var><sub>1</sub> &minus; <var>p</var><sub>2</sub>)<var>&pi;r</var><sup>2</sup>
+        = <var>&tau;</var> &middot; 2<var>&pi;rL</var></span>
+      <span class="body"><var>&tau;</var> = <span class="frac"><span class="num">&Delta;<var>p r</var></span><span class="den">2<var>L</var></span></span></span>
+    </div>
+
+    <p>ดังนั้นความเค้นเฉือนจึง<b>เป็นศูนย์ที่แกนและไต่ขึ้นเป็นสัดส่วนโดยตรงกับรัศมี</b> เมื่อแทน
+      <var>r</var> = <var>R</var> = <var>d</var>/2 จะได้ความเค้นที่ผนัง
+      ซึ่งเป็นปริมาณที่ฉุดตัวท่อจริง ๆ</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.5)</span>
+      <span class="body"><var>&tau;</var><sub>w</sub> = <span class="frac"><span class="num">&Delta;<var>p R</var></span><span class="den">2<var>L</var></span></span>
+        = <span class="frac"><span class="num">&Delta;<var>p d</var></span><span class="den">4<var>L</var></span></span></span>
+      <span class="body"><span class="say">และเมื่ออ่านกลับด้าน</span>
+        &Delta;<var>p</var> = <span class="frac"><span class="num">4<var>L&tau;</var><sub>w</sub></span><span class="den"><var>d</var></span></span></span>
+    </div>
+
+    <p>การหาร (5.4) ด้วย (5.5) ตัดทุกอย่างทิ้งเหลือแต่รูปเรขาคณิต</p>
+
+    <div class="eq">
+      <span class="body"><span class="frac"><span class="num"><var>&tau;</var></span><span class="den"><var>&tau;</var><sub>w</sub></span></span>
+        = <span class="frac"><span class="num"><var>r</var></span><span class="den"><var>R</var></span></span></span>
+      <span class="tag">(5.6)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">สองสิ่งที่สมการ (5.5) กำลังบอก</span>
+      <ul>
+        <li><b>ความดันที่ลดลงกับความเค้นเฉือนที่ผนังคือข้อเท็จจริงเดียวกันที่พูดสองครั้ง</b>
+          เฮดทั้งหมดที่เสียไปกับความเสียดทานถูกจ่ายออกไปในรูปความเค้นเฉือนบนผนังท่อ
+          ท่อรู้สึกถึงมันเป็นแรงฉุด <var>&tau;</var><sub>w</sub> &times; <var>&pi;dL</var>
+          ที่ดึงไปทางท้ายน้ำ ซึ่งเป็นอีกสิ่งหนึ่งที่แท่นยึดต้องรับไว้</li>
+        <li><b>ตัว 4<var>L</var>/<var>d</var> คือจุดที่เส้นผ่านศูนย์กลางแสดงคุณค่าของมัน</b>
+          ที่ความเค้นผนังเท่ากัน ท่อที่มีขนาดเป็นสองเท่าเสียความดันเพียงครึ่งเดียวบนความยาวเท่ากัน
+          &mdash; และนั่นยังไม่นับว่าความเร็วยังไม่ได้ถูกลดลงเลยด้วยซ้ำ</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ 5.7 -->
+    <h2 id="s7">5.7 รูปร่างความเร็วในการไหลราบเรียบ</h2>
+
+    <p>สมการ&nbsp;(5.4) เชื่อมความเค้นเฉือนกับรัศมี การจะไปต่อได้
+      เราต้องการความสัมพันธ์ที่สองระหว่างความเค้นเฉือนกับความเร็ว &mdash;
+      และสำหรับการไหลราบเรียบเรามีอยู่อย่างแม่นยำ นั่นคือกฎความหนืดของนิวตันจาก &sect;1.5
+      ขั้นตอนนี้เองที่ล้มเหลวสำหรับการไหลปั่นป่วน และเป็นเหตุผลที่การไหลปั่นป่วนไม่มีผลเฉลยที่แม่นยำ</p>
+
+    <p>ให้ความเร็วลดลงเมื่อรัศมีโตขึ้น ดังนั้น d<var>u</var>/d<var>r</var> จึงเป็นลบ
+      ขณะที่ความเค้นเฉือนเป็นบวก</p>
+
+    <div class="eq">
+      <span class="body"><var>&tau;</var> = &minus;<var>&mu;</var>
+        <span class="frac"><span class="num">d<var>u</var></span><span class="den">d<var>r</var></span></span></span>
+      <span class="tag">(5.7)</span>
+    </div>
+
+    <p>ให้ (5.4) เท่ากับ (5.7) แล้วแยกตัวแปร</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.8)</span>
+      <span class="body">&minus;<var>&mu;</var><span class="frac"><span class="num">d<var>u</var></span><span class="den">d<var>r</var></span></span>
+        = <span class="frac"><span class="num">&Delta;<var>p r</var></span><span class="den">2<var>L</var></span></span>
+        &nbsp;&rArr;&nbsp;
+        <span class="dx">d</span><var>u</var> = &minus;<span class="frac"><span class="num">&Delta;<var>p</var></span><span class="den">2<var>&mu;L</var></span></span><var>r</var>&thinsp;<span class="dx">d</span><var>r</var></span>
+      <span class="body"><span class="say">อินทิเกรตได้</span>
+        <var>u</var> = &minus;<span class="frac"><span class="num">&Delta;<var>p r</var><sup>2</sup></span><span class="den">4<var>&mu;L</var></span></span> + <var>C</var></span>
+      <span class="body"><span class="say">และเงื่อนไขไม่ลื่นไถลของ &sect;1.4 ให้ค่าคงที่: ที่</span>
+        <var>r</var> = <var>R</var>, <var>u</var> = 0
+        <span class="say">ดังนั้น</span>
+        <var>C</var> = <span class="frac"><span class="num">&Delta;<var>p R</var><sup>2</sup></span><span class="den">4<var>&mu;L</var></span></span></span>
+    </div>
+
+    <p>ซึ่งเหลือความเร็ว ณ รัศมีใด ๆ เป็น</p>
+
+    <div class="eq">
+      <span class="body"><var>u</var><sub>r</sub> = <span class="frac"><span class="num">&Delta;<var>p</var></span><span class="den">4<var>&mu;L</var></span></span>
+        <span class="pren"><var>R</var><sup>2</sup> &minus; <var>r</var><sup>2</sup></span></span>
+      <span class="tag">(5.9)</span>
+    </div>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="รูปร่างความเร็วแบบพาราโบลาของการไหลราบเรียบในท่อ ความเร็วเป็นศูนย์ที่ผนังทั้งสองข้างและสูงสุดที่แกน โดยความเร็วเฉลี่ยวาดเป็นเส้นประที่ครึ่งหนึ่งของค่าสูงสุดพอดี มีธาตุรูปวงแหวนรัศมี r หนา เดลตาอาร์ แรเงาไว้ และอัตราการไหลคือผลรวมของความเร็วคูณพื้นที่ของวงแหวนทุกวง">
+        <defs>
+          <marker id="w6a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#00788A"/>
+          </marker>
+          <marker id="w6b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#b03a2e"/>
+          </marker>
+          <marker id="w6c" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+          <marker id="w6d" viewBox="0 0 10 10" refX="1" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+            <path d="M10,0 L0,5 L10,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <rect x="70" y="50" width="520" height="200" fill="#f7fbfc"/>
+        <line x1="70" y1="50" x2="590" y2="50" stroke="#1c1917" stroke-width="3"/>
+        <line x1="70" y1="250" x2="590" y2="250" stroke="#1c1917" stroke-width="3"/>
+        <line x1="70" y1="150" x2="590" y2="150" stroke="#9c9287" stroke-width="1.2" stroke-dasharray="10 5 3 5"/>
+
+        <path d="M150,50 Q370,150 150,250" fill="#d9eef3" stroke="#00788A" stroke-width="2.8"/>
+        <line x1="150" y1="50" x2="150" y2="250" stroke="#00788A" stroke-width="1.6"/>
+
+        <line x1="150" y1="150" x2="315" y2="150" stroke="#00788A" stroke-width="2.4" marker-end="url(#w6a)"/>
+        <line x1="150" y1="110" x2="270" y2="110" stroke="#00788A" stroke-width="1.8" marker-end="url(#w6a)"/>
+        <line x1="150" y1="190" x2="270" y2="190" stroke="#00788A" stroke-width="1.8" marker-end="url(#w6a)"/>
+        <line x1="150" y1="76" x2="192" y2="76" stroke="#00788A" stroke-width="1.8" marker-end="url(#w6a)"/>
+        <line x1="150" y1="224" x2="192" y2="224" stroke="#00788A" stroke-width="1.8" marker-end="url(#w6a)"/>
+        <text x="326" y="144" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#00788A">u<tspan font-size="11" dy="4">max</tspan></text>
+
+        <line x1="260" y1="50" x2="260" y2="250" stroke="#b03a2e" stroke-width="2.6" stroke-dasharray="7 4"/>
+        <line x1="150" y1="64" x2="254" y2="64" stroke="#b03a2e" stroke-width="1.6" marker-end="url(#w6b)"/>
+        <line x1="150" y1="236" x2="254" y2="236" stroke="#b03a2e" stroke-width="1.6" marker-end="url(#w6b)"/>
+        <text x="266" y="44" font-family="Cambria, Georgia, serif" font-size="16" font-style="italic" fill="#b03a2e">u&#772; = &frac12;u<tspan font-size="11" dy="4">max</tspan></text>
+
+        <rect x="150" y="96" width="94" height="12" fill="#c8a14a" opacity=".45"/>
+        <line x1="112" y1="150" x2="112" y2="102" stroke="#1c1917" stroke-width="1.4" marker-start="url(#w6d)" marker-end="url(#w6c)"/>
+        <text x="90" y="128" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">r</text>
+        <line x1="132" y1="96" x2="132" y2="108" stroke="#8a6d1f" stroke-width="2.2"/>
+        <text x="96" y="92" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#8a6d1f">&#948;r</text>
+
+        <text x="620" y="90" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">วงแหวนที่แรเงามีพื้นที่</text>
+        <text x="620" y="110" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#8a6d1f">&#948;A = 2&#960;r&thinsp;&#948;r</text>
+        <text x="620" y="138" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">และพาการไหล</text>
+        <text x="620" y="158" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#8a6d1f">&#948;Q = u<tspan font-size="10" dy="3">r</tspan><tspan font-size="15" dy="-3"> &middot; 2&#960;r&thinsp;&#948;r</tspan></text>
+        <text x="620" y="186" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">รวมวงแหวนทุกวงตั้งแต่</text>
+        <text x="620" y="204" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">แกนไปจนถึงผนัง</text>
+        <text x="620" y="222" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">ก็จะได้อัตราการไหล</text>
+
+        <text x="70" y="280" font-family="Segoe UI, Arial" font-size="12.5" fill="#4b4540">เป็นศูนย์ที่ผนังเพราะเงื่อนไขไม่ลื่นไถล และสูงสุดที่แกนเพราะเป็นจุดที่ไกลจากผนังทั้งสองข้างที่สุด</text>
+      </svg>
+      <figcaption><b>รูปที่ 5.6</b> สมการ&nbsp;(5.9) เขียนเป็นภาพ: <var>u</var> เทียบกับ
+        <var>r</var><sup>2</sup> เป็นพาราโบลาที่มีจุดยอดอยู่บนแกน
+        การจะไปจากรูปร่างความเร็วนี้สู่อัตราการไหล เราหั่นท่อออกเป็นวงแหวนบาง ๆ
+        แต่ละวงพา <var>u</var><sub>r</sub>&nbsp;&times; พื้นที่ของตัวเอง แล้วนำวงแหวนมารวมกัน
+        &mdash; ซึ่งก็คืออินทิกรัลของ &sect;5.8</figcaption>
+    </figure>
+
+    <p>ความเร็วมากที่สุดที่แกน ซึ่ง <var>r</var> = 0</p>
+
+    <div class="eq">
+      <span class="body"><var>u</var><sub>max</sub> = <span class="frac"><span class="num">&Delta;<var>p R</var><sup>2</sup></span><span class="den">4<var>&mu;L</var></span></span>
+        = <span class="frac"><span class="num">&Delta;<var>p d</var><sup>2</sup></span><span class="den">16<var>&mu;L</var></span></span></span>
+      <span class="tag">(5.10)</span>
+    </div>
+
+    <!-- ============================================================ 5.8 -->
+    <h2 id="s8">5.8 สมการฮาเกน&ndash;ปัวเซย</h2>
+
+    <p>รูปร่างความเร็วให้ความเร็ว ณ ทุกรัศมี ส่วนอัตราการไหลคือผลรวมของความเร็วนั้นคูณพื้นที่ที่มันไหลผ่าน
+      คิดทีละวงแหวนดังที่รูปที่&nbsp;5.6 แสดง</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.11)</span>
+      <span class="body"><var>Q</var> =
+        <span class="intg"><span class="lim"><span class="hi"><var>R</var></span><span class="lo">0</span></span></span>
+        <var>u</var><sub>r</sub> &middot; 2<var>&pi;r</var>&thinsp;<span class="dx">d</span><var>r</var>
+        = <span class="frac"><span class="num">2<var>&pi;</var>&Delta;<var>p</var></span><span class="den">4<var>&mu;L</var></span></span>
+        <span class="intg"><span class="lim"><span class="hi"><var>R</var></span><span class="lo">0</span></span></span>
+        <span class="pren"><var>R</var><sup>2</sup><var>r</var> &minus; <var>r</var><sup>3</sup></span>&thinsp;<span class="dx">d</span><var>r</var></span>
+      <span class="body">= <span class="frac"><span class="num"><var>&pi;</var>&Delta;<var>p</var></span><span class="den">2<var>&mu;L</var></span></span>
+        <span class="pren sq t2"><span class="frac sm"><span class="num"><var>R</var><sup>2</sup><var>r</var><sup>2</sup></span><span class="den">2</span></span>
+        &minus; <span class="frac sm"><span class="num"><var>r</var><sup>4</sup></span><span class="den">4</span></span></span><sub>0</sub><sup><var>R</var></sup>
+        = <span class="frac"><span class="num"><var>&pi;</var>&Delta;<var>p R</var><sup>4</sup></span><span class="den">8<var>&mu;L</var></span></span></span>
+    </div>
+
+    <p>เขียนในรูปเส้นผ่านศูนย์กลาง เพราะนั่นคือสิ่งที่ใช้ซื้อขายท่อกัน จะได้<b>สมการฮาเกน&ndash;ปัวเซย</b></p>
+
+    <div class="eq">
+      <span class="body"><var>Q</var> = <span class="frac"><span class="num"><var>&pi;</var>&Delta;<var>p d</var><sup>4</sup></span><span class="den">128<var>&mu;L</var></span></span></span>
+      <span class="tag">(5.12)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">กำลังสี่</span>
+      <p>ที่ความดันตกคร่อมค่าหนึ่ง อัตราการไหลของท่อที่ไหลราบเรียบแปรตาม<b>กำลังสี่ของเส้นผ่านศูนย์กลาง</b>
+        ขยายรูใหญ่ขึ้น 20&nbsp;% แล้วจะได้การไหลเป็นสองเท่า ลดลงครึ่งหนึ่งจะเหลือหนึ่งในสิบหก
+        นี่คือเหตุผลที่หัวน้ำหยดที่อุดตันบางส่วนสูญเสียอัตราการจ่ายน้ำอย่างฉับพลัน
+        ที่เข็มเกจไวต่อการเปลี่ยนแปลงมาก และที่ความดันโลหิตตอบสนองรุนแรงต่อการเปลี่ยนเส้นผ่านศูนย์กลาง
+        ของหลอดเลือดเพียงเล็กน้อย &mdash; ปัวเซยเป็นแพทย์ และสิ่งที่เขาวัดคือเลือด</p>
+    </div>
+
+    <p>การหารด้วยพื้นที่ให้ความเร็วเฉลี่ย และการเทียบกับสมการ&nbsp;(5.10)
+      ก็ชำระคำสัญญาที่ให้ไว้ตั้งแต่ &sect;3.3</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.13)</span>
+      <span class="body"><var>u&#772;</var> = <span class="frac"><span class="num"><var>Q</var></span><span class="den"><var>&pi;R</var><sup>2</sup></span></span>
+        = <span class="frac"><span class="num">&Delta;<var>p R</var><sup>2</sup></span><span class="den">8<var>&mu;L</var></span></span>
+        = <span class="frac"><span class="num">&Delta;<var>p d</var><sup>2</sup></span><span class="den">32<var>&mu;L</var></span></span></span>
+      <span class="body"><span class="say">และดังนั้น</span>
+        <span class="frac"><span class="num"><var>u&#772;</var></span><span class="den"><var>u</var><sub>max</sub></span></span>
+        = <span class="frac"><span class="num">1</span><span class="den">2</span></span>
+        <span class="say">พอดี สำหรับการไหลราบเรียบในท่อกลม</span></span>
+    </div>
+
+    <p>สุดท้าย จัดรูป (5.13) หาความดันที่ลดลง แล้วหารด้วย <var>&rho;g</var>
+      เพื่อแปลงเป็นหน่วยเฮดของบทที่&nbsp;3</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.14)</span>
+      <span class="body">&Delta;<var>p</var> = <span class="frac"><span class="num">32<var>&mu;Lu&#772;</var></span><span class="den"><var>d</var><sup>2</sup></span></span>
+        &nbsp;&nbsp;&rArr;&nbsp;&nbsp;
+        <var>h</var><sub>f</sub> = <span class="frac"><span class="num">32<var>&mu;Lu&#772;</var></span><span class="den"><var>&rho;gd</var><sup>2</sup></span></span></span>
+    </div>
+
+    <div class="callout">
+      <span class="label">ทฤษฎีพบกับการวัด</span>
+      <p>ดูว่าสมการ&nbsp;(5.14) บอกอะไรเกี่ยวกับเลขชี้กำลัง: <var>h</var><sub>f</sub> เป็นสัดส่วนกับ
+        <var>u&#772;</var> <b>ยกกำลังหนึ่ง</b> ซึ่งก็คือความชันเท่ากับ&nbsp;1 พอดีที่รูปที่&nbsp;5.4
+        วัดได้บนแขนงราบเรียบ โดยที่นี่พิสูจน์ขึ้นมาจากสมดุลแรงกับกฎความหนืดของนิวตันเท่านั้น
+        ทฤษฎีกับการทดลองตรงกันโดยไม่ต้องใช้ค่าคงที่ที่ปรับจากข้อมูลเลยแม้แต่ตัวเดียว &mdash;
+        ซึ่งเป็นเหตุผลที่กรณีราบเรียบคุ้มค่าแก่ความยุ่งยาก แม้นักศึกษาจะแทบไม่ได้ออกแบบให้มันเกิดขึ้น</p>
+    </div>
+
+    <!-- ============================================================ 5.9 -->
+    <h2 id="s9">5.9 ตัวประกอบความเสียดทานและสมการดาร์ซี</h2>
+
+    <p>การไหลปั่นป่วนแก้แบบที่ &sect;5.7 แก้การไหลราบเรียบไม่ได้
+      เพราะกฎความหนืดของนิวตันไม่ได้อธิบายความเค้นเฉือนทั้งหมดอีกต่อไป:
+      โมเมนตัมส่วนใหญ่ถูกพาไปโดยกระแสวน และไม่มีสมการสำหรับกระแสวนเหล่านั้น
+      กรณีปั่นป่วนจึงถูกจัดการด้วยวิธีที่วิศวกรใช้เสมอกับสิ่งที่พิสูจน์ไม่ได้ &mdash;
+      คือแยกความไม่รู้ไปไว้ในสัมประสิทธิ์ตัวเดียว แล้ววัดค่ามันเอา</p>
+
+    <p>เริ่มจากความสัมพันธ์เดียวที่รอดมา คือสมการ&nbsp;(5.5)
+      ซึ่งไม่ต้องใช้สมมติฐานใด ๆ เกี่ยวกับลักษณะการไหล</p>
+
+    <div class="eq plain">
+      <span class="body">&Delta;<var>p</var> = <span class="frac"><span class="num">4<var>L&tau;</var><sub>w</sub></span><span class="den"><var>d</var></span></span></span>
+    </div>
+
+    <p>การทดลองแสดงว่าในการไหลปั่นป่วน ความเค้นเฉือนที่ผนังเป็นสัดส่วนกับ
+      <var>&rho;u</var><sup>2</sup> อย่างใกล้เคียงมาก &mdash; ซึ่งไม่น่าแปลกใจ
+      เพราะนั่นคือฟลักซ์ของโมเมนตัม และกระแสวนก็ขนถ่ายโมเมนตัม
+      เรานิยาม<b>ตัวประกอบความเสียดทาน</b> <var>&lambda;</var> ที่ไม่มีมิติขึ้นมารับค่าคงที่ของสัดส่วนนั้น</p>
+
+    <div class="eq">
+      <span class="body"><var>&tau;</var><sub>w</sub> = <span class="frac"><span class="num"><var>&lambda;&rho;u</var><sup>2</sup></span><span class="den">8</span></span></span>
+      <span class="tag">(5.15)</span>
+    </div>
+
+    <p>แทนค่าแล้วหารด้วย <var>&rho;g</var> จะได้<b>สมการดาร์ซี&ndash;ไวส์บาค</b>
+      ซึ่งเป็นสูตรที่ใช้มากที่สุดสูตรเดียวในงานวิศวกรรมน้ำ</p>
+
+    <div class="eq">
+      <span class="body"><var>h</var><sub>f</sub> = <span class="frac"><span class="num"><var>&lambda;Lu</var><sup>2</sup></span><span class="den">2<var>gd</var></span></span></span>
+      <span class="tag">(5.16)</span>
+    </div>
+
+    <div class="callout rule">
+      <span class="label">อะไรที่สำเร็จแล้วและอะไรที่ยังไม่</span>
+      <p>สมการ&nbsp;(5.16) ไม่ใช่ผลเฉลย แต่เป็น<em>นิยาม</em>ที่ผลักทุกสิ่งที่ไม่รู้เข้าไปไว้ใน
+        <var>&lambda;</var> คุณค่าของมันคือแสดงให้เห็นว่า <var>h</var><sub>f</sub> ขึ้นกับอะไร
+        ตั้งแต่ก่อนจะรู้ค่า <var>&lambda;</var> เสียอีก: เป็นสัดส่วนกับความยาว
+        เป็นสัดส่วนกับความเร็วยกกำลังสอง และแปรผกผันกับเส้นผ่านศูนย์กลาง
+        การหา <var>&lambda;</var> จึงเป็นอีกปัญหาหนึ่งต่างหาก ซึ่งแก้ไว้ใน &sect;5.10 สำหรับการไหลปั่นป่วน
+        &mdash; และแก้ได้อย่างแม่นยำเดี๋ยวนี้เลยสำหรับการไหลราบเรียบ</p>
+    </div>
+
+    <h3>ตัวประกอบความเสียดทานของการไหลราบเรียบ</h3>
+    <p>สำหรับการไหลราบเรียบ เรามีสองนิพจน์สำหรับการสูญเสียเฮดค่าเดียวกัน คือสมการ&nbsp;(5.14) จากทฤษฎี
+      และสมการ&nbsp;(5.16) จากนิยาม ให้ทั้งสองเท่ากัน</p>
+
+    <div class="eq stack">
+      <span class="tag">(5.17)</span>
+      <span class="body"><span class="frac"><span class="num">32<var>&mu;Lu</var></span><span class="den"><var>&rho;gd</var><sup>2</sup></span></span>
+        = <span class="frac"><span class="num"><var>&lambda;Lu</var><sup>2</sup></span><span class="den">2<var>gd</var></span></span>
+        &nbsp;&rArr;&nbsp;
+        <var>&lambda;</var> = <span class="frac"><span class="num">64<var>&mu;</var></span><span class="den"><var>&rho;ud</var></span></span>
+        = <span class="frac"><span class="num">64</span><span class="den"><var>Re</var></span></span></span>
+    </div>
+
+    <p>ดังนั้นในการไหลราบเรียบ ตัวประกอบความเสียดทานขึ้นกับเลขเรย์โนลด์และ<b>ไม่ขึ้นกับสิ่งอื่นใดเลย</b>
+      &mdash; โดยเฉพาะไม่ขึ้นกับความขรุขระของท่อ นั่นคือรายการในตารางที่&nbsp;5.2 ที่ทำให้คนแปลกใจ
+      และเหตุผลเป็นเชิงกายภาพ: ในการไหลราบเรียบ ยอดความขรุขระจมอยู่ภายในชั้นที่เคลื่อนที่ช้า
+      ของไหลจึงไม่เคยเห็นมันเลย</p>
+
+    <div class="callout warn">
+      <span class="label">ตัวประกอบความเสียดทานสองแบบ และความยุ่งเหยิงที่ตามมา</span>
+      <p>ตำราอังกฤษรุ่นเก่า &mdash; รวมถึงเอกสาร CIVE&nbsp;1400 ที่เป็นต้นฉบับส่วนใหญ่ &mdash;
+        ใช้ตัวประกอบความเสียดทานอีกแบบ เขียนว่า <var>f</var> โดยนิยามให้</p>
+      <div class="eq plain">
+        <span class="body"><var>h</var><sub>f</sub> = <span class="frac"><span class="num">4<var>fLu</var><sup>2</sup></span><span class="den">2<var>gd</var></span></span>
+          <span class="say">โดย</span> <var>f</var> = <span class="frac sm"><span class="num">16</span><span class="den"><var>Re</var></span></span>
+          <span class="say">ในการไหลราบเรียบ</span></span>
+      </div>
+      <p>ทั้งสองสัมพันธ์กันด้วย <b><var>&lambda;</var> = 4<var>f</var></b>
+        ทั้งคู่อธิบายฟิสิกส์เดียวกันและให้คำตอบเดียวกัน แต่ตัวประกอบสี่ก็คือตัวประกอบสี่
+        วิชานี้ใช้ <var>&lambda;</var> ซึ่งเป็นตัวประกอบความเสียดทานของดาร์ซี
+        เพราะเป็นสิ่งที่แผนภาพมูดีทุกฉบับ ซอฟต์แวร์ทุกตัว และมาตรฐานสากลทุกฉบับพิมพ์ออกมา
+        <b>เมื่อใดที่หยิบค่าตัวประกอบความเสียดทานจากหนังสือ ให้ตรวจก่อนว่าเป็นตัวไหน</b> &mdash;
+        ถ้าค่าในกรณีราบเรียบที่อ้างไว้คือ 64/<var>Re</var> นั่นคือ <var>&lambda;</var>
+        ถ้าเป็น 16/<var>Re</var> นั่นคือ <var>f</var></p>
+    </div>
+
+    <h3>ความลาดชลศาสตร์</h3>
+    <p>การหารการสูญเสียเฮดด้วยความยาวให้ความชันของเส้นระดับชลศาสตร์
+      ซึ่งเป็นวิธีที่มักใช้บอกการสูญเสียในท่อส่งน้ำในสนาม</p>
+
+    <div class="eq">
+      <span class="body"><var>i</var> = <span class="frac"><span class="num"><var>h</var><sub>f</sub></span><span class="den"><var>L</var></span></span>
+        = <span class="frac"><span class="num"><var>&lambda;u</var><sup>2</sup></span><span class="den">2<var>gd</var></span></span></span>
+      <span class="tag">(5.18)</span>
+    </div>
+
+    <p>ผู้ออกแบบที่พูดว่า &ldquo;สามเมตรต่อกิโลเมตร&rdquo; กำลังพูดถึง <var>i</var> = 0.003
+      เนื่องจาก <var>i</var> ไม่ขึ้นกับความยาว จึงคำนวณครั้งเดียวสำหรับท่อและอัตราการไหลที่กำหนด
+      แล้วคูณด้วยความยาวเท่าใดก็ตามที่แนวท่อจริงออกมาได้</p>
+
+    <!-- ============================================================ 5.10 -->
+    <h2 id="s10">5.10 เนื้อหาเสริม &mdash; การกำหนดขนาดท่อส่งน้ำจริง</h2>
+
+    <div class="callout rule">
+      <span class="label">เนื้อหาเสริม &mdash; ไม่ออกสอบ</span>
+      <p>หัวข้อนี้อยู่นอกขอบเขต CIVE&nbsp;1400 &sect;4.1&ndash;4.3 &sect;5.9 นิยาม <var>&lambda;</var>
+        ไว้แล้วก็จบ ส่วนนี้คือวิธีหามันจริง ๆ และสิ่งอื่นที่ต้องเพิ่มเข้าไปก่อนตัวเลขจะกลายเป็นใบสั่งซื้อท่อ
+        ไม่มีอะไรในหัวข้อนี้ออกสอบ แต่ทั้งหมดคือวิชาชลประทานในปีที่สอง และบางส่วนจะได้ใช้ก่อนถึงตอนนั้น
+        ตัวอย่างหรือโจทย์ใดที่อาศัยหัวข้อนี้จะกำกับด้วย <span class="pill">&sect;5.10</span></p>
+    </div>
+
+    <h3>ความขรุขระ และแผนภาพมูดี</h3>
+    <p>ในการไหลปั่นป่วน ตัวประกอบความเสียดทานขึ้นกับสองสิ่ง คือเลขเรย์โนลด์
+      และ<b>ความขรุขระสัมพัทธ์</b> <var>k</var><sub>s</sub>/<var>d</var> โดย <var>k</var><sub>s</sub>
+      คือความสูงเฉลี่ยของตุ่มบนผนังท่อ การพล็อต <var>&lambda;</var> เทียบกับ <var>Re</var>
+      สำหรับความขรุขระสัมพัทธ์หลาย ๆ ค่าจะได้<b>แผนภาพมูดี</b>
+      ซึ่งเป็นเครื่องมือทำงานของการออกแบบท่อส่งน้ำมาตั้งแต่ปี ค.ศ.&nbsp;1944</p>
+
+    <figure>
+      <svg viewBox="0 0 860 300" role="img" aria-label="แผนภาพมูดีอย่างย่อ พล็อตตัวประกอบความเสียดทานแลมบ์ดาเทียบกับเลขเรย์โนลด์บนแกนลอการิทึม ด้านซ้ายมีเส้นตรงเส้นเดียวของการไหลราบเรียบตามแลมบ์ดาเท่ากับ 64 ส่วน Re หลังช่วงวิกฤตที่ไม่เสถียร มีชุดเส้นโค้งของการไหลปั่นป่วนสำหรับความขรุขระสัมพัทธ์ต่าง ๆ ซึ่งลดลงตามเลขเรย์โนลด์แล้วแบนราบไปที่ค่าที่ขึ้นกับความขรุขระเพียงอย่างเดียว เส้นล่างสุดคือเส้นท่อเรียบ">
+        <defs>
+          <marker id="w7a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+            <path d="M0,0 L10,5 L0,10 z" fill="#1c1917"/>
+          </marker>
+        </defs>
+
+        <rect x="110" y="44" width="680" height="200" fill="#fdfcf9" stroke="#e3dac7" stroke-width="1.4"/>
+
+        <line x1="148.5" y1="44" x2="148.5" y2="244" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="276.8" y1="44" x2="276.8" y2="244" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="405.1" y1="44" x2="405.1" y2="244" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="533.4" y1="44" x2="533.4" y2="244" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="661.7" y1="44" x2="661.7" y2="244" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="110" y1="73.9" x2="790" y2="73.9" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="110" y1="114.8" x2="790" y2="114.8" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="110" y1="168.9" x2="790" y2="168.9" stroke="#efe9dc" stroke-width="1"/>
+        <line x1="110" y1="209.8" x2="790" y2="209.8" stroke="#efe9dc" stroke-width="1"/>
+
+        <line x1="110" y1="244" x2="800" y2="244" stroke="#1c1917" stroke-width="1.8" marker-end="url(#w7a)"/>
+        <line x1="110" y1="244" x2="110" y2="36" stroke="#1c1917" stroke-width="1.8" marker-end="url(#w7a)"/>
+        <text x="700" y="268" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">Re</text>
+        <text x="66" y="40" font-family="Cambria, Georgia, serif" font-size="15" font-style="italic" fill="#1c1917">&#955;</text>
+
+        <text x="134" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#179;</text>
+        <text x="262" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#8308;</text>
+        <text x="390" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#8309;</text>
+        <text x="519" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#8310;</text>
+        <text x="647" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#8311;</text>
+        <text x="775" y="260" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">10&#8312;</text>
+        <text x="76" y="78" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">0.10</text>
+        <text x="76" y="119" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">0.05</text>
+        <text x="76" y="173" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">0.02</text>
+        <text x="76" y="214" font-family="Segoe UI, Arial" font-size="11" fill="#4b4540">0.01</text>
+
+        <line x1="110" y1="59.4" x2="187.1" y2="141.2" stroke="#00788A" stroke-width="3"/>
+        <text x="116" y="96" font-family="Cambria, Georgia, serif" font-size="14" font-style="italic" fill="#00788A">&#955; = 64/Re</text>
+        <text x="114" y="130" font-family="Segoe UI, Arial" font-size="11.5" font-weight="700" fill="#00788A">ราบเรียบ</text>
+
+        <rect x="187.1" y="44" width="38.6" height="200" fill="#c8a14a" opacity=".18"/>
+        <text x="176" y="286" font-family="Segoe UI, Arial" font-size="11" fill="#8a6d1f">ช่วงวิกฤต</text>
+
+        <path d="M225.7,128.4 C262,110 305,97 365,94.6 L790,93.6" fill="none" stroke="#b03a2e" stroke-width="2.4"/>
+        <text x="796" y="97" font-family="Segoe UI, Arial" font-size="10.5" fill="#b03a2e">0.05</text>
+
+        <path d="M250,134.7 C300,140 344,134 404,131.8 L790,131.1" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+        <text x="796" y="135" font-family="Segoe UI, Arial" font-size="10.5" fill="#b03a2e">0.01</text>
+
+        <path d="M300,150 C360,166 424,163 484,160.4 L790,159.7" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+        <text x="796" y="163" font-family="Segoe UI, Arial" font-size="10.5" fill="#b03a2e">0.002</text>
+
+        <path d="M405.1,175.8 C470,192 544,193 604,191.5 L790,191.1" fill="none" stroke="#b03a2e" stroke-width="2.2"/>
+        <text x="796" y="195" font-family="Segoe UI, Arial" font-size="10.5" fill="#b03a2e">0.0002</text>
+
+        <path d="M225.7,128.4 C250,136 262,140 276.8,141.9 C330,156 360,168 405.1,175.8 C460,187 490,195 533.4,201.1 C590,211 620,217 661.7,222.3" fill="none" stroke="#1c1917" stroke-width="2.6" stroke-dasharray="8 4"/>
+        <text x="614" y="238" font-family="Segoe UI, Arial" font-size="11.5" fill="#1c1917">ท่อเรียบ</text>
+
+        <text x="420" y="70" font-family="Segoe UI, Arial" font-size="11.5" fill="#b03a2e">ขรุขระเต็มที่: &#955; ขึ้นกับ k<tspan font-size="8.5" dy="3">s</tspan><tspan font-size="11.5" dy="-3">/d เท่านั้น ไม่ขึ้นกับ Re</tspan></text>
+        <text x="296" y="116" font-family="Segoe UI, Arial" font-size="11.5" fill="#4b4540">ปั่นป่วนช่วงเปลี่ยนผ่าน</text>
+        <text x="796" y="76" font-family="Segoe UI, Arial" font-size="10.5" fill="#b03a2e">k<tspan font-size="8.5" dy="3">s</tspan><tspan font-size="10.5" dy="-3">/d</tspan></text>
+      </svg>
+      <figcaption><b>รูปที่ 5.7</b> แผนภาพมูดี วาดอย่างย่อ &mdash; ใช้ฉบับพิมพ์จริงสำหรับงานจริง
+        มีสามบริเวณที่สำคัญ ด้านซ้ายมีเส้นเดียว: การไหลราบเรียบ ความขรุขระไม่เกี่ยว
+        ตรงกลางเป็นเส้นโค้งที่ขึ้นกับทั้ง <var>Re</var> และความขรุขระ
+        ด้านขวาเส้นโค้งกลายเป็นแนวราบ: การไหล<b>ขรุขระเต็มที่</b> และ <var>&lambda;</var>
+        ไม่ขึ้นกับ <var>Re</var> อีกต่อไป ดังนั้น <var>h</var><sub>f</sub>
+        จึงกลายเป็นสัดส่วนโดยตรงกับ <var>u</var><sup>2</sup> พอดี
+        ท่อส่งน้ำชลประทานส่วนใหญ่อยู่ในบริเวณกลางหรือเพิ่งเข้าสู่บริเวณขรุขระเต็มที่</figcaption>
+    </figure>
+
+    <p>เส้นโค้งเหล่านั้นวาดจากสมการ<b>โคลบรุก&ndash;ไวต์</b> ซึ่งครอบคลุมสนามของการไหลปั่นป่วนได้เกือบทั้งหมด</p>
+
+    <div class="eq">
+      <span class="body"><span class="frac"><span class="num">1</span><span class="den"><span class="sqrt"><span class="rad"><var>&lambda;</var></span></span></span></span>
+        = &minus;2 log<sub>10</sub>
+        <span class="pren t2"><span class="frac sm"><span class="num"><var>k</var><sub>s</sub></span><span class="den">3.7<var>d</var></span></span>
+        + <span class="frac sm"><span class="num">2.51</span><span class="den"><var>Re</var> <span class="sqrt"><span class="rad"><var>&lambda;</var></span></span></span></span></span></span>
+      <span class="tag">(5.19)</span>
+    </div>
+
+    <p>สังเกตว่า <var>&lambda;</var> ปรากฏอยู่ทั้งสองข้าง: สมการนี้จัดรูปแยกตัวแปรไม่ได้
+      ต้องแก้ด้วยการวนซ้ำ หรืออ่านจากแผนภาพ หรือประเมินด้วยสูตรประมาณแบบชัดแจ้งที่ฝังอยู่ในซอฟต์แวร์ออกแบบ
+      ความยุ่งยากนั้นคือราคาที่จ่ายเพื่อให้สูตรเดียวครอบคลุมทั้งสนาม</p>
+
+    <div class="table-wrap">
+      <table id="t3">
+        <caption><b>ตารางที่ 5.3</b> ความสูงความขรุขระโดยทั่วไป
+          คอลัมน์ขวามือคือค่าที่เข้าสู่การคำนวณจริง สำหรับท่อขนาด 150&nbsp;มม.</caption>
+        <thead>
+          <tr><th>วัสดุท่อ</th><th><var>k</var><sub>s</sub> (มม.)</th><th><var>k</var><sub>s</sub>/<var>d</var> ที่ 150&nbsp;มม.</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>พีวีซี พีอี ท่อรีดขึ้นรูป &mdash; ถือว่าเรียบ</td><td>0.0015&ndash;0.03</td><td>0.0000&ndash;0.0002</td></tr>
+          <tr><td>เหล็กกล้าทางการค้า ใหม่</td><td>0.045</td><td>0.0003</td></tr>
+          <tr><td>เหล็กชุบสังกะสี</td><td>0.15</td><td>0.0010</td></tr>
+          <tr><td>เหล็กหล่อ ใหม่</td><td>0.25</td><td>0.0017</td></tr>
+          <tr><td>คอนกรีต ขึ้นกับการตกแต่งผิว</td><td>0.3&ndash;3.0</td><td>0.002&ndash;0.020</td></tr>
+          <tr><td>เหล็กหล่อ มีตะกรันพอกหนักหลังใช้ 20 ปี</td><td>สูงถึง 6</td><td>สูงถึง 0.04</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="callout warn">
+      <span class="label">ท่อขรุขระขึ้นเรื่อย ๆ และมันสำคัญกว่าท่อที่เราเลือกเสียอีก</span>
+      <p>การกัดกร่อน ตะกรัน และการเติบโตของสิ่งมีชีวิตทำให้ <var>k</var><sub>s</sub>
+        สูงขึ้นตลอดอายุการใช้งานของท่อเมน และตุ่มเหล่านั้นยังทำให้รูท่อแคบลงด้วย
+        ท่อเหล็กหล่อเก่าอาจพาน้ำได้ไม่ถึงครึ่งของอัตราเดิมที่เฮดเท่ากัน
+        การออกแบบที่ไม่เผื่อการเสื่อมสภาพคือการออกแบบที่ล้มเหลวในการใช้งานจริง
+        ทั้งที่ตัวเลขทุกตัวในนั้นถูกต้อง
+        ซึ่งเป็นเหตุผลที่มาตรฐานการออกแบบกำหนดให้ใช้ตัวประกอบความเสียดทานที่<em>ปลาย</em>อายุการใช้งาน
+        ไม่ใช่ที่วันส่งมอบงาน</p>
+    </div>
+
+    <h3>การสูญเสียที่ไม่ใช่ความเสียดทาน</h3>
+    <p>ความเสียดทานตามช่วงท่อตรงเป็นเพียงส่วนหนึ่ง ทุกข้องอ ประตูน้ำ จุดคอด สามทาง และทางเข้า
+      ล้วนกินเฮดด้วยเช่นกัน เพราะแต่ละจุดทำให้การไหลแยกตัวแล้วผสมกันใหม่ &mdash; กลไกของ &sect;4.10
+      สิ่งเหล่านี้เรียกว่า<b>การสูญเสียเฉพาะแห่ง</b> และคิดเป็นจำนวนเท่าของเฮดความเร็ว</p>
+
+    <div class="eq">
+      <span class="body"><var>h</var><sub>L</sub> = <var>K</var>
+        <span class="frac"><span class="num"><var>u</var><sup>2</sup></span><span class="den">2<var>g</var></span></span></span>
+      <span class="tag">(5.20)</span>
+    </div>
+
+    <p>โดย <var>K</var> &asymp; 0.5 สำหรับทางเข้าขอบคม, 1.0 สำหรับทางออกลงถัง
+      (ผลของบอร์ดา&ndash;การ์โนต์ใน &sect;4.10), 0.3&ndash;0.9 สำหรับข้องอ,
+      0.2 สำหรับประตูน้ำแบบบานเลื่อนที่เปิดสุด และ 10 หรือมากกว่าเมื่อเปิดไม่สุด
+      คำว่า &ldquo;เฉพาะแห่ง&rdquo; อาจทำให้เข้าใจผิดว่าเล็กน้อย:
+      ในท่อสั้นที่สูบด้วยเครื่องสูบน้ำและมีอุปกรณ์ประกอบมาก มันอาจมากกว่าความเสียดทานในท่อเสียอีก
+      ส่วนในท่อเมนยาวมันมักละเลยได้ วิธีเดียวที่จะรู้ว่าอยู่ในกรณีไหนคือรวมมันขึ้นมาดู</p>
+
+    <h3>เฮเซน&ndash;วิลเลียมส์ และทำไมนักศึกษาจะได้เจอ</h3>
+    <p>งานชลประทานมักใช้สูตรเชิงประสบการณ์รุ่นเก่ากว่าแทนดาร์ซี&ndash;ไวส์บาค
+      เพราะไม่ต้องวนซ้ำและไม่ต้องใช้ความหนืด</p>
+
+    <div class="eq">
+      <span class="body"><var>h</var><sub>f</sub> = <span class="frac"><span class="num">10.67 <var>L Q</var><sup class="pow">1.852</sup></span><span class="den"><var>C</var><sup class="pow">1.852</sup> <var>d</var><sup class="pow">4.87</sup></span></span></span>
+      <span class="tag">(5.21)</span>
+    </div>
+
+    <p>ในหน่วย SI โดย <var>C</var> คือสัมประสิทธิ์เฮเซน&ndash;วิลเลียมส์: ราว 150 สำหรับพีวีซี
+      140 สำหรับเหล็กใหม่ 130 สำหรับเหล็กหล่อใหม่ และ 100 หรือต่ำกว่าสำหรับของเก่า
+      สังเกตเลขชี้กำลัง 1.852 บนอัตราการไหล &mdash; เกือบแต่ไม่ใช่กำลังสองพอดีตาม &sect;5.5</p>
+
+    <div class="callout">
+      <span class="label">ใช้สูตรไหนดี</span>
+      <p>เฮเซน&ndash;วิลเลียมส์ใช้ได้เฉพาะกับน้ำ ที่อุณหภูมิปกติ ในการไหลปั่นป่วน
+        ที่ความเร็วไม่เกินราว 3&nbsp;ม./วินาที &mdash; ซึ่งคือเงื่อนไขของท่อประปาหรือท่อส่งน้ำชลประทาน
+        อันเป็นสิ่งที่เฮเซนและวิลเลียมส์ปรับสูตรเข้ากับมัน นอกเงื่อนไขเหล่านั้นมันผิดเฉย ๆ
+        ส่วนดาร์ซี&ndash;ไวส์บาค ซึ่งตั้งอยู่บนฟิสิกส์ของ &sect;5.6 แทนที่จะเป็นการปรับเส้นโค้ง
+        ใช้ได้เสมอ ใช้เฮเซน&ndash;วิลเลียมส์เพื่อความรวดเร็วกับท่อเมนน้ำทั่วไป
+        ใช้ดาร์ซี&ndash;ไวส์บาคเมื่อของไหลไม่ใช่น้ำ เมื่อการไหลอาจเป็นแบบราบเรียบ หรือเมื่อคำตอบมีความสำคัญ</p>
+    </div>
+
+    <h3>คำตอบนั้นเอาไปทำอะไร</h3>
+    <p>การสูญเสียเฮดไม่เคยเป็นจุดจบของงาน มันไปกำหนดกำลังของเครื่องสูบน้ำต่อ
+      และดังนั้นจึงกำหนดค่าไฟฟ้าอีกยี่สิบปีข้างหน้า</p>
+
+    <div class="eq">
+      <span class="body"><var>P</var> = <span class="frac"><span class="num"><var>&rho;gQH</var></span><span class="den"><var>&eta;</var></span></span>
+        <span class="say">โดย</span> <var>H</var> = <var>H</var><sub>static</sub> + <var>h</var><sub>f</sub> + &Sigma;<var>h</var><sub>L</sub></span>
+      <span class="tag">(5.22)</span>
+    </div>
+
+    <p>โดย <var>&eta;</var> คือประสิทธิภาพของเครื่องสูบน้ำ ปกติอยู่ที่ 0.6&ndash;0.8
+      นี่คือสิ่งที่ทำให้การกำหนดขนาดท่อเป็นปัญหาทางเศรษฐศาสตร์มากกว่าปัญหาทางชลศาสตร์:
+      ท่อที่ใหญ่กว่าซื้อแพงกว่าครั้งเดียว แต่ประหยัดค่าสูบน้ำทุกปี
+      <b>เส้นผ่านศูนย์กลางเชิงเศรษฐศาสตร์</b> คือขนาดที่ทำให้ผลรวมต่ำที่สุด
+      และมันแทบจะใหญ่กว่าท่อเล็กที่สุดที่ทำงานได้ทางกายภาพเสมอ</p>
+
+    <div class="callout rule">
+      <span class="label">หลักคร่าว ๆ ที่ควรจำติดตัว</span>
+      <ul>
+        <li><b>ความเร็วออกแบบ</b> ในท่อส่งน้ำชลประทาน: 0.6 ถึง 2.0&nbsp;ม./วินาที
+          ต่ำกว่านั้นตะกอนจะตกทับถม สูงกว่านั้นทั้งความเสียดทานและแรงดันกระชากจะพุ่งขึ้นชัน
+          และเริ่มเกิดการกัดกร่อน</li>
+        <li><b>ความลาดชลศาสตร์</b>: 1 ถึง 5&nbsp;ม. ต่อกิโลเมตรถือว่าปกติสำหรับท่อเมนยาว
+          ถ้ามากกว่านั้นมากมักเป็นสัญญาณว่าท่อเล็กเกินไป</li>
+        <li><b>ตรวจเลขเรย์โนลด์สักครั้ง</b>ตั้งแต่ต้น เพื่อยืนยันว่าการไหลเป็นแบบปั่นป่วน
+          สูตรของการไหลปั่นป่วนจะได้ใช้ได้ มันจะเป็นเช่นนั้นเสมอ &mdash;
+          แต่ครั้งเดียวที่มันไม่เป็น ทุกอย่างที่คำนวณหลังจากนั้นจะผิดหมด</li>
+      </ul>
+    </div>
+
+    <!-- ============================================================ 5.11 -->
+    <h2 id="s11">5.11 ตัวอย่างการคำนวณ</h2>
+
+    <p>ตลอดหัวข้อนี้ น้ำที่ 20&nbsp;&deg;C มี <var>&rho;</var> = 1000&nbsp;กก.&nbsp;ม.<sup>&minus;3</sup>
+      และ <var>&nu;</var> =
+      1.0&nbsp;&times;&nbsp;10<sup>&minus;6</sup>&nbsp;ม.<sup>2</sup>&nbsp;วินาที<sup>&minus;1</sup>
+      และ <var>g</var> = 9.81&nbsp;ม.&nbsp;วินาที<sup>&minus;2</sup>
+      ทุกข้อเริ่มต้นด้วยการหา <var>Re</var> เพราะจนกว่าจะรู้ลักษณะการไหล
+      เราก็ยังไม่รู้ว่าได้รับอนุญาตให้ใช้สูตรใด</p>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 5.1 &mdash; ท่อเดียวกัน ของไหลสองชนิด</h4>
+      <p>ท่อขนาด 25&nbsp;มม. พาของไหล 0.8&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup>
+        จงหาเลขเรย์โนลด์และลักษณะการไหล (ก) สำหรับน้ำที่ 20&nbsp;&deg;C และ (ข) สำหรับน้ำมันมะกอก
+        <var>&rho;</var> = 920&nbsp;กก.&nbsp;ม.<sup>&minus;3</sup>, <var>&mu;</var> =
+        0.084&nbsp;Pa&nbsp;s</p>
+      <p class="step"><var>A</var> = <var>&pi;</var>(0.025)<sup>2</sup>/4 =
+        4.909&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;ม.<sup>2</sup>
+        ความเร็วเฉลี่ยจึงเท่ากันทั้งสองกรณี<br>
+        <var>u</var> = 0.0008 / 4.909&nbsp;&times;&nbsp;10<sup>&minus;4</sup> =
+        1.63&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></p>
+      <p class="step"><b>(ก) น้ำ</b>
+        <var>Re</var> = <var>ud</var>/<var>&nu;</var> = 1.63 &times; 0.025 /
+        1.0&nbsp;&times;&nbsp;10<sup>&minus;6</sup> = <b>4.07&nbsp;&times;&nbsp;10<sup>4</sup></b>
+        &mdash; สูงกว่า 4000 มาก จึง<b>ปั่นป่วน</b></p>
+      <p class="step"><b>(ข) น้ำมัน</b> หาความหนืดจลนศาสตร์ก่อน
+        <var>&nu;</var> = <var>&mu;</var>/<var>&rho;</var> = 0.084/920 =
+        9.13&nbsp;&times;&nbsp;10<sup>&minus;5</sup>&nbsp;ม.<sup>2</sup>&nbsp;วินาที<sup>&minus;1</sup>
+        ซึ่งเป็น 91 เท่าของน้ำ<br>
+        <var>Re</var> = 1.63 &times; 0.025 / 9.13&nbsp;&times;&nbsp;10<sup>&minus;5</sup> =
+        <b>446</b> &mdash; ต่ำกว่า 2000 จึง<b>ราบเรียบ</b></p>
+      <p class="result">ท่อเดียวกัน อัตราการไหลเท่ากัน ความเร็วเท่ากัน &mdash;
+        และของไหลทั้งสองอยู่ในลักษณะการไหลที่ต่างกันโดยสิ้นเชิง เป็นไปตามกฎคนละข้อ
+        และมีการสูญเสียเฮดที่แปรตามความเร็วต่างกัน สิ่งเดียวที่เปลี่ยนคือความหนืด
+        นี่คือการทดลองที่เรย์โนลด์ทำ และเป็นเหตุผลที่เราต้องดูเลขเรย์โนลด์แทนที่จะดูความเร็ว</p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 5.2 &mdash; การไหลราบเรียบ: คำตอบครบชุด</h4>
+      <p>น้ำมันที่มี <var>&rho;</var> = 900&nbsp;กก.&nbsp;ม.<sup>&minus;3</sup> และ <var>&mu;</var> =
+        0.12&nbsp;Pa&nbsp;s ไหลด้วยอัตรา 0.2&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup>
+        ผ่านท่อขนาด 20&nbsp;มม. ยาว 50&nbsp;ม. จงหาลักษณะการไหล ความดันที่ลดลง การสูญเสียเฮด
+        ความเร็วสูงสุด และความเค้นเฉือนที่ผนัง</p>
+      <p class="step"><b>หาลักษณะการไหลก่อน</b> <var>A</var> =
+        3.142&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;ม.<sup>2</sup>,
+        <var>u&#772;</var> = 0.0002/3.142&nbsp;&times;&nbsp;10<sup>&minus;4</sup> =
+        0.637&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup><br>
+        <var>&nu;</var> = 0.12/900 =
+        1.333&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;ม.<sup>2</sup>&nbsp;วินาที<sup>&minus;1</sup>
+        ดังนั้น <var>Re</var> = 0.637 &times; 0.020 / 1.333&nbsp;&times;&nbsp;10<sup>&minus;4</sup> =
+        <b>95.5</b> &mdash; ราบเรียบแน่นอน สมการ (5.9) ถึง (5.14) จึงใช้ได้</p>
+      <p class="step"><b>ความดันที่ลดลง</b> จากสมการ&nbsp;(5.14)<br>
+        &Delta;<var>p</var> = 32<var>&mu;Lu&#772;</var>/<var>d</var><sup>2</sup> =
+        32 &times; 0.12 &times; 50 &times; 0.637 / (0.020)<sup>2</sup> = <b>306&nbsp;kPa</b></p>
+      <p class="step"><b>การสูญเสียเฮด</b> ในหน่วยเมตรของน้ำมันนั้น<br>
+        <var>h</var><sub>f</sub> = &Delta;<var>p</var>/<var>&rho;g</var> = 305&thinsp;600 / (900 &times;
+        9.81) = <b>34.6&nbsp;ม.</b></p>
+      <p class="step"><b>ความเร็วสูงสุด</b> จากสมการ&nbsp;(5.13)
+        <var>u</var><sub>max</sub> = 2<var>u&#772;</var> =
+        <b>1.27&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup></b> ที่แกน</p>
+      <p class="result"><b>ความเค้นเฉือนที่ผนัง</b> จากสมการ&nbsp;(5.5)<br>
+        <var>&tau;</var><sub>w</sub> = &Delta;<var>p d</var>/4<var>L</var> = 305&thinsp;600 &times; 0.020 /
+        (4 &times; 50) = <b>30.6&nbsp;Pa</b><br>
+        <b>ตรวจด้วยเส้นทางอื่น</b> <var>&lambda;</var> = 64/<var>Re</var> = 64/95.5 = 0.670
+        และสมการ&nbsp;(5.16) ให้ <var>h</var><sub>f</sub> = 0.670 &times; 50 &times; 0.637<sup>2</sup> /
+        (2 &times; 9.81 &times; 0.020) = 34.6&nbsp;ม. &#10003;
+        สองสูตรนี้คือข้อความเดียวกัน จึงต้องตรงกัน ถ้าไม่ตรง แปลว่าลอกมาผิดสูตรใดสูตรหนึ่ง</p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 5.3 &mdash; หัวน้ำหยดแบบท่อฝอย</h4>
+      <p>หัวน้ำหยดแบบท่อฝอยทำจากท่อรูใน 0.6&nbsp;มม. ยาว 1.0&nbsp;ม. ทำงานที่ความดัน 100&nbsp;kPa
+        สำหรับน้ำที่ 25&nbsp;&deg;C ใช้ <var>&rho;</var> = 997&nbsp;กก.&nbsp;ม.<sup>&minus;3</sup> และ
+        <var>&mu;</var> = 8.9&nbsp;&times;&nbsp;10<sup>&minus;4</sup>&nbsp;Pa&nbsp;s
+        จงหาอัตราการจ่ายน้ำ แล้วยืนยันสมมติฐานที่ต้องใช้เพื่อหามัน</p>
+      <p class="step"><b>สมมติว่าราบเรียบ</b> แล้วใช้ฮาเกน&ndash;ปัวเซย สมการ&nbsp;(5.12)<br>
+        <var>Q</var> = <var>&pi;</var>&Delta;<var>p d</var><sup>4</sup> / 128<var>&mu;L</var>
+        = <var>&pi;</var> &times; 100&thinsp;000 &times; (0.0006)<sup>4</sup> /
+        (128 &times; 8.9&nbsp;&times;&nbsp;10<sup>&minus;4</sup> &times; 1.0)</p>
+      <p class="step">= 4.072&nbsp;&times;&nbsp;10<sup>&minus;8</sup> / 0.11392 =
+        <b>3.57&nbsp;&times;&nbsp;10<sup>&minus;7</sup>&nbsp;ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup>
+        = 1.29&nbsp;ลิตร&nbsp;ชั่วโมง<sup>&minus;1</sup></b></p>
+      <p class="step"><b>ทีนี้ตรวจสมมติฐาน</b> ซึ่งไม่ใช่ทางเลือก<br>
+        <var>A</var> = 2.827&nbsp;&times;&nbsp;10<sup>&minus;7</sup>&nbsp;ม.<sup>2</sup> ดังนั้น
+        <var>u</var> = 3.57&nbsp;&times;&nbsp;10<sup>&minus;7</sup>/2.827&nbsp;&times;&nbsp;10<sup>&minus;7</sup>
+        = 1.26&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup><br>
+        <var>Re</var> = <var>&rho;ud</var>/<var>&mu;</var> = 997 &times; 1.26 &times; 0.0006 /
+        8.9&nbsp;&times;&nbsp;10<sup>&minus;4</sup> = <b>850</b> &mdash; ราบเรียบ คำตอบจึงใช้ได้</p>
+      <p class="result"><b>และคำเตือนที่ตกออกมาจากผลนี้โดยตรง</b> ในการไหลราบเรียบ
+        <var>Q</var> &prop; 1/<var>&mu;</var> และความหนืดของน้ำลดลงราว 2&nbsp;% ต่อหนึ่งองศา
+        ระหว่างเช้าที่เย็นสบาย 20&nbsp;&deg;C กับบ่ายที่ร้อน 35&nbsp;&deg;C
+        หัวน้ำหยดนี้จะจ่ายน้ำมากขึ้นราว 30&nbsp;% ที่ความดันเท่าเดิม
+        นั่นคือเหตุผลที่หัวน้ำหยดเชิงพาณิชย์ใช้ช่องทางเดินน้ำแบบเขาวงกตที่ทำให้เกิดการไหล<em>ปั่นป่วน</em>แทน:
+        อัตราการไหลแบบปั่นป่วนแทบไม่ขึ้นกับความหนืด จึงแทบไม่ขึ้นกับอุณหภูมิ
+        <span class="pill">&sect;5.10</span></p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 5.4 &mdash; ท่อเมนที่ไหลปั่นป่วน และคำตอบบอกอะไร</h4>
+      <p>ท่อเมนพีวีซีขนาด 150&nbsp;มม. ยาว 1200&nbsp;ม. พาน้ำ 25&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup>
+        ที่ 20&nbsp;&deg;C กำหนด <var>&lambda;</var> = 0.019 จงหาเลขเรย์โนลด์ การสูญเสียเฮด
+        ความลาดชลศาสตร์ และความเค้นเฉือนที่ผนัง แล้วบอกว่าท่อขนาดนี้เหมาะสมหรือไม่</p>
+      <p class="step"><var>A</var> = 0.01767&nbsp;ม.<sup>2</sup>,
+        <var>u</var> = 0.025/0.01767 = 1.41&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup><br>
+        <var>Re</var> = 1.41 &times; 0.15 / 1.0&nbsp;&times;&nbsp;10<sup>&minus;6</sup> =
+        <b>2.12&nbsp;&times;&nbsp;10<sup>5</sup></b> &mdash; ปั่นป่วน สมการดาร์ซีจึงใช้ได้</p>
+      <p class="step"><b>การสูญเสียเฮด</b> จากสมการ&nbsp;(5.16)<br>
+        <var>u</var><sup>2</sup>/2<var>g</var> = 1.41<sup>2</sup>/19.62 = 0.102&nbsp;ม. และ
+        <var>&lambda;L</var>/<var>d</var> = 0.019 &times; 1200/0.15 = 152<br>
+        <var>h</var><sub>f</sub> = 152 &times; 0.102 = <b>15.5&nbsp;ม.</b></p>
+      <p class="step"><b>ความลาดชลศาสตร์</b> <var>i</var> = 15.5/1200 = 0.0129 นั่นคือ
+        <b>12.9&nbsp;ม. ต่อกิโลเมตร</b></p>
+      <p class="step"><b>ความเค้นเฉือนที่ผนัง</b> จากสมการ&nbsp;(5.15)
+        <var>&tau;</var><sub>w</sub> = <var>&lambda;&rho;u</var><sup>2</sup>/8 = 0.019 &times; 1000 &times;
+        2.00/8 = <b>4.75&nbsp;Pa</b></p>
+      <p class="result"><b>ขนาดนี้เหมาะสมหรือไม่ ไม่เหมาะ</b> ความลาด 12.9&nbsp;ม./กม.
+        สูงกว่า 1&ndash;5&nbsp;ม./กม. ที่ท่อเมนยาวควรเป็นอยู่มาก และเฮด 15.5&nbsp;ม. ที่ทิ้งไปเปล่า ๆ
+        คือค่าใช้จ่ายถาวรที่ผลักให้เครื่องสูบน้ำรับไว้ ลองเปลี่ยนเป็น 200&nbsp;มม.:
+        <var>u</var> ลดเหลือ 0.80&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup>, <var>&lambda;</var> เหลือราว
+        0.0175 และ<br>
+        <var>h</var><sub>f</sub> = 0.0175 &times; (1200/0.2) &times; 0.633<sup>2</sup>/19.62 =
+        <b>3.4&nbsp;ม.</b> คิดเป็นความลาด 2.8&nbsp;ม./กม.<br>
+        ขนาดใหญ่ขึ้นเพียงหนึ่งขั้นก็ลดการสูญเสียเหลือไม่ถึงหนึ่งในสี่ &mdash;
+        ใกล้เคียงกับ (200/150)<sup>5</sup> = 4.2 ที่ &sect;5.5 ทำนายไว้</p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 5.5 &mdash; เครื่องสูบน้ำต้องทำงานเท่าใด</h4>
+      <p>เครื่องสูบน้ำยกน้ำขึ้น 18&nbsp;ม. จากบ่อพักไปยังถัง ผ่านท่อขนาด 100&nbsp;มม. ยาว 400&nbsp;ม.
+        ที่ <var>&lambda;</var> = 0.022 ด้วยอัตรา 12&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup>
+        แนวท่อมีทางเข้าขอบคม (<var>K</var> = 0.5) ข้องอสองตัว (<var>K</var> = 0.4 ต่อตัว)
+        และปล่อยลงถัง (<var>K</var> = 1.0) จงหาเฮดรวมที่ต้องการและกำลังที่ใช้
+        ที่ประสิทธิภาพเครื่องสูบน้ำ 70&nbsp;% <span class="pill">&sect;5.10</span></p>
+      <p class="step"><var>A</var> = 7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup>&nbsp;ม.<sup>2</sup>,
+        <var>u</var> = 0.012/7.854&nbsp;&times;&nbsp;10<sup>&minus;3</sup> =
+        1.53&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup> และเฮดความเร็วคือ
+        <var>u</var><sup>2</sup>/2<var>g</var> = 0.119&nbsp;ม.<br>
+        <var>Re</var> = 1.53 &times; 0.10 / 10<sup>&minus;6</sup> =
+        1.5&nbsp;&times;&nbsp;10<sup>5</sup> ปั่นป่วน &#10003;</p>
+      <p class="step"><b>ความเสียดทานในท่อ</b>
+        <var>&lambda;L</var>/<var>d</var> = 0.022 &times; 400/0.1 = 88 ดังนั้น
+        <var>h</var><sub>f</sub> = 88 &times; 0.119 = <b>10.5&nbsp;ม.</b></p>
+      <p class="step"><b>การสูญเสียเฉพาะแห่ง</b> &Sigma;<var>K</var> = 0.5 + 0.4 + 0.4 + 1.0 = 2.3
+        ดังนั้น &Sigma;<var>h</var><sub>L</sub> = 2.3 &times; 0.119 = <b>0.27&nbsp;ม.</b> &mdash;
+        ไม่ถึง 3&nbsp;% ของความเสียดทานในท่อ ซึ่งคือความหมายที่ควรเป็นของคำว่า
+        &ldquo;เฉพาะแห่ง&rdquo; บนท่อเมนยาว</p>
+      <p class="step"><b>เฮดรวม</b>
+        <var>H</var> = <var>H</var><sub>static</sub> + <var>h</var><sub>f</sub> +
+        &Sigma;<var>h</var><sub>L</sub> = 18 + 10.5 + 0.3 = <b>28.8&nbsp;ม.</b></p>
+      <p class="result"><b>กำลัง</b> จากสมการ&nbsp;(5.22)<br>
+        <var>P</var> = <var>&rho;gQH</var>/<var>&eta;</var> = 1000 &times; 9.81 &times; 0.012 &times; 28.8 /
+        0.70 = <b>4.8&nbsp;kW</b><br>
+        ในจำนวนนั้น 3.0&nbsp;kW ทำงานที่มีประโยชน์คือยกน้ำขึ้น ส่วน 1.8&nbsp;kW
+        ถูกใช้ไปกับความเสียดทานล้วน ๆ &mdash; มากกว่าหนึ่งในสามของค่าไฟ ทุกชั่วโมงที่เครื่องสูบน้ำทำงาน</p>
+    </div>
+
+    <div class="example">
+      <h4>ตัวอย่างที่ 5.6 &mdash; การเสื่อมสภาพมีราคาเท่าใด <span class="pill">&sect;5.10</span></h4>
+      <p>ท่อเมนเหล็กหล่อขนาด 300&nbsp;มม. ยาว 2&nbsp;กม. พาน้ำ 80&nbsp;ลิตร&nbsp;วินาที<sup>&minus;1</sup>
+        ที่ 20&nbsp;&deg;C เมื่อใหม่ <var>k</var><sub>s</sub> = 0.25&nbsp;มม.
+        หลังจากมีตะกรันพอกมายี่สิบปีกลายเป็น 1.2&nbsp;มม. จงหาการสูญเสียเฮดในแต่ละกรณี
+        และกำลังสูบน้ำส่วนเพิ่มที่การเสื่อมสภาพนี้ทำให้ต้องจ่าย ที่ประสิทธิภาพ 75&nbsp;%</p>
+      <p class="step"><var>A</var> = 0.07069&nbsp;ม.<sup>2</sup>,
+        <var>u</var> = 0.080/0.07069 = 1.13&nbsp;ม.&nbsp;วินาที<sup>&minus;1</sup>,
+        <var>u</var><sup>2</sup>/2<var>g</var> = 0.0653&nbsp;ม.<br>
+        <var>Re</var> = 1.13 &times; 0.30/10<sup>&minus;6</sup> =
+        3.4&nbsp;&times;&nbsp;10<sup>5</sup></p>
+      <p class="step"><b>ท่อใหม่</b> <var>k</var><sub>s</sub>/<var>d</var> = 0.25/300 =
+        8.3&nbsp;&times;&nbsp;10<sup>&minus;4</sup> จากโคลบรุก&ndash;ไวต์
+        หรือจากแผนภาพมูดีที่ <var>Re</var> ค่านั้น ได้ <var>&lambda;</var> = <b>0.0198</b><br>
+        <var>h</var><sub>f</sub> = 0.0198 &times; (2000/0.3) &times; 0.0653 = <b>8.6&nbsp;ม.</b></p>
+      <p class="step"><b>ท่อเก่า</b> <var>k</var><sub>s</sub>/<var>d</var> = 1.2/300 =
+        4.0&nbsp;&times;&nbsp;10<sup>&minus;3</sup> ได้ <var>&lambda;</var> = <b>0.0287</b><br>
+        <var>h</var><sub>f</sub> = 0.0287 &times; (2000/0.3) &times; 0.0653 = <b>12.5&nbsp;ม.</b></p>
+      <p class="result">การสูญเสียเพิ่มขึ้น 3.9&nbsp;ม. หรือ <b>45&nbsp;%</b>
+        โดยไม่มีอะไรเปลี่ยนเลยนอกจากผิวด้านในของท่อ กำลังส่วนเพิ่มคือ<br>
+        <var>P</var> = <var>&rho;gQ</var>&Delta;<var>h</var>/<var>&eta;</var> = 9810 &times; 0.080 &times;
+        3.9 / 0.75 = <b>4.1&nbsp;kW</b> ที่ต้องจ่ายตลอดเวลาไปจนสิ้นอายุของท่อ<br>
+        นี่คือการคำนวณที่ให้เหตุผลว่าทำไมจึงต้องออกแบบบนความขรุขระของท่อ<em>เก่า</em>แทนที่จะเป็นท่อใหม่
+        และเป็นการคำนวณที่คุ้มค่ากับโครงการล้างท่อและเคลือบผิวท่อใหม่</p>
+    </div>
+
+    <!-- ============================================================ 5.12 -->
+    <h2 id="s12">5.12 สัญลักษณ์</h2>
+
+    <div class="nomen">
+      <div><var>A</var> &mdash; พื้นที่หน้าตัด <span class="u">ม.<sup>2</sup></span></div>
+      <div><var>C</var> &mdash; สัมประสิทธิ์เฮเซน&ndash;วิลเลียมส์ <span class="u">&ndash;</span></div>
+      <div><var>d</var> &mdash; เส้นผ่านศูนย์กลางภายในของท่อ <span class="u">ม.</span></div>
+      <div><var>g</var> &mdash; ความเร่งโน้มถ่วง 9.81 <span class="u">ม.&nbsp;วินาที<sup>&minus;2</sup></span></div>
+      <div><var>h</var><sub>f</sub> &mdash; เฮดที่สูญเสียกับความเสียดทานตามท่อ <span class="u">ม.</span></div>
+      <div><var>h</var><sub>L</sub> &mdash; เฮดที่สูญเสียที่อุปกรณ์ประกอบ การสูญเสียเฉพาะแห่ง <span class="u">ม.</span></div>
+      <div><var>H</var> &mdash; เฮดรวมที่เครื่องสูบน้ำต้องให้ <span class="u">ม.</span></div>
+      <div><var>i</var> &mdash; ความลาดชลศาสตร์, <var>h</var><sub>f</sub>/<var>L</var> <span class="u">&ndash;</span></div>
+      <div><var>k</var><sub>s</sub> &mdash; ความสูงความขรุขระสมมูลของผนัง <span class="u">ม.</span></div>
+      <div><var>K</var> &mdash; สัมประสิทธิ์การสูญเสียเฉพาะแห่ง <span class="u">&ndash;</span></div>
+      <div><var>L</var> &mdash; ความยาวท่อ <span class="u">ม.</span></div>
+      <div><var>P</var> &mdash; กำลัง <span class="u">W</span></div>
+      <div><var>Q</var> &mdash; อัตราการไหล <span class="u">ม.<sup>3</sup>&nbsp;วินาที<sup>&minus;1</sup></span></div>
+      <div><var>r</var> &mdash; รัศมีถึงจุดหนึ่งในสนามการไหล <span class="u">ม.</span></div>
+      <div><var>R</var> &mdash; รัศมีภายในของท่อ, <var>d</var>/2 <span class="u">ม.</span></div>
+      <div><var>Re</var> &mdash; เลขเรย์โนลด์, <var>&rho;ud</var>/<var>&mu;</var> <span class="u">&ndash;</span></div>
+      <div><var>u</var>, <var>u&#772;</var> &mdash; ความเร็ว; ความเร็วเฉลี่ยตลอดหน้าตัด <span class="u">ม.&nbsp;วินาที<sup>&minus;1</sup></span></div>
+      <div><var>u</var><sub>r</sub> &mdash; ความเร็วที่รัศมี <var>r</var> <span class="u">ม.&nbsp;วินาที<sup>&minus;1</sup></span></div>
+      <div><var>u</var><sub>max</sub> &mdash; ความเร็วที่แกน <span class="u">ม.&nbsp;วินาที<sup>&minus;1</sup></span></div>
+      <div>&Delta;<var>p</var> &mdash; ความดันที่ลดลงตลอดความยาว <var>L</var> <span class="u">Pa</span></div>
+      <div><var>&eta;</var> &mdash; ประสิทธิภาพของเครื่องสูบน้ำ <span class="u">&ndash;</span></div>
+      <div><var>&lambda;</var> &mdash; ตัวประกอบความเสียดทานของดาร์ซี; 64/<var>Re</var> เมื่อราบเรียบ <span class="u">&ndash;</span></div>
+      <div><var>f</var> &mdash; ตัวประกอบความเสียดทานแบบอังกฤษรุ่นเก่า, <var>&lambda;</var>/4 <span class="u">&ndash;</span></div>
+      <div><var>&mu;</var> &mdash; ความหนืดพลวัต <span class="u">Pa&nbsp;s</span></div>
+      <div><var>&nu;</var> &mdash; ความหนืดจลนศาสตร์, <var>&mu;</var>/<var>&rho;</var> <span class="u">ม.<sup>2</sup>&nbsp;วินาที<sup>&minus;1</sup></span></div>
+      <div><var>&rho;</var> &mdash; ความหนาแน่น <span class="u">กก.&nbsp;ม.<sup>&minus;3</sup></span></div>
+      <div><var>&tau;</var> &mdash; ความเค้นเฉือนที่รัศมี <var>r</var> <span class="u">Pa</span></div>
+      <div><var>&tau;</var><sub>w</sub> &mdash; ความเค้นเฉือนที่ผนังท่อ <span class="u">Pa</span></div>
+    </div>
+
+    <!-- ============================================================ 5.13 -->
+    <h2 id="s13">5.13 แบบทดสอบทบทวน</h2>
+
+    <p>คำถาม 47 ข้อจากบทนี้ ตรวจให้ในเบราว์เซอร์ของนักศึกษาเองขณะตอบ ไม่มีการเก็บและไม่มีการส่งข้อมูลไปที่ใด
+      แต่ละข้อระบุหัวข้อที่เป็นที่มา และสรุปตอนท้ายจะแสดงรายการหัวข้อที่ควรกลับไปทบทวน</p>
+
+    <p>ควรทำชุดนี้<em>ก่อน</em>ทำโจทย์ใน &sect;5.14 คำถามห้าข้อมาจากเนื้อหาเสริมใน &sect;5.10
+      และมีการระบุกำกับไว้</p>
+
+    <noscript>
+      <div class="quiz-noscript">
+        <b>หัวข้อนี้ต้องใช้จาวาสคริปต์</b> คำถามถูกตรวจในเบราว์เซอร์ของนักศึกษาเอง
+        เมื่อปิดสคริปต์ไว้จึงไม่มีอะไรแสดงขึ้น เนื้อหาเดียวกันนี้ครอบคลุมด้วยโจทย์เขียนตอบใน
+        <a href="#s14">&sect;5.14</a>
+      </div>
+    </noscript>
+
+    <div id="quiz"></div>
+
+    <!-- ============================================================ 5.14 -->
+    <h2 id="s14">5.14 โจทย์ปัญหา</h2>
+
+    <p>กำหนด <var>g</var> = 9.81&nbsp;ม./วินาที<sup>2</sup> และสำหรับน้ำที่ 20&nbsp;&deg;C ใช้
+      <var>&rho;</var> = 1000&nbsp;กก./ม.<sup>3</sup> และ
+      <var>&nu;</var> = 1.0&nbsp;&times;&nbsp;10<sup>&minus;6</sup>&nbsp;ม.<sup>2</sup>/วินาที
+      <b>ให้หาเลขเรย์โนลด์ก่อนในทุกข้อ</b> และระบุว่าอยู่ในลักษณะการไหลใดก่อนจะเลือกสูตร
+      การใช้สมการของการไหลราบเรียบกับการไหลปั่นป่วนจะถูกหักคะแนน
+      ไม่ว่าการคำนวณหลังจากนั้นจะถูกต้องเพียงใด โจทย์ที่กำกับ <span class="pill">&sect;5.10</span>
+      อาศัยเนื้อหาเสริมและไม่ออกสอบ</p>
+
+    <ol class="problems">
+      <li>น้ำที่ 20&nbsp;&deg;C ไหลด้วยความเร็ว 1.2&nbsp;ม./วินาที ในท่อขนาด 50&nbsp;มม.
+        จงหาเลขเรย์โนลด์และระบุลักษณะการไหล ต้องใช้ความเร็วเท่าใดจึงจะทำให้ท่อเดียวกันไหลแบบราบเรียบ
+        และนั่นเป็นเงื่อนไขออกแบบที่เป็นไปได้จริงหรือไม่
+        <span class="ans">Re = 6.0 &times; 10<sup>4</sup> ปั่นป่วน; แบบราบเรียบต้องใช้ u ต่ำกว่า 0.04 ม./วินาที คิดเป็นอัตราการไหล 0.08 ลิตร/วินาที &mdash; ใช้ออกแบบไม่ได้</span></li>
+
+      <li>กลีเซอรีน <var>&rho;</var> = 1260&nbsp;กก./ม.<sup>3</sup> และ <var>&mu;</var> =
+        0.9&nbsp;Pa&nbsp;s ไหลด้วยอัตรา 2&nbsp;ลิตร/วินาที ผ่านท่อขนาด 100&nbsp;มม. ยาว 30&nbsp;ม.
+        จงหาเลขเรย์โนลด์ ลักษณะการไหล การสูญเสียเฮด ความเร็วสูงสุด และความเค้นเฉือนที่ผนัง
+        <span class="ans">Re = 36 ราบเรียบ; &Delta;p = 22.0 kPa ดังนั้น h<sub>f</sub> = 1.78 ม. ของกลีเซอรีน; u<sub>max</sub> = 0.509 ม./วินาที; &tau;<sub>w</sub> = 18.3 Pa</span></li>
+
+      <li>สำหรับท่อในโจทย์ข้อ 2 จงหาตัวประกอบความเสียดทานจาก <var>&lambda;</var> = 64/<var>Re</var>
+        แล้วใช้สมการดาร์ซีคำนวณการสูญเสียเฮดใหม่ จงอธิบายว่าเหตุใดคำตอบทั้งสองจึงต้องตรงกัน
+        <span class="ans">&lambda; = 1.80, h<sub>f</sub> = 1.78 ม. ทั้งสองตรงกันเพราะ &lambda; = 64/Re ได้มาจากการให้สองนิพจน์นั้นเท่ากันตั้งแต่แรก มันเป็นนิยาม ไม่ใช่ผลลัพธ์อิสระ</span></li>
+
+      <li>น้ำมัน <var>&rho;</var> = 850&nbsp;กก./ม.<sup>3</sup> และ <var>&mu;</var> = 0.08&nbsp;Pa&nbsp;s
+        ถูกดันผ่านท่อขนาด 25&nbsp;มม. ยาว 10&nbsp;ม. ด้วยผลต่างความดัน 40&nbsp;kPa
+        จงหาอัตราการไหลและความเร็วเฉลี่ย แล้วยืนยันสมมติฐานที่ใช้
+        <span class="ans">Q = 0.479 ลิตร/วินาที, u&#772; = 0.977 ม./วินาที; Re = 259 ราบเรียบ การใช้ฮาเกน&ndash;ปัวเซยจึงถูกต้อง</span></li>
+
+      <li>ท่อเมนขนาด 200&nbsp;มม. ยาว 800&nbsp;ม. พาน้ำ 60&nbsp;ลิตร/วินาที โดย <var>&lambda;</var> = 0.020
+        จงหาเลขเรย์โนลด์ การสูญเสียเฮด ความลาดชลศาสตร์ ความเค้นเฉือนที่ผนัง
+        และกำลังที่สูญเสียไปกับความเสียดทาน
+        <span class="ans">Re = 3.8 &times; 10<sup>5</sup>; h<sub>f</sub> = 14.9 ม.; i = 18.6 ม./กม.; &tau;<sub>w</sub> = 9.1 Pa; สูญเสีย 8.75 kW</span></li>
+
+      <li>ทำโจทย์ข้อ 5 ซ้ำสำหรับท่อขนาด 250&nbsp;มม. ที่พาอัตราการไหลเท่ากัน โดย <var>&lambda;</var> =
+        0.0185 จงเปรียบเทียบการสูญเสียเฮดทั้งสองค่า และตรวจอัตราส่วนกับกฎ 1/<var>d</var><sup>5</sup>
+        ของ &sect;5.5
+        <span class="ans">h<sub>f</sub> = 4.51 ม., i = 5.6 ม./กม., สูญเสีย 2.65 kW &mdash; ประหยัดได้ 6.1 kW อัตราส่วนคือ 3.30 เทียบกับ (250/200)<sup>5</sup> = 3.05 ที่แก้ด้วยอัตราส่วนของตัวประกอบความเสียดทานทั้งสอง</span></li>
+
+      <li>ท่อส่งน้ำต้องพา 40&nbsp;ลิตร/วินาที ไปตลอด 1500&nbsp;ม. โดยมีการสูญเสียเฮดจากความเสียดทาน
+        ไม่เกิน 6&nbsp;ม. กำหนด <var>&lambda;</var> = 0.020
+        จงหาเส้นผ่านศูนย์กลางที่เล็กที่สุดที่ใช้ได้ และขนาดมาตรฐานที่ใกล้ที่สุดที่จะสั่งซื้อ
+        <span class="ans">จัดรูปสมการดาร์ซีได้ d<sup>5</sup> = 8&lambda;LQ<sup>2</sup>/&pi;<sup>2</sup>gh<sub>f</sub> ให้ d = 231 มม. จึงสั่ง 250 มม. ซึ่งให้ 4.1 ม. อยู่ในขีดจำกัดอย่างสบาย</span></li>
+
+      <li>การไหลราบเรียบในท่อขนาด 40&nbsp;มม. มีความเร็วสูงสุด 0.9&nbsp;ม./วินาที จงหา (ก) ความเร็วเฉลี่ย
+        (ข) อัตราการไหล (ค) ความเร็วที่ระยะ 10&nbsp;มม. จากแกน และ
+        (ง) รัศมีที่ความเร็วเฉพาะที่เท่ากับความเร็วเฉลี่ย
+        <span class="ans">(ก) 0.45 ม./วินาที (ข) 0.566 ลิตร/วินาที (ค) 0.675 ม./วินาที (ง) r = 0.707R = 14.1 มม. &mdash; เทียบกับ 0.76R ที่อ้างไว้สำหรับการไหลปั่นป่วนใน &sect;3.7</span></li>
+
+      <li>ท่อแนวราบขนาด 30&nbsp;มม. พาน้ำมัน <var>&rho;</var> = 890&nbsp;กก./ม.<sup>3</sup> และ
+        <var>&mu;</var> = 0.075&nbsp;Pa&nbsp;s ด้วยอัตรา 0.35&nbsp;ลิตร/วินาที
+        เกจสองตัวที่ห่างกัน 15&nbsp;ม. อ่านได้ 180&nbsp;kPa และ 160&nbsp;kPa
+        จงหาการสูญเสียเฮดจากค่าที่เกจอ่านได้ แล้วทำนายจากทฤษฎีและวิจารณ์ความสอดคล้อง
+        <span class="ans">จากการวัด: &Delta;p = 20 kPa ดังนั้น h<sub>f</sub> = 2.29 ม. ของน้ำมัน; Re = 176 ราบเรียบ และสมการ (5.14) ทำนาย &Delta;p = 19.8 kPa, h<sub>f</sub> = 2.27 ม. &mdash; ต่างกันไม่ถึง 1 % ซึ่งเป็นความสอดคล้องระดับที่มีแต่กรณีราบเรียบเท่านั้นที่ให้ได้</span></li>
+
+      <li><span class="pill">&sect;5.10</span> ท่อเมนเหล็กขนาด 400&nbsp;มม. <var>k</var><sub>s</sub> =
+        0.045&nbsp;มม. พาน้ำ 150&nbsp;ลิตร/วินาที ไปตลอด 3&nbsp;กม. จงหาเลขเรย์โนลด์ ความขรุขระสัมพัทธ์
+        และตัวประกอบความเสียดทาน แล้วหาการสูญเสียเฮดและความลาดชลศาสตร์ ท่อขนาดนี้เหมาะสมหรือไม่
+        <span class="ans">Re = 4.8 &times; 10<sup>5</sup>, k<sub>s</sub>/d = 1.1 &times; 10<sup>&minus;4</sup>, &lambda; = 0.0146; h<sub>f</sub> = 7.95 ม., i = 2.65 ม./กม. &mdash; อยู่ในช่วง 1 ถึง 5 ม./กม. อย่างสบาย จึงเหมาะสม</span></li>
+
+      <li><span class="pill">&sect;5.10</span> จงคำนวณการสูญเสียเฮดของโจทย์ข้อ 10 ใหม่
+        ด้วยสมการเฮเซน&ndash;วิลเลียมส์ โดยใช้ <var>C</var> = 140
+        จงเปรียบเทียบคำตอบทั้งสองและบอกว่าจะเชื่อค่าใดและเพราะเหตุใด
+        <span class="ans">8.75 ม. เทียบกับ 7.95 ม. สูงกว่าราว 10 % ให้เชื่อดาร์ซี&ndash;ไวส์บาค เพราะมันตั้งอยู่บนสมดุลแรงของ &sect;5.6 และใช้ได้กับของไหลทุกชนิดทุกลักษณะการไหล ขณะที่เฮเซน&ndash;วิลเลียมส์เป็นการปรับเส้นโค้งที่ใช้ได้เฉพาะกับน้ำในการไหลปั่นป่วนที่ความเร็วไม่เกินราว 3 ม./วินาที</span></li>
+
+      <li><span class="pill">&sect;5.10</span> เครื่องสูบน้ำที่ส่งน้ำ 40&nbsp;ลิตร/วินาที ไปตลอด
+        1500&nbsp;ม. ทำงานปีละ 2500&nbsp;ชั่วโมง ที่ประสิทธิภาพ 72&nbsp;% และค่าไฟฟ้าหน่วยละ 4&nbsp;บาท
+        เมื่อใช้ <var>&lambda;</var> = 0.020 สำหรับท่อ 200&nbsp;มม. และ 0.0185 สำหรับท่อ 250&nbsp;มม.
+        จงหาค่าสูบน้ำต่อปีที่ประหยัดได้จากการเลือกท่อที่ใหญ่กว่า
+        <span class="ans">h<sub>f</sub> ลดจาก 12.4 ม. เหลือ 3.8 ม. เครื่องสูบน้ำจึงใช้กำลังน้อยลง 4.7 kW คิดเป็นปีละ 11 800 หน่วย หรือราว 47 000 บาทต่อปี &mdash; ซึ่งคือตัวเลขที่ต้องนำไปหักกับค่าท่อส่วนเพิ่ม</span></li>
+    </ol>
+
+    <!-- ============================================================ 5.15 -->
+    <h2 id="s15">5.15 เอกสารอ้างอิง</h2>
+
+    <ol class="refs">
+      <li lang="en">Sleigh, A. <em>An Introduction to Fluid Mechanics</em>, CIVE 1400, School of Civil
+        Engineering, University of Leeds. &sect;4.1&ndash;4.3 &mdash; หัวข้อที่บทนี้ยึดเป็นหลัก
+        รวมถึงการทดลองของเรย์โนลด์และการพิสูจน์การไหลราบเรียบในท่อ
+        โปรดสังเกตว่าเอกสารนี้ใช้ตัวประกอบความเสียดทานแบบอังกฤษ <var>f</var> = <var>&lambda;</var>/4</li>
+      <li lang="en">Reynolds, O. &lsquo;An experimental investigation of the circumstances which determine
+        whether the motion of water shall be direct or sinuous&rsquo;, <em>Philosophical Transactions of
+        the Royal Society</em>, 174, 1883. บทความต้นฉบับ และอ่านง่ายอย่างไม่น่าเชื่อ</li>
+      <li lang="en">Massey, B. S. <em>Mechanics of Fluids</em>, Van Nostrand Reinhold. บทที่ 6 และ 7
+        เป็นคำอธิบายที่ชัดเจนที่สุดในระดับนี้ว่าเหตุใดการไหลปั่นป่วนจึงแก้แบบการไหลราบเรียบไม่ได้</li>
+      <li lang="en">Douglas, J. F., Gasiorek, J. M. and Swaffield, J. A. <em>Fluid Mechanics</em>, Longman.
+        บทที่ 10 และ 14 มีโจทย์ท่อส่งน้ำพร้อมวิธีทำจำนวนมาก</li>
+      <li lang="en">Featherstone, R. E. and Nalluri, C. <em>Civil Engineering Hydraulics</em>, Blackwell
+        Science. เขียนสำหรับวิศวกรน้ำ ครอบคลุมความเสียดทานในท่อ โครงข่ายท่อ และเครื่องสูบน้ำ
+        ในหน่วยที่ใช้จริงในสนาม</li>
+      <li lang="en">Moody, L. F. &lsquo;Friction factors for pipe flow&rsquo;, <em>Transactions of the
+        ASME</em>, 66, 1944. <span class="units">(นอกขอบเขตวิชา)</span> บทความต้นทางของแผนภาพ</li>
+      <li lang="en">Twort, A. C., Ratnayaka, D. D. and Brandt, M. J. <em>Water Supply</em>,
+        Butterworth-Heinemann. <span class="units">(นอกขอบเขตวิชา)</span> วัสดุท่อ การเสื่อมสภาพ
+        ความขรุขระในการใช้งานจริง และการกำหนดขนาดท่อเชิงเศรษฐศาสตร์</li>
+      <li lang="en">Keller, J. and Bliesner, R. D. <em>Sprinkle and Trickle Irrigation</em>, Blackburn
+        Press. <span class="units">(นอกขอบเขตวิชา)</span> จุดหมายปลายทางของบทนี้:
+        ชลศาสตร์ของหัวจ่ายน้ำ การออกแบบท่อย่อยและท่อแขนง
+        และเหตุผลที่หัวน้ำหยดถูกสร้างให้ไหลแบบปั่นป่วน</li>
+      <li lang="en">Food and Agriculture Organization, คู่มือฝึกอบรม <em>Irrigation Water Management</em>
+        และชุด <em>FAO Irrigation and Drainage Papers</em>
+        <span class="units">(ดาวน์โหลดได้ฟรี)</span> การออกแบบโครงการเชิงปฏิบัติ
+        ในระดับที่นักศึกษาจะได้พบในปีที่สอง</li>
+    </ol>
+
+    <div class="callout rule">
+      <span class="label">จบวิชา &mdash; และมันมีไว้เพื่ออะไร</span>
+      <p>ห้าบท และทั้งหมดคือข้อโต้แย้งเดียวกัน บทที่&nbsp;1 บอกว่าของไหลคืออะไร
+        และวัดสมบัติสองอย่างที่สำคัญ บทที่&nbsp;2 ให้มันอยู่นิ่งแล้วหาแรง
+        บทที่&nbsp;3 ให้มันเคลื่อนที่แล้วอนุรักษ์มวลและพลังงาน
+        บทที่&nbsp;4 อนุรักษ์โมเมนตัมและได้แรงที่ของไหลซึ่งเคลื่อนที่กระทำออกมา
+        บทที่&nbsp;5 นำความหนืดจากบทที่&nbsp;1 ใส่กลับเข้าไปในการไหลของบทที่&nbsp;3
+        แล้วเปลี่ยนผลลัพธ์ให้เป็นตัวเลขที่ใช้สั่งซื้อท่อได้</p>
+      <p>ในปีที่สอง วิชาชลประทานจะถือว่าทั้งห้าบทนี้เป็นเรื่องที่รู้กันอยู่แล้วตั้งแต่คาบแรก
+        ทางน้ำเปิดคือบทที่&nbsp;3 และ&nbsp;4 ที่มีผิวอิสระ
+        การเลือกเครื่องสูบน้ำคือ &sect;5.10 พร้อมแค็ตตาล็อก
+        ส่วนการออกแบบโครงการคือทั้งหมดนี้พร้อมกัน โดยมีเรื่องเงินพ่วงเข้ามาด้วย</p>
+    </div>
+
+    <div class="chapter-nav">
+      <span><a href="chapter4-th.html">&larr; บทที่ 4: สมการโมเมนตัม</a></span>
+      <span><a href="index-th.html">หน้าแรกของรายวิชา &rarr;</a></span>
+    </div>
+
+  </main>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div>
+      <h3>รายวิชา</h3>
+      <ul>
+        <li><a href="index-th.html">หน้าแรกของรายวิชา</a></li>
+        <li><a href="chapter3-th.html">บทที่ 3: ความต่อเนื่องและแบร์นูลลี</a></li>
+        <li><a href="chapter4-th.html">บทที่ 4: สมการโมเมนตัม</a></li>
+        <li><a href="chapter5-th.html">บทที่ 5: ของไหลจริงในท่อ</a></li>
+        <li><a href="chapter5.html" lang="en">Chapter 5 (English)</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>ในบทนี้</h3>
+      <ul>
+        <li><a href="#t1">ตารางที่ 5.1 &mdash; สามลักษณะการไหล</a></li>
+        <li><a href="#t2">ตารางที่ 5.2 &mdash; ราบเรียบเทียบปั่นป่วน</a></li>
+        <li><a href="#t3">ตารางที่ 5.3 &mdash; ความขรุขระของท่อ</a></li>
+        <li><a href="#s11">ตัวอย่างการคำนวณ</a></li>
+        <li><a href="#s13">แบบทดสอบทบทวน</a></li>
+        <li><a href="#s14">โจทย์ปัญหา</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3>เกี่ยวกับ</h3>
+      <p>เอกสารประกอบการบรรยายวิชา ASE 221 สงวนลิขสิทธิ์
+        รูปแบบหน้าเว็บอ้างอิงเทมเพลตสื่อการสอนของภาควิชา ส่วนเนื้อหาและโค้ดจัดทำขึ้นใหม่สำหรับรายวิชานี้</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    &copy; 2569 จรัสชัย เย็นพยับ สงวนลิขสิทธิ์ ASE 221 กลศาสตร์ของไหลเบื้องต้น &mdash;
+    เอกสารประกอบการสอน ภาคเรียนที่ 1 ปีการศึกษา 2569
+    ห้ามทำซ้ำ ดัดแปลง หรือเผยแพร่ส่วนหนึ่งส่วนใดของเว็บไซต์นี้โดยไม่ได้รับอนุญาตเป็นลายลักษณ์อักษร
+  </div>
+</footer>
+
+<script>
+/* แบบทดสอบทบทวนของบทที่ 5 ตรวจในเบราว์เซอร์ของผู้อ่านเองทั้งหมดโดย quiz.js
+   ไม่มีการเก็บหรือส่งผลลัพธ์ออกไปที่ใด */
+window.QUIZ = {
+  text: {
+    answered:     "ตอบแล้ว",
+    correctCount: "ถูก",
+    section:      "&sect;",
+    markCorrect:  "คำตอบที่ถูก",
+    markYours:    "คำตอบของคุณ",
+    whyLabel:     "เหตุผล",
+    readMore:     "ทบทวน &sect;{ref}",
+    reset:        "เริ่มใหม่",
+    revealAll:    "เฉลยข้อที่เหลือ",
+    resultTitle:  "ทำแบบทดสอบครบแล้ว",
+    band90: "แน่นดี ไปทำโจทย์เขียนตอบใน &sect;5.14 ได้เลย",
+    band70: "ผ่านในระดับดี ทบทวนหัวข้อที่แสดงด้านล่างก่อน แล้วค่อยทำ &sect;5.14",
+    band50: "เข้าใจไปแล้วครึ่งทาง กลับไปอ่านหัวข้อด้านล่างอีกครั้งก่อนทำโจทย์",
+    band0:  "ควรอ่านทั้งบทอีกรอบก่อนไปต่อ เริ่มจากหัวข้อที่แสดงด้านล่าง",
+    revise: "หัวข้อที่ควรทบทวน"
+  },
+  questions: [
+
+    /* ----------------------------- 5.1 จุดที่ของไหลอุดมคติไปต่อไม่ได้ */
+    { ref: "5.1", href: "#s1", a: 2,
+      q: "ตามท่อตรงในแนวราบที่มีขนาดคงที่และพาการไหลคงตัว เฮดความดันจะเป็นอย่างไร",
+      opts: [
+        "คงที่ ตามที่สมการแบร์นูลลีในบทที่ 3 กำหนด",
+        "สูงขึ้น เพราะน้ำกำลังถูกดัน",
+        "ลดลงอย่างสม่ำเสมอ เพราะเฮดกำลังสูญเสียไปกับความเสียดทาน",
+        "ลดลงเฉพาะตรงข้องอเท่านั้น"
+      ],
+      why: "นี่คือข้อสังเกตที่เป็นเหตุผลของทั้งบทนี้ ทั้งเฮดความเร็วและเฮดตำแหน่งไม่เปลี่ยน การลดลงจึงมาจากพจน์ที่บทที่ 3 ไม่มีเท่านั้น" },
+
+    { ref: "5.1", href: "#s1", a: 0,
+      q: "ในท่อจริง เส้นระดับพลังงานจะเป็นอย่างไร",
+      opts: [
+        "ลาดลงตามทิศการไหลเสมอ เว้นแต่มีเครื่องสูบน้ำมาเติมพลังงาน",
+        "เป็นแนวราบเสมอ",
+        "ลาดขึ้นตรงที่ท่อคอดลง",
+        "ทับกับเส้นระดับชลศาสตร์"
+      ],
+      why: "พลังงานสูญเสียได้แต่ได้มาเองไม่ได้ EGL จึงตกได้อย่างเดียว สำหรับของไหลอุดมคติมันเป็นแนวราบ (&sect;3.6) ความเสียดทานทำให้มันเอียง และความชันนั้นคือความลาดชลศาสตร์ของ &sect;5.9" },
+
+    { ref: "5.1", href: "#s1", a: 1,
+      q: "เฮดที่สูญเสียไปกับความเสียดทานถูกเปลี่ยนไปเป็นอะไร",
+      opts: [
+        "เก็บไว้เป็นความดันที่ปลายท่อด้านล่าง",
+        "เปลี่ยนเป็นความร้อนจากการที่ของไหลเฉือนกับของไหล และหายไปในแง่ของการไหล",
+        "เปลี่ยนเป็นเฮดความเร็ว",
+        "รั่วออกไปทางผนังท่อ"
+      ],
+      why: "พลังงานถูกอนุรักษ์โดยรวม &mdash; น้ำอุ่นขึ้นเล็กน้อยมาก &mdash; แต่มันไม่พร้อมใช้ขับการไหลอีกต่อไป ซึ่งเป็นสิ่งเดียวที่ชลศาสตร์สนใจ" },
+
+    { ref: "5.1", href: "#s1", a: 3,
+      q: "เหตุใดบทที่ 2 ถึง 4 จึงไม่เคยใช้ความหนืดที่วัดไว้ในบทที่ 1 เลย",
+      opts: [
+        "เพราะความหนืดสำคัญเฉพาะกับแก๊ส",
+        "เพราะมันเล็กเกินกว่าจะมีผลในน้ำ",
+        "เพราะบทเหล่านั้นพูดถึงแต่ของไหลสถิต",
+        "เพราะทุกบทสมมติว่าเป็นของไหลอุดมคติ ซึ่งความเค้นเฉือนเกิดขึ้นไม่ได้"
+      ],
+      why: "เป็นการจงใจซื้อความเรียบง่าย ไม่ใช่ความหลงลืม บทที่ 5 คือที่ที่บิลมาถึง และเป็นที่ที่ความเค้นเฉือนของ &sect;1.5 ได้ทำงานให้เห็นเป็นรูปธรรม" },
+
+    /* ----------------------------- 5.2 การทดลองของเรย์โนลด์ */
+    { ref: "5.2", href: "#s2", a: 1,
+      q: "ในการทดลองของเรย์โนลด์ เส้นสีย้อมที่ยังเป็นเส้นเดียวตลอดความยาวหลอดแสดงว่า",
+      opts: [
+        "สีย้อมหนาแน่นกว่าน้ำ",
+        "ไม่มีการขนถ่ายของไหลเป็นก้อนข้ามการไหล &mdash; ชั้นต่าง ๆ เลื่อนไถลกันโดยไม่ผสมกัน",
+        "การไหลหยุดแล้ว",
+        "หลอดเรียบสนิท"
+      ],
+      why: "สีย้อมคือการวัด ไม่ใช่เครื่องประดับ เส้นสีที่ยังคงสภาพคือหลักฐานโดยตรงของการไหลราบเรียบ ทันทีที่มันกระจาย แปลว่ามีของไหลถูกพาไปด้านข้างเป็นก้อน" },
+
+    { ref: "5.2", href: "#s2", a: 3,
+      q: "เมื่อค่อย ๆ เปิดวาล์วมากขึ้นเรื่อย ๆ เส้นสีย้อมจะ",
+      opts: [
+        "ค่อย ๆ กระจายตัวขึ้นอย่างราบรื่นตลอด",
+        "ยังคงสภาพอยู่ที่ทุกอัตราการไหลถ้าเป็นหลอดแก้ว",
+        "กระจายที่ทางเข้าก่อนแล้วค่อยกระจายที่ทางออก",
+        "คงสภาพ แล้วสั่นคลอน แล้วแตกกระจายหมด &mdash; และการเปลี่ยนเกิดที่อัตราการไหลค่าหนึ่งที่ชัดเจน"
+      ],
+      why: "ความฉับพลันคือประเด็นทั้งหมด การไหลไม่ได้ค่อย ๆ ปั่นป่วนขึ้น แต่เปลี่ยนกลไกที่ค่าเกณฑ์ ซึ่งเป็นสิ่งที่ทำให้มีค่าวิกฤตได้เลย" },
+
+    { ref: "5.2", href: "#s2", a: 2,
+      q: "ส่วนที่ชี้ขาดของงานเรย์โนลด์คือการที่เขา",
+      opts: [
+        "วัดความหนืดของน้ำได้แม่นยำเป็นครั้งแรก",
+        "พิสูจน์ว่าการไหลทุกแบบท้ายที่สุดจะปั่นป่วน",
+        "ทำการทดลองซ้ำที่เส้นผ่านศูนย์กลางและอุณหภูมิต่าง ๆ แล้วพบว่าการเปลี่ยนเกิดที่ค่าตายตัวของผลรวมของปริมาณหลายตัว ไม่ใช่ที่ความเร็วตายตัว",
+        "แสดงว่าตัวสีย้อมเองเป็นตัวกระตุ้นให้เกิดการเปลี่ยน"
+      ],
+      why: "ความเร็ววิกฤตตายตัวคงเป็นข้อเท็จจริงของเครื่องมือชิ้นเดียว แต่ผลรวมวิกฤตตายตัวเป็นข้อเท็จจริงของการไหลในท่อทุกแห่ง ซึ่งเป็นเหตุผลที่ยังใช้มาจนทุกวันนี้" },
+
+    { ref: "5.2", href: "#s2", a: 0,
+      q: "หลอดของเรย์โนลด์รับน้ำจากถังใหญ่ผ่านปากระฆังแทนที่จะเป็นทางเข้าขอบคม เพราะ",
+      opts: [
+        "ทางเข้าขอบคมจะรบกวนการไหลเสียเองและกระตุ้นให้เปลี่ยนสภาพเร็วเกินไป",
+        "ปากระฆังเพิ่มอัตราการไหล",
+        "ปากระฆังทำให้เห็นสีย้อมง่ายขึ้น",
+        "จำเป็นต่อการรักษาเฮดให้คงที่"
+      ],
+      why: "การทดลองนี้ว่าด้วยว่าการไหลจะไม่เสถียรขึ้นมาเองเมื่อใด การรบกวนทุกอย่างที่หลีกเลี่ยงได้จึงต้องถูกกำจัด ความพิถีพิถันแบบเดียวกันคือเหตุผลที่การไหลราบเรียบที่สะอาดมากอาจอยู่รอดไปได้ไกลเกิน Re = 2000" },
+
+    { ref: "5.2", href: "#s2", a: 1,
+      q: "เหตุใดจึงรักษาเฮดในถังให้คงที่",
+      opts: [
+        "เพื่อรักษาอุณหภูมิน้ำให้คงที่",
+        "เพื่อให้การไหลคงตัว การเปลี่ยนแปลงที่เห็นในสีย้อมจะได้เกิดจากอัตราการไหล ไม่ใช่จากการที่อัตรานั้นกำลังเปลี่ยน",
+        "เพื่อป้องกันคาวิเทชันที่วาล์ว",
+        "เพื่อให้ความดันที่ทางออกเท่ากับความดันบรรยากาศ"
+      ],
+      why: "การไหลไม่คงตัวจะทำให้ผลสับสนไปหมด ความคงตัวคือสมมติฐานเดียวที่วิชานี้ไม่เคยยอมทิ้งเลย ตั้งแต่ &sect;3.1 เป็นต้นมา" },
+
+    /* ----------------------------- 5.3 เลขเรย์โนลด์ */
+    { ref: "5.3", href: "#s3", a: 2,
+      q: "เลขเรย์โนลด์สำหรับการไหลในท่อคือ",
+      opts: [
+        "<i>&mu;ud</i>/<i>&rho;</i>",
+        "<i>&rho;u</i>/<i>&mu;d</i>",
+        "<i>&rho;ud</i>/<i>&mu;</i> หรือเทียบเท่ากับ <i>ud</i>/<i>&nu;</i>",
+        "<i>ud</i>/<i>&mu;</i>"
+      ],
+      why: "ความหนาแน่นคูณความเร็วคูณเส้นผ่านศูนย์กลาง หารด้วยความหนืดพลวัต รูปที่สองใช้ความหนืดจลนศาสตร์ของ &sect;1.10 และเป็นรูปที่ใช้จริง เพราะต้องการตัวเลขในตารางเพียงตัวเดียว" },
+
+    { ref: "5.3", href: "#s3", a: 0,
+      q: "เลขเรย์โนลด์ไม่มีมิติ ข้อนั้นสำคัญอย่างไร",
+      opts: [
+        "เพราะมีแต่ปริมาณที่ไม่มีมิติเท่านั้นที่จะมีค่าวิกฤตสากลได้ เท่ากันในทุกระบบหน่วย",
+        "เพราะทำให้คำนวณง่ายขึ้น",
+        "เพราะแปลว่าการไหลก็ไม่มีหน่วยด้วย",
+        "เพราะพิสูจน์ว่าการไหลอัดตัวไม่ได้"
+      ],
+      why: "ถ้าเป็น<i>ความเร็ว</i>วิกฤต มันจะขึ้นกับหน่วยและขึ้นกับตัวท่อ แต่ตัวเลขล้วนวิกฤตไม่เป็นเช่นนั้น ซึ่งเป็นสิ่งที่ทำให้ 2000 และ 4000 มีความหมายขึ้นมา" },
+
+    { ref: "5.3", href: "#s3", a: 3,
+      q: "ในเชิงกายภาพ เลขเรย์โนลด์คืออัตราส่วนของอะไร",
+      opts: [
+        "แรงจากความดันต่อแรงโน้มถ่วง",
+        "พลังงานจลน์ต่อพลังงานศักย์",
+        "ความเค้นเฉือนต่อความดัน",
+        "แรงเฉื่อยซึ่งมีแนวโน้มทำให้การไหลแตกกระจาย ต่อแรงหนืดซึ่งยึดมันไว้ด้วยกัน"
+      ],
+      why: "ที่ Re ต่ำ ความหนืดหน่วงการรบกวนก่อนที่มันจะโต ที่ Re สูง ความเฉื่อยพาและขยายมันเร็วกว่าที่ความหนืดจะดับได้ การไหลจึงแตกเป็นกระแสวน" },
+
+    { ref: "5.3", href: "#s3", a: 1,
+      q: "น้ำที่ 20 &deg;C ไหลด้วยความเร็ว 1.5 ม./วินาที ในท่อขนาด 150 มม. เลขเรย์โนลด์ใกล้เคียงข้อใดที่สุด",
+      opts: [
+        "2.3 &times; 10<sup>3</sup>",
+        "2.3 &times; 10<sup>5</sup>",
+        "2.3 &times; 10<sup>7</sup>",
+        "0.225"
+      ],
+      why: "Re = ud/&nu; = 1.5 &times; 0.15 / 10<sup>&minus;6</sup> = 2.25 &times; 10<sup>5</sup> &mdash; มากกว่าเกณฑ์ปั่นป่วนกว่าห้าสิบเท่า" },
+
+    { ref: "5.3", href: "#s3", a: 2,
+      q: "ในทางปฏิบัติ น้ำที่ไหลในท่อที่นักศึกษาจะได้ออกแบบจริงเป็นอย่างไร",
+      opts: [
+        "มักเป็นการไหลราบเรียบ",
+        "ราบเรียบในท่อเล็กและปั่นป่วนในท่อใหญ่",
+        "ปั่นป่วนแทบทุกกรณี",
+        "มักอยู่ในช่วงเปลี่ยนผ่าน"
+      ],
+      why: "การทำให้ท่อเมน 150 มม. ไหลราบเรียบต้องใช้ความเร็ว 13 มม./วินาที การไหลราบเรียบของน้ำเป็นกรณีสำหรับการสอน บวกกับกรณีจริงอีกสาม: หัวน้ำหยด น้ำใต้ดิน และของไหลข้นเช่นน้ำมัน" },
+
+    { ref: "5.3", href: "#s3", a: 0,
+      q: "ค่าวิกฤต 2000 และ 4000 ใช้กับอะไร",
+      opts: [
+        "การไหลในท่อกลม โดยใช้เส้นผ่านศูนย์กลางเป็นความยาวใน Re และใช้กับสิ่งอื่นไม่ได้เลย",
+        "การไหลใด ๆ ของของไหลใด ๆ",
+        "ทางน้ำเปิดด้วยเช่นเดียวกับท่อ",
+        "การไหลเหนือแผ่นราบ"
+      ],
+      why: "แผ่นราบเปลี่ยนสภาพใกล้ Re = 5 &times; 10<sup>5</sup> ทางน้ำเปิดใกล้ 500 ตามนิยามของมันเอง เลขเรย์โนลด์ที่อ้างโดยไม่บอกว่าใช้ความยาวใดจึงไม่มีความหมาย" },
+
+    /* ----------------------------- 5.4 สามลักษณะการไหล */
+    { ref: "5.4", href: "#s4", a: 1,
+      q: "ในการไหลปั่นป่วน โมเมนตัมถูกพาข้ามท่อโดยอะไรเป็นหลัก",
+      opts: [
+        "โมเลกุลที่เคลื่อนระหว่างชั้นที่ติดกัน",
+        "กระแสวนที่ยกของไหลช้าออกไปข้างนอกและพาของไหลเร็วเข้ามาข้างใน",
+        "คลื่นความดัน",
+        "ผนังท่อ"
+      ],
+      why: "นั่นคือสิ่งที่ทำให้ความปั่นป่วนถ่ายโอนโมเมนตัมได้ผลกว่ามาก &mdash; และแพงกว่ามาก การไหลราบเรียบมีเพียงความหนืดระดับโมเลกุลให้ใช้เท่านั้น" },
+
+    { ref: "5.4", href: "#s4", a: 3,
+      q: "เมื่อเทียบกับการไหลราบเรียบ รูปร่างความเร็วในการไหลปั่นป่วนในท่อเป็นอย่างไร",
+      opts: [
+        "รูปทรงเดิมแต่ใหญ่กว่า",
+        "เป็นพาราโบลาที่ชันกว่า",
+        "สม่ำเสมอไปจนถึงผนังเลย",
+        "แบนกว่ามากตลอดแกนกลาง แต่มีเกรเดียนต์ชันกว่ามากใกล้ผนัง"
+      ],
+      why: "กระแสวนทำให้แกนกลางผสมกันดีและเกือบสม่ำเสมอ การเปลี่ยนความเร็วทั้งหมดจึงถูกบีบเข้าไปในบริเวณบาง ๆ ที่ผนัง &mdash; ซึ่ง du/dy ที่ชันหมายถึงความเค้นเฉือนมากและการสูญเสียมาก" },
+
+    { ref: "5.4", href: "#s4", a: 2,
+      q: "ที่ผนังท่อเอง ความเร็วของไหลเป็นเท่าใด",
+      opts: [
+        "สูงสุด เพราะไม่มีของไหลเลยผนังไปแล้ว",
+        "เท่ากับความเร็วเฉลี่ย",
+        "เป็นศูนย์ ทั้งในการไหลราบเรียบและปั่นป่วนเหมือนกัน",
+        "เป็นศูนย์เฉพาะในการไหลราบเรียบ"
+      ],
+      why: "เงื่อนไขไม่ลื่นไถลของ &sect;1.4 ไม่เกี่ยวกับลักษณะการไหลเลย สิ่งที่เปลี่ยนระหว่างสองลักษณะคือความเร็วไต่ขึ้นจากผนังชันเพียงใด และเกรเดียนต์นั้นเองที่กำหนดความเสียดทาน" },
+
+    { ref: "5.4", href: "#s4", a: 0,
+      q: "อัตราส่วนความเร็วเฉลี่ยต่อความเร็วสูงสุดในท่อคือเท่าใด",
+      opts: [
+        "0.5 ในการไหลราบเรียบ และราว 0.82 ในการไหลปั่นป่วน",
+        "0.5 ทั้งสองแบบ",
+        "ราว 0.82 ทั้งสองแบบ",
+        "1.0 ในการไหลปั่นป่วน เพราะรูปร่างความเร็วแบน"
+      ],
+      why: "ค่าของการไหลราบเรียบพิสูจน์ได้อย่างแม่นยำใน &sect;5.8 ส่วนค่าของการไหลปั่นป่วนสูงกว่าเพราะรูปร่างแบนกว่า และไม่ใช่ค่าที่แน่นอน มันค่อย ๆ เลื่อนไปตามเลขเรย์โนลด์" },
+
+    { ref: "5.4", href: "#s4", a: 1,
+      q: "การออกแบบท่อส่งน้ำให้ทำงานอยู่ในช่วงเปลี่ยนผ่านเป็นความคิดที่ไม่ดี เพราะ",
+      opts: [
+        "การสูญเสียเฮดที่นั่นสูงกว่าในการไหลปั่นป่วน",
+        "การไหลอาจสลับไปมาระหว่างสองลักษณะ การสูญเสียเฮดจึงคาดเดาไม่ได้",
+        "ท่อจะกัดกร่อนเร็วขึ้น",
+        "คำนวณเลขเรย์โนลด์ที่นั่นไม่ได้"
+      ],
+      why: "สูตรทั้งสองชุดใช้ได้ไม่น่าเชื่อถือ และการไหลอาจไม่นิ่ง มันเป็นบริเวณเดียวในรูปที่ 5.4 ที่ไม่มีเส้นจากการวัด มีแต่เส้นประที่เดาเอา" },
+
+    /* ----------------------------- 5.5 การทดลองบอกอะไร */
+    { ref: "5.5", href: "#s5", a: 2,
+      q: "การพล็อตการสูญเสียเฮดเทียบกับความเร็วบนแกนลอการิทึมมีประโยชน์เพราะ",
+      opts: [
+        "มันบีบสเกลให้เล็กลง",
+        "มันกำจัดหน่วยออกไป",
+        "กฎยกกำลัง h<sub>f</sub> &prop; u<sup>n</sup> จะกลายเป็นเส้นตรงที่มีความชันเท่ากับ n",
+        "มันทำให้ข้อมูลราบเรียบกับปั่นป่วนทับกัน"
+      ],
+      why: "มันเปลี่ยนคำถาม &ldquo;ยกกำลังเท่าใด&rdquo; ให้เป็น &ldquo;ความชันเท่าใด&rdquo; ซึ่งอ่านจากกราฟได้ตรง ๆ &mdash; และคำตอบออกมาเป็น 1 กับราว 1.8" },
+
+    { ref: "5.5", href: "#s5", a: 0,
+      q: "การทดลองแสดงว่าการสูญเสียเฮดแปรตามอะไร",
+      opts: [
+        "u<sup>1</sup> ในการไหลราบเรียบ และ u<sup>1.7</sup> ถึง u<sup>2</sup> ในการไหลปั่นป่วน",
+        "u<sup>2</sup> ทั้งสองแบบ",
+        "u<sup>1</sup> ทั้งสองแบบ",
+        "u<sup>2</sup> ในราบเรียบ และ u<sup>1</sup> ในปั่นป่วน"
+      ],
+      why: "กลไกสองแบบให้เลขชี้กำลังสองค่า ค่าของการไหลราบเรียบซึ่งเท่ากับ 1 พอดี ได้รับการยืนยันด้วยทฤษฎีใน &sect;5.8 โดยไม่ต้องใช้ค่าคงที่ที่ปรับจากข้อมูลเลย" },
+
+    { ref: "5.5", href: "#s5", a: 3,
+      q: "ถ้าเพิ่มอัตราการไหลผ่านท่อเดิมเป็นสองเท่า กำลังสูบน้ำที่ต้องใช้เอาชนะความเสียดทานจะเพิ่มขึ้นราวกี่เท่า",
+      opts: [
+        "2",
+        "3",
+        "4",
+        "8"
+      ],
+      why: "h<sub>f</sub> &prop; u<sup>2</sup> ให้การสูญเสียสี่เท่า และกำลังคือ &rho;gQh<sub>f</sub> ดังนั้นอัตราการไหลสองเท่าคูณเฮดสี่เท่าจึงเป็นแปด นี่คือเหตุผลที่ขีดจำกัดความเร็วสำคัญมาก" },
+
+    { ref: "5.5", href: "#s5", a: 1,
+      q: "ที่อัตราการไหลคงที่ การสูญเสียเฮดจากความเสียดทานแปรกับเส้นผ่านศูนย์กลางท่อราว ๆ อย่างไร",
+      opts: [
+        "1/d",
+        "1/d<sup>5</sup>",
+        "1/d<sup>2</sup>",
+        "d<sup>2</sup>"
+      ],
+      why: "h<sub>f</sub> &prop; u<sup>2</sup>/d และ u &prop; 1/d<sup>2</sup> ที่ Q คงที่ ดังนั้น h<sub>f</sub> &prop; 1/d<sup>5</sup> การเปลี่ยนจาก 100 มม. เป็น 150 มม. ลดการสูญเสียเหลือราวหนึ่งในแปด &mdash; ซึ่งเป็นเหตุผลที่การเพิ่มขนาดเป็นยาแก้ที่ทรงพลังมาก" },
+
+    /* ----------------------------- 5.6 ความเค้นเฉือน */
+    { ref: "5.6", href: "#s6", a: 2,
+      q: "สมดุลแรงบนทรงกระบอกของไหลในท่อ (รูปที่ 5.5) ใช้ได้กับอะไร",
+      opts: [
+        "การไหลราบเรียบเท่านั้น",
+        "การไหลปั่นป่วนเท่านั้น",
+        "ทั้งสองแบบ เพราะไม่ได้ใช้สมมติฐานใด ๆ เกี่ยวกับความหนืดหรือลักษณะการไหล",
+        "เฉพาะเมื่อท่อวางแนวดิ่ง"
+      ],
+      why: "มันคือกฎข้อที่หนึ่งของนิวตันล้วน ๆ: การไหลคงตัวหมายถึงแรงสมดุล ความครอบคลุมนั้นเองคือเหตุผลที่มันเป็นจุดตั้งต้นของทั้ง &sect;5.7 และ &sect;5.9" },
+
+    { ref: "5.6", href: "#s6", a: 0,
+      q: "ความเค้นเฉือนในท่อที่พาการไหลคงตัวเป็นอย่างไร",
+      opts: [
+        "เป็นศูนย์ที่แกนและไต่ขึ้นเป็นเส้นตรงจนสูงสุดที่ผนัง",
+        "สม่ำเสมอตลอดหน้าตัด",
+        "มากที่สุดที่แกน ซึ่งเป็นที่ที่ความเร็วมากที่สุด",
+        "เป็นศูนย์ที่ผนังเพราะของไหลไม่เคลื่อนที่ตรงนั้น"
+      ],
+      why: "จาก &tau; = &Delta;p&thinsp;r/2L ความเค้นเป็นสัดส่วนโดยตรงกับรัศมี คำตอบผิดที่พบบ่อยคือข้อสุดท้าย: ความเร็วเป็นศูนย์ที่ผนังก็จริง แต่<i>เกรเดียนต์</i>ของความเร็วมากที่สุดที่นั่น และเกรเดียนต์คือสิ่งที่กำหนดความเค้น" },
+
+    { ref: "5.6", href: "#s6", a: 3,
+      q: "ความเค้นเฉือนที่ผนังสัมพันธ์กับความดันที่ลดลงอย่างไร",
+      opts: [
+        "&tau;<sub>w</sub> = &Delta;p L/d",
+        "&tau;<sub>w</sub> = &Delta;p/(&rho;g)",
+        "&tau;<sub>w</sub> = &Delta;p d/L",
+        "&tau;<sub>w</sub> = &Delta;p d/4L"
+      ],
+      why: "แทน r = R = d/2 ลงใน &tau; = &Delta;p&thinsp;r/2L อ่านกลับด้านได้ &Delta;p = 4L&tau;<sub>w</sub>/d: ความดันที่ลดลงกับความเค้นเฉือนที่ผนังคือข้อเท็จจริงเดียวกันที่พูดสองครั้ง" },
+
+    { ref: "5.6", href: "#s6", a: 1,
+      q: "เฮดทั้งหมดที่สูญเสียกับความเสียดทานในท่อตรงถูกจ่ายออกไปในรูปใด",
+      opts: [
+        "ความร้อนที่เกิดขึ้นที่ผนังท่อโดยเครื่องสูบน้ำ",
+        "ความเค้นเฉือนที่ฉุดผนังท่อ ซึ่งท่อรู้สึกเป็นแรง &tau;<sub>w</sub>&thinsp;&pi;dL ที่ดึงไปทางท้ายน้ำ",
+        "เฮดความเร็วที่เพิ่มขึ้น",
+        "การรั่วซึมตามข้อต่อ"
+      ],
+      why: "ซึ่งเป็นอีกแรงหนึ่งที่แท่นยึดต้องรับ ควบคู่ไปกับแรงดันของ &sect;4.10 ท่อส่งน้ำยาว ๆ ต้องยึดต้านแรงฉุดจากความเสียดทานพอ ๆ กับต้านแรงดันที่ข้องอ" },
+
+    { ref: "5.6", href: "#s6", a: 2,
+      q: "ที่ความเค้นเฉือนที่ผนังเท่ากัน การเพิ่มเส้นผ่านศูนย์กลางท่อเป็นสองเท่าทำให้ความดันที่ลดลงบนความยาวที่กำหนดเปลี่ยนเป็นเท่าใด",
+      opts: [
+        "สองเท่า",
+        "สี่เท่า",
+        "ครึ่งหนึ่ง",
+        "หนึ่งในสี่"
+      ],
+      why: "&Delta;p = 4L&tau;<sub>w</sub>/d ดังนั้น &Delta;p &prop; 1/d ที่ความเค้นผนังคงที่ และนั่นยังไม่นับว่าความเร็วยังไม่ได้ลดลงเลย ซึ่งเป็นที่มาของส่วนที่เหลือใน 1/d<sup>5</sup>" },
+
+    /* ----------------------------- 5.7 รูปร่างความเร็ว */
+    { ref: "5.7", href: "#s7", a: 1,
+      q: "ขั้นตอนที่ใช้ได้กับการไหลราบเรียบแต่ล้มเหลวกับการไหลปั่นป่วนคือขั้นใด",
+      opts: [
+        "สมดุลแรงบนทรงกระบอกของไหล",
+        "การใช้กฎความหนืดของนิวตัน &tau; = &minus;&mu; du/dr เชื่อมความเค้นเฉือนกับความเร็ว",
+        "การใช้เงื่อนไขไม่ลื่นไถลที่ผนัง",
+        "การอินทิเกรตตลอดหน้าตัดเพื่อหาอัตราการไหล"
+      ],
+      why: "ในการไหลปั่นป่วน ความเค้นเฉือนส่วนใหญ่ถูกพาโดยกระแสวน ซึ่งไม่มีกฎแบบนั้น ความสัมพันธ์ที่หายไปข้อเดียวนั้นเองคือเหตุผลที่การไหลปั่นป่วนไม่มีผลเฉลยแม่นยำ และต้องใช้ตัวประกอบความเสียดทานที่วัดเอาแทน" },
+
+    { ref: "5.7", href: "#s7", a: 3,
+      q: "รูปร่างความเร็วของการไหลราบเรียบในท่อกลมเป็นอย่างไร",
+      opts: [
+        "เป็นเส้นตรงจากผนังถึงแกน",
+        "สม่ำเสมอ",
+        "เป็นลอการิทึม",
+        "เป็นพาราโบลา u<sub>r</sub> = &Delta;p(R<sup>2</sup> &minus; r<sup>2</sup>)/4&mu;L"
+      ],
+      why: "ได้มาจากการอินทิเกรต &tau; = &Delta;p&thinsp;r/2L เข้ากับกฎของนิวตันหนึ่งครั้ง เมื่อพล็อตเทียบกับ r มันคือพาราโบลาที่มีจุดยอดอยู่บนแกน" },
+
+    { ref: "5.7", href: "#s7", a: 0,
+      q: "ค่าคงที่ของการอินทิเกรตในการพิสูจน์รูปร่างความเร็วถูกกำหนดโดยอะไร",
+      opts: [
+        "เงื่อนไขไม่ลื่นไถล u = 0 ที่ r = R",
+        "ข้อกำหนดที่ว่า u = u<sub>max</sub> ที่แกน",
+        "ความต่อเนื่อง",
+        "สมการแบร์นูลลี"
+      ],
+      why: "เงื่อนไขไม่ลื่นไถลของ &sect;1.4 ซึ่งถูกใช้เป็นเงื่อนไขขอบเขตจริง ๆ ที่นี่เป็นครั้งแรก แทนที่จะเป็นเพียงคำบรรยาย ถ้าไม่มีมัน รูปร่างความเร็วก็หาไม่ได้" },
+
+    { ref: "5.7", href: "#s7", a: 2,
+      q: "ในการไหลราบเรียบในท่อ ความเร็วมากที่สุดที่ใด",
+      opts: [
+        "ที่ผนัง",
+        "ที่ r = 0.707R",
+        "ที่แกน ซึ่ง r = 0",
+        "ตรงชิดด้านในของผนัง"
+      ],
+      why: "แทน r = 0 ลงในรูปร่างความเร็วได้ u<sub>max</sub> = &Delta;pR<sup>2</sup>/4&mu;L แกนคือจุดที่ไกลจากผนังที่หน่วงการไหลมากที่สุดในทุกด้าน" },
+
+    { ref: "5.7", href: "#s7", a: 1,
+      q: "การจะหาอัตราการไหลจากรูปร่างความเร็ว เราแบ่งท่อออกเป็นอะไร",
+      opts: [
+        "สี่เหลี่ยมจัตุรัสเท่า ๆ กัน",
+        "วงแหวนบาง ๆ พื้นที่ 2&pi;r&thinsp;&delta;r โดยแต่ละวงพาความเร็วเฉพาะที่ของตัวเอง",
+        "สองซีก บนและล่างของแกน",
+        "แถบที่มีความเร็วเท่ากัน"
+      ],
+      why: "ทุกจุดบนวงแหวนวงหนึ่งอยู่ที่รัศมีเดียวกัน จึงมีความเร็วเท่ากัน วงแหวนจึงเป็นธาตุที่เป็นธรรมชาติที่สุด และการรวมวงแหวนขึ้นมาก็คืออินทิกรัลของ &sect;5.8" },
+
+    /* ----------------------------- 5.8 ฮาเกน–ปัวเซย */
+    { ref: "5.8", href: "#s8", a: 2,
+      q: "สมการฮาเกน&ndash;ปัวเซยระบุว่าอัตราการไหลแบบราบเรียบเป็นสัดส่วนกับอะไร",
+      opts: [
+        "เส้นผ่านศูนย์กลาง",
+        "กำลังสองของเส้นผ่านศูนย์กลาง",
+        "กำลังสี่ของเส้นผ่านศูนย์กลาง",
+        "กำลังห้าของเส้นผ่านศูนย์กลาง"
+      ],
+      why: "Q = &pi;&Delta;p d<sup>4</sup>/128&mu;L ขยายรูใหญ่ขึ้น 20 % ได้การไหลสองเท่า ลดลงครึ่งหนึ่งเหลือหนึ่งในสิบหก เป็นเหตุผลที่หัวน้ำหยดที่อุดตันบางส่วนล้มเหลวอย่างฉับพลัน" },
+
+    { ref: "5.8", href: "#s8", a: 0,
+      q: "สำหรับการไหลราบเรียบในท่อกลม อัตราส่วนความเร็วเฉลี่ยต่อความเร็วสูงสุดคือเท่าใด",
+      opts: [
+        "0.5 พอดี",
+        "ราว 0.82",
+        "0.667 พอดี",
+        "ขึ้นกับเลขเรย์โนลด์"
+      ],
+      why: "การเทียบค่าเฉลี่ยที่อินทิเกรตได้กับค่าสูงสุดที่แกนให้ครึ่งหนึ่งพอดี นี่คือตัวเลขที่ &sect;3.3 ระบุไว้โดยไม่พิสูจน์ และที่นี่พิสูจน์แล้ว" },
+
+    { ref: "5.8", href: "#s8", a: 3,
+      q: "การสูญเสียเฮดในการไหลราบเรียบในท่อ h<sub>f</sub> = 32&mu;Lu&#772;/&rho;gd<sup>2</sup> สำคัญส่วนหนึ่งเพราะ",
+      opts: [
+        "มันใช้ได้กับการไหลปั่นป่วนด้วย",
+        "มันไม่มีความหนืดอยู่ในสมการ",
+        "มันแสดงว่าการสูญเสียเฮดไม่ขึ้นกับความเร็ว",
+        "มันทำนายว่า h<sub>f</sub> &prop; u ยกกำลังหนึ่ง ซึ่งคือความชันที่รูปที่ 5.4 วัดได้บนแขนงราบเรียบพอดี"
+      ],
+      why: "ทฤษฎีกับการทดลองตรงกันโดยไม่ต้องใช้ค่าคงที่ที่ปรับจากข้อมูลเลย นั่นเป็นที่เดียวในบทนี้ที่เกิดขึ้น และเป็นเหตุผลที่กรณีราบเรียบคุ้มค่าแก่การพิสูจน์ แม้จะแทบไม่ได้ออกแบบให้มันเกิด" },
+
+    { ref: "5.8", href: "#s8", a: 1,
+      q: "ในการไหลราบเรียบ การเพิ่มความหนืดของของไหลเป็นสองเท่าที่อัตราการไหลเท่าเดิมจะทำให้",
+      opts: [
+        "การสูญเสียเฮดไม่เปลี่ยน",
+        "การสูญเสียเฮดเป็นสองเท่า",
+        "การสูญเสียเฮดเป็นสี่เท่า",
+        "การสูญเสียเฮดเหลือครึ่งเดียว"
+      ],
+      why: "h<sub>f</sub> &prop; &mu; โดยตรง และเป็นเหตุผลที่หัวน้ำหยดแบบราบเรียบจ่ายน้ำมากกว่าอย่างสังเกตได้ในบ่ายที่ร้อนเมื่อเทียบกับเช้าที่เย็น และที่หัวน้ำหยดเชิงพาณิชย์ถูกสร้างให้ไหลแบบปั่นป่วนแทน" },
+
+    /* ----------------------------- 5.9 ตัวประกอบความเสียดทานและดาร์ซี */
+    { ref: "5.9", href: "#s9", a: 2,
+      q: "สมการดาร์ซี&ndash;ไวส์บาค h<sub>f</sub> = &lambda;Lu<sup>2</sup>/2gd อธิบายได้ดีที่สุดว่าเป็นอะไร",
+      opts: [
+        "ผลเฉลยที่แม่นยำสำหรับการไหลปั่นป่วน",
+        "ใช้ได้กับการไหลปั่นป่วนเท่านั้น",
+        "นิยามที่แยกทุกสิ่งที่ยังไม่รู้ไปไว้ใน &lambda; และใช้ได้กับทั้งสองลักษณะการไหล",
+        "การประมาณที่ใช้ได้เฉพาะที่เลขเรย์โนลด์สูง"
+      ],
+      why: "มันให้รูปร่างของคำตอบ &mdash; เป็นสัดส่วนกับความยาว กับความเร็วยกกำลังสอง และผกผันกับเส้นผ่านศูนย์กลาง &mdash; ตั้งแต่ก่อนรู้ค่า &lambda; การหา &lambda; จึงเป็นอีกปัญหาหนึ่ง แก้ได้แม่นยำสำหรับราบเรียบ และแก้ด้วยการวัดสำหรับปั่นป่วน" },
+
+    { ref: "5.9", href: "#s9", a: 0,
+      q: "สำหรับการไหลราบเรียบ ตัวประกอบความเสียดทานของดาร์ซีคือ",
+      opts: [
+        "&lambda; = 64/Re ไม่ขึ้นกับความขรุขระของท่อ",
+        "&lambda; = 16/Re",
+        "&lambda; = 0.316 Re<sup>&minus;0.25</sup>",
+        "ค่าคงที่ ราว 0.02"
+      ],
+      why: "ได้มาจากการให้สองนิพจน์ของการสูญเสียเฮดค่าเดียวกันเท่ากัน ความขรุขระไม่ปรากฏเพราะในการไหลราบเรียบ ยอดความขรุขระจมอยู่ในชั้นที่ไหลช้า ของไหลจึงไม่เคยเห็นมัน" },
+
+    { ref: "5.9", href: "#s9", a: 3,
+      q: "ตำราเล่มหนึ่งอ้างตัวประกอบความเสียดทาน f โดย f = 16/Re ในการไหลราบเรียบ การจะนำไปใช้ใน h<sub>f</sub> = &lambda;Lu<sup>2</sup>/2gd ต้องทำอย่างไร",
+      opts: [
+        "ใช้ได้เลยโดยไม่ต้องแก้ ทั้งสองเหมือนกัน",
+        "หารด้วย 4",
+        "ยกกำลังสอง",
+        "คูณด้วย 4 เพราะ &lambda; = 4f"
+      ],
+      why: "มีสองข้อตกลงใช้กันอยู่ และตัวประกอบสี่ก็คือตัวประกอบสี่ ตรวจว่าแหล่งข้อมูลใช้ตัวไหนโดยดูค่าในกรณีราบเรียบ: 64/Re คือ &lambda; ส่วน 16/Re คือ f" },
+
+    { ref: "5.9", href: "#s9", a: 1,
+      q: "ความลาดชลศาสตร์ i = h<sub>f</sub>/L มีประโยชน์ในการออกแบบเพราะ",
+      opts: [
+        "มันไม่มีมิติจึงเป็นสากล",
+        "มันไม่ขึ้นกับความยาว จึงคำนวณครั้งเดียวสำหรับท่อและอัตราการไหลที่กำหนด แล้วคูณด้วยความยาวแนวท่อเท่าใดก็ได้",
+        "มันเท่ากันสำหรับทุกขนาดเส้นผ่านศูนย์กลาง",
+        "มันเท่ากับความลาดของพื้นดิน"
+      ],
+      why: "ผู้ออกแบบที่พูดว่า &ldquo;สามเมตรต่อกิโลเมตร&rdquo; กำลังพูดถึง i = 0.003 มันคือความชันของเส้นระดับชลศาสตร์ และเป็นภาษาที่ใช้พูดถึงการสูญเสียในท่อส่งน้ำกันในสนาม" },
+
+    /* ----------------------------- 5.10 เนื้อหาเสริม */
+    { ref: "5.10", href: "#s10", a: 2,
+      q: "<b>เนื้อหาเสริม</b> ในแผนภาพมูดี บริเวณด้านขวาที่เส้นโค้งกลายเป็นแนวราบหมายความว่าอย่างไร",
+      opts: [
+        "การไหลกลับเป็นราบเรียบอีกครั้ง",
+        "ตัวประกอบความเสียดทานไม่ขึ้นกับความขรุขระอีกต่อไป",
+        "การไหลขรุขระเต็มที่: &lambda; ขึ้นกับความขรุขระสัมพัทธ์เพียงอย่างเดียว ไม่ขึ้นกับ Re ดังนั้น h<sub>f</sub> จึงเป็นสัดส่วนกับ u<sup>2</sup> พอดี",
+        "ท่อกลายเป็นเรียบแล้ว"
+      ],
+      why: "เป็นอีกขั้วหนึ่งจากเส้นราบเรียบ ซึ่ง &lambda; ขึ้นกับ Re อย่างเดียวและไม่ขึ้นกับความขรุขระ ท่อส่งน้ำชลประทานส่วนใหญ่อยู่ระหว่างสองขั้วนั้น หรือเพิ่งเข้าสู่บริเวณขรุขระเต็มที่" },
+
+    { ref: "5.10", href: "#s10", a: 1,
+      q: "<b>เนื้อหาเสริม</b> สมการโคลบรุก&ndash;ไวต์ต้องแก้ด้วยการวนซ้ำ เพราะ",
+      opts: [
+        "มันมีลอการิทึมอยู่",
+        "ตัวประกอบความเสียดทานปรากฏอยู่ทั้งสองข้างและแยกออกจากกันไม่ได้",
+        "ไม่ทราบเลขเรย์โนลด์ล่วงหน้า",
+        "ไม่เคยทราบความขรุขระอย่างแม่นยำ"
+      ],
+      why: "ความยุ่งยากนั้นคือราคาที่จ่ายเพื่อให้สูตรเดียวครอบคลุมสนามของการไหลปั่นป่วนได้เกือบทั้งหมด ในทางปฏิบัติจะอ่านจากแผนภาพ หรือให้ซอฟต์แวร์ประเมินด้วยสูตรประมาณแบบชัดแจ้ง" },
+
+    { ref: "5.10", href: "#s10", a: 0,
+      q: "<b>เนื้อหาเสริม</b> มาตรฐานการออกแบบกำหนดให้ใช้ตัวประกอบความเสียดทานที่ปลายอายุการใช้งานของท่อแทนที่จะเป็นวันส่งมอบงาน เพราะ",
+      opts: [
+        "การกัดกร่อน ตะกรัน และการเติบโตของสิ่งมีชีวิตทำให้ความขรุขระสูงขึ้นและรูท่อแคบลง ท่อเมนเก่าจึงอาจพาน้ำได้ไม่ถึงครึ่งของอัตราเดิมที่เฮดเท่ากัน",
+        "ท่อถูกวางให้ใหญ่เกินไว้ตั้งแต่ต้นอยู่แล้ว",
+        "เลขเรย์โนลด์ลดลงเมื่อท่อเก่าลง",
+        "อย่างไรเครื่องสูบน้ำก็ต้องถูกเปลี่ยนอยู่ดี"
+      ],
+      why: "การออกแบบที่ไม่เผื่อการเสื่อมสภาพจะล้มเหลวในการใช้งานจริง ทั้งที่ตัวเลขทุกตัวถูกต้อง และเป็นการคำนวณที่คุ้มค่ากับโครงการล้างท่อและเคลือบผิวท่อใหม่ด้วย" },
+
+    { ref: "5.10", href: "#s10", a: 3,
+      q: "<b>เนื้อหาเสริม</b> การสูญเสียเฉพาะแห่งที่ข้องอ ประตูน้ำ และอุปกรณ์ประกอบเป็นอย่างไร",
+      opts: [
+        "ละเลยได้เสมอ ตามชื่อของมัน",
+        "เป็นการสูญเสียหลักเสมอ",
+        "ขึ้นกับความยาวท่อระหว่างอุปกรณ์เหล่านั้น",
+        "คิดเป็น K เท่าของเฮดความเร็ว และอาจมากกว่าความเสียดทานในท่อได้ถ้าเป็นท่อสั้นที่มีอุปกรณ์ประกอบมาก"
+      ],
+      why: "คำว่า &ldquo;เฉพาะแห่ง&rdquo; ทำให้เข้าใจผิดได้ ในท่อเมนยาวมันละเลยได้จริง แต่ในท่อสั้นที่สูบด้วยเครื่องสูบน้ำอาจไม่ได้ และวิธีเดียวที่จะรู้ว่าอยู่ในกรณีใดคือรวมมันขึ้นมาดู" },
+
+    { ref: "5.10", href: "#s10", a: 2,
+      q: "<b>เนื้อหาเสริม</b> เมื่อเทียบกับดาร์ซี&ndash;ไวส์บาค สมการเฮเซน&ndash;วิลเลียมส์เป็นอย่างไร",
+      opts: [
+        "แม่นยำกว่าเพราะใหม่กว่า",
+        "ใช้ได้กับของไหลทุกชนิดทุกลักษณะการไหล",
+        "เร็วกว่าเพราะไม่ต้องวนซ้ำและไม่ต้องใช้ความหนืด แต่เป็นการปรับเส้นโค้งที่ใช้ได้เฉพาะกับน้ำในการไหลปั่นป่วนที่ความเร็วปานกลาง",
+        "ให้คำตอบเหมือนกันทุกกรณี"
+      ],
+      why: "ใช้มันเพื่อความรวดเร็วกับท่อเมนน้ำทั่วไป ใช้ดาร์ซี&ndash;ไวส์บาคซึ่งตั้งอยู่บนสมดุลแรงของ &sect;5.6 เมื่อของไหลไม่ใช่น้ำ เมื่อการไหลอาจเป็นแบบราบเรียบ หรือเมื่อคำตอบมีความสำคัญ" }
+
+  ]
+};
+</script>
+<script src="lang.js"></script>
+<script src="quiz.js"></script>
+</body>
+</html>
